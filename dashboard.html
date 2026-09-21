@@ -26,19 +26,37 @@
 <div class="section">Overview</div>
 <a href="home.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-house w-4 text-center"></i><span class="navcopy">Home</span></a>
 <a href="dashboard.html" class="nav active flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-chart-line w-4 text-center"></i><span class="navcopy">Dashboard</span></a>
-<div class="section">Campaigns</div>
+
+<div class="section">Messaging</div>
 <button type="button" id="campaignToggle" class="nav w-full flex items-center gap-3 px-3 mb-1 text-left"><i class="fa-solid fa-paper-plane w-4 text-center text-violet-600"></i><span class="navcopy flex-1">Campaigns</span><i id="campaignChevron" class="fa-solid fa-chevron-down text-[10px] navcopy"></i></button>
 <div id="campaignMenu" class="ml-7 mb-2 pl-3 border-l border-slate-200 space-y-1">
 <a href="send-sms.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-600"><i class="fa-solid fa-comment-sms w-4 text-blue-500"></i><span>SMS Campaign</span></a>
 <a href="rcs-campaign.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-violet-50 hover:text-violet-600"><i class="fa-solid fa-message w-4 text-violet-500"></i><span>RCS Campaign</span></a>
 <a href="whatsapp-campaign.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-emerald-50 hover:text-emerald-600"><i class="fa-brands fa-whatsapp w-4 text-emerald-500"></i><span>WhatsApp Campaign</span></a>
 </div>
+
+<button type="button" id="reportToggle" class="nav w-full flex items-center gap-3 px-3 mb-1 text-left"><i class="fa-solid fa-chart-column w-4 text-center text-blue-600"></i><span class="navcopy flex-1">Reports</span><i id="reportChevron" class="fa-solid fa-chevron-down text-[10px] navcopy"></i></button>
+<div id="reportMenu" class="ml-7 mb-2 pl-3 border-l border-slate-200 space-y-1">
+<a href="reports.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-600"><i class="fa-solid fa-chart-column w-4 text-blue-500"></i><span>Overview Report</span></a>
+<a href="campaign-report.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-violet-50 hover:text-violet-600"><i class="fa-solid fa-bullhorn w-4 text-violet-500"></i><span>Campaign Report</span></a>
+<a href="summary-report.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-emerald-50 hover:text-emerald-600"><i class="fa-solid fa-list-check w-4 text-emerald-500"></i><span>Summary Report</span></a>
+<a href="details-report.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100"><i class="fa-solid fa-table w-4"></i><span>Details Report</span></a>
+</div>
+
+<button type="button" id="templateToggle" class="nav w-full flex items-center gap-3 px-3 mb-1 text-left"><i class="fa-solid fa-file-lines w-4 text-center text-orange-500"></i><span class="navcopy flex-1">Templates</span><i id="templateChevron" class="fa-solid fa-chevron-down text-[10px] navcopy"></i></button>
+<div id="templateMenu" class="ml-7 mb-2 pl-3 border-l border-slate-200 space-y-1">
+<a href="dlt-template.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-600"><i class="fa-solid fa-comment-sms w-4 text-blue-500"></i><span>SMS Templates</span></a>
+<a href="rcs-templates.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-violet-50 hover:text-violet-600"><i class="fa-solid fa-message w-4 text-violet-500"></i><span>RCS Templates</span></a>
+<a href="whatsapp-templates.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-emerald-50 hover:text-emerald-600"><i class="fa-brands fa-whatsapp w-4 text-emerald-500"></i><span>WhatsApp Templates</span></a>
+</div>
+
 <div class="section">Manage</div>
 <a href="groups.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-users w-4 text-center"></i><span class="navcopy">Contacts</span></a>
-<a href="reports.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-chart-column w-4 text-center"></i><span class="navcopy">Reports</span></a>
+
 <div class="section">Finance & Developer</div>
 <a href="credit-report.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-wallet w-4 text-center"></i><span class="navcopy">Wallet</span></a>
 <a href="api-integration.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-code w-4 text-center"></i><span class="navcopy">API</span></a>
+
 <div class="section">Admin</div>
 <a href="#" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-user-plus w-4 text-center"></i><span class="navcopy">Create User</span></a>
 <a href="#" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-gear w-4 text-center"></i><span class="navcopy">Account Settings</span></a>
@@ -62,4 +80,12 @@
 <section class="card p-5"><div class="mb-4"><h2 class="font-semibold text-sm">Gateway Status</h2><p class="text-[11px] text-slate-400 mt-1">Connection health</p></div><div class="space-y-3"><div class="flex justify-between py-2"><div><b class="text-xs">SMS Gateway</b><div class="text-[10px] text-slate-400">Primary Route</div></div><span class="text-[10px] text-emerald-600 font-semibold">Online</span></div><div class="flex justify-between py-2 border-t border-slate-50"><div><b class="text-xs">RCS Gateway</b><div class="text-[10px] text-slate-400">Business Messaging</div></div><span class="text-[10px] text-emerald-600 font-semibold">Online</span></div><div class="flex justify-between py-2 border-t border-slate-50"><div><b class="text-xs">WhatsApp</b><div class="text-[10px] text-slate-400">Cloud API</div></div><span class="text-[10px] text-emerald-600 font-semibold">Online</span></div></div></section>
 </div></div></div>
 </main></div>
-<script>const campaignToggle=document.getElementById("campaignToggle"),campaignMenu=document.getElementById("campaignMenu"),campaignChevron=document.getElementById("campaignChevron");campaignToggle?.addEventListener("click",()=>{const open=!campaignMenu.classList.contains("hidden");campaignMenu.classList.toggle("hidden",open);if(campaignChevron)campaignChevron.style.transform=open?"rotate(-90deg)":"rotate(0deg)";});</script></body></html>
+<script>const campaignToggle=document.getElementById("campaignToggle"),campaignMenu=document.getElementById("campaignMenu"),campaignChevron=document.getElementById("campaignChevron");campaignToggle?.addEventListener("click",()=>{const open=!campaignMenu.classList.contains("hidden");campaignMenu.classList.toggle("hidden",open);if(campaignChevron)campaignChevron.style.transform=open?"rotate(-90deg)":"rotate(0deg)";});</script><script>
+function bindMenu(toggleId,menuId,chevronId){
+ const t=document.getElementById(toggleId),m=document.getElementById(menuId),c=document.getElementById(chevronId);
+ t?.addEventListener('click',()=>{const isOpen=!m.classList.contains('hidden');m.classList.toggle('hidden',isOpen);if(c)c.style.transform=isOpen?'rotate(-90deg)':'rotate(0deg)';});
+}
+bindMenu('campaignToggle','campaignMenu','campaignChevron');
+bindMenu('reportToggle','reportMenu','reportChevron');
+bindMenu('templateToggle','templateMenu','templateChevron');
+</script></body></html>
