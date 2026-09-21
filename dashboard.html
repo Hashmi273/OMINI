@@ -19,7 +19,24 @@
 .menu-toggle:hover{background:#f8f8fc!important}.menu-toggle.open{background:#f7f5ff!important;color:var(--p)!important}
 .submenu{transition:all .18s ease}.submenu a{height:34px!important}.menu-chevron{transition:transform .18s ease}
 </style>
-</head>
+<style id="omini-mobile-core">
+.mobile-menu-btn{display:none}
+.mobile-overlay{display:none}
+@media(max-width:768px){
+ body{overflow-x:hidden!important}
+ .mobile-menu-btn{display:flex!important;width:38px;height:38px;align-items:center;justify-content:center;border:1px solid #e2e8f0;border-radius:10px;background:#fff;color:#334155;flex:none}
+ .mobile-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:90}
+ .mobile-overlay.show{display:block}
+ aside.sidebar{position:fixed!important;left:-240px!important;top:0!important;bottom:0!important;width:224px!important;height:100vh!important;z-index:100!important;transition:left .2s ease!important;box-shadow:8px 0 30px rgba(15,23,42,.12)!important}
+ aside.sidebar.mobile-open{left:0!important}
+ .main{width:100%!important;min-width:0!important}
+ main{width:100%!important;min-width:0!important}
+ main>header{height:60px!important;padding:0 12px!important;position:sticky;top:0;z-index:40}
+ main>header .search-mobile-hide{display:none!important}
+ .scroll{height:auto!important;min-height:calc(100vh - 60px)!important;overflow:visible!important}
+ .scroll>div{width:100%!important}
+}
+</style></head>
 <body class="h-screen overflow-hidden">
 <div class="flex h-full">
 <aside class="sidebar h-full shrink-0 flex flex-col">
@@ -68,7 +85,7 @@
 </nav>
 <div class="border-t border-slate-100 p-3"><div class="flex items-center gap-3 px-2 py-2"><div class="w-9 h-9 rounded-lg bg-slate-900 text-white flex items-center justify-center text-sm font-bold">P</div><div class="profilecopy"><div class="text-xs font-semibold">Parvez</div><div class="text-[10px] text-slate-400">Enterprise Admin</div></div></div></div>
 </aside>
-<main class="main flex-1 min-w-0 h-full">
+<div id="mobileOverlay" class="mobile-overlay"></div><main class="main flex-1 min-w-0 h-full">
 <header class="h-16 bg-white border-b border-slate-200 px-5 flex items-center gap-4">
 <div class="relative max-w-md w-full hidden md:block"><i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i><input class="w-full h-9 pl-9 pr-3 rounded-lg border border-slate-200 bg-slate-50 text-xs outline-none" placeholder="Search campaigns, reports, users..."></div>
 <div class="ml-auto flex items-center gap-2"><div class="hidden sm:flex items-center gap-2 h-9 px-3 rounded-lg border border-slate-200 bg-white"><i class="fa-solid fa-wallet text-emerald-500 text-xs"></i><span class="text-[10px] text-slate-400">Balance</span><b class="text-xs">₹48,500</b></div><button class="w-9 h-9 rounded-lg border border-slate-200 text-slate-500"><i class="fa-regular fa-bell text-sm"></i></button><a href="send-sms.html" class="h-9 px-3.5 rounded-lg bg-[#5b35d5] text-white text-xs font-semibold flex items-center gap-2"><i class="fa-solid fa-plus text-[10px]"></i> New Campaign</a></div>
@@ -98,4 +115,13 @@ function bindMenu(toggleId,menuId,chevronId){
 }
 bindMenu('campaignToggle','campaignMenu','campaignChevron');
 bindMenu('reportToggle','reportMenu','reportChevron');
-bindMenu('templateToggle','templateMenu','templateChevron');</script></body></html>
+bindMenu('templateToggle','templateMenu','templateChevron');</script><script id="omini-mobile-js">
+(function(){
+ const btn=document.getElementById('mobileMenuBtn'),side=document.querySelector('aside.sidebar'),overlay=document.getElementById('mobileOverlay');
+ function close(){side?.classList.remove('mobile-open');overlay?.classList.remove('show')}
+ btn?.addEventListener('click',()=>{side?.classList.toggle('mobile-open');overlay?.classList.toggle('show')});
+ overlay?.addEventListener('click',close);
+ side?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{if(window.innerWidth<=768)close()}));
+ window.addEventListener('resize',()=>{if(window.innerWidth>768)close()});
+})();
+</script></body></html>
