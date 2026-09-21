@@ -130,6 +130,23 @@ main h2{letter-spacing:-.015em}
   button,a{touch-action:manipulation}
 }
 @media (min-width:769px){.mobile-overlay{display:none!important}}
+</style><style id="omini-mobile-core">
+.mobile-menu-btn{display:none}
+.mobile-overlay{display:none}
+@media(max-width:768px){
+ body{overflow-x:hidden!important}
+ .mobile-menu-btn{display:flex!important;width:38px;height:38px;align-items:center;justify-content:center;border:1px solid #e2e8f0;border-radius:10px;background:#fff;color:#334155;flex:none}
+ .mobile-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:90}
+ .mobile-overlay.show{display:block}
+ aside.sidebar{position:fixed!important;left:-240px!important;top:0!important;bottom:0!important;width:224px!important;height:100vh!important;z-index:100!important;transition:left .2s ease!important;box-shadow:8px 0 30px rgba(15,23,42,.12)!important}
+ aside.sidebar.mobile-open{left:0!important}
+ .main{width:100%!important;min-width:0!important}
+ main{width:100%!important;min-width:0!important}
+ main>header{height:60px!important;padding:0 12px!important;position:sticky;top:0;z-index:40}
+ main>header .search-mobile-hide{display:none!important}
+ .scroll{height:auto!important;min-height:calc(100vh - 60px)!important;overflow:visible!important}
+ .scroll>div{width:100%!important}
+}
 </style></head>
 <body class="text-gray-800 h-screen overflow-hidden flex">
 
@@ -191,7 +208,7 @@ main h2{letter-spacing:-.015em}
 <div class="border-t border-slate-100 p-3"><div class="flex items-center gap-3 px-2 py-2"><div class="w-9 h-9 rounded-lg bg-slate-900 text-white flex items-center justify-center text-sm font-bold">P</div><div><div class="text-xs font-semibold text-slate-800">Parvez</div><div class="text-[10px] text-slate-400">Enterprise Admin</div></div></div></div>
 </aside>
     <!-- Main Content -->
-    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#f4f7fb]">
+    <div id="mobileOverlay" class="mobile-overlay"></div><main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#f4f7fb]">
         <!-- Header -->
         <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0 z-10"><button type="button" class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
             <!-- Search -->
@@ -2207,5 +2224,14 @@ function closeMobileMenu(){
 }
 document.querySelectorAll('.sidebar a').forEach(a=>a.addEventListener('click',()=>{if(window.innerWidth<=768)closeMobileMenu()}));
 window.addEventListener('resize',()=>{if(window.innerWidth>768)closeMobileMenu()});
+</script><script id="omini-mobile-js">
+(function(){
+ const btn=document.getElementById('mobileMenuBtn'),side=document.querySelector('aside.sidebar'),overlay=document.getElementById('mobileOverlay');
+ function close(){side?.classList.remove('mobile-open');overlay?.classList.remove('show')}
+ btn?.addEventListener('click',()=>{side?.classList.toggle('mobile-open');overlay?.classList.toggle('show')});
+ overlay?.addEventListener('click',close);
+ side?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{if(window.innerWidth<=768)close()}));
+ window.addEventListener('resize',()=>{if(window.innerWidth>768)close()});
+})();
 </script></body>
 </html>
