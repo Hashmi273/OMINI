@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Credit Ledger &amp; Provider Layer - ZION CPaaS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        zionBlue: '#0070f3',
+                        zionLightBlue: '#eef5ff',
+                        zionDarkText: '#111827',
+                        zionGrayText: '#6b7280',
+                        zionBorder: '#e5e7eb',
+                        zionBg: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .sidebar-item { transition: all 0.2s; }
+        .sidebar-item:hover, .sidebar-item.active { background-color: #eef5ff; color: #0070f3; font-weight: 500; }
+        .sidebar-item.active { border-right: 3px solid #0070f3; }
+    </style>
+</head>
+<body class="text-gray-800 h-screen overflow-hidden flex bg-[#f8fafc]">
+
+    <!-- Sidebar -->
+    <aside class="w-68 bg-white border-r border-slate-200 flex flex-col h-screen shrink-0 z-30 select-none shadow-sm">
+        <div class="h-20 flex items-center px-4 border-b border-slate-100 shrink-0 bg-white">
+            <a href="home.html" class="flex items-center gap-3 w-full group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-105 transition-transform shrink-0 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i class="fa-solid fa-cloud-bolt text-lg text-white"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xl font-black text-slate-900 tracking-tight leading-none">ZION</span>
+                        <span class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded-md tracking-wider shadow-sm uppercase">CPaaS</span>
+                    </div>
+                    <p class="text-[9.5px] text-slate-500 font-bold tracking-tight mt-1 truncate uppercase flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>
+                        Omnichannel Cloud
+                    </p>
+                </div>
+            </a>
+        </div>
+
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1.5">
+            <a href="home.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-house"></i></div>
+                <div class="flex-1 min-w-0"><div class="text-sm font-bold text-slate-800 leading-tight">Home</div><div class="text-[10px] text-slate-400 font-medium">Platform Overview</div></div>
+            </a>
+            
+            <a href="dashboard.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-chart-pie"></i></div>
+                <div class="flex-1 min-w-0 flex items-center justify-between"><div><div class="text-sm font-bold text-slate-800 leading-tight">Dashboard</div><div class="text-[10px] text-slate-400 font-medium">Live Analytics</div></div><span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">LIVE</span></div>
+            </a>
+
+            <!-- SMS Section -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all" onclick="toggleSubmenu(event, 'sms-submenu', 'sms-icon')">
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-comment-dots"></i></div><div class="text-left"><div class="text-sm font-bold text-slate-800 leading-tight">SMS</div><div class="text-[10px] text-slate-400 font-medium">Transactional &amp; Promo</div></div></div>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200" id="sms-icon"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-blue-200 pl-3 overflow-hidden hidden" id="sms-submenu">
+                    <a href="send-sms.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Send SMS</a>
+                    <a href="reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Reports</a>
+                    <a href="groups.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Contacts / Groups</a>
+                </div>
+            </div>
+
+            <!-- RCS Section -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-purple-50 hover:text-purple-700 transition-all" onclick="toggleSubmenu(event, 'rcs-submenu', 'rcs-icon')">
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-comment-sms"></i></div><div class="text-left"><div class="text-sm font-bold text-purple-800 leading-tight">RCS</div><div class="text-[10px] text-purple-500 font-medium">Rich Business Messaging</div></div></div>
+                    <i class="fa-solid fa-chevron-down text-xs text-purple-400 transition-transform duration-200" id="rcs-icon"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-purple-200 pl-3 overflow-hidden hidden" id="rcs-submenu">
+                    <a href="rcs-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Campaign</a>
+                    <a href="rcs-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Report</a>
+                    <a href="rcs-configuration.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Configuration</a>
+                </div>
+            </div>
+
+            <!-- WhatsApp Section - ACTIVE -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-emerald-700 bg-emerald-50/70 border border-emerald-100/80 transition-all" onclick="toggleSubmenu(event, 'wa-submenu', 'wa-icon')">
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-brands fa-whatsapp"></i></div><div class="text-left"><div class="text-sm font-bold text-emerald-800 leading-tight">WhatsApp</div><div class="text-[10px] text-emerald-600 font-medium">Cloud API Official</div></div></div>
+                    <i class="fa-solid fa-chevron-down text-xs text-emerald-600 transition-transform duration-200" id="wa-icon" style="transform: rotate(180deg);"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-emerald-200 pl-3 overflow-hidden" id="wa-submenu">
+                    <a href="whatsapp-config.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-bold text-emerald-700 bg-emerald-100/80">Config</a>
+                    <a href="whatsapp-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Campaign</a>
+                    <a href="whatsapp-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Report</a>
+                    <a href="whatsapp-agents.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Agent</a>
+                    <a href="whatsapp-automation.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Automation</a>
+                </div>
+            </div>
+
+            <!-- Credits & Wallet -->
+            <div class="pt-1">
+                <a href="credit-report.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50/70 hover:text-emerald-700 transition-all">
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-wallet"></i></div><div class="flex-1 min-w-0 text-left"><div class="text-sm font-bold text-slate-800 leading-tight">Credits &amp; Wallet</div><div class="text-[10px] text-emerald-600 font-semibold">INR Recharge &amp; Deduct</div></div></div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">₹ WALLET</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="p-3 border-t border-slate-100 bg-slate-50/50">
+            <div class="flex items-center gap-3 p-2 bg-white rounded-xl border border-slate-200/80 shadow-2xs">
+                <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white font-black text-xs flex items-center justify-center shadow-xs">WA</div>
+                <div class="flex-1 min-w-0"><p class="text-xs font-bold text-slate-800 truncate">SmartPing Adapter</p><p class="text-[9px] text-emerald-600 font-bold uppercase tracking-tight flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Meta Live Connected</p></div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden">
+        
+        <!-- Header -->
+        <header class="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between shrink-0">
+            <div class="flex items-center gap-3">
+                <h1 class="text-lg font-black text-slate-800 tracking-tight flex items-center gap-2">
+                    <i class="fa-solid fa-tags text-emerald-600 text-xl"></i>
+                    <span>WhatsApp Rate Card &amp; Category Pricing</span>
+                </h1>
+                <span class="bg-emerald-100 text-emerald-800 text-[10px] font-black px-2.5 py-0.5 rounded-full border border-emerald-200">
+                    LIVE META TARIFF
+                </span>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3 bg-white border border-slate-200 px-3.5 py-1.5 rounded-xl shadow-2xs">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                        <i class="fa-solid fa-indian-rupee-sign text-xs font-bold"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-0.5">INR Wallet Balance</p>
+                        <p class="text-xs font-black text-slate-900 leading-none">₹48,500.00 <span class="text-[10px] text-slate-400 font-medium">(12,450 Cr)</span></p>
+                    </div>
+                </div>
+
+                <button onclick="openRechargeModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-500/20 transition-all flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-plus-circle text-xs"></i> Add INR Balance
+                </button>
+
+                <a href="whatsapp-config.html" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all">
+                    <i class="fa-solid fa-chevron-left text-xs mr-1"></i> Config
+                </a>
+            </div>
+        </header>
+
+        <!-- Body Content -->
+        <div class="flex-1 overflow-y-auto p-6 lg:p-8 bg-slate-50/70 space-y-6">
+            <div class="max-w-[1300px] mx-auto space-y-6">
+            
+                <!-- Simple Page Header -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <div class="flex items-center text-xs text-gray-500 mb-1">
+                            <a href="whatsapp-config.html" class="hover:text-emerald-600">WhatsApp</a> 
+                            <i class="fa-solid fa-chevron-right text-[8px] mx-2"></i> 
+                            <span class="text-emerald-700 font-medium">Rate Card &amp; Pricing</span>
+                        </div>
+                        <h2 class="text-2xl font-black text-slate-900 tracking-tight">WhatsApp Category Rate Card</h2>
+                        <p class="text-xs text-slate-500 mt-0.5">Active conversation pricing set for Marketing, Utility, and Authentication messages.</p>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <button onclick="openEditRatesModal()" class="px-4 py-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold rounded-xl shadow-2xs transition-all flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-pen-to-square text-emerald-600"></i>
+                            <span>Customize Rates</span>
+                        </button>
+                        <button onclick="openRechargeModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-500/20 transition-all flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-plus-circle text-xs"></i>
+                            <span>Add INR Wallet Balance</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3 BIG FOCUSED RATE CARDS (Marketing, Utility, Authentication) -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    <!-- 1. MARKETING RATE CARD -->
+                    <div class="bg-white rounded-3xl p-6 sm:p-7 border-2 border-purple-100 shadow-sm hover:shadow-md hover:border-purple-300 transition-all relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-purple-50 rounded-full blur-2xl -mr-8 -mt-8 pointer-events-none"></div>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-xs border border-purple-100 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-bullhorn"></i>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-black uppercase tracking-wider text-purple-600 block">Category</span>
+                                    <h3 class="text-lg font-black text-slate-900">Marketing</h3>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-purple-100 text-purple-800 uppercase tracking-wider">
+                                ACTIVE RATE
+                            </span>
+                        </div>
+
+                        <div class="my-6 pb-6 border-b border-slate-100">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-4xl font-black text-slate-900 tracking-tight" id="dispMarketingRate">₹0.82</span>
+                                <span class="text-xs font-bold text-slate-400">/ conversation</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                                Promotional broadcasts, discounts, offers, product launches, newsletters, and announcements.
+                            </p>
+                        </div>
+
+                        <div class="space-y-2 text-xs">
+                            <div class="flex items-center justify-between text-slate-600">
+                                <span class="font-medium">Window Duration:</span>
+                                <span class="font-bold text-slate-800">24 Hours Session</span>
+                            </div>
+                            <div class="flex items-center justify-between text-slate-600">
+                                <span class="font-medium">Initiator:</span>
+                                <span class="font-bold text-slate-800">Business Initiated</span>
+                            </div>
+                            <div class="flex items-center justify-between text-slate-600">
+                                <span class="font-medium">Meta Status:</span>
+                                <span class="font-bold text-emerald-600 flex items-center gap-1">
+                                    <i class="fa-solid fa-circle-check text-[10px]"></i> Standard Live Rate
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. UTILITY RATE CARD -->
+                    <div class="bg-white rounded-3xl p-6 sm:p-7 border-2 border-blue-100 shadow-sm hover:shadow-md hover:border-blue-300 transition-all relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full blur-2xl -mr-8 -mt-8 pointer-events-none"></div>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-xs border border-blue-100 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-receipt"></i>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-black uppercase tracking-wider text-blue-600 block">Category</span>
+                                    <h3 class="text-lg font-black text-slate-900">Utility</h3>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-blue-100 text-blue-800 uppercase tracking-wider">
+                                ACTIVE RATE
+                            </span>
+                        </div>
+
+                        <div class="my-6 pb-6 border-b border-slate-100">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-4xl font-black text-slate-900 tracking-tight" id="dispUtilityRate">₹0.35</span>
+                                <span class="text-xs font-bold text-slate-400">/ conversation</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                                Transactional alerts, order receipts, shipping updates, payment reminders, and account statements.
+                            </p>
+                        </div>
+
+                        <div class="space-y-2 text-xs">
+                            <div class="flex items-center justify-between text-slate-600">
+                                <span class="font-medium">Window Duration:</span>
+                                <span class="font-bold text-slate-800">24 Hours Session</span>
+                            </div>
+                            <div class="flex items-center justify-between text-slate-600">
+                                <span class="font-medium">Initiator:</span>
+                                <span class="font-bold text-slate-800">Business Initiated</span>
+                            </div>
+                            <div class="flex items-center justify-between text-slate-600">
+                                <span class="font-medium">Meta Status:</span>
+                                <span class="font-bold text-emerald-600 flex items-center gap-1">
+                                    <i class="fa-solid fa-circle-check text-[10px]"></i> Standard Live Rate
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. AUTHENTICATION RATE CARD -->
+                    <div class="bg-white rounded-3xl p-6 sm:p-7 border-2 border-amber-100 shadow-sm hover:shadow-md hover:border-amber-300 transition-all relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-amber-50 rounded-full blur-2xl -mr-8 -mt-8 pointer-events-none"></div>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl shadow-xs border border-amber-100 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-black uppercase tracking-wider text-amber-600 block">Category</span>
+                                    <h3 class="text-lg font-black text-slate-900">Authentication</h3>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-100 text-amber-800 uppercase tracking-wider">
+                                ACTIVE RATE
+                            </span>
+                        </div>
+
+                        <div class="my-6 pb-6 border-b border-slate-100">
+                            <div class="flex items-baseline gap-2">
+                                <span class="text-4xl font-black text-slate-900 tracking-tight" id="dispAuthRate">₹0.15</span>
+                                <span class="text-xs font-bold text-slate-400">/ conversation</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+                                One-Time Passcodes (OTP), 2FA verification codes, password resets, and account security logins.
+                            </p>
+                        </div>
+
+                        <div class="space-y-2 text-xs">
+                            <div class="flex items-center justify-between text-slate-600">
+                                <span class="font-medium">Window Duration:</span>
+                                <span class="font-bold text-slate-800">24 Hours Session</span>
+                            </div>
+                            <div class="flex items-center justify-between text-slate-600">
+                                <span class="font-medium">Initiator:</span>
+                                <span class="font-bold text-slate-800">Business Initiated</span>
+                            </div>
+                            <div class="flex items-center justify-between text-slate-600">
+                                <span class="font-medium">Meta Status:</span>
+                                <span class="font-bold text-emerald-600 flex items-center gap-1">
+                                    <i class="fa-solid fa-circle-check text-[10px]"></i> Standard Live Rate
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Simple Live Cost Calculator -->
+                <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm">
+                    <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-calculator"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-black text-slate-900">Quick Campaign Cost Calculator</h3>
+                                <p class="text-xs text-slate-500">Calculate estimated cost based on your active rate settings.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Select Category</label>
+                            <select id="simCategory" onchange="calculateEstimate()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-emerald-500">
+                                <option value="0.82">Marketing (₹0.82 / conv)</option>
+                                <option value="0.35">Utility (₹0.35 / conv)</option>
+                                <option value="0.15">Authentication (₹0.15 / conv)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Number of Contacts / Messages</label>
+                            <input type="number" id="simAudience" value="10000" oninput="calculateEstimate()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-3 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-emerald-800 font-bold uppercase block">Estimated Total Cost</span>
+                                <span class="text-xs text-emerald-600 font-medium">Auto deducted from INR Wallet</span>
+                            </div>
+                            <span class="text-xl font-black text-emerald-700" id="simResult">₹8,200.00</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal: Edit / Customize Rates -->
+    <div id="editRatesModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-slate-100 overflow-hidden transform transition-all">
+            <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+                <div>
+                    <h3 class="text-base font-black text-slate-900">Set WhatsApp Rates</h3>
+                    <p class="text-xs text-slate-500">Adjust active per-conversation pricing for categories.</p>
+                </div>
+                <button onclick="closeEditRatesModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center cursor-pointer">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Marketing Rate (₹ / Conv)</label>
+                    <input type="number" step="0.01" id="inputMarketing" value="0.82" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Utility Rate (₹ / Conv)</label>
+                    <input type="number" step="0.01" id="inputUtility" value="0.35" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Authentication Rate (₹ / Conv)</label>
+                    <input type="number" step="0.01" id="inputAuth" value="0.15" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:border-emerald-500">
+                </div>
+            </div>
+
+            <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-2">
+                <button onclick="closeEditRatesModal()" class="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-200 rounded-xl">Cancel</button>
+                <button onclick="saveCustomRates()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black rounded-xl shadow-md">Save Rates</button>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </main>
+
+    <!-- Modal: Add Balance / Recharge -->
+    <div id="rechargeModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-slate-100 overflow-hidden transform transition-all">
+            <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+                <div>
+                    <h3 class="text-base font-black text-slate-900">Prepaid Wallet Recharge</h3>
+                    <p class="text-xs text-slate-500">Add INR Balance to seamlessly run WhatsApp campaigns and agent sessions.</p>
+                </div>
+                <button onclick="closeRechargeModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Select Recharge Package</label>
+                    <div class="grid grid-cols-3 gap-2.5">
+                        <button onclick="selectAmount(5000)" class="p-3 border-2 border-emerald-500 bg-emerald-50/50 rounded-xl text-center cursor-pointer">
+                            <span class="block text-xs font-black text-emerald-800">₹5,000</span>
+                            <span class="text-[9px] text-emerald-600 font-semibold">+ GST Invoice</span>
+                        </button>
+                        <button onclick="selectAmount(15000)" class="p-3 border border-slate-200 hover:border-emerald-300 rounded-xl text-center cursor-pointer">
+                            <span class="block text-xs font-black text-slate-800">₹15,000</span>
+                            <span class="text-[9px] text-slate-400 font-semibold">Popular</span>
+                        </button>
+                        <button onclick="selectAmount(50000)" class="p-3 border border-slate-200 hover:border-emerald-300 rounded-xl text-center cursor-pointer">
+                            <span class="block text-xs font-black text-slate-800">₹50,000</span>
+                            <span class="text-[9px] text-purple-600 font-semibold">Enterprise</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Custom Amount (INR)</label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-2.5 text-slate-400 font-bold text-sm">₹</span>
+                        <input type="number" id="customRechargeInput" value="5000" oninput="updateGSTBreakdown()" class="w-full pl-8 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-800 focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+
+                <!-- GST & Total Calculation Box -->
+                <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5 text-xs">
+                    <div class="flex justify-between text-slate-500">
+                        <span>Base Recharge:</span>
+                        <span class="font-bold text-slate-800" id="gstBase">₹5,000.00</span>
+                    </div>
+                    <div class="flex justify-between text-slate-500">
+                        <span>GST (18% IGST):</span>
+                        <span class="font-bold text-slate-800" id="gstAmount">₹900.00</span>
+                    </div>
+                    <div class="flex justify-between text-slate-900 font-black text-sm pt-2 border-t border-slate-200">
+                        <span>Total Payable:</span>
+                        <span class="text-emerald-700" id="gstTotal">₹5,900.00</span>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-[10px] font-bold text-slate-400 uppercase">Payment Method</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <label class="flex items-center gap-2 p-2.5 border border-emerald-300 bg-emerald-50/30 rounded-xl cursor-pointer">
+                            <input type="radio" name="payMethod" checked class="text-emerald-600">
+                            <span class="text-xs font-bold text-slate-800">UPI / QR Scan</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2.5 border border-slate-200 rounded-xl cursor-pointer">
+                            <input type="radio" name="payMethod" class="text-emerald-600">
+                            <span class="text-xs font-bold text-slate-800">Corporate NetBanking</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-2">
+                <button onclick="closeRechargeModal()" class="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-200 rounded-xl">Cancel</button>
+                <button onclick="processSimulatedRecharge()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black rounded-xl shadow-md">Proceed to Pay ₹5,900.00</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSubmenu(event, submenuId, iconId) {
+            event.preventDefault();
+            const allSubmenus = document.querySelectorAll('div[id$="-submenu"]');
+            allSubmenus.forEach(otherSub => {
+                if (otherSub.id !== submenuId) {
+                    otherSub.classList.add('hidden');
+                    const otherIconId = otherSub.id.replace('-submenu', '-icon');
+                    const otherIcon = document.getElementById(otherIconId);
+                    if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                }
+            });
+
+            const submenu = document.getElementById(submenuId);
+            const icon = document.getElementById(iconId);
+            if (submenu) {
+                if (submenu.classList.contains('hidden')) {
+                    submenu.classList.remove('hidden');
+                    if(icon) icon.style.transform = 'rotate(180deg)';
+                } else {
+                    submenu.classList.add('hidden');
+                    if(icon) icon.style.transform = 'rotate(0deg)';
+                }
+            }
+        }
+
+        function openEditRatesModal() {
+            document.getElementById('editRatesModal').classList.remove('hidden');
+        }
+
+        function closeEditRatesModal() {
+            document.getElementById('editRatesModal').classList.add('hidden');
+        }
+
+        function saveCustomRates() {
+            const mRate = parseFloat(document.getElementById('inputMarketing').value) || 0.82;
+            const uRate = parseFloat(document.getElementById('inputUtility').value) || 0.35;
+            const aRate = parseFloat(document.getElementById('inputAuth').value) || 0.15;
+
+            document.getElementById('dispMarketingRate').innerText = '₹' + mRate.toFixed(2);
+            document.getElementById('dispUtilityRate').innerText = '₹' + uRate.toFixed(2);
+            document.getElementById('dispAuthRate').innerText = '₹' + aRate.toFixed(2);
+
+            // Update dropdown values in calculator
+            const sel = document.getElementById('simCategory');
+            sel.options[0].value = mRate;
+            sel.options[0].text = `Marketing (₹${mRate.toFixed(2)} / conv)`;
+            sel.options[1].value = uRate;
+            sel.options[1].text = `Utility (₹${uRate.toFixed(2)} / conv)`;
+            sel.options[2].value = aRate;
+            sel.options[2].text = `Authentication (₹${aRate.toFixed(2)} / conv)`;
+
+            calculateEstimate();
+            closeEditRatesModal();
+        }
+
+        function calculateEstimate() {
+            const count = parseFloat(document.getElementById('simAudience').value) || 0;
+            const rate = parseFloat(document.getElementById('simCategory').value) || 0;
+            const total = count * rate;
+            document.getElementById('simResult').innerText = '₹' + total.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function openRechargeModal() {
+            document.getElementById('rechargeModal').classList.remove('hidden');
+        }
+
+        function closeRechargeModal() {
+            document.getElementById('rechargeModal').classList.add('hidden');
+        }
+
+        function selectAmount(amt) {
+            document.getElementById('customRechargeInput').value = amt;
+            updateGSTBreakdown();
+        }
+
+        function updateGSTBreakdown() {
+            const val = parseFloat(document.getElementById('customRechargeInput').value) || 0;
+            const gst = val * 0.18;
+            const total = val + gst;
+            document.getElementById('gstBase').innerText = '₹' + val.toLocaleString('en-IN', { minimumFractionDigits: 2 });
+            document.getElementById('gstAmount').innerText = '₹' + gst.toLocaleString('en-IN', { minimumFractionDigits: 2 });
+            document.getElementById('gstTotal').innerText = '₹' + total.toLocaleString('en-IN', { minimumFractionDigits: 2 });
+        }
+
+        function processSimulatedRecharge() {
+            alert('Recharge payment successful! ₹5,000.00 credited to your WhatsApp Business Wallet balance.');
+            closeRechargeModal();
+        }
+    </script>
+</body>
+</html>

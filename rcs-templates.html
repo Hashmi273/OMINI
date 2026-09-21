@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RCS Templates Hub - ZION</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        zionBlue: '#0070f3',
+                        zionPurple: '#7c3aed',
+                        zionLightPurple: '#f5f3ff',
+                        zionDarkText: '#0f172a',
+                        zionGrayText: '#64748b',
+                        zionBorder: '#e2e8f0',
+                        zionBg: '#f8fafc',
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 10px -2px rgba(0, 0, 0, 0.02)',
+                        'premium-hover': '0 20px 40px -10px rgba(0, 112, 243, 0.15), 0 8px 16px -4px rgba(0, 0, 0, 0.04)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .sidebar-item { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .sidebar-item:hover, .sidebar-item.active { background-color: #f5f3ff; color: #7c3aed; font-weight: 600; }
+        .sidebar-item.active { border-right: 3px solid #7c3aed; }
+        
+        .input-custom {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 0.625rem 0.875rem;
+            font-size: 0.8125rem;
+            transition: all 0.2s;
+            width: 100%;
+        }
+        .input-custom:focus {
+            background-color: #ffffff;
+            border-color: #0070f3;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.12);
+        }
+
+        .phone-mockup-wrap {
+            filter: drop-shadow(0 25px 35px rgba(15, 23, 42, 0.25));
+        }
+
+        .tmpl-filter-btn.active {
+            background-color: #0070f3;
+            color: #ffffff;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="text-slate-800 h-screen overflow-hidden flex">
+
+    <!-- Sidebar -->
+        <!-- Left Fixed Sidebar -->
+        <!-- Left Fixed Big-Icon Sidebar (Image 2 Style) -->
+        <!-- Left Fixed Sidebar with Channels & Dropdowns -->
+    <aside class="w-68 bg-white border-r border-slate-200 flex flex-col h-screen shrink-0 z-30 select-none shadow-sm">
+        
+        <!-- Big Enterprise CPaaS Brand Logo -->
+        <div class="h-20 flex items-center px-4 border-b border-slate-100 shrink-0 bg-white">
+            <a href="home.html" class="flex items-center gap-3 w-full group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-105 transition-transform shrink-0 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i class="fa-solid fa-cloud-bolt text-lg text-white"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xl font-black text-slate-900 tracking-tight leading-none">ZION</span>
+                        <span class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded-md tracking-wider shadow-sm uppercase">CPaaS</span>
+                    </div>
+                    <p class="text-[9.5px] text-slate-500 font-bold tracking-tight mt-1 truncate uppercase flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>
+                        Omnichannel Cloud
+                    </p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Vertical Menu Scrollable List -->
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1.5">
+            <!-- Home -->
+            <a href="home.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">Home</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Platform Overview</div>
+                </div>
+            </a>
+            
+            <!-- Dashboard -->
+            <a href="dashboard.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </div>
+                <div class="flex-1 min-w-0 flex items-center justify-between">
+                    <div>
+                        <div class="text-sm font-bold text-slate-800 leading-tight">Dashboard</div>
+                        <div class="text-[10px] text-slate-400 font-medium">Live Analytics</div>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">LIVE</span>
+                </div>
+            </a>
+
+            <!-- SMS Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all" onclick="toggleSubmenu(event, 'sms-submenu', 'sms-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-comment-dots"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">SMS</div>
+                            <div class="text-[10px] text-slate-400 font-medium">Transactional &amp; Promo</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200" id="sms-icon" ></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-blue-200 pl-3 overflow-hidden hidden" id="sms-submenu">
+                    <a href="send-sms.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Send SMS</a>
+                    <a href="reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Reports</a>
+                    <a href="groups.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Contacts / Groups</a>
+                    <a href="dlt-dashboard.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">DLT / Compliance</a>
+                    <a href="#" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Blacklist / Whitelist</a>
+                </div>
+            </div>
+
+            <!-- RCS Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-purple-700 bg-purple-50/70 border border-purple-100/80 transition-all" onclick="toggleSubmenu(event, 'rcs-submenu', 'rcs-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-comment-sms"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-purple-800 leading-tight">RCS</div>
+                            <div class="text-[10px] text-purple-500 font-medium">Rich Business Messaging</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-purple-400 transition-transform duration-200" id="rcs-icon" style="transform: rotate(180deg);"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-purple-200 pl-3 overflow-hidden " id="rcs-submenu">
+                    <a href="rcs-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Campaign</a>
+                    <a href="rcs-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Report</a>
+                    <a href="rcs-configuration.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Configuration</a>
+                    <a href="rcs-chatbot.html" class="sidebar-item flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">
+                        <span>Chat Bot</span>
+                        <span class="bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded">AI</span>
+                    </a>
+                </div>
+            </div>
+
+                        <!-- WhatsApp Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 transition-all" onclick="toggleSubmenu(event, 'wa-submenu', 'wa-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">WhatsApp</div>
+                            <div class="text-[10px] text-emerald-600 font-medium">Cloud API Official</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-emerald-400 transition-transform duration-200" id="wa-icon"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-emerald-200 pl-3 overflow-hidden hidden" id="wa-submenu">
+                    <a href="whatsapp-config.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Config</a>
+                    <a href="whatsapp-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Campaign</a>
+                    <a href="whatsapp-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Report</a>
+                    <a href="whatsapp-agents.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Agent</a>
+                    <a href="whatsapp-automation.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Automation</a>
+                </div>
+            </div>
+            
+            <!-- OBD Voice -->
+            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">OBD (Voice)</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Outbound Audio &amp; TTS</div>
+                </div>
+            </a>
+
+            <!-- IVR -->
+            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">IVR</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Smart Voice Tree</div>
+                </div>
+            </a>
+
+            <!-- Dedicated Credit & Wallet Ledger Menu Item -->
+            <div class="pt-1">
+                <a href="credit-report.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50/70 hover:text-emerald-700 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">Credits &amp; Wallet</div>
+                            <div class="text-[10px] text-emerald-600 font-semibold">INR Recharge &amp; Deduct</div>
+                        </div>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">₹ WALLET</span>
+                </a>
+            </div>
+
+            <!-- Dedicated API & Integration Menu Item -->
+            <div class="pt-1">
+                <a href="api-integration.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-indigo-50/70 hover:text-indigo-700 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-code text-xl"></i>
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">API &amp; Integration</div>
+                            <div class="text-[10px] text-indigo-500 font-semibold">Universal REST Hub</div>
+                        </div>
+                    </div>
+                    <span class="bg-indigo-100 text-indigo-700 text-[8px] font-black px-1.5 py-0.5 rounded">REST</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Bottom User Profile -->
+        <div class="border-t border-slate-100 p-4 shrink-0 bg-slate-50/60">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white text-sm font-black shadow-md shadow-purple-200 shrink-0">P</div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-bold text-slate-800 truncate leading-tight">Parvez</p>
+                    <p class="text-[11px] text-slate-400 font-medium truncate">Enterprise Admin</p>
+                </div>
+                <button class="text-slate-400 hover:text-red-500 transition-colors p-1.5 rounded-lg hover:bg-red-50">
+                    <i class="fa-solid fa-right-from-bracket text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#f4f7fb]">
+        <!-- Header -->
+        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 shrink-0 z-10">
+            <!-- Left Back Button & Search -->
+            <div class="flex items-center gap-3">
+                <a href="rcs-configuration.html" class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-xs font-black shadow-xs transition-all shrink-0">
+                    <i class="fa-solid fa-arrow-left text-xs"></i>
+                    <span>Back to Configuration</span>
+                </a>
+                <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
+                <!-- Search -->
+                <div class="relative w-72 sm:w-96">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-search text-slate-400 text-sm"></i>
+                    </div>
+                    <input type="text" id="templateSearchInput" oninput="searchTemplates()" placeholder="Search templates by name, ID, or DLT entity..."
+                        class="block w-full pl-10 pr-4 py-2 border border-slate-200 rounded-xl text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-slate-50/50">
+                </div>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center gap-3 bg-white border border-slate-200 px-3.5 py-1.5 rounded-xl shadow-sm hover:border-emerald-300 transition-all cursor-pointer">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-inner">
+                        <i class="fa-solid fa-wallet text-xs"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-0.5">INR Wallet Balance</p>
+                        <p class="text-xs font-black text-slate-900 leading-none">₹48,500.00 <span class="text-[10px] text-slate-400 font-medium">(12,450 Cr)</span></p>
+                    </div>
+                </div>
+
+                <button class="w-9 h-9 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:text-slate-800 hover:border-slate-300 transition-all relative">
+                    <i class="fa-regular fa-bell text-sm"></i>
+                    <span class="absolute top-1.5 right-1.5 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+                </button>
+                <button class="w-9 h-9 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:text-slate-800 hover:border-slate-300 transition-all">
+                    <i class="fa-regular fa-circle-question text-sm"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Scrollable Content Area -->
+        <div class="flex-1 overflow-y-auto p-6 lg:p-8">
+            <div class="max-w-[1400px] mx-auto space-y-7">
+
+                <!-- Page Header (Home-style Banner Card) -->
+                <div class="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                    <div class="absolute -right-10 -top-24 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="absolute -left-10 -bottom-24 w-48 h-48 bg-blue-400/20 rounded-full blur-2xl pointer-events-none"></div>
+                    
+                    <div class="relative z-10 max-w-xl">
+                        <div class="flex items-center text-xs text-blue-200 mb-2 space-x-2 font-medium">
+                            <a href="rcs-configuration.html" class="hover:text-white transition-colors flex items-center gap-1.5 bg-white/15 hover:bg-white/25 px-2.5 py-1 rounded-lg border border-white/20">
+                                <i class="fa-solid fa-arrow-left text-[10px]"></i> RCS Configuration Hub
+                            </a>
+                            <i class="fa-solid fa-chevron-right text-[8px] text-blue-300"></i>
+                            <span class="text-white font-bold bg-white/10 px-2 py-0.5 rounded-full">RCS Template Management</span>
+                        </div>
+                        <h1 class="text-3xl font-black tracking-tight text-white flex items-center gap-3">
+                            <span>RCS Rich Templates Hub</span>
+                            <span class="text-xs font-bold bg-blue-400/20 text-blue-200 border border-blue-400/30 px-2.5 py-1 rounded-full">Interactive UI</span>
+                        </h1>
+                        <p class="text-sm text-blue-100 mt-2 leading-relaxed">Design standalone Rich Cards, Multi-Card Carousels, Action Suggestion Buttons (Dial, URL, Quick Reply), and sync with approved DLT Entity IDs.</p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="relative z-10 flex flex-wrap items-center gap-3 shrink-0">
+                        <a href="rcs-configuration.html" class="bg-white/20 hover:bg-white/30 border border-white/40 text-white text-xs font-black px-4 py-3 rounded-2xl flex items-center gap-2 shadow-sm transition-all">
+                            <i class="fa-solid fa-arrow-left text-xs"></i>
+                            <span>Back to Config Hub</span>
+                        </a>
+                        <button onclick="openCreateTemplateModal()" class="bg-white hover:bg-blue-50 text-blue-700 text-xs font-black px-5 py-3 rounded-2xl flex items-center gap-2 shadow-lg shadow-black/10 transition-all transform hover:-translate-y-0.5">
+                            <i class="fa-solid fa-plus text-xs"></i>
+                            <span>+ Create RCS Template</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Template Filter & Overview Bar -->
+                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto text-xs">
+                        <button onclick="filterTemplates('all')" id="tmpl-tab-all" class="tmpl-filter-btn active px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2">
+                            <span>All Templates</span>
+                            <span class="bg-white/20 px-2 py-0.5 rounded-full text-[10px]">4</span>
+                        </button>
+                        <button onclick="filterTemplates('rich_card')" id="tmpl-tab-rich_card" class="tmpl-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-image text-blue-500"></i>
+                            <span>Rich Cards</span>
+                            <span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full text-[10px]">2</span>
+                        </button>
+                        <button onclick="filterTemplates('carousel')" id="tmpl-tab-carousel" class="tmpl-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-layer-group text-purple-500"></i>
+                            <span>Carousels</span>
+                            <span class="bg-purple-100 text-purple-800 px-2 py-0.5 rounded-full text-[10px]">1</span>
+                        </button>
+                        <button onclick="filterTemplates('text_suggest')" id="tmpl-tab-text_suggest" class="tmpl-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-comment-dots text-emerald-500"></i>
+                            <span>Text + Suggestions</span>
+                            <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full text-[10px]">1</span>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-3 text-xs text-slate-500 font-medium shrink-0">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-600"></i> DLT Scrubbing: <b>Active</b></span>
+                        <span class="text-slate-300">|</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-mobile-screen text-blue-600"></i> Media CDN: <b>Ready</b></span>
+                    </div>
+                </div>
+
+                <!-- Template Table (Home / Dashboard Premium Table) -->
+                <div class="bg-white rounded-3xl border border-slate-200/80 shadow-premium overflow-hidden">
+                    <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+                        <div>
+                            <h3 class="text-base font-extrabold text-slate-900">Approved & Registered Templates</h3>
+                            <p class="text-xs text-slate-400 mt-0.5">Manage RCS message layouts, action triggers and quick reply payloads</p>
+                        </div>
+                        <span class="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1 rounded-xl">4 Total Templates</span>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-slate-50/80 border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider text-[10px]">
+                                    <th class="py-4 px-6">Template Name & ID</th>
+                                    <th class="py-4 px-6">Type</th>
+                                    <th class="py-4 px-6">Associated Bot</th>
+                                    <th class="py-4 px-6">DLT Entity ID</th>
+                                    <th class="py-4 px-6">Approval Status</th>
+                                    <th class="py-4 px-6 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-slate-700 font-medium" id="templateTableBody">
+                                
+                                <!-- Template 1 -->
+                                <tr class="template-row type-rich_card hover:bg-blue-50/30 transition-colors">
+                                    <td class="py-4 px-6 font-bold text-slate-900 flex items-center gap-3.5">
+                                        <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-base shrink-0 shadow-xs">
+                                            <i class="fa-solid fa-image"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-extrabold text-slate-900">Diwali_Mega_Sale_RichCard</p>
+                                            <p class="text-[11px] text-slate-400 font-mono">tmpl_rcs_diwali_9821</p>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-xl font-bold text-[11px] border border-blue-200">
+                                            <i class="fa-solid fa-image mr-1 text-[10px]"></i> Rich Card
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-6 font-bold text-slate-800">
+                                        Zion_Official_Bot
+                                    </td>
+                                    <td class="py-4 px-6 font-mono text-slate-600 font-semibold">
+                                        140716892341
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span class="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full font-extrabold text-[11px] border border-emerald-200 inline-flex items-center gap-1.5 shadow-xs">
+                                            <i class="fa-solid fa-check text-[10px]"></i> Approved
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-6 text-right space-x-2">
+                                        <button onclick="previewTemplate('Diwali_Mega_Sale_RichCard')" class="text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg font-bold text-xs transition-colors">
+                                            <i class="fa-solid fa-eye mr-1"></i> Preview
+                                        </button>
+                                        <button onclick="duplicateTemplate('Diwali_Mega_Sale_RichCard')" class="text-slate-500 hover:text-slate-800 p-1.5 rounded-lg hover:bg-slate-100 transition-colors" title="Duplicate">
+                                            <i class="fa-solid fa-copy"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Template 2 -->
+                                <tr class="template-row type-carousel hover:bg-purple-50/30 transition-colors">
+                                    <td class="py-4 px-6 font-bold text-slate-900 flex items-center gap-3.5">
+                                        <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-base shrink-0 shadow-xs">
+                                            <i class="fa-solid fa-layer-group"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-extrabold text-slate-900">Product_Catalog_Carousel_5Cards</p>
+                                            <p class="text-[11px] text-slate-400 font-mono">tmpl_rcs_cat_4412</p>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span class="bg-purple-50 text-purple-700 px-3 py-1 rounded-xl font-bold text-[11px] border border-purple-200">
+                                            <i class="fa-solid fa-layer-group mr-1 text-[10px]"></i> Carousel (5 Cards)
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-6 font-bold text-slate-800">
+                                        Zion_Retail_Bot
+                                    </td>
+                                    <td class="py-4 px-6 font-mono text-slate-600 font-semibold">
+                                        140716892341
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span class="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full font-extrabold text-[11px] border border-emerald-200 inline-flex items-center gap-1.5 shadow-xs">
+                                            <i class="fa-solid fa-check text-[10px]"></i> Approved
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-6 text-right space-x-2">
+                                        <button onclick="previewTemplate('Product_Catalog_Carousel_5Cards')" class="text-purple-600 hover:text-purple-800 bg-purple-50 hover:bg-purple-100 px-3 py-1.5 rounded-lg font-bold text-xs transition-colors">
+                                            <i class="fa-solid fa-eye mr-1"></i> Preview
+                                        </button>
+                                        <button onclick="duplicateTemplate('Product_Catalog_Carousel_5Cards')" class="text-slate-500 hover:text-slate-800 p-1.5 rounded-lg hover:bg-slate-100 transition-colors" title="Duplicate">
+                                            <i class="fa-solid fa-copy"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Template 3 -->
+                                <tr class="template-row type-rich_card hover:bg-blue-50/30 transition-colors">
+                                    <td class="py-4 px-6 font-bold text-slate-900 flex items-center gap-3.5">
+                                        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-base shrink-0 shadow-xs">
+                                            <i class="fa-solid fa-percent"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-extrabold text-slate-900">Flash_Sale_Discount_Coupon</p>
+                                            <p class="text-[11px] text-slate-400 font-mono">tmpl_rcs_flsh_8892</p>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-xl font-bold text-[11px] border border-blue-200">
+                                            <i class="fa-solid fa-image mr-1 text-[10px]"></i> Rich Card
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-6 font-bold text-slate-800">
+                                        Zion_Support_Desk
+                                    </td>
+                                    <td class="py-4 px-6 font-mono text-slate-600 font-semibold">
+                                        140716892341
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span class="bg-amber-50 text-amber-800 px-3 py-1 rounded-full font-extrabold text-[11px] border border-amber-200 inline-flex items-center gap-1.5 shadow-xs">
+                                            <i class="fa-solid fa-clock text-[10px]"></i> In Review
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-6 text-right space-x-2">
+                                        <button onclick="previewTemplate('Flash_Sale_Discount_Coupon')" class="text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg font-bold text-xs transition-colors">
+                                            <i class="fa-solid fa-eye mr-1"></i> Preview
+                                        </button>
+                                        <button onclick="duplicateTemplate('Flash_Sale_Discount_Coupon')" class="text-slate-500 hover:text-slate-800 p-1.5 rounded-lg hover:bg-slate-100 transition-colors" title="Duplicate">
+                                            <i class="fa-solid fa-copy"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Template 4 -->
+                                <tr class="template-row type-text_suggest hover:bg-emerald-50/30 transition-colors">
+                                    <td class="py-4 px-6 font-bold text-slate-900 flex items-center gap-3.5">
+                                        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-base shrink-0 shadow-xs">
+                                            <i class="fa-solid fa-comment-dots"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-extrabold text-slate-900">OTP_Account_Login_Verification</p>
+                                            <p class="text-[11px] text-slate-400 font-mono">tmpl_rcs_otp_1102</p>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span class="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-xl font-bold text-[11px] border border-emerald-200">
+                                            <i class="fa-solid fa-comment-dots mr-1 text-[10px]"></i> Text + Suggestions
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-6 font-bold text-slate-800">
+                                        Zion_Official_Bot
+                                    </td>
+                                    <td class="py-4 px-6 font-mono text-slate-600 font-semibold">
+                                        140716892341
+                                    </td>
+                                    <td class="py-4 px-6">
+                                        <span class="bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full font-extrabold text-[11px] border border-emerald-200 inline-flex items-center gap-1.5 shadow-xs">
+                                            <i class="fa-solid fa-check text-[10px]"></i> Approved
+                                        </span>
+                                    </td>
+                                    <td class="py-4 px-6 text-right space-x-2">
+                                        <button onclick="previewTemplate('OTP_Account_Login_Verification')" class="text-emerald-600 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg font-bold text-xs transition-colors">
+                                            <i class="fa-solid fa-eye mr-1"></i> Preview
+                                        </button>
+                                        <button onclick="duplicateTemplate('OTP_Account_Login_Verification')" class="text-slate-500 hover:text-slate-800 p-1.5 rounded-lg hover:bg-slate-100 transition-colors" title="Duplicate">
+                                            <i class="fa-solid fa-copy"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ================= MODAL: CREATE NEW RCS TEMPLATE BUILDER ================= -->
+    <div id="modal-create-template" class="fixed inset-0 bg-slate-950/75 backdrop-blur-md z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 hidden">
+        <div class="bg-white rounded-[2.5rem] max-w-6xl w-full max-h-[96vh] flex flex-col shadow-2xl relative border border-slate-100 overflow-hidden">
+            
+            <!-- Modal Header -->
+            <div class="px-8 py-5 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-800 text-white flex items-center justify-between shrink-0 relative overflow-hidden">
+                <div class="absolute -right-8 -top-12 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="relative z-10 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-md border border-white/25 flex items-center justify-center text-white text-xl shadow-inner">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-black tracking-tight text-white">Create RCS Rich Template</h2>
+                        <p class="text-xs text-blue-200 mt-0.5">Interactive Rich Card, Carousel & Action Suggestions Builder</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-create-template')" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content (Builder + Live Preview) -->
+            <div class="flex-1 overflow-y-auto p-6 md:p-8 flex flex-col lg:flex-row gap-8 bg-[#f8fafc]">
+                
+                <!-- Left Column: Form Fields -->
+                <div class="flex-1 space-y-6">
+                    
+                    <div class="bg-white rounded-3xl p-7 border border-slate-200/80 shadow-premium space-y-5">
+                        <h3 class="text-sm font-extrabold text-slate-900 border-b border-slate-100 pb-3">Template Properties</h3>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1.5">Template Name <span class="text-blue-600">*</span></label>
+                                <input type="text" id="tplNameInput" value="Summer_Special_Offer" class="input-custom font-semibold">
+                            </div>
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1.5">Template Type <span class="text-blue-600">*</span></label>
+                                <select id="tplTypeSelect" class="input-custom font-semibold bg-slate-50 cursor-pointer" onchange="updateBuilderPreview()">
+                                    <option value="Rich Card" selected>Rich Card (Standalone)</option>
+                                    <option value="Carousel">Carousel (Multi-Card)</option>
+                                    <option value="Text + Suggestions">Text + Quick Suggestions</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1.5">Select RCS Bot <span class="text-blue-600">*</span></label>
+                                <select class="input-custom font-medium bg-slate-50 cursor-pointer">
+                                    <option value="Zion_Official_Bot" selected>Zion_Official_Bot</option>
+                                    <option value="Zion_Support_Desk">Zion_Support_Desk</option>
+                                    <option value="Zion_Retail_Bot">Zion_Retail_Bot</option>
+                                </select>
+                            </div>
+
+                            <!-- Card Orientation (Horizontal / Vertical) -->
+                            <div id="cardOrientationContainer">
+                                <label class="block font-bold text-slate-700 mb-1.5">Card Orientation <span class="text-blue-600">*</span></label>
+                                <select id="tplOrientationSelect" class="input-custom font-medium bg-slate-50 cursor-pointer" onchange="updateBuilderPreview()">
+                                    <option value="Vertical" selected>Vertical</option>
+                                    <option value="Horizontal">Horizontal</option>
+                                </select>
+                            </div>
+
+                            <!-- Card Title -->
+                            <div class="sm:col-span-2 space-y-1.5">
+                                <div class="flex items-center justify-between">
+                                    <label class="block font-bold text-slate-700 text-xs">Card Title / Header <span class="text-blue-600">*</span></label>
+                                    <button type="button" onclick="insertVariableToInput('tplTitleInput', '{#name#}')" class="text-[10px] font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-2 py-0.5 rounded-lg transition-colors flex items-center gap-1">
+                                        <i class="fa-solid fa-plus text-[8px]"></i> Insert {#name#}
+                                    </button>
+                                </div>
+                                <input type="text" id="tplTitleInput" value="Special Exclusive Deals for {#name#}" oninput="updateBuilderPreview()" class="input-custom font-bold">
+                            </div>
+
+                            <!-- Card Body Message with Variables Toolbar -->
+                            <div class="sm:col-span-2 space-y-2">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                    <label class="block font-bold text-slate-700 text-xs">Card Body Message <span class="text-blue-600">*</span></label>
+                                    
+                                    <!-- Variable Insertion Badges -->
+                                    <div class="flex flex-wrap items-center gap-1.5">
+                                        <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Insert Var:</span>
+                                        <button type="button" onclick="insertVariableToInput('tplBodyInput', '{#name#}')" class="text-[10px] font-bold bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 px-2 py-0.5 rounded-lg transition-colors">
+                                            {#name#}
+                                        </button>
+                                        <button type="button" onclick="insertVariableToInput('tplBodyInput', '{#amount#}')" class="text-[10px] font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-lg transition-colors">
+                                            {#amount#}
+                                        </button>
+                                        <button type="button" onclick="insertVariableToInput('tplBodyInput', '{#date#}')" class="text-[10px] font-bold bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 px-2 py-0.5 rounded-lg transition-colors">
+                                            {#date#}
+                                        </button>
+                                        <button type="button" onclick="insertVariableToInput('tplBodyInput', '{#code#}')" class="text-[10px] font-bold bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-lg transition-colors">
+                                            {#code#}
+                                        </button>
+                                        <button type="button" onclick="insertCustomVariable()" class="text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 px-2 py-0.5 rounded-lg transition-colors flex items-center gap-1">
+                                            <i class="fa-solid fa-plus text-[8px]"></i> Custom
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <textarea id="tplBodyInput" rows="3" oninput="updateBuilderPreview()" class="input-custom font-medium leading-relaxed font-sans">Hi {#name#}, your monthly statement of {#amount#} is generated on {#date#}. Use promo code {#code#} for instant cashbacks!</textarea>
+                                
+                                <div class="flex items-center justify-between text-[10px] text-slate-400">
+                                    <span class="flex items-center gap-1"><i class="fa-solid fa-code text-blue-500"></i> Variables will be dynamically personalized during campaign broadcast</span>
+                                    <span id="charCountDisplay" class="font-mono">112 chars</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Media Upload Section (Image / Video / PDF) -->
+                    <div class="bg-white rounded-3xl p-7 border border-slate-200/80 shadow-premium space-y-4" id="mediaUploadCard">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                            <div>
+                                <h3 class="text-sm font-extrabold text-slate-900">Media & Document Upload</h3>
+                                <p class="text-[11px] text-slate-400">Supported formats: JPG, PNG, MP4, MOV, PDF (Max 10MB)</p>
+                            </div>
+                            <span class="text-[10px] font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">Rich Media</span>
+                        </div>
+
+                        <!-- Media Type Switcher Tabs -->
+                        <div class="flex items-center gap-2 text-xs">
+                            <button type="button" onclick="switchMediaType('image')" id="mediaTabImage" class="media-type-btn bg-blue-600 text-white font-bold px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 shadow-xs">
+                                <i class="fa-solid fa-image"></i>
+                                <span>Image</span>
+                            </button>
+                            <button type="button" onclick="switchMediaType('video')" id="mediaTabVideo" class="media-type-btn bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3.5 py-1.5 rounded-xl flex items-center gap-1.5">
+                                <i class="fa-solid fa-video text-purple-600"></i>
+                                <span>Video (MP4)</span>
+                            </button>
+                            <button type="button" onclick="switchMediaType('pdf')" id="mediaTabPdf" class="media-type-btn bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3.5 py-1.5 rounded-xl flex items-center gap-1.5">
+                                <i class="fa-solid fa-file-pdf text-red-500"></i>
+                                <span>PDF Document</span>
+                            </button>
+                        </div>
+
+                        <!-- Upload Dropzone -->
+                        <div class="border-2 border-dashed border-slate-200 rounded-2xl p-5 text-center hover:border-blue-400 transition-all bg-slate-50/50">
+                            <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-2.5 text-xl shadow-xs" id="mediaUploadIcon">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                            </div>
+                            <label class="block font-bold text-slate-800 text-xs mb-1" id="mediaUploadTitle">Upload Image File (JPG / PNG)</label>
+                            <p class="text-[11px] text-slate-400 mb-3" id="mediaUploadSubtitle">Recommended 16:9 ratio, max 5MB for instant handset caching</p>
+                            <input type="file" id="mediaFileInput" onchange="handleMediaUpload(this)" accept="image/*,video/mp4,application/pdf" class="text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Action Buttons (CTA) Builder Section -->
+                    <div class="bg-white rounded-3xl p-7 border border-slate-200/80 shadow-premium space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                            <div>
+                                <h3 class="text-sm font-extrabold text-slate-900">Interactive Action Suggestions (CTA)</h3>
+                                <p class="text-[11px] text-slate-400">Add customizable Dial Buttons, Website Links or Quick Reply chips</p>
+                            </div>
+                            <button type="button" onclick="addNewActionButton()" class="bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 text-xs font-bold px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 transition-colors">
+                                <i class="fa-solid fa-plus text-[10px]"></i>
+                                <span>+ Add Button</span>
+                            </button>
+                        </div>
+
+                        <!-- Dynamic Buttons List Container -->
+                        <div class="space-y-3" id="buttonsBuilderList">
+                            <!-- Dynamic Button Rows Rendered Here -->
+                        </div>
+
+                        <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1">
+                            <span>Max 4 Action buttons supported per RCS Card</span>
+                            <span id="buttonCountBadge" class="font-bold text-blue-600 font-mono">2 / 4 Added</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Live Phone Simulator -->
+                <div class="w-full lg:w-96 shrink-0 flex flex-col items-center">
+                    <div class="sticky top-4 w-full flex flex-col items-center">
+                        <div class="mb-3 flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-blue-500 animate-ping"></span>
+                            <p class="text-xs font-black text-slate-700 uppercase tracking-wider">Live Template Rendering</p>
+                        </div>
+
+                        <!-- Phone Frame -->
+                        <div class="phone-mockup-wrap w-[320px] bg-slate-900 p-3 rounded-[3rem] shadow-2xl border-4 border-slate-800">
+                            <div class="bg-white w-full h-[540px] rounded-[2.2rem] overflow-hidden flex flex-col border border-slate-100 relative">
+                                
+                                <!-- Status Bar -->
+                                <div class="h-6 bg-slate-900 text-white flex items-center justify-between px-5 text-[10px] font-semibold">
+                                    <span>10:45</span>
+                                    <div class="flex items-center gap-1.5">
+                                        <i class="fa-solid fa-wifi text-[9px]"></i>
+                                        <i class="fa-solid fa-signal text-[9px]"></i>
+                                        <i class="fa-solid fa-battery-full text-[10px]"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Sender Info -->
+                                <div class="p-3 border-b border-slate-100 flex items-center gap-2.5 bg-slate-50">
+                                    <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0">
+                                        Z
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <p class="text-xs font-bold text-slate-900 truncate flex items-center gap-1">
+                                            Zion Communication <i class="fa-solid fa-circle-check text-blue-500 text-[10px]"></i>
+                                        </p>
+                                        <p class="text-[9px] text-slate-400">Verified Brand</p>
+                                    </div>
+                                </div>
+
+                                <!-- Message Stream Area (Dynamic based on Template Type) -->
+                                <div class="flex-1 p-3 overflow-y-auto bg-slate-100 space-y-3" id="builderStreamArea">
+                                    
+                                    <!-- 1. Rich Card Render View (Supports Vertical & Horizontal) -->
+                                    <div id="renderViewRichCard" class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 w-full transition-all">
+                                        
+                                        <!-- Vertical Card Layout (Default) -->
+                                        <div id="cardVerticalLayout" class="flex flex-col">
+                                            <!-- Card Media -->
+                                            <div id="previewMediaBox" class="h-32 bg-gradient-to-tr from-blue-600 to-indigo-700 flex flex-col items-center justify-center text-white relative overflow-hidden">
+                                                <img id="previewMediaImg" src="" class="w-full h-full object-cover hidden" alt="Card Media">
+                                                <div id="previewMediaPlaceholder" class="flex flex-col items-center justify-center">
+                                                    <i id="previewMediaIcon" class="fa-solid fa-image text-3xl opacity-90 mb-1"></i>
+                                                    <span id="previewMediaBadge" class="text-[9px] font-bold uppercase tracking-wider bg-black/30 px-2 py-0.5 rounded-full">Image (16:9)</span>
+                                                </div>
+                                                <span class="absolute top-2 right-2 bg-black/40 text-[8px] px-1.5 py-0.5 rounded-full text-white font-bold">RCS Media</span>
+                                            </div>
+                                            
+                                            <!-- Content -->
+                                            <div class="p-3.5 space-y-1.5 bg-white">
+                                                <h4 id="previewCardTitle" class="font-extrabold text-xs text-slate-900 leading-tight">Special Exclusive Deals for You</h4>
+                                                <p id="previewCardBody" class="text-[11px] text-slate-600 leading-relaxed">Enjoy up to 40% instant discount on your next recharge or subscription plan. Tap below to claim!</p>
+                                            </div>
+
+                                            <!-- Suggested Action Buttons Container (Dynamic) -->
+                                            <div class="border-t border-slate-100 divide-y divide-slate-100 bg-slate-50/50 text-center font-bold text-xs" id="previewVerticalButtonsContainer">
+                                                <!-- Dynamic buttons inserted here -->
+                                            </div>
+                                        </div>
+
+                                        <!-- Horizontal Card Layout (Side-by-Side Thumbnail + Text) -->
+                                        <div id="cardHorizontalLayout" class="hidden flex-col">
+                                            <div class="flex items-center gap-2.5 p-3">
+                                                <!-- Left Thumbnail (Horizontal Media) -->
+                                                <div class="w-20 h-20 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-700 flex items-center justify-center text-white shrink-0 overflow-hidden relative shadow-xs">
+                                                    <img id="previewMediaImgHoriz" src="" class="w-full h-full object-cover hidden" alt="Thumb">
+                                                    <i id="previewMediaIconHoriz" class="fa-solid fa-image text-xl opacity-90"></i>
+                                                </div>
+                                                <!-- Right Content -->
+                                                <div class="flex-1 min-w-0">
+                                                    <span class="text-[8px] font-black uppercase text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded">Horizontal Card</span>
+                                                    <h4 id="previewCardTitleHoriz" class="font-extrabold text-xs text-slate-900 leading-tight truncate mt-0.5">Special Deals</h4>
+                                                    <p id="previewCardBodyHoriz" class="text-[10px] text-slate-500 line-clamp-2 leading-tight mt-0.5">Enjoy up to 40% instant discount on recharge.</p>
+                                                </div>
+                                            </div>
+                                            <!-- Action Buttons Container (Dynamic) -->
+                                            <div class="border-t border-slate-100 divide-y divide-slate-100 bg-slate-50/50 text-center font-bold text-[11px]" id="previewHorizontalButtonsContainer">
+                                                <!-- Dynamic buttons inserted here -->
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- 2. Carousel Multi-Card Render View (Hidden by default) -->
+                                    <div id="renderViewCarousel" class="hidden space-y-2">
+                                        <div class="flex items-center justify-between text-[10px] text-slate-500 font-bold px-1">
+                                            <span><i class="fa-solid fa-arrows-left-right text-purple-600 mr-1"></i> Multi-Card Carousel</span>
+                                            <span class="bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full" id="carouselCardCounter">Card 1 of 3</span>
+                                        </div>
+
+                                        <!-- Carousel Horizontal Track -->
+                                        <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-none snap-x" id="carouselTrack">
+                                            
+                                            <!-- Card 1 -->
+                                            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200/90 w-[220px] shrink-0 snap-center">
+                                                <div class="h-24 bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center text-white relative">
+                                                    <i class="fa-solid fa-layer-group text-2xl opacity-80"></i>
+                                                    <span class="absolute top-1.5 right-1.5 bg-black/40 text-[8px] px-1.5 py-0.5 rounded font-bold">1/3</span>
+                                                </div>
+                                                <div class="p-2.5 space-y-1">
+                                                    <h5 id="previewCarouselTitle1" class="font-bold text-[11px] text-slate-900 leading-tight">Special Deals (Card 1)</h5>
+                                                    <p id="previewCarouselBody1" class="text-[10px] text-slate-500 line-clamp-2">Enjoy up to 40% instant discount on your plan.</p>
+                                                </div>
+                                                <div class="border-t border-slate-100 divide-y divide-slate-100 bg-slate-50 text-center">
+                                                    <button class="w-full py-1.5 text-[10px] font-bold text-purple-600 hover:bg-purple-50 flex items-center justify-center gap-1">
+                                                        <i class="fa-solid fa-bag-shopping text-[9px]"></i> <span id="previewCarCta1Label">Shop Now</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Card 2 -->
+                                            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200/90 w-[220px] shrink-0 snap-center">
+                                                <div class="h-24 bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center text-white relative">
+                                                    <i class="fa-solid fa-box-open text-2xl opacity-80"></i>
+                                                    <span class="absolute top-1.5 right-1.5 bg-black/40 text-[8px] px-1.5 py-0.5 rounded font-bold">2/3</span>
+                                                </div>
+                                                <div class="p-2.5 space-y-1">
+                                                    <h5 class="font-bold text-[11px] text-slate-900 leading-tight">Enterprise Cloud APIs</h5>
+                                                    <p class="text-[10px] text-slate-500 line-clamp-2">SMS, WhatsApp & Voice APIs with 99.99% high uptime SLA.</p>
+                                                </div>
+                                                <div class="border-t border-slate-100 divide-y divide-slate-100 bg-slate-50 text-center">
+                                                    <button class="w-full py-1.5 text-[10px] font-bold text-blue-600 hover:bg-blue-50 flex items-center justify-center gap-1">
+                                                        <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i> <span>View API Docs</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Card 3 -->
+                                            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200/90 w-[220px] shrink-0 snap-center">
+                                                <div class="h-24 bg-gradient-to-br from-emerald-600 to-teal-600 flex items-center justify-center text-white relative">
+                                                    <i class="fa-solid fa-headset text-2xl opacity-80"></i>
+                                                    <span class="absolute top-1.5 right-1.5 bg-black/40 text-[8px] px-1.5 py-0.5 rounded font-bold">3/3</span>
+                                                </div>
+                                                <div class="p-2.5 space-y-1">
+                                                    <h5 class="font-bold text-[11px] text-slate-900 leading-tight">Dedicated Support</h5>
+                                                    <p class="text-[10px] text-slate-500 line-clamp-2">24/7 Priority support manager with instant resolution.</p>
+                                                </div>
+                                                <div class="border-t border-slate-100 divide-y divide-slate-100 bg-slate-50 text-center">
+                                                    <button class="w-full py-1.5 text-[10px] font-bold text-emerald-600 hover:bg-emerald-50 flex items-center justify-center gap-1">
+                                                        <i class="fa-solid fa-phone text-[9px]"></i> <span id="previewCarCta2Label">Call Support</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- 3. Text + Suggestions Render View (Hidden by default) -->
+                                    <div id="renderViewTextSuggest" class="hidden space-y-2.5 max-w-[270px]">
+                                        <!-- Text Bubble -->
+                                        <div class="bg-white p-3.5 rounded-2xl rounded-tl-sm shadow-sm border border-slate-200/80 text-xs leading-relaxed text-slate-800 space-y-1.5">
+                                            <p id="previewTextHeading" class="font-extrabold text-slate-900 text-xs">Special Exclusive Deals for You</p>
+                                            <p id="previewTextBody" class="text-slate-600 text-[11px]">Enjoy up to 40% instant discount on your next recharge or subscription plan. Tap below to claim!</p>
+                                            <div class="text-right">
+                                                <span class="text-[9px] text-slate-400 font-mono">10:45 AM &bull; Delivered</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Quick Suggestion Action Chips -->
+                                        <div class="flex flex-wrap gap-1.5 pt-1">
+                                            <div class="bg-white hover:bg-blue-50 border border-blue-200 text-blue-700 px-3 py-1.5 rounded-full text-[10px] font-bold shadow-xs flex items-center gap-1.5 cursor-pointer">
+                                                <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                                                <span id="previewChip1Label">Shop Now</span>
+                                            </div>
+                                            <div class="bg-white hover:bg-emerald-50 border border-emerald-200 text-emerald-700 px-3 py-1.5 rounded-full text-[10px] font-bold shadow-xs flex items-center gap-1.5 cursor-pointer">
+                                                <i class="fa-solid fa-phone text-[9px]"></i>
+                                                <span id="previewChip2Label">Call Support</span>
+                                            </div>
+                                            <div class="bg-white hover:bg-purple-50 border border-purple-200 text-purple-700 px-3 py-1.5 rounded-full text-[10px] font-bold shadow-xs flex items-center gap-1.5 cursor-pointer">
+                                                <i class="fa-solid fa-reply text-[9px]"></i>
+                                                <span>Talk to Agent</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Chat Input Simulation -->
+                                <div class="p-2.5 bg-white border-t border-slate-200 flex items-center gap-2">
+                                    <div class="w-full bg-slate-100 rounded-full py-1 px-3 text-[10px] text-slate-400">
+                                        RCS message...
+                                    </div>
+                                    <div class="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-[9px] shrink-0">
+                                        <i class="fa-solid fa-paper-plane"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Sticky Bottom Footer -->
+            <div class="px-8 py-4 border-t border-slate-200 bg-white/95 backdrop-blur-md flex items-center justify-between shrink-0 shadow-lg">
+                <span class="text-xs text-slate-500 font-medium">Live DLT Compliance Check Passed</span>
+                <div class="flex items-center gap-3">
+                    <button onclick="closeModal('modal-create-template')" class="px-5 py-2.5 border border-slate-200 text-slate-600 rounded-xl font-bold text-xs hover:bg-slate-50 transition-colors">
+                        Cancel
+                    </button>
+                    <button onclick="saveTemplate()" class="px-7 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-extrabold text-xs shadow-lg shadow-blue-200 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-check text-xs"></i>
+                        <span>Save & Submit Template</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ================= MODAL: ULTRA LUXURY TEMPLATE PREVIEW MODAL ================= -->
+    <div id="modal-view-template" class="fixed inset-0 bg-slate-950/75 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 hidden">
+        <div class="bg-white rounded-[2rem] max-w-2xl w-full p-6 sm:p-7 space-y-6 shadow-2xl relative border border-slate-100 max-h-[95vh] overflow-y-auto">
+            
+            <!-- Close Button -->
+            <button onclick="closeModal('modal-view-template')" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+
+            <!-- Modal Header -->
+            <div class="flex items-center gap-4 border-b border-slate-100 pb-4 pr-10">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center text-xl shadow-md shadow-blue-200">
+                    <i id="viewModalIcon" class="fa-solid fa-image"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h3 id="viewTplName" class="font-black text-slate-900 text-base sm:text-lg">Diwali_Mega_Sale_RichCard</h3>
+                        <span id="viewTplBadge" class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">
+                            Approved
+                        </span>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-0.5">
+                        Template ID: <span id="viewTplId" class="font-mono font-bold text-blue-600">tmpl_rcs_diwali_9821</span> 
+                        &bull; Bot: <span id="viewTplBot" class="font-bold text-slate-700">Zion_Official_Bot</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Two-Column Layout (Left: Live Messages Rendering | Right: Button Actions & Metadata) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                
+                <!-- Left: Live Google Messages Bubble Rendering -->
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-brands fa-google text-blue-500"></i> Google Messages Preview
+                        </span>
+                        <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono">10:45 AM</span>
+                    </div>
+
+                    <div class="bg-slate-100 p-3 rounded-2xl border border-slate-200/80">
+                        <!-- RCS Card Container -->
+                        <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200/90 text-left">
+                            
+                            <!-- Media Banner -->
+                            <div id="viewCardMedia" class="h-36 bg-gradient-to-tr from-blue-600 via-indigo-600 to-purple-600 flex flex-col items-center justify-center text-white relative p-4 text-center">
+                                <i id="viewCardIcon" class="fa-solid fa-gift text-3xl opacity-90 mb-1"></i>
+                                <span class="text-[11px] font-bold text-white/90 uppercase tracking-wider" id="viewCardMediaTag">Special Festive Deal</span>
+                                <span class="absolute top-2 right-2 bg-black/40 backdrop-blur-xs text-[9px] font-bold px-2 py-0.5 rounded-full text-white">RCS Media</span>
+                            </div>
+
+                            <!-- Card Body Text -->
+                            <div class="p-4 space-y-1.5 bg-white">
+                                <h4 id="viewTplHeading" class="font-extrabold text-sm text-slate-900 leading-snug">Diwali Mega Sale RichCard</h4>
+                                <p id="viewTplBody" class="text-xs text-slate-600 leading-relaxed font-normal">
+                                    Get Flat 50% Off on all enterprise communication plans during this Diwali season!
+                                </p>
+                            </div>
+
+                            <!-- Buttons Stack Inside Bubble -->
+                            <div class="border-t border-slate-100 divide-y divide-slate-100 bg-slate-50/60 text-center font-bold text-xs" id="viewBubbleButtons">
+                                <!-- Dynamic Rendered Buttons -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Action Triggers & Link Destinations Inspector -->
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="text-xs font-black text-slate-900 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-link text-blue-600"></i> Button Actions & Payloads
+                        </h4>
+                        <p class="text-[11px] text-slate-500">Exact URL links, dialer numbers & postback payloads triggered on click:</p>
+                    </div>
+
+                    <!-- Action Details List -->
+                    <div class="space-y-3" id="viewActionList">
+                        <!-- Dynamic Buttons Metadata -->
+                    </div>
+
+                    <!-- DLT & Security Specs Card -->
+                    <div class="p-3.5 bg-blue-50/60 rounded-2xl border border-blue-100 text-xs space-y-1.5">
+                        <div class="flex justify-between items-center text-[11px]">
+                            <span class="text-slate-500 font-medium">DLT Entity ID:</span>
+                            <span class="font-mono font-bold text-slate-800">140716892341</span>
+                        </div>
+                        <div class="flex justify-between items-center text-[11px]">
+                            <span class="text-slate-500 font-medium">Message Encoding:</span>
+                            <span class="font-bold text-slate-800">Unicode (UTF-8)</span>
+                        </div>
+                        <div class="flex justify-between items-center text-[11px]">
+                            <span class="text-slate-500 font-medium">Carrier Delivery:</span>
+                            <span class="text-emerald-700 font-bold flex items-center gap-1">
+                                <i class="fa-solid fa-circle-check"></i> High Priority RBM
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+                <span class="text-xs text-slate-400">Click any action above to test link or dialer</span>
+                <button onclick="closeModal('modal-view-template')" class="px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold text-xs transition-colors">
+                    Close Preview
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Interactions -->
+    <script>
+        // Templates Full Details Database with Button Links & Phone Numbers
+        const templateDatabase = {
+            Diwali_Mega_Sale_RichCard: {
+                name: "Diwali_Mega_Sale_RichCard",
+                id: "tmpl_rcs_diwali_9821",
+                bot: "Zion_Official_Bot",
+                type: "Rich Card",
+                heading: "Diwali Mega Sale (50% Off)",
+                body: "Celebrate Diwali with ZION! Claim flat 50% instant discount on all Enterprise SMS, RCS & WhatsApp plans. Valid until 31st October.",
+                status: "Approved",
+                badgeClass: "bg-emerald-50 text-emerald-700 border-emerald-200",
+                mediaTag: "Festive Promo Card",
+                mediaIcon: "fa-solid fa-gift",
+                mediaGradient: "from-blue-600 via-indigo-600 to-purple-700",
+                buttons: [
+                    {
+                        type: "url",
+                        label: "Claim 50% Discount",
+                        icon: "fa-solid fa-arrow-up-right-from-square text-blue-600",
+                        target: "https://zion.com/diwali-offer?code=DIWALI50",
+                        description: "Opens web browser with coupon pre-applied"
+                    },
+                    {
+                        type: "dial",
+                        label: "Call Account Manager",
+                        icon: "fa-solid fa-phone text-emerald-600",
+                        target: "+918858674541",
+                        description: "Direct phone dialer connection"
+                    }
+                ]
+            },
+            Product_Catalog_Carousel_5Cards: {
+                name: "Product_Catalog_Carousel_5Cards",
+                id: "tmpl_rcs_cat_4412",
+                bot: "Zion_Retail_Bot",
+                type: "Carousel (5 Cards)",
+                heading: "ZION CPASS Communication Suite",
+                body: "Explore our all-in-one suite: High-speed Promotional SMS, Google Verified RCS, Official WhatsApp Business API & Voice OBD.",
+                status: "Approved",
+                badgeClass: "bg-emerald-50 text-emerald-700 border-emerald-200",
+                mediaTag: "Product Catalog",
+                mediaIcon: "fa-solid fa-layer-group",
+                mediaGradient: "from-purple-600 via-indigo-600 to-blue-600",
+                buttons: [
+                    {
+                        type: "url",
+                        label: "View Full Pricing Catalog",
+                        icon: "fa-solid fa-globe text-purple-600",
+                        target: "https://zion.com/pricing-plans",
+                        description: "Redirects user to ZION cloud plans page"
+                    },
+                    {
+                        type: "reply",
+                        label: "Schedule Free Demo",
+                        icon: "fa-solid fa-calendar-check text-blue-600",
+                        target: "PAYLOAD: SCHEDULE_DEMO_REQUEST",
+                        description: "Sends automated 2-way bot trigger"
+                    }
+                ]
+            },
+            Flash_Sale_Discount_Coupon: {
+                name: "Flash_Sale_Discount_Coupon",
+                id: "tmpl_rcs_flsh_8892",
+                bot: "Zion_Support_Desk",
+                type: "Rich Card",
+                heading: "⚡ 2-Hour Flash Sale Vouchers",
+                body: "Flash Sale Alert: Use promo coupon 'ZION2026' to add ₹5,000 instant test balance to your enterprise wallet. Limited to first 100 users!",
+                status: "In Review",
+                badgeClass: "bg-amber-50 text-amber-800 border-amber-200",
+                mediaTag: "Flash Promo Voucher",
+                mediaIcon: "fa-solid fa-bolt text-amber-300",
+                mediaGradient: "from-amber-500 via-orange-600 to-red-600",
+                buttons: [
+                    {
+                        type: "url",
+                        label: "Redeem ₹5,000 Voucher",
+                        icon: "fa-solid fa-ticket text-amber-600",
+                        target: "https://zion.com/wallet/redeem?promo=ZION2026",
+                        description: "Opens wallet credit addition flow"
+                    },
+                    {
+                        type: "dial",
+                        label: "Contact Support Desk",
+                        icon: "fa-solid fa-headset text-orange-600",
+                        target: "+918858674541",
+                        description: "Direct helpline for voucher queries"
+                    }
+                ]
+            },
+            OTP_Account_Login_Verification: {
+                name: "OTP_Account_Login_Verification",
+                id: "tmpl_rcs_otp_1102",
+                bot: "Zion_Official_Bot",
+                type: "Text + Suggestions",
+                heading: "ZION Secure Login OTP",
+                body: "Your ZION CPASS two-factor authentication code is 482910. Valid for 5 minutes. Do not share this OTP with anyone.",
+                status: "Approved",
+                badgeClass: "bg-emerald-50 text-emerald-700 border-emerald-200",
+                mediaTag: "Transactional Security",
+                mediaIcon: "fa-solid fa-shield-halved",
+                mediaGradient: "from-teal-600 via-emerald-600 to-cyan-700",
+                buttons: [
+                    {
+                        type: "reply",
+                        label: "Copy OTP Code (482910)",
+                        icon: "fa-solid fa-copy text-teal-600",
+                        target: "CLIPBOARD: 482910",
+                        description: "Copies 6-digit OTP directly into clipboard"
+                    },
+                    {
+                        type: "url",
+                        label: "Report Fraud / Help",
+                        icon: "fa-solid fa-circle-exclamation text-red-500",
+                        target: "https://zion.com/security/report-unauthorized",
+                        description: "Instant security report link"
+                    }
+                ]
+            }
+        };
+
+        function toggleSubmenu(event, submenuId, iconId) {
+            event.preventDefault();
+            const submenu = document.getElementById(submenuId);
+            const icon = document.getElementById(iconId);
+            if (submenu.classList.contains('hidden')) {
+                submenu.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                submenu.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function openCreateTemplateModal() {
+            renderButtonsBuilder();
+            updateBuilderPreview();
+            openModal('modal-create-template');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderButtonsBuilder();
+        });
+
+        let currentMediaType = 'image';
+
+        function switchMediaType(mediaType) {
+            currentMediaType = mediaType;
+            const tabs = ['image', 'video', 'pdf'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`mediaTab${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                if (t === mediaType) {
+                    btn.className = 'media-type-btn bg-blue-600 text-white font-bold px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 shadow-xs';
+                } else {
+                    btn.className = 'media-type-btn bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3.5 py-1.5 rounded-xl flex items-center gap-1.5';
+                }
+            });
+
+            const icon = document.getElementById('mediaUploadIcon');
+            const title = document.getElementById('mediaUploadTitle');
+            const subtitle = document.getElementById('mediaUploadSubtitle');
+            const badge = document.getElementById('previewMediaBadge');
+            const previewIcon = document.getElementById('previewMediaIcon');
+            const previewIconHoriz = document.getElementById('previewMediaIconHoriz');
+
+            if (mediaType === 'video') {
+                icon.innerHTML = '<i class="fa-solid fa-video text-purple-600"></i>';
+                title.innerText = 'Upload Video Clip (MP4 / MOV)';
+                subtitle.innerText = 'Max 10MB, auto-loop preview enabled for Google Messages';
+                badge.innerText = 'Video (MP4)';
+                previewIcon.className = 'fa-solid fa-circle-play text-4xl text-white drop-shadow-md mb-1 animate-pulse';
+                previewIconHoriz.className = 'fa-solid fa-circle-play text-2xl text-white';
+            } else if (mediaType === 'pdf') {
+                icon.innerHTML = '<i class="fa-solid fa-file-pdf text-red-500"></i>';
+                title.innerText = 'Upload PDF Attachment';
+                subtitle.innerText = 'E-bills, brochures, account statements, invoices (Max 10MB)';
+                badge.innerText = 'PDF Document';
+                previewIcon.className = 'fa-solid fa-file-pdf text-4xl text-red-200 drop-shadow-md mb-1';
+                previewIconHoriz.className = 'fa-solid fa-file-pdf text-2xl text-red-200';
+            } else {
+                icon.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i>';
+                title.innerText = 'Upload Image File (JPG / PNG)';
+                subtitle.innerText = 'Recommended 16:9 ratio, max 5MB for instant handset caching';
+                badge.innerText = 'Image (16:9)';
+                previewIcon.className = 'fa-solid fa-image text-3xl opacity-90 mb-1';
+                previewIconHoriz.className = 'fa-solid fa-image text-xl opacity-90';
+            }
+        }
+
+        function handleMediaUpload(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    if (file.type.startsWith('image/')) {
+                        const img = document.getElementById('previewMediaImg');
+                        const imgHoriz = document.getElementById('previewMediaImgHoriz');
+                        img.src = e.target.result;
+                        imgHoriz.src = e.target.result;
+                        img.classList.remove('hidden');
+                        imgHoriz.classList.remove('hidden');
+                        document.getElementById('previewMediaPlaceholder').classList.add('hidden');
+                    } else {
+                        alert(`File "${file.name}" uploaded successfully for template preview!`);
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Helper for Inserting Variable Tags ({#var#}) to inputs
+        function insertVariableToInput(inputId, variableTag) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+
+            const start = input.selectionStart;
+            const end = input.selectionEnd;
+            const text = input.value;
+            const before = text.substring(0, start);
+            const after = text.substring(end, text.length);
+            
+            input.value = (before + variableTag + after);
+            input.selectionStart = input.selectionEnd = start + variableTag.length;
+            input.focus();
+
+            updateBuilderPreview();
+        }
+
+        function insertCustomVariable() {
+            const varName = prompt("Enter Custom Variable Name (e.g. order_id, tracking_url):", "order_id");
+            if (varName && varName.trim()) {
+                const formatted = `{#${varName.trim()}#}`;
+                insertVariableToInput('tplBodyInput', formatted);
+            }
+        }
+
+        // Dynamic Action Buttons State (Supports 7 Google RBM Action Types)
+        let builderButtons = [
+            {
+                id: 1,
+                type: 'url',
+                label: 'Shop Now',
+                value: 'https://zion.com/shop'
+            },
+            {
+                id: 2,
+                type: 'dial',
+                label: 'Call Support',
+                value: '+918858674541'
+            }
+        ];
+
+        function renderButtonsBuilder() {
+            const container = document.getElementById('buttonsBuilderList');
+            if (!container) return;
+            container.innerHTML = '';
+
+            builderButtons.forEach((btn, index) => {
+                const row = document.createElement('div');
+                row.className = 'p-4 bg-slate-50/80 border border-slate-200/90 rounded-2xl space-y-3 transition-all hover:border-blue-300 shadow-xs';
+                
+                let placeholderText = 'https://...';
+                let iconClass = 'fa-solid fa-arrow-up-right-from-square text-blue-600';
+                let valueLabel = 'Target Website URL';
+                let inputType = 'url';
+                
+                if (btn.type === 'dial') {
+                    placeholderText = '+918858674541';
+                    iconClass = 'fa-solid fa-phone text-emerald-600';
+                    valueLabel = 'Phone Number to Dial';
+                    inputType = 'tel';
+                } else if (btn.type === 'reply') {
+                    placeholderText = 'e.g. YES, TALK_TO_AGENT';
+                    iconClass = 'fa-solid fa-reply text-purple-600';
+                    valueLabel = 'Reply / Postback Payload';
+                    inputType = 'text';
+                } else if (btn.type === 'calendar') {
+                    placeholderText = '2026-10-25T14:30:00Z | Diwali Conference';
+                    iconClass = 'fa-solid fa-calendar-plus text-amber-600';
+                    valueLabel = 'Event Start Time & Title';
+                    inputType = 'text';
+                } else if (btn.type === 'loc_coords') {
+                    placeholderText = '28.6139, 77.2090 (Lat, Long)';
+                    iconClass = 'fa-solid fa-map-location-dot text-indigo-600';
+                    valueLabel = 'Coordinates (Latitude, Longitude)';
+                    inputType = 'text';
+                } else if (btn.type === 'loc_query') {
+                    placeholderText = 'Connaught Place, New Delhi';
+                    iconClass = 'fa-solid fa-magnifying-glass-location text-teal-600';
+                    valueLabel = 'Location Search Query';
+                    inputType = 'text';
+                } else if (btn.type === 'loc_share') {
+                    placeholderText = 'User will send current GPS location';
+                    iconClass = 'fa-solid fa-location-arrow text-rose-600';
+                    valueLabel = 'Location Request Prompt';
+                    inputType = 'text';
+                }
+
+                row.innerHTML = `
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-xs shadow-xs">
+                                <i class="${iconClass}"></i>
+                            </div>
+                            <span class="text-xs font-black text-slate-800">Button ${index + 1}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <select onchange="changeButtonType(${btn.id}, this.value)" class="text-xs font-semibold py-1.5 px-3 bg-white border border-slate-200 rounded-xl text-slate-800 cursor-pointer focus:border-blue-500 focus:outline-none shadow-xs font-sans">
+                                <option value="reply" ${btn.type === 'reply' ? 'selected' : ''}>💬 Reply (Quick Reply)</option>
+                                <option value="url" ${btn.type === 'url' ? 'selected' : ''}>🔗 URL Action</option>
+                                <option value="dial" ${btn.type === 'dial' ? 'selected' : ''}>📞 Dialer Action</option>
+                                <option value="calendar" ${btn.type === 'calendar' ? 'selected' : ''}>📅 Create Calendar Event</option>
+                                <option value="loc_coords" ${btn.type === 'loc_coords' ? 'selected' : ''}>📍 View Location (lat/long)</option>
+                                <option value="loc_query" ${btn.type === 'loc_query' ? 'selected' : ''}>🔍 View Location (Query)</option>
+                                <option value="loc_share" ${btn.type === 'loc_share' ? 'selected' : ''}>🧭 Share Location</option>
+                            </select>
+                            <button type="button" onclick="removeActionButton(${btn.id})" class="text-slate-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-red-50 transition-colors" title="Delete Button">
+                                <i class="fa-solid fa-trash-can text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs pt-1">
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1 text-[11px]">Button Label Text <span class="text-blue-600">*</span></label>
+                            <input type="text" value="${btn.label}" oninput="updateButtonLabel(${btn.id}, this.value)" placeholder="Enter button text" class="input-custom font-semibold">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1 text-[11px]">${valueLabel} <span class="text-blue-600">*</span></label>
+                            <input type="${inputType}" value="${btn.value}" oninput="updateButtonValue(${btn.id}, this.value)" placeholder="${placeholderText}" class="input-custom font-mono">
+                        </div>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+
+            document.getElementById('buttonCountBadge').innerText = `${builderButtons.length} / 4 Added`;
+            updateLivePreviewButtons();
+        }
+
+        function addNewActionButton() {
+            if (builderButtons.length >= 4) {
+                alert('Maximum 4 Action Buttons allowed per RCS Rich Card / Template.');
+                return;
+            }
+            const newId = Date.now();
+            const nextType = builderButtons.length === 0 ? 'url' : (builderButtons.length === 1 ? 'dial' : 'reply');
+            
+            let label = 'Visit Website';
+            let val = 'https://zion.com';
+            if (nextType === 'dial') { label = 'Call Support'; val = '+918858674541'; }
+            if (nextType === 'reply') { label = 'Quick Reply'; val = 'USER_CONFIRM'; }
+
+            builderButtons.push({
+                id: newId,
+                type: nextType,
+                label: label,
+                value: val
+            });
+            renderButtonsBuilder();
+        }
+
+        function removeActionButton(btnId) {
+            if (builderButtons.length <= 1) {
+                alert('At least 1 button is recommended for interactive RCS cards.');
+                return;
+            }
+            builderButtons = builderButtons.filter(b => b.id !== btnId);
+            renderButtonsBuilder();
+        }
+
+        function changeButtonType(btnId, newType) {
+            const btn = builderButtons.find(b => b.id === btnId);
+            if (btn) {
+                btn.type = newType;
+                if (newType === 'dial') {
+                    btn.label = 'Call Support';
+                    btn.value = '+918858674541';
+                } else if (newType === 'reply') {
+                    btn.label = 'Reply Now';
+                    btn.value = 'USER_REPLY_PAYLOAD';
+                } else if (newType === 'calendar') {
+                    btn.label = 'Add to Calendar';
+                    btn.value = '2026-10-25T14:30:00Z | Event';
+                } else if (newType === 'loc_coords') {
+                    btn.label = 'View on Maps';
+                    btn.value = '28.6139, 77.2090';
+                } else if (newType === 'loc_query') {
+                    btn.label = 'Find Store';
+                    btn.value = 'Zion CPASS Center, Mumbai';
+                } else if (newType === 'loc_share') {
+                    btn.label = 'Share My Location';
+                    btn.value = 'REQUEST_GPS';
+                } else {
+                    btn.label = 'Visit Website';
+                    btn.value = 'https://zion.com';
+                }
+                renderButtonsBuilder();
+            }
+        }
+
+        function updateButtonLabel(btnId, newLabel) {
+            const btn = builderButtons.find(b => b.id === btnId);
+            if (btn) {
+                btn.label = newLabel;
+                updateLivePreviewButtons();
+            }
+        }
+
+        function updateButtonValue(btnId, newValue) {
+            const btn = builderButtons.find(b => b.id === btnId);
+            if (btn) {
+                btn.value = newValue;
+                updateLivePreviewButtons();
+            }
+        }
+
+        function updateLivePreviewButtons() {
+            const vertContainer = document.getElementById('previewVerticalButtonsContainer');
+            const horizContainer = document.getElementById('previewHorizontalButtonsContainer');
+            
+            if (vertContainer) vertContainer.innerHTML = '';
+            if (horizContainer) horizContainer.innerHTML = '';
+
+            builderButtons.forEach(btn => {
+                let iconClass = 'fa-solid fa-arrow-up-right-from-square text-[10px] text-blue-600';
+                if (btn.type === 'dial') iconClass = 'fa-solid fa-phone text-[10px] text-emerald-600';
+                if (btn.type === 'reply') iconClass = 'fa-solid fa-reply text-[10px] text-purple-600';
+                if (btn.type === 'calendar') iconClass = 'fa-solid fa-calendar-plus text-[10px] text-amber-600';
+                if (btn.type === 'loc_coords') iconClass = 'fa-solid fa-map-location-dot text-[10px] text-indigo-600';
+                if (btn.type === 'loc_query') iconClass = 'fa-solid fa-magnifying-glass-location text-[10px] text-teal-600';
+                if (btn.type === 'loc_share') iconClass = 'fa-solid fa-location-arrow text-[10px] text-rose-600';
+
+                // Render in vertical
+                if (vertContainer) {
+                    const b1 = document.createElement('button');
+                    b1.className = 'w-full py-2.5 text-xs font-bold text-slate-800 flex items-center justify-center gap-2 hover:bg-slate-50 transition-colors';
+                    b1.innerHTML = `<i class="${iconClass}"></i> <span>${btn.label || 'Action Button'}</span>`;
+                    vertContainer.appendChild(b1);
+                }
+
+                // Render in horizontal
+                if (horizContainer) {
+                    const b2 = document.createElement('button');
+                    b2.className = 'w-full py-2 text-[11px] font-bold text-slate-800 flex items-center justify-center gap-1.5 hover:bg-slate-50 transition-colors';
+                    b2.innerHTML = `<i class="${iconClass}"></i> <span>${btn.label || 'Action Button'}</span>`;
+                    horizContainer.appendChild(b2);
+                }
+            });
+        }
+
+        function updateBuilderPreview() {
+            const type = document.getElementById('tplTypeSelect').value;
+            const orientation = document.getElementById('tplOrientationSelect') ? document.getElementById('tplOrientationSelect').value : 'Vertical';
+            const title = document.getElementById('tplTitleInput').value || 'Card Title';
+            const body = document.getElementById('tplBodyInput').value || 'Card body description...';
+
+            const viewRichCard = document.getElementById('renderViewRichCard');
+            const viewCarousel = document.getElementById('renderViewCarousel');
+            const viewTextSuggest = document.getElementById('renderViewTextSuggest');
+            const mediaUploadCard = document.getElementById('mediaUploadCard');
+            const cardOrientationContainer = document.getElementById('cardOrientationContainer');
+
+            if (type === 'Carousel') {
+                viewRichCard.classList.add('hidden');
+                viewCarousel.classList.remove('hidden');
+                viewTextSuggest.classList.add('hidden');
+                mediaUploadCard.classList.remove('hidden');
+                cardOrientationContainer.classList.add('hidden');
+
+                document.getElementById('previewCarouselTitle1').innerText = title;
+                document.getElementById('previewCarouselBody1').innerText = body;
+            } else if (type === 'Text + Suggestions') {
+                viewRichCard.classList.add('hidden');
+                viewCarousel.classList.add('hidden');
+                viewTextSuggest.classList.remove('hidden');
+                mediaUploadCard.classList.add('hidden');
+                cardOrientationContainer.classList.add('hidden');
+
+                document.getElementById('previewTextHeading').innerText = title;
+                document.getElementById('previewTextBody').innerText = body;
+            } else {
+                viewRichCard.classList.remove('hidden');
+                viewCarousel.classList.add('hidden');
+                viewTextSuggest.classList.add('hidden');
+                mediaUploadCard.classList.remove('hidden');
+                cardOrientationContainer.classList.remove('hidden');
+
+                const cardVertical = document.getElementById('cardVerticalLayout');
+                const cardHorizontal = document.getElementById('cardHorizontalLayout');
+
+                if (orientation === 'Horizontal') {
+                    cardVertical.classList.add('hidden');
+                    cardHorizontal.classList.remove('hidden');
+
+                    document.getElementById('previewCardTitleHoriz').innerText = title;
+                    document.getElementById('previewCardBodyHoriz').innerText = body;
+                } else {
+                    cardVertical.classList.remove('hidden');
+                    cardHorizontal.classList.add('hidden');
+
+                    document.getElementById('previewCardTitle').innerText = title;
+                    document.getElementById('previewCardBody').innerText = body;
+                }
+            }
+
+            updateLivePreviewButtons();
+        }
+
+        function filterTemplates(type) {
+            const tabs = ['all', 'rich_card', 'carousel', 'text_suggest'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tmpl-tab-${t}`);
+                if (t === type) {
+                    btn.classList.add('active');
+                    btn.classList.remove('bg-slate-100', 'text-slate-700');
+                } else {
+                    btn.classList.remove('active');
+                    btn.classList.add('bg-slate-100', 'text-slate-700');
+                }
+            });
+
+            const rows = document.querySelectorAll('.template-row');
+            rows.forEach(r => {
+                if (type === 'all' || r.classList.contains(`type-${type}`)) {
+                    r.classList.remove('hidden');
+                } else {
+                    r.classList.add('hidden');
+                }
+            });
+        }
+
+        function searchTemplates() {
+            const query = document.getElementById('templateSearchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('.template-row');
+            rows.forEach(r => {
+                const text = r.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    r.classList.remove('hidden');
+                } else {
+                    r.classList.add('hidden');
+                }
+            });
+        }
+
+        // ULTRA PREVIEW FUNCTION WITH REAL LINKS & NUMBERS INSPECTION
+        function previewTemplate(templateKey) {
+            const tpl = templateDatabase[templateKey];
+            if (!tpl) return;
+
+            document.getElementById('viewTplName').innerText = tpl.name;
+            document.getElementById('viewTplId').innerText = tpl.id;
+            document.getElementById('viewTplBot').innerText = tpl.bot;
+            
+            const badge = document.getElementById('viewTplBadge');
+            badge.innerText = tpl.status;
+            badge.className = `${tpl.badgeClass} border text-[10px] font-extrabold px-2.5 py-0.5 rounded-full`;
+
+            document.getElementById('viewTplHeading').innerText = tpl.heading;
+            document.getElementById('viewTplBody').innerText = tpl.body;
+            document.getElementById('viewCardMediaTag').innerText = tpl.mediaTag;
+            document.getElementById('viewCardIcon').className = `${tpl.mediaIcon} text-3xl opacity-90 mb-1`;
+            document.getElementById('viewCardMedia').className = `h-36 bg-gradient-to-tr ${tpl.mediaGradient} flex flex-col items-center justify-center text-white relative p-4 text-center`;
+
+            // 1. Render Bubble Buttons Stack
+            const bubbleContainer = document.getElementById('viewBubbleButtons');
+            bubbleContainer.innerHTML = '';
+
+            // 2. Render Right-Side Links Inspector List
+            const actionListContainer = document.getElementById('viewActionList');
+            actionListContainer.innerHTML = '';
+
+            tpl.buttons.forEach((btn, index) => {
+                // Render button inside bubble
+                const bubbleBtn = document.createElement('div');
+                bubbleBtn.className = 'py-2.5 px-4 text-xs font-bold text-blue-600 flex items-center justify-center gap-2 hover:bg-blue-50/80 cursor-pointer transition-colors';
+                
+                let iconHtml = `<i class="${btn.icon} text-[11px]"></i>`;
+                bubbleBtn.innerHTML = `${iconHtml} <span>${btn.label}</span>`;
+                bubbleBtn.onclick = () => {
+                    if (btn.type === 'url') {
+                        window.open(btn.target, '_blank');
+                    } else if (btn.type === 'dial') {
+                        alert(`Triggering Phone Call to: ${btn.target}`);
+                    } else {
+                        alert(`Triggering Action: ${btn.target}`);
+                    }
+                };
+                bubbleContainer.appendChild(bubbleBtn);
+
+                // Render inspector card on right
+                const actionCard = document.createElement('div');
+                actionCard.className = 'p-3.5 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-2 hover:border-blue-300 transition-all';
+                
+                let badgeType = '';
+                if (btn.type === 'url') {
+                    badgeType = '<span class="bg-blue-100 text-blue-700 text-[9px] font-extrabold px-2 py-0.5 rounded-md uppercase">URL Link</span>';
+                } else if (btn.type === 'dial') {
+                    badgeType = '<span class="bg-emerald-100 text-emerald-800 text-[9px] font-extrabold px-2 py-0.5 rounded-md uppercase">Phone Dialer</span>';
+                } else {
+                    badgeType = '<span class="bg-purple-100 text-purple-800 text-[9px] font-extrabold px-2 py-0.5 rounded-md uppercase">Quick Reply</span>';
+                }
+
+                actionCard.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-extrabold text-slate-900 flex items-center gap-1.5">
+                            <i class="${btn.icon} text-xs"></i> Button ${index + 1}: ${btn.label}
+                        </span>
+                        ${badgeType}
+                    </div>
+                    
+                    <div class="bg-white p-2.5 rounded-xl border border-slate-200 text-xs">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Destination / Value:</p>
+                        <p class="font-mono font-bold text-slate-900 text-xs select-all break-all ${btn.type === 'url' ? 'text-blue-600 underline' : ''}">${btn.target}</p>
+                    </div>
+
+                    <p class="text-[10px] text-slate-500 font-medium">${btn.description}</p>
+                `;
+                actionListContainer.appendChild(actionCard);
+            });
+
+            openModal('modal-view-template');
+        }
+
+        function duplicateTemplate(name) {
+            alert(`Template "${name}" duplicated successfully! New draft created as "${name}_copy".`);
+        }
+
+        function saveTemplate() {
+            const name = document.getElementById('tplNameInput').value;
+            closeModal('modal-create-template');
+            alert(`RCS Template "${name}" has been successfully saved and submitted for Google/DLT verification!`);
+        }
+    </script>
+</body>
+</html>

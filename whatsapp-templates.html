@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Templates Studio - ZION CPaaS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        zionBlue: '#0070f3',
+                        zionLightBlue: '#eef5ff',
+                        zionDarkText: '#111827',
+                        zionGrayText: '#6b7280',
+                        zionBorder: '#e5e7eb',
+                        zionBg: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .sidebar-item { transition: all 0.2s; }
+        .sidebar-item:hover, .sidebar-item.active { background-color: #eef5ff; color: #0070f3; font-weight: 500; }
+        .sidebar-item.active { border-right: 3px solid #0070f3; }
+        
+        .wa-chat-bg {
+            background-color: #efeae2;
+            background-image: radial-gradient(#d5cdc4 1.2px, transparent 1.2px);
+            background-size: 16px 16px;
+        }
+
+        .type-pill.active {
+            background-color: #059669;
+            color: #ffffff;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+        }
+        
+        .media-btn.active {
+            border-color: #059669;
+            background-color: #ecfdf5;
+            color: #059669;
+            font-weight: 800;
+        }
+    </style>
+</head>
+<body class="text-gray-800 h-screen overflow-hidden flex bg-[#f8fafc]">
+
+    <!-- Sidebar -->
+    <aside class="w-68 bg-white border-r border-slate-200 flex flex-col h-screen shrink-0 z-30 select-none shadow-sm">
+        <div class="h-20 flex items-center px-4 border-b border-slate-100 shrink-0 bg-white">
+            <a href="home.html" class="flex items-center gap-3 w-full group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-105 transition-transform shrink-0 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i class="fa-solid fa-cloud-bolt text-lg text-white"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xl font-black text-slate-900 tracking-tight leading-none">ZION</span>
+                        <span class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded-md tracking-wider shadow-sm uppercase">CPaaS</span>
+                    </div>
+                    <p class="text-[9.5px] text-slate-500 font-bold tracking-tight mt-1 truncate uppercase flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>
+                        Omnichannel Cloud
+                    </p>
+                </div>
+            </a>
+        </div>
+
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1.5">
+            <a href="home.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-house"></i></div>
+                <div class="flex-1 min-w-0"><div class="text-sm font-bold text-slate-800 leading-tight">Home</div><div class="text-[10px] text-slate-400 font-medium">Platform Overview</div></div>
+            </a>
+            
+            <a href="dashboard.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-chart-pie"></i></div>
+                <div class="flex-1 min-w-0 flex items-center justify-between"><div><div class="text-sm font-bold text-slate-800 leading-tight">Dashboard</div><div class="text-[10px] text-slate-400 font-medium">Live Analytics</div></div><span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">LIVE</span></div>
+            </a>
+
+            <!-- SMS -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all" onclick="toggleSubmenu(event, 'sms-submenu', 'sms-icon')">
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-comment-dots"></i></div><div class="text-left"><div class="text-sm font-bold text-slate-800 leading-tight">SMS</div><div class="text-[10px] text-slate-400 font-medium">Transactional &amp; Promo</div></div></div>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200" id="sms-icon"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-blue-200 pl-3 overflow-hidden hidden" id="sms-submenu">
+                    <a href="send-sms.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Send SMS</a>
+                    <a href="reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Reports</a>
+                    <a href="groups.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Contacts / Groups</a>
+                </div>
+            </div>
+
+            <!-- RCS -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-purple-50 hover:text-purple-700 transition-all" onclick="toggleSubmenu(event, 'rcs-submenu', 'rcs-icon')">
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-comment-sms"></i></div><div class="text-left"><div class="text-sm font-bold text-purple-800 leading-tight">RCS</div><div class="text-[10px] text-purple-500 font-medium">Rich Business Messaging</div></div></div>
+                    <i class="fa-solid fa-chevron-down text-xs text-purple-400 transition-transform duration-200" id="rcs-icon"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-purple-200 pl-3 overflow-hidden hidden" id="rcs-submenu">
+                    <a href="rcs-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Campaign</a>
+                    <a href="rcs-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Report</a>
+                    <a href="rcs-configuration.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Configuration</a>
+                </div>
+            </div>
+
+            <!-- WhatsApp Section - ACTIVE -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-emerald-700 bg-emerald-50/70 border border-emerald-100/80 transition-all" onclick="toggleSubmenu(event, 'wa-submenu', 'wa-icon')">
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-brands fa-whatsapp"></i></div><div class="text-left"><div class="text-sm font-bold text-emerald-800 leading-tight">WhatsApp</div><div class="text-[10px] text-emerald-600 font-medium">Cloud API Official</div></div></div>
+                    <i class="fa-solid fa-chevron-down text-xs text-emerald-600 transition-transform duration-200" id="wa-icon" style="transform: rotate(180deg);"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-emerald-200 pl-3 overflow-hidden" id="wa-submenu">
+                    <a href="whatsapp-config.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-bold text-emerald-700 bg-emerald-100/80">Config</a>
+                    <a href="whatsapp-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Campaign</a>
+                    <a href="whatsapp-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Report</a>
+                    <a href="whatsapp-agents.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Agent</a>
+                    <a href="whatsapp-automation.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Automation</a>
+                </div>
+            </div>
+
+            <!-- Credits & Wallet -->
+            <div class="pt-1">
+                <a href="credit-report.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50/70 hover:text-emerald-700 transition-all">
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-wallet"></i></div><div class="flex-1 min-w-0 text-left"><div class="text-sm font-bold text-slate-800 leading-tight">Credits &amp; Wallet</div><div class="text-[10px] text-emerald-600 font-semibold">INR Recharge &amp; Deduct</div></div></div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">₹ WALLET</span>
+                </a>
+            </div>
+
+            <!-- API -->
+            <div class="pt-1">
+                <a href="api-integration.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-indigo-50/70 hover:text-indigo-700 transition-all">
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-code text-xl"></i></div><div class="flex-1 min-w-0 text-left"><div class="text-sm font-bold text-slate-800 leading-tight">API &amp; Integration</div><div class="text-[10px] text-indigo-500 font-semibold">Universal REST Hub</div></div></div>
+                    <span class="bg-indigo-100 text-indigo-700 text-[8px] font-black px-1.5 py-0.5 rounded">REST</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="border-t border-slate-100 p-4 shrink-0 bg-slate-50/60">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white text-sm font-black shadow-md shrink-0">P</div>
+                <div class="flex-1 min-w-0"><p class="text-sm font-bold text-slate-800 truncate leading-tight">Parvez</p><p class="text-[11px] text-slate-400 font-medium truncate">Enterprise Admin</p></div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#f4f7fb]">
+        <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0 z-10">
+            <div class="relative w-96">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><i class="fa-solid fa-search text-gray-400 text-sm"></i></div>
+                <input type="text" placeholder="Search templates..." class="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg text-sm bg-gray-50 focus:outline-none focus:ring-1 focus:ring-emerald-500">
+            </div>
+            <div class="flex items-center space-x-5">
+                <div class="flex items-center gap-3 bg-white border border-slate-200 px-3.5 py-1.5 rounded-xl shadow-sm">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center"><i class="fa-solid fa-wallet text-xs"></i></div>
+                    <div><p class="text-[9px] text-slate-400 font-extrabold uppercase leading-none mb-0.5">INR Wallet Balance</p><p class="text-xs font-black text-slate-900 leading-none">₹48,500.00 <span class="text-[10px] text-slate-400 font-medium">(12,450 Cr)</span></p></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-6 lg:p-8">
+            <div class="max-w-[1500px] mx-auto space-y-6">
+                
+                <!-- Title with Back Arrow -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <div class="flex items-center text-xs text-gray-500 mb-2">
+                            <a href="home.html" class="hover:text-emerald-600">Home</a> 
+                            <i class="fa-solid fa-chevron-right text-[8px] mx-2"></i> 
+                            <a href="whatsapp-config.html" class="hover:text-emerald-600">Config</a> 
+                            <i class="fa-solid fa-chevron-right text-[8px] mx-2"></i> 
+                            <span class="text-emerald-700 font-bold">Templates</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <a href="whatsapp-config.html" class="w-9 h-9 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-slate-600 hover:text-emerald-600 hover:border-emerald-300 transition-all shadow-sm">
+                                <i class="fa-solid fa-arrow-left text-sm"></i>
+                            </a>
+                            <div>
+                                <h1 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+                                    <span>WhatsApp Message Templates Studio</span>
+                                    <span class="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-full font-bold uppercase">Meta Approved</span>
+                                </h1>
+                                <p class="text-xs text-slate-500 font-medium mt-0.5">Create Text, Rich Card, and Carousel templates with PDF/Media/Location headers, light gray footers, and live real-time preview.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2">
+                        <button onclick="alert('Syncing official Meta approved templates...')" class="px-3.5 py-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold rounded-xl shadow-2xs transition-all flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-rotate text-emerald-600"></i> Sync Meta Templates
+                        </button>
+                        <button onclick="openCreateTemplateModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-500/20 transition-all flex items-center gap-1.5 cursor-pointer hover:scale-[1.02]">
+                            <i class="fa-solid fa-plus text-xs"></i> Create New Template
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Top Filter Bar & Metrics -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <div>
+                            <label class="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1">Category</label>
+                            <select id="tmplCatFilter" onchange="filterTemplates()" class="px-3 py-1.5 text-xs font-bold bg-slate-50 border border-slate-200 rounded-lg text-slate-800">
+                                <option value="ALL">All Categories</option>
+                                <option value="MARKETING">Marketing (Offers / Promos)</option>
+                                <option value="UTILITY">Utility (Order / Alerts)</option>
+                                <option value="AUTHENTICATION">Authentication (OTP)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1">Meta Status</label>
+                            <select id="tmplStatusFilter" onchange="filterTemplates()" class="px-3 py-1.5 text-xs font-bold bg-slate-50 border border-slate-200 rounded-lg text-slate-800">
+                                <option value="ALL">All Statuses (6)</option>
+                                <option value="APPROVED">Approved (4)</option>
+                                <option value="REJECTED">Rejected by Meta (2)</option>
+                                <option value="PENDING">Pending Review (0)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1">Search Template</label>
+                            <input type="text" id="tmplSearch" onkeyup="filterTemplates()" placeholder="e.g. diwali_sale" class="px-3 py-1.5 text-xs font-bold bg-slate-50 border border-slate-200 rounded-lg text-slate-800 w-56">
+                        </div>
+                    </div>
+
+                    <!-- Quick Status Badges Summary -->
+                    <div class="flex items-center gap-2">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-check text-[10px]"></i> 4 Approved
+                        </span>
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200 flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-xmark text-[10px]"></i> 2 Rejected
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Templates Table -->
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                    <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <h3 class="text-sm font-black text-slate-900">Meta WhatsApp Templates Repository</h3>
+                        </div>
+                        <span class="text-xs text-slate-500 font-semibold" id="templateCountText">Showing 6 of 6 templates</span>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-black uppercase tracking-wider text-slate-500">
+                                    <th class="py-3 px-4">Template Name</th>
+                                    <th class="py-3 px-4">Category</th>
+                                    <th class="py-3 px-4">Type</th>
+                                    <th class="py-3 px-4">Header / Media</th>
+                                    <th class="py-3 px-4">Buttons</th>
+                                    <th class="py-3 px-4 text-center">Meta Status & Error Details</th>
+                                    <th class="py-3 px-4 text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-xs font-semibold text-slate-700" id="templatesTableBody">
+                                <!-- 1. Approved Rich Card -->
+                                <tr class="hover:bg-slate-50/80 transition-colors" data-cat="MARKETING" data-status="APPROVED" data-name="diwali_mega_discount_v1">
+                                    <td class="py-3.5 px-4 font-bold text-slate-900">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa-regular fa-file-lines text-emerald-600 text-sm"></i>
+                                            <div>
+                                                <span class="font-bold text-slate-900">diwali_mega_discount_v1</span>
+                                                <span class="block text-[10px] text-slate-400">ID: 893412095817234</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4"><span class="bg-purple-50 text-purple-700 px-2 py-0.5 rounded text-[10px] font-black">MARKETING</span></td>
+                                    <td class="py-3.5 px-4"><span class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded text-[10px] font-bold">Rich Card</span></td>
+                                    <td class="py-3.5 px-4"><span class="text-slate-800 font-bold flex items-center gap-1"><i class="fa-solid fa-image text-blue-500 text-xs"></i> Image Header</span></td>
+                                    <td class="py-3.5 px-4"><span class="text-slate-600 font-bold">2 CTA Buttons (URL + Call)</span></td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                            <i class="fa-solid fa-circle-check text-[9px]"></i> APPROVED
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="openEditTemplate('diwali_mega_discount_v1', 'rich_card', 'image', '', 'Happy Diwali, {{1}}! Flat 50% discount on cloud CPaaS with coupon {{2}}.', 'Reply STOP to opt out', [{'text':'Claim 50% Off', 'type':'url'}, {'text':'Call Support', 'type':'phone'}], 'APPROVED')" class="text-emerald-600 hover:text-emerald-800 font-bold text-xs p-1">View Studio</button>
+                                    </td>
+                                </tr>
+
+                                <!-- 2. Rejected Template 1 (Category Mismatch Error) -->
+                                <tr class="hover:bg-rose-50/40 transition-colors bg-rose-50/10" data-cat="UTILITY" data-status="REJECTED" data-name="promo_flash_sale_utility_wrong">
+                                    <td class="py-3.5 px-4 font-bold text-slate-900">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa-regular fa-file-excel text-rose-500 text-sm"></i>
+                                            <div>
+                                                <span class="font-bold text-rose-950">promo_flash_sale_utility_wrong</span>
+                                                <span class="block text-[10px] text-slate-400">ID: 893412095899182</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4"><span class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded text-[10px] font-black">UTILITY</span></td>
+                                    <td class="py-3.5 px-4"><span class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded text-[10px] font-bold">Text Only</span></td>
+                                    <td class="py-3.5 px-4"><span class="text-slate-800 font-bold flex items-center gap-1"><i class="fa-solid fa-heading text-slate-500 text-xs"></i> Bold Header</span></td>
+                                    <td class="py-3.5 px-4"><span class="text-slate-600 font-bold">1 URL Button</span></td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <div class="flex flex-col items-center gap-1">
+                                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase bg-rose-100 text-rose-700 border border-rose-300 shadow-2xs">
+                                                <i class="fa-solid fa-circle-xmark text-[9px]"></i> REJECTED
+                                            </span>
+                                            <button onclick="showRejectionReason('promo_flash_sale_utility_wrong', 'INVALID_CATEGORY_CONTENT', 'Template contains promotional/marketing content (discounts & coupons) but was submitted under UTILITY category. Meta requires commercial marketing copy to be categorized under MARKETING.', 'Change Category from UTILITY to MARKETING in Template Studio and re-submit.', 'promo_flash_sale_utility_wrong', 'text_only', 'none', '🔥 FLASH SALE ALERT!', 'Dear {{1}}, enjoy exclusive 40% discount on all recharge plans today only! Click below to claim coupon: {{2}}.', 'Valid till midnight', [{'text':'Buy Plan', 'type':'url'}])" class="text-[10.5px] font-bold text-rose-600 hover:text-rose-800 underline flex items-center gap-1 cursor-pointer">
+                                                <i class="fa-solid fa-circle-exclamation text-[10px]"></i> View Error Description
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="openEditTemplate('promo_flash_sale_utility_wrong', 'text_only', 'none', '🔥 FLASH SALE ALERT!', 'Dear {{1}}, enjoy exclusive 40% discount on all recharge plans today only! Click below to claim coupon: {{2}}.', 'Valid till midnight', [{'text':'Buy Plan', 'type':'url'}], 'REJECTED', 'INVALID_CATEGORY_CONTENT: Promotional discount text found in UTILITY template. Change category to MARKETING to fix.')" class="px-2.5 py-1 bg-rose-100 text-rose-700 hover:bg-rose-200 rounded-lg text-xs font-bold transition-colors">
+                                            Fix & Re-submit
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- 3. Approved Utility -->
+                                <tr class="hover:bg-slate-50/80 transition-colors" data-cat="UTILITY" data-status="APPROVED" data-name="order_dispatch_update">
+                                    <td class="py-3.5 px-4 font-bold text-slate-900">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa-regular fa-file-lines text-blue-600 text-sm"></i>
+                                            <div>
+                                                <span class="font-bold text-slate-900">order_dispatch_update</span>
+                                                <span class="block text-[10px] text-slate-400">ID: 893412095819922</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4"><span class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded text-[10px] font-black">UTILITY</span></td>
+                                    <td class="py-3.5 px-4"><span class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded text-[10px] font-bold">Text Only</span></td>
+                                    <td class="py-3.5 px-4"><span class="text-slate-800 font-bold flex items-center gap-1"><i class="fa-solid fa-heading text-slate-500 text-xs"></i> Bold Text Header</span></td>
+                                    <td class="py-3.5 px-4"><span class="text-slate-600 font-bold">1 URL Button (Track Package)</span></td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                            <i class="fa-solid fa-circle-check text-[9px]"></i> APPROVED
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="openEditTemplate('order_dispatch_update', 'text_only', 'none', '📦 Order Dispatched', 'Your package for {{1}} has been shipped via BlueDart. Tracking No: {{2}}.', 'Zion Logistics Alert', [{'text':'Track Package', 'type':'url'}], 'APPROVED')" class="text-emerald-600 hover:text-emerald-800 font-bold text-xs p-1">View Studio</button>
+                                    </td>
+                                </tr>
+
+                                <!-- 4. Rejected Template 2 (Floating Variable / Missing Sample Error) -->
+                                <tr class="hover:bg-rose-50/40 transition-colors bg-rose-50/10" data-cat="MARKETING" data-status="REJECTED" data-name="crypto_earn_bonus_v1">
+                                    <td class="py-3.5 px-4 font-bold text-slate-900">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa-regular fa-file-excel text-rose-500 text-sm"></i>
+                                            <div>
+                                                <span class="font-bold text-rose-950">crypto_earn_bonus_v1</span>
+                                                <span class="block text-[10px] text-slate-400">ID: 893412095877401</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4"><span class="bg-purple-50 text-purple-700 px-2 py-0.5 rounded text-[10px] font-black">MARKETING</span></td>
+                                    <td class="py-3.5 px-4"><span class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded text-[10px] font-bold">Rich Card</span></td>
+                                    <td class="py-3.5 px-4"><span class="text-slate-800 font-bold flex items-center gap-1"><i class="fa-solid fa-image text-blue-500 text-xs"></i> Image Header</span></td>
+                                    <td class="py-3.5 px-4"><span class="text-slate-600 font-bold">1 URL Button</span></td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <div class="flex flex-col items-center gap-1">
+                                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase bg-rose-100 text-rose-700 border border-rose-300 shadow-2xs">
+                                                <i class="fa-solid fa-circle-xmark text-[9px]"></i> REJECTED
+                                            </span>
+                                            <button onclick="showRejectionReason('crypto_earn_bonus_v1', 'POLICY_VIOLATION_FINANCIAL_TRADING', 'Template promotes unregulated financial trading/cryptocurrency schemes which violates Meta Business Commercial Policy section 4.12.', 'Revise message content to remove high-risk trading claims or provide verified BFSI license documentation to Meta.', 'crypto_earn_bonus_v1', 'rich_card', 'image', '', 'Double your investment {{1}} in 24 hours guaranteed with Zion Crypto Robot {{2}}!', 'Risk disclaimer applies', [{'text':'Invest Now', 'type':'url'}])" class="text-[10.5px] font-bold text-rose-600 hover:text-rose-800 underline flex items-center gap-1 cursor-pointer">
+                                                <i class="fa-solid fa-circle-exclamation text-[10px]"></i> View Error Description
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="openEditTemplate('crypto_earn_bonus_v1', 'rich_card', 'image', '', 'Double your investment {{1}} in 24 hours guaranteed with Zion Crypto Robot {{2}}!', 'Risk disclaimer applies', [{'text':'Invest Now', 'type':'url'}], 'REJECTED', 'POLICY_VIOLATION_FINANCIAL_TRADING: Template violated Meta WhatsApp Commerce Policy (Crypto/Financial products).')" class="px-2.5 py-1 bg-rose-100 text-rose-700 hover:bg-rose-200 rounded-lg text-xs font-bold transition-colors">
+                                            Fix & Re-submit
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- 5. Approved Carousel -->
+                                <tr class="hover:bg-slate-50/80 transition-colors" data-cat="MARKETING" data-status="APPROVED" data-name="festive_carousel_products">
+                                    <td class="py-3.5 px-4 font-bold text-slate-900">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa-regular fa-file-lines text-purple-600 text-sm"></i>
+                                            <div>
+                                                <span class="font-bold text-slate-900">festive_carousel_products</span>
+                                                <span class="block text-[10px] text-slate-400">ID: 893412095811039</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4"><span class="bg-purple-50 text-purple-700 px-2 py-0.5 rounded text-[10px] font-black">MARKETING</span></td>
+                                    <td class="py-3.5 px-4"><span class="bg-purple-50 text-purple-700 px-2 py-0.5 rounded text-[10px] font-bold">Carousel (3 Cards)</span></td>
+                                    <td class="py-3.5 px-4"><span class="text-slate-800 font-bold flex items-center gap-1"><i class="fa-solid fa-layer-group text-purple-500 text-xs"></i> Multi-Card Carousel</span></td>
+                                    <td class="py-3.5 px-4"><span class="text-slate-600 font-bold">Card CTA Buttons</span></td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                            <i class="fa-solid fa-circle-check text-[9px]"></i> APPROVED
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="openEditTemplate('festive_carousel_products', 'carousel', 'image', '', 'Check out our top festival deals selected for you!', 'Swipe left/right to view items', [{'text':'Buy Now', 'type':'url'}], 'APPROVED')" class="text-emerald-600 hover:text-emerald-800 font-bold text-xs p-1">View Studio</button>
+                                    </td>
+                                </tr>
+
+                                <!-- 6. Approved Authentication -->
+                                <tr class="hover:bg-slate-50/80 transition-colors" data-cat="AUTHENTICATION" data-status="APPROVED" data-name="secure_login_otp_v2">
+                                    <td class="py-3.5 px-4 font-bold text-slate-900">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa-regular fa-file-lines text-indigo-600 text-sm"></i>
+                                            <div>
+                                                <span class="font-bold text-slate-900">secure_login_otp_v2</span>
+                                                <span class="block text-[10px] text-slate-400">ID: 893412095822104</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4"><span class="bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded text-[10px] font-black">AUTHENTICATION</span></td>
+                                    <td class="py-3.5 px-4"><span class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded text-[10px] font-bold">Text Only</span></td>
+                                    <td class="py-3.5 px-4"><span class="text-slate-800 font-bold">Without Header</span></td>
+                                    <td class="py-3.5 px-4"><span class="text-slate-600 font-bold">1 Copy Code Button</span></td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                            <i class="fa-solid fa-circle-check text-[9px]"></i> APPROVED
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="openEditTemplate('secure_login_otp_v2', 'text_only', 'none', '', '{{1}} is your Zion security verification code. Valid for 10 minutes.', 'Do not share this code with anyone.', [{'text':'Copy Code', 'type':'copy'}], 'APPROVED')" class="text-emerald-600 hover:text-emerald-800 font-bold text-xs p-1">View Studio</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ========================================================================= -->
+    <!-- COMPREHENSIVE 2-COLUMN REAL-TIME TEMPLATE STUDIO MODAL -->
+    <!-- ========================================================================= -->
+    <div id="createTemplateModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center hidden z-50 p-3 lg:p-6">
+        <div class="bg-white rounded-3xl w-full max-w-6xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh] border border-slate-200 animate-fade-in-up">
+            
+            <!-- Modal Header -->
+            <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-emerald-600 text-white shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center text-white text-lg">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-black leading-tight" id="modalStudioTitle">Create Meta WhatsApp Template</h3>
+                        <p class="text-xs text-emerald-100 font-medium">Configure Text, Rich Card, or Carousel with real-time phone preview</p>
+                    </div>
+                </div>
+                <button onclick="closeCreateTemplateModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all cursor-pointer">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body (2 Columns: Left Form / Right Real-time Preview) -->
+            <div class="flex-1 overflow-hidden grid grid-cols-1 lg:grid-cols-12">
+                
+                <!-- LEFT COLUMN: Form Controls (7 Cols) -->
+                <div class="lg:col-span-7 p-6 overflow-y-auto space-y-5 border-r border-slate-200">
+                    
+                    <!-- Meta Rejection Error Banner (Visible only for Rejected Templates) -->
+                    <div id="rejectionAlertBox" class="hidden p-4 bg-rose-50 border-2 border-rose-300 rounded-2xl space-y-2 animate-fade-in-up">
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0 text-sm">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="text-xs font-black text-rose-900 uppercase tracking-wide">Meta Graph API Rejection Reason</h4>
+                                    <span id="rejectionErrorCodePill" class="px-2 py-0.5 rounded text-[10px] font-black bg-rose-200 text-rose-800 font-mono">ERROR_CODE</span>
+                                </div>
+                                <p class="text-xs text-rose-800 font-medium mt-1 leading-relaxed" id="rejectionErrorDescText">
+                                    Error description text here...
+                                </p>
+                                <div class="mt-2 pt-2 border-t border-rose-200/80 flex items-center justify-between text-[11px]">
+                                    <span class="text-rose-700 font-bold flex items-center gap-1">
+                                        <i class="fa-solid fa-lightbulb text-amber-600"></i> How to Fix: <span class="font-normal" id="rejectionFixGuideText">Update category or fix variables</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 1. Name, Category & Language -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-black uppercase text-slate-500 mb-1">Template Name</label>
+                            <input type="text" id="tName" value="festive_promo_v1" oninput="updateLivePreview()" placeholder="e.g. promo_offer_2026" class="w-full px-3 py-2 text-xs font-bold bg-slate-50 border border-slate-200 rounded-xl outline-none text-slate-800">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-black uppercase text-slate-500 mb-1">Category</label>
+                            <select id="tCategory" onchange="updateLivePreview()" class="w-full px-3 py-2 text-xs font-bold bg-slate-50 border border-slate-200 rounded-xl outline-none text-slate-800">
+                                <option value="MARKETING">Marketing (Offers / Promos)</option>
+                                <option value="UTILITY">Utility (Transactional / Alerts)</option>
+                                <option value="AUTHENTICATION">Authentication (OTP Verification)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-black uppercase text-slate-500 mb-1">Language</label>
+                            <select id="tLanguage" onchange="updateLivePreview()" class="w-full px-3 py-2 text-xs font-bold bg-slate-50 border border-slate-200 rounded-xl outline-none text-slate-800">
+                                <option value="en_US">English (US)</option>
+                                <option value="hi_IN">Hindi (India)</option>
+                                <option value="es_ES">Spanish</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 2. Template Type Selector (Text / Rich Card / Carousel) -->
+                    <div>
+                        <label class="block text-[11px] font-black uppercase text-slate-500 mb-1.5">Template Format Type</label>
+                        <div class="grid grid-cols-3 gap-2 bg-slate-100 p-1.5 rounded-2xl border border-slate-200/80">
+                            <button type="button" onclick="setTemplateType('text_only', this)" class="type-pill active py-2 px-3 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-align-left text-xs"></i>
+                                <span>Text Only</span>
+                            </button>
+                            <button type="button" onclick="setTemplateType('rich_card', this)" class="type-pill py-2 px-3 text-xs font-bold text-slate-600 hover:text-slate-900 rounded-xl transition-all flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-image text-xs"></i>
+                                <span>Rich Card (Media)</span>
+                            </button>
+                            <button type="button" onclick="setTemplateType('carousel', this)" class="type-pill py-2 px-3 text-xs font-bold text-slate-600 hover:text-slate-900 rounded-xl transition-all flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-layer-group text-xs"></i>
+                                <span>Carousel</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 3. Dynamic Header Configuration Section -->
+                    <div id="headerConfigSection" class="p-4 bg-slate-50 rounded-2xl border border-slate-200/80 space-y-3">
+                        
+                        <!-- When Text Only: Choose Without Header or Text Header -->
+                        <div id="textHeaderBox">
+                            <label class="block text-[11px] font-black uppercase text-slate-600 mb-1.5">Text Header Option</label>
+                            <div class="flex items-center gap-4 mb-2">
+                                <label class="flex items-center gap-1.5 text-xs font-bold text-slate-700 cursor-pointer">
+                                    <input type="radio" name="textHeaderType" value="none" onchange="toggleTextHeader(false)" class="text-emerald-600">
+                                    <span>Without Header</span>
+                                </label>
+                                <label class="flex items-center gap-1.5 text-xs font-bold text-slate-700 cursor-pointer">
+                                    <input type="radio" name="textHeaderType" value="bold_text" checked onchange="toggleTextHeader(true)" class="text-emerald-600">
+                                    <span>With Text Header (Bold in preview)</span>
+                                </label>
+                            </div>
+                            <div id="textHeaderInputWrap">
+                                <input type="text" id="tHeaderText" value="🎉 Festive Mega Announcement!" oninput="updateLivePreview()" placeholder="Enter bold header text..." class="w-full px-3 py-2 text-xs font-bold bg-white border border-slate-200 rounded-xl outline-none">
+                            </div>
+                        </div>
+
+                        <!-- When Rich Card: Media Support (PDF, IMAGE, VIDEO, GIF, LOCATION) -->
+                        <div id="mediaHeaderBox" class="hidden space-y-3">
+                            <label class="block text-[11px] font-black uppercase text-slate-600 mb-1">Select Media Type</label>
+                            <div class="grid grid-cols-5 gap-2">
+                                <button type="button" onclick="setMediaType('image', this)" class="media-btn active p-2 border border-slate-200 rounded-xl text-xs font-bold bg-white flex flex-col items-center gap-1 transition-all">
+                                    <i class="fa-solid fa-image text-emerald-600 text-sm"></i>
+                                    <span>Image</span>
+                                </button>
+                                <button type="button" onclick="setMediaType('video', this)" class="media-btn p-2 border border-slate-200 rounded-xl text-xs font-bold bg-white flex flex-col items-center gap-1 transition-all text-slate-600">
+                                    <i class="fa-solid fa-video text-purple-600 text-sm"></i>
+                                    <span>Video</span>
+                                </button>
+                                <button type="button" onclick="setMediaType('pdf', this)" class="media-btn p-2 border border-slate-200 rounded-xl text-xs font-bold bg-white flex flex-col items-center gap-1 transition-all text-slate-600">
+                                    <i class="fa-solid fa-file-pdf text-rose-600 text-sm"></i>
+                                    <span>PDF / Doc</span>
+                                </button>
+                                <button type="button" onclick="setMediaType('gif', this)" class="media-btn p-2 border border-slate-200 rounded-xl text-xs font-bold bg-white flex flex-col items-center gap-1 transition-all text-slate-600">
+                                    <i class="fa-solid fa-film text-amber-600 text-sm"></i>
+                                    <span>GIF</span>
+                                </button>
+                                <button type="button" onclick="setMediaType('location', this)" class="media-btn p-2 border border-slate-200 rounded-xl text-xs font-bold bg-white flex flex-col items-center gap-1 transition-all text-slate-600">
+                                    <i class="fa-solid fa-location-dot text-blue-600 text-sm"></i>
+                                    <span>Location</span>
+                                </button>
+                            </div>
+
+                            <div class="pt-1">
+                                <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1" id="mediaInputLabel">Sample Image / Media Attachment</label>
+                                <div class="flex items-center gap-2">
+                                    <input type="text" id="tMediaUrl" value="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600" oninput="updateLivePreview()" placeholder="Paste image/video/doc URL or upload..." class="flex-1 px-3 py-2 text-xs font-bold bg-white border border-slate-200 rounded-xl outline-none">
+                                    <button type="button" onclick="alert('File uploader opened')" class="px-3 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold rounded-xl transition-all">
+                                        <i class="fa-solid fa-upload mr-1"></i> Upload
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- When Carousel: Carousel Cards Manager -->
+                        <div id="carouselHeaderBox" class="hidden space-y-2">
+                            <div class="flex items-center justify-between">
+                                <label class="block text-[11px] font-black uppercase text-slate-600">Carousel Cards (Up to 10)</label>
+                                <button type="button" onclick="addCarouselCard()" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
+                                    <i class="fa-solid fa-plus text-[10px]"></i> Add Card
+                                </button>
+                            </div>
+                            <div class="flex items-center gap-2 overflow-x-auto pb-2" id="carouselCardsTabs">
+                                <button type="button" onclick="switchCarouselCardTab(0, this)" class="px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-xs font-bold shrink-0">Card 1</button>
+                                <button type="button" onclick="switchCarouselCardTab(1, this)" class="px-3 py-1.5 bg-slate-200 text-slate-700 rounded-lg text-xs font-bold shrink-0">Card 2</button>
+                                <button type="button" onclick="switchCarouselCardTab(2, this)" class="px-3 py-1.5 bg-slate-200 text-slate-700 rounded-lg text-xs font-bold shrink-0">Card 3</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- 4. Template Body Text Area & Variable Inserters -->
+                    <div>
+                        <div class="flex items-center justify-between mb-1">
+                            <label class="block text-[11px] font-black uppercase text-slate-500">Template Body Message</label>
+                            <div class="flex items-center gap-1.5">
+                                <button type="button" onclick="insertVariable()" class="px-2 py-0.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-lg text-[10px] font-bold transition-all">
+                                    + Add {{1}} Variable
+                                </button>
+                                <button type="button" onclick="formatText('*')" title="Bold" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-[10px] font-bold"><strong>B</strong></button>
+                                <button type="button" onclick="formatText('_')" title="Italic" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-[10px] font-bold"><em>I</em></button>
+                                <button type="button" onclick="formatText('~')" title="Strikethrough" class="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-[10px] font-bold"><del>S</del></button>
+                            </div>
+                        </div>
+                        <textarea id="tBodyText" rows="4" oninput="updateLivePreview()" class="w-full p-3 text-xs font-medium bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 text-slate-800 leading-relaxed">Hello {{1}}, enjoy an exclusive festive 50% discount on cloud messaging services! Use promo coupon: {{2}} during top-up.</textarea>
+                    </div>
+
+                    <!-- 5. Footer Message (Light Gray in Preview) -->
+                    <div>
+                        <label class="block text-[11px] font-black uppercase text-slate-500 mb-1">
+                            Footer Message <span class="text-[10px] font-normal text-slate-400">(Optional - Appears in light gray)</span>
+                        </label>
+                        <input type="text" id="tFooterText" value="Reply STOP to unsubscribe • Sent via Zion CPaaS" oninput="updateLivePreview()" placeholder="e.g. Reply STOP to opt out" class="w-full px-3.5 py-2 text-xs font-bold bg-slate-50 border border-slate-200 rounded-xl outline-none text-slate-800">
+                    </div>
+
+                    <!-- 6. Interactive Buttons Section -->
+                    <div class="space-y-3 pt-1">
+                        <div class="flex items-center justify-between">
+                            <label class="block text-[11px] font-black uppercase text-slate-500">Interactive Buttons (Up to 3 Quick Replies or 2 CTA)</label>
+                            <button type="button" onclick="addNewButton()" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1 cursor-pointer">
+                                <i class="fa-solid fa-plus text-[10px]"></i> Add Button
+                            </button>
+                        </div>
+
+                        <div id="buttonsListContainer" class="space-y-2">
+                            <!-- Button 1 -->
+                            <div class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200">
+                                <select onchange="updateButtonType(this, 0)" class="px-2.5 py-1.5 text-xs font-bold bg-white border border-slate-200 rounded-lg text-slate-800">
+                                    <option value="url">Visit Website (URL)</option>
+                                    <option value="phone">Call Phone</option>
+                                    <option value="quick">Quick Reply</option>
+                                    <option value="copy">Copy Code</option>
+                                </select>
+                                <input type="text" value="Claim 50% Off" oninput="updateLivePreview()" placeholder="Button text" class="btn-text-input flex-1 px-3 py-1.5 text-xs font-bold bg-white border border-slate-200 rounded-lg outline-none">
+                                <input type="text" value="https://zioncpaas.com/offers" oninput="updateLivePreview()" placeholder="https://..." class="btn-val-input w-44 px-3 py-1.5 text-xs font-bold bg-white border border-slate-200 rounded-lg outline-none font-mono">
+                                <button type="button" onclick="removeButton(this)" class="p-1.5 text-slate-400 hover:text-rose-600"><i class="fa-solid fa-trash-can"></i></button>
+                            </div>
+
+                            <!-- Button 2 -->
+                            <div class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200">
+                                <select onchange="updateButtonType(this, 1)" class="px-2.5 py-1.5 text-xs font-bold bg-white border border-slate-200 rounded-lg text-slate-800">
+                                    <option value="phone" selected>Call Phone</option>
+                                    <option value="url">Visit Website (URL)</option>
+                                    <option value="quick">Quick Reply</option>
+                                    <option value="copy">Copy Code</option>
+                                </select>
+                                <input type="text" value="Call Support" oninput="updateLivePreview()" placeholder="Button text" class="btn-text-input flex-1 px-3 py-1.5 text-xs font-bold bg-white border border-slate-200 rounded-lg outline-none">
+                                <input type="text" value="+918858674641" oninput="updateLivePreview()" placeholder="+91..." class="btn-val-input w-44 px-3 py-1.5 text-xs font-bold bg-white border border-slate-200 rounded-lg outline-none font-mono">
+                                <button type="button" onclick="removeButton(this)" class="p-1.5 text-slate-400 hover:text-rose-600"><i class="fa-solid fa-trash-can"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT COLUMN: Real-Time Phone Preview (5 Cols) -->
+                <div class="lg:col-span-5 p-6 bg-slate-100 flex flex-col items-center justify-center overflow-y-auto">
+                    
+                    <div class="w-full max-w-[320px] bg-slate-900 p-3 rounded-[40px] shadow-2xl border-4 border-slate-800 relative">
+                        
+                        <!-- Notch -->
+                        <div class="absolute top-5 left-1/2 -translate-x-1/2 w-24 h-3.5 bg-slate-800 rounded-full z-20 flex items-center justify-center">
+                            <div class="w-2.5 h-2.5 rounded-full bg-slate-950 mr-2"></div>
+                            <div class="w-8 h-1 bg-slate-950 rounded-full"></div>
+                        </div>
+
+                        <!-- Phone Inner Screen -->
+                        <div class="w-full h-[520px] bg-white rounded-[28px] overflow-hidden flex flex-col relative z-10">
+                            
+                            <!-- WhatsApp Phone Header -->
+                            <div class="bg-[#075e54] text-white p-2.5 pt-6 flex items-center justify-between shrink-0 shadow-sm">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-arrow-left text-xs"></i>
+                                    <div class="w-7 h-7 rounded-full bg-emerald-500 flex items-center justify-center text-xs font-black text-white">
+                                        Z
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-bold flex items-center gap-1 leading-none">
+                                            <span>Zion Official</span>
+                                            <i class="fa-solid fa-circle-check text-emerald-400 text-[9px]"></i>
+                                        </div>
+                                        <div class="text-[8px] text-emerald-200 mt-0.5">Business Account</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2 text-xs text-white/80">
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </div>
+                            </div>
+
+                            <!-- WhatsApp Chat Canvas Background -->
+                            <div class="flex-1 wa-chat-bg p-2.5 overflow-y-auto flex flex-col justify-end space-y-2">
+                                
+                                <!-- STANDARD SINGLE BUBBLE (For Text Only & Rich Card) -->
+                                <div id="pvStandardBubble" class="bg-white rounded-2xl rounded-tl-none shadow-sm border border-slate-200/50 max-w-[94%] overflow-hidden animate-fade-in-up">
+                                    
+                                    <!-- Dynamic Media Header Container -->
+                                    <div id="pvMediaContainer" class="w-full hidden relative overflow-hidden bg-slate-900 text-white">
+                                        <!-- Image Media -->
+                                        <img id="pvImgElem" src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600" alt="Media" class="w-full h-32 object-cover">
+                                        
+                                        <!-- Video Mockup -->
+                                        <div id="pvVideoElem" class="w-full h-32 bg-slate-900 hidden flex items-center justify-center relative">
+                                            <i class="fa-solid fa-circle-play text-4xl text-white/90"></i>
+                                            <span class="absolute bottom-1.5 right-1.5 bg-black/70 text-white text-[8px] px-1 py-0.5 rounded font-mono">0:45</span>
+                                        </div>
+
+                                        <!-- PDF Document Mockup -->
+                                        <div id="pvPdfElem" class="w-full p-3 bg-slate-50 border-b border-slate-100 hidden flex items-center gap-2.5 text-slate-800">
+                                            <div class="w-10 h-10 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center text-lg">
+                                                <i class="fa-solid fa-file-pdf"></i>
+                                            </div>
+                                            <div class="min-w-0 flex-1">
+                                                <p class="text-[11px] font-bold truncate">Zion_CPaaS_Catalog_2026.pdf</p>
+                                                <p class="text-[9px] text-slate-400 font-mono">1.8 MB • PDF Document</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Location Mockup -->
+                                        <div id="pvLocationElem" class="w-full h-28 bg-blue-100 hidden flex flex-col justify-between p-2.5 relative">
+                                            <div class="flex items-center gap-1.5 text-blue-900 font-bold text-[11px]">
+                                                <i class="fa-solid fa-location-dot text-rose-600"></i>
+                                                <span>Zion CPaaS HQ, Tech Park</span>
+                                            </div>
+                                            <span class="bg-white/90 text-slate-700 text-[9px] font-mono px-1.5 py-0.5 rounded self-start shadow-2xs">Lat: 28.6139, Long: 77.2090</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Bubble Content Area -->
+                                    <div class="p-2.5 text-xs text-slate-800">
+                                        <!-- Bold Text Header -->
+                                        <p id="pvBoldHeader" class="font-bold text-slate-900 text-xs mb-1">🎉 Festive Mega Announcement!</p>
+                                        
+                                        <!-- Body Text -->
+                                        <p id="pvBody" class="text-[11px] text-slate-700 leading-relaxed break-words whitespace-pre-wrap">Hello {{1}}, enjoy an exclusive festive 50% discount on cloud messaging services! Use promo coupon: {{2}} during top-up.</p>
+                                        
+                                        <!-- Light Gray Footer Message -->
+                                        <p id="pvFooter" class="text-[9.5px] text-slate-400 mt-1.5 font-normal leading-tight">Reply STOP to unsubscribe • Sent via Zion CPaaS</p>
+
+                                        <!-- Timestamp & Blue Double Ticks -->
+                                        <div class="text-[8.5px] text-slate-400 text-right flex items-center justify-end gap-1 mt-1">
+                                            <span>11:20 AM</span>
+                                            <i class="fa-solid fa-check-double text-blue-500 text-[9px]"></i>
+                                        </div>
+                                    </div>
+
+                                    <!-- Interactive Buttons Stack -->
+                                    <div id="pvButtonsContainer" class="border-t border-slate-100 divide-y divide-slate-100 text-center text-xs font-bold text-emerald-600">
+                                        <div class="py-2 hover:bg-slate-50 cursor-pointer flex items-center justify-center gap-1.5 text-[11px]">
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i> <span>Claim 50% Off</span>
+                                        </div>
+                                        <div class="py-2 hover:bg-slate-50 cursor-pointer flex items-center justify-center gap-1.5 text-[11px]">
+                                            <i class="fa-solid fa-phone text-[9px]"></i> <span>Call Support</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- CAROUSEL MULTI-CARD BUBBLE (For Carousel Mode) -->
+                                <div id="pvCarouselBubble" class="w-full hidden space-y-2">
+                                    <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
+                                        
+                                        <!-- Carousel Card 1 -->
+                                        <div class="w-48 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden shrink-0">
+                                            <div class="w-full h-20 bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white text-xl">
+                                                <i class="fa-solid fa-gift"></i>
+                                            </div>
+                                            <div class="p-2 text-xs">
+                                                <p class="font-bold text-[11px] text-slate-900">Combo Pack A</p>
+                                                <p class="text-[9.5px] text-slate-500">10,000 SMS + 5,000 RCS</p>
+                                            </div>
+                                            <div class="border-t border-slate-100 text-center py-1.5 text-[10px] font-bold text-emerald-600">
+                                                Buy Now
+                                            </div>
+                                        </div>
+
+                                        <!-- Carousel Card 2 -->
+                                        <div class="w-48 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden shrink-0">
+                                            <div class="w-full h-20 bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center text-white text-xl">
+                                                <i class="fa-solid fa-crown"></i>
+                                            </div>
+                                            <div class="p-2 text-xs">
+                                                <p class="font-bold text-[11px] text-slate-900">VIP Pro Pack</p>
+                                                <p class="text-[9.5px] text-slate-500">50,000 WhatsApp API</p>
+                                            </div>
+                                            <div class="border-t border-slate-100 text-center py-1.5 text-[10px] font-bold text-emerald-600">
+                                                Buy Now
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="text-center text-[9px] text-slate-500 font-bold">
+                                        Swipe cards left / right
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <p class="text-[11px] text-slate-400 font-bold mt-3 text-center">
+                        <i class="fa-solid fa-circle-info mr-1 text-emerald-600"></i> Real-time Meta WhatsApp client rendering
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer Actions -->
+            <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between shrink-0">
+                <div class="text-xs text-slate-500 font-medium">
+                    Template will be submitted to Meta Graph API for automated review (approx 5-15 mins).
+                </div>
+                <div class="flex items-center gap-3">
+                    <button type="button" onclick="closeCreateTemplateModal()" class="px-4 py-2 bg-white border border-slate-200 text-slate-600 text-xs font-bold rounded-xl hover:bg-slate-100 transition-all cursor-pointer">
+                        Cancel
+                    </button>
+                    <button type="button" onclick="submitTemplateToMeta()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-500/20 transition-all flex items-center gap-1.5 cursor-pointer hover:scale-[1.02]">
+                        <i class="fa-solid fa-paper-plane text-xs"></i> Submit to Meta for Approval
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- META REJECTION REASON & ERROR DETAILS MODAL -->
+    <!-- ========================================================================= -->
+    <div id="metaRejectionModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white rounded-3xl w-full max-w-xl shadow-2xl overflow-hidden flex flex-col border border-slate-200 animate-fade-in-up">
+            
+            <!-- Modal Header -->
+            <div class="px-6 py-4 border-b border-rose-100 flex items-center justify-between bg-rose-50 text-rose-950">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-rose-600 text-white flex items-center justify-center text-lg shadow-sm shadow-rose-600/30">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-black leading-tight">Meta Template Rejection Analysis</h3>
+                        <p class="text-xs text-rose-700 font-bold" id="rejModalTemplateName">template_name</p>
+                    </div>
+                </div>
+                <button onclick="closeRejectionModal()" class="w-8 h-8 rounded-full hover:bg-rose-200/50 text-rose-700 flex items-center justify-center transition-all cursor-pointer">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-6 space-y-4">
+                
+                <!-- Error Code & Classification -->
+                <div class="bg-rose-50/70 border border-rose-200 rounded-2xl p-4">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-[10px] font-black uppercase tracking-wider text-rose-500">Meta Error Code</span>
+                        <span id="rejModalErrorCode" class="px-2 py-0.5 rounded text-xs font-black bg-rose-200 text-rose-900 font-mono">CODE_NAME</span>
+                    </div>
+                    <p class="text-xs font-semibold text-rose-900 leading-relaxed mt-2" id="rejModalErrorDesc">
+                        Detailed description of why Meta rejected this template.
+                    </p>
+                </div>
+
+                <!-- Suggested Resolution Checklist -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-2">
+                    <h4 class="text-xs font-black text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-wrench text-emerald-600"></i> How to Fix & Resubmit
+                    </h4>
+                    <p class="text-xs text-slate-600 font-medium leading-relaxed" id="rejModalFixGuide">
+                        Fix recommendation instructions.
+                    </p>
+                    <div class="pt-2 border-t border-slate-200 text-[11px] text-slate-500 flex items-center gap-1.5 font-medium">
+                        <i class="fa-solid fa-shield-halved text-blue-600"></i> Reference: <a href="https://business.whatsapp.com/policy" target="_blank" class="text-blue-600 font-bold underline hover:text-blue-800">Meta WhatsApp Business Messaging Policy</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer Actions -->
+            <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+                <button type="button" onclick="closeRejectionModal()" class="px-4 py-2 bg-white border border-slate-200 text-slate-600 text-xs font-bold rounded-xl hover:bg-slate-100 transition-all cursor-pointer">
+                    Close
+                </button>
+                <button type="button" id="rejModalFixBtn" onclick="fixAndOpenStudio()" class="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shadow-md shadow-rose-500/20 transition-all flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-pen-to-square text-xs"></i> Fix in Template Studio & Resubmit
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        let currentTemplateType = 'text_only';
+        let currentMediaType = 'image';
+        let isTextHeaderActive = true;
+        let activeRejectionTemplate = null;
+
+        // Show Rejection Modal
+        function showRejectionReason(name, code, desc, fix, rawName, rawType, rawMedia, rawHeader, rawBody, rawFooter, rawButtons) {
+            document.getElementById('rejModalTemplateName').innerText = `Template: ${name}`;
+            document.getElementById('rejModalErrorCode').innerText = code;
+            document.getElementById('rejModalErrorDesc').innerText = desc;
+            document.getElementById('rejModalFixGuide').innerText = fix;
+
+            activeRejectionTemplate = {
+                name: rawName,
+                type: rawType,
+                media: rawMedia,
+                headerText: rawHeader,
+                body: rawBody,
+                footer: rawFooter,
+                buttons: rawButtons,
+                code: code,
+                desc: desc,
+                fix: fix
+            };
+
+            document.getElementById('metaRejectionModal').classList.remove('hidden');
+        }
+
+        function closeRejectionModal() {
+            document.getElementById('metaRejectionModal').classList.add('hidden');
+        }
+
+        function fixAndOpenStudio() {
+            closeRejectionModal();
+            if (activeRejectionTemplate) {
+                openEditTemplate(
+                    activeRejectionTemplate.name,
+                    activeRejectionTemplate.type,
+                    activeRejectionTemplate.media,
+                    activeRejectionTemplate.headerText,
+                    activeRejectionTemplate.body,
+                    activeRejectionTemplate.footer,
+                    activeRejectionTemplate.buttons,
+                    'REJECTED',
+                    `${activeRejectionTemplate.code}: ${activeRejectionTemplate.desc}`,
+                    activeRejectionTemplate.fix
+                );
+            }
+        }
+
+        // Set Template Type (Text Only / Rich Card / Carousel)
+        function setTemplateType(type, btnElem) {
+            currentTemplateType = type;
+            document.querySelectorAll('.type-pill').forEach(b => b.classList.remove('active', 'text-slate-600'));
+            if (btnElem) btnElem.classList.add('active');
+
+            const textHeaderBox = document.getElementById('textHeaderBox');
+            const mediaHeaderBox = document.getElementById('mediaHeaderBox');
+            const carouselHeaderBox = document.getElementById('carouselHeaderBox');
+
+            if (type === 'text_only') {
+                textHeaderBox.classList.remove('hidden');
+                mediaHeaderBox.classList.add('hidden');
+                carouselHeaderBox.classList.add('hidden');
+            } else if (type === 'rich_card') {
+                textHeaderBox.classList.add('hidden');
+                mediaHeaderBox.classList.remove('hidden');
+                carouselHeaderBox.classList.add('hidden');
+            } else if (type === 'carousel') {
+                textHeaderBox.classList.add('hidden');
+                mediaHeaderBox.classList.add('hidden');
+                carouselHeaderBox.classList.remove('hidden');
+            }
+
+            updateLivePreview();
+        }
+
+        // Toggle Text Header
+        function toggleTextHeader(show) {
+            isTextHeaderActive = show;
+            const wrap = document.getElementById('textHeaderInputWrap');
+            if (show) {
+                wrap.classList.remove('hidden');
+            } else {
+                wrap.classList.add('hidden');
+            }
+            updateLivePreview();
+        }
+
+        // Set Media Type (Image, Video, PDF, GIF, Location)
+        function setMediaType(media, btnElem) {
+            currentMediaType = media;
+            document.querySelectorAll('.media-btn').forEach(b => {
+                b.classList.remove('active');
+                b.classList.add('text-slate-600');
+            });
+            if (btnElem) {
+                btnElem.classList.add('active');
+                btnElem.classList.remove('text-slate-600');
+            }
+
+            const label = document.getElementById('mediaInputLabel');
+            if (media === 'image') label.innerText = 'Sample Image Attachment (JPG / PNG)';
+            else if (media === 'video') label.innerText = 'Sample Video File (MP4, Max 16MB)';
+            else if (media === 'pdf') label.innerText = 'Sample PDF Document File (Max 100MB)';
+            else if (media === 'gif') label.innerText = 'Animated GIF Media';
+            else if (media === 'location') label.innerText = 'Location Coordinates / Landmark Name';
+
+            updateLivePreview();
+        }
+
+        // Update Button Type
+        function updateButtonType(selectElem, index) {
+            const row = selectElem.closest('.flex');
+            const valInput = row.querySelector('.btn-val-input');
+            const type = selectElem.value;
+
+            if (type === 'url') {
+                valInput.placeholder = 'https://...';
+                valInput.classList.remove('hidden');
+            } else if (type === 'phone') {
+                valInput.placeholder = '+91...';
+                valInput.classList.remove('hidden');
+            } else if (type === 'copy') {
+                valInput.placeholder = 'OFFER50';
+                valInput.classList.remove('hidden');
+            } else if (type === 'quick') {
+                valInput.classList.add('hidden');
+            }
+
+            updateLivePreview();
+        }
+
+        // Add Button
+        function addNewButton() {
+            const container = document.getElementById('buttonsListContainer');
+            const rowCount = container.querySelectorAll('.flex').length;
+            if (rowCount >= 3) {
+                alert('Meta WhatsApp allows up to 3 interactive buttons per template.');
+                return;
+            }
+
+            const div = document.createElement('div');
+            div.className = 'flex items-center gap-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200';
+            div.innerHTML = `
+                <select onchange="updateButtonType(this, ${rowCount})" class="px-2.5 py-1.5 text-xs font-bold bg-white border border-slate-200 rounded-lg text-slate-800">
+                    <option value="quick">Quick Reply</option>
+                    <option value="url">Visit Website (URL)</option>
+                    <option value="phone">Call Phone</option>
+                    <option value="copy">Copy Code</option>
+                </select>
+                <input type="text" value="Option ${rowCount + 1}" oninput="updateLivePreview()" placeholder="Button text" class="btn-text-input flex-1 px-3 py-1.5 text-xs font-bold bg-white border border-slate-200 rounded-lg outline-none">
+                <input type="text" value="" oninput="updateLivePreview()" placeholder="Action value" class="btn-val-input w-44 px-3 py-1.5 text-xs font-bold bg-white border border-slate-200 rounded-lg outline-none font-mono hidden">
+                <button type="button" onclick="removeButton(this)" class="p-1.5 text-slate-400 hover:text-rose-600"><i class="fa-solid fa-trash-can"></i></button>
+            `;
+            container.appendChild(div);
+            updateLivePreview();
+        }
+
+        // Remove Button
+        function removeButton(btn) {
+            btn.closest('.flex').remove();
+            updateLivePreview();
+        }
+
+        // Insert {{1}} Variable
+        function insertVariable() {
+            const textarea = document.getElementById('tBodyText');
+            const currentText = textarea.value;
+            const matches = currentText.match(/\{\{(\d+)\}\}/g);
+            let nextIndex = 1;
+            if (matches) {
+                const nums = matches.map(m => parseInt(m.replace(/\D/g, '')));
+                nextIndex = Math.max(...nums) + 1;
+            }
+            textarea.value += ` {{${nextIndex}}}`;
+            updateLivePreview();
+        }
+
+        // Format Text
+        function formatText(symbol) {
+            const textarea = document.getElementById('tBodyText');
+            textarea.value += `${symbol}Sample Text${symbol}`;
+            updateLivePreview();
+        }
+
+        // REAL-TIME LIVE PREVIEW UPDATER
+        function updateLivePreview() {
+            const stdBubble = document.getElementById('pvStandardBubble');
+            const carBubble = document.getElementById('pvCarouselBubble');
+
+            if (currentTemplateType === 'carousel') {
+                stdBubble.classList.add('hidden');
+                carBubble.classList.remove('hidden');
+                return;
+            } else {
+                stdBubble.classList.remove('hidden');
+                carBubble.classList.add('hidden');
+            }
+
+            // Bold Header Rendering
+            const pvBoldHeader = document.getElementById('pvBoldHeader');
+            const tHeaderText = document.getElementById('tHeaderText').value;
+            if (currentTemplateType === 'text_only' && isTextHeaderActive && tHeaderText.trim() !== '') {
+                pvBoldHeader.innerText = tHeaderText;
+                pvBoldHeader.classList.remove('hidden');
+            } else {
+                pvBoldHeader.classList.add('hidden');
+            }
+
+            // Media Header Rendering
+            const pvMediaContainer = document.getElementById('pvMediaContainer');
+            const pvImgElem = document.getElementById('pvImgElem');
+            const pvVideoElem = document.getElementById('pvVideoElem');
+            const pvPdfElem = document.getElementById('pvPdfElem');
+            const pvLocationElem = document.getElementById('pvLocationElem');
+
+            if (currentTemplateType === 'rich_card') {
+                pvMediaContainer.classList.remove('hidden');
+                pvImgElem.classList.add('hidden');
+                pvVideoElem.classList.add('hidden');
+                pvPdfElem.classList.add('hidden');
+                pvLocationElem.classList.add('hidden');
+
+                if (currentMediaType === 'image' || currentMediaType === 'gif') {
+                    pvImgElem.classList.remove('hidden');
+                    const imgUrl = document.getElementById('tMediaUrl').value;
+                    if (imgUrl) pvImgElem.src = imgUrl;
+                } else if (currentMediaType === 'video') {
+                    pvVideoElem.classList.remove('hidden');
+                } else if (currentMediaType === 'pdf') {
+                    pvPdfElem.classList.remove('hidden');
+                } else if (currentMediaType === 'location') {
+                    pvLocationElem.classList.remove('hidden');
+                }
+            } else {
+                pvMediaContainer.classList.add('hidden');
+            }
+
+            // Body Message
+            const bodyText = document.getElementById('tBodyText').value || 'Enter message body...';
+            document.getElementById('pvBody').innerText = bodyText;
+
+            // Footer Message (Light Gray)
+            const pvFooter = document.getElementById('pvFooter');
+            const footerText = document.getElementById('tFooterText').value;
+            if (footerText && footerText.trim() !== '') {
+                pvFooter.innerText = footerText;
+                pvFooter.classList.remove('hidden');
+            } else {
+                pvFooter.classList.add('hidden');
+            }
+
+            // Buttons Stack Rendering
+            const btnContainer = document.getElementById('pvButtonsContainer');
+            btnContainer.innerHTML = '';
+            const rows = document.querySelectorAll('#buttonsListContainer .flex');
+
+            if (rows.length === 0) {
+                btnContainer.classList.add('hidden');
+            } else {
+                btnContainer.classList.remove('hidden');
+                rows.forEach(row => {
+                    const textInput = row.querySelector('.btn-text-input').value || 'Click';
+                    const selectType = row.querySelector('select').value;
+                    
+                    let icon = 'fa-solid fa-reply';
+                    if (selectType === 'url') icon = 'fa-solid fa-arrow-up-right-from-square';
+                    else if (selectType === 'phone') icon = 'fa-solid fa-phone';
+                    else if (selectType === 'copy') icon = 'fa-regular fa-copy';
+
+                    const bDiv = document.createElement('div');
+                    bDiv.className = 'py-2 hover:bg-slate-50 cursor-pointer flex items-center justify-center gap-1.5 text-[11px]';
+                    bDiv.innerHTML = `<i class="${icon} text-[9px]"></i> <span>${textInput}</span>`;
+                    btnContainer.appendChild(bDiv);
+                });
+            }
+        }
+
+        // Open Modal
+        function openCreateTemplateModal() {
+            document.getElementById('modalStudioTitle').innerText = 'Create Meta WhatsApp Template';
+            document.getElementById('rejectionAlertBox').classList.add('hidden');
+            document.getElementById('createTemplateModal').classList.remove('hidden');
+            updateLivePreview();
+        }
+        function closeCreateTemplateModal() {
+            document.getElementById('createTemplateModal').classList.add('hidden');
+        }
+
+        // Open Existing Template in Studio
+        function openEditTemplate(name, type, media, headerText, body, footer, buttons, status = 'APPROVED', rejectionReason = '', fixGuide = '') {
+            document.getElementById('tName').value = name;
+            document.getElementById('modalStudioTitle').innerText = `Template Studio: ${name}`;
+            
+            // Rejection Banner visibility
+            const rejBox = document.getElementById('rejectionAlertBox');
+            if (status === 'REJECTED') {
+                rejBox.classList.remove('hidden');
+                document.getElementById('rejectionErrorCodePill').innerText = rejectionReason.split(':')[0] || 'REJECTED';
+                document.getElementById('rejectionErrorDescText').innerText = rejectionReason.split(':')[1] || rejectionReason;
+                document.getElementById('rejectionFixGuideText').innerText = fixGuide || 'Review Meta guideline violations and update template parameters.';
+            } else {
+                rejBox.classList.add('hidden');
+            }
+
+            const pillIndex = type === 'text_only' ? 0 : (type === 'rich_card' ? 1 : 2);
+            setTemplateType(type, document.querySelectorAll('.type-pill')[pillIndex]);
+
+            if (headerText) {
+                document.getElementById('tHeaderText').value = headerText;
+                toggleTextHeader(true);
+            } else {
+                toggleTextHeader(false);
+            }
+
+            document.getElementById('tBodyText').value = body;
+            document.getElementById('tFooterText').value = footer;
+
+            // Render buttons
+            const container = document.getElementById('buttonsListContainer');
+            container.innerHTML = '';
+            buttons.forEach(b => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center gap-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200';
+                div.innerHTML = `
+                    <select onchange="updateButtonType(this, 0)" class="px-2.5 py-1.5 text-xs font-bold bg-white border border-slate-200 rounded-lg text-slate-800">
+                        <option value="url" ${b.type === 'url' ? 'selected' : ''}>Visit Website (URL)</option>
+                        <option value="phone" ${b.type === 'phone' ? 'selected' : ''}>Call Phone</option>
+                        <option value="quick" ${b.type === 'quick' ? 'selected' : ''}>Quick Reply</option>
+                        <option value="copy" ${b.type === 'copy' ? 'selected' : ''}>Copy Code</option>
+                    </select>
+                    <input type="text" value="${b.text}" oninput="updateLivePreview()" placeholder="Button text" class="btn-text-input flex-1 px-3 py-1.5 text-xs font-bold bg-white border border-slate-200 rounded-lg outline-none">
+                    <input type="text" value="https://zioncpaas.com" oninput="updateLivePreview()" placeholder="Action value" class="btn-val-input w-44 px-3 py-1.5 text-xs font-bold bg-white border border-slate-200 rounded-lg outline-none font-mono">
+                    <button type="button" onclick="removeButton(this)" class="p-1.5 text-slate-400 hover:text-rose-600"><i class="fa-solid fa-trash-can"></i></button>
+                `;
+                container.appendChild(div);
+            });
+
+            document.getElementById('createTemplateModal').classList.remove('hidden');
+            updateLivePreview();
+        }
+
+        function submitTemplateToMeta() {
+            closeCreateTemplateModal();
+            alert('Template successfully submitted to Meta Graph API for review and approval!');
+        }
+
+        function filterTemplates() {
+            const cat = document.getElementById('tmplCatFilter').value;
+            const status = document.getElementById('tmplStatusFilter').value;
+            const search = document.getElementById('tmplSearch').value.toLowerCase().trim();
+
+            const rows = document.querySelectorAll('#templatesTableBody tr');
+            let count = 0;
+
+            rows.forEach(row => {
+                const rCat = row.getAttribute('data-cat') || '';
+                const rStatus = row.getAttribute('data-status') || '';
+                const rName = (row.getAttribute('data-name') || '').toLowerCase();
+
+                let matchCat = (cat === 'ALL' || rCat === cat);
+                let matchStatus = (status === 'ALL' || rStatus === status);
+                let matchSearch = (search === '' || rName.includes(search));
+
+                if (matchCat && matchStatus && matchSearch) {
+                    row.style.display = '';
+                    count++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            document.getElementById('templateCountText').innerText = `Showing ${count} of ${rows.length} templates`;
+        }
+
+        function toggleSubmenu(event, submenuId, iconId) {
+            event.preventDefault();
+            const allSubmenus = document.querySelectorAll('div[id$="-submenu"]');
+            allSubmenus.forEach(otherSub => {
+                if (otherSub.id !== submenuId) {
+                    otherSub.classList.add('hidden');
+                    const otherIconId = otherSub.id.replace('-submenu', '-icon');
+                    const otherIcon = document.getElementById(otherIconId);
+                    if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                }
+            });
+
+            const submenu = document.getElementById(submenuId);
+            const icon = document.getElementById(iconId);
+            if (submenu) {
+                if (submenu.classList.contains('hidden')) {
+                    submenu.classList.remove('hidden');
+                    if(icon) icon.style.transform = 'rotate(180deg)';
+                } else {
+                    submenu.classList.add('hidden');
+                    if(icon) icon.style.transform = 'rotate(0deg)';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

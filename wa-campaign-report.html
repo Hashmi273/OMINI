@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Campaign Report - ZION CPaaS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .sidebar-item { transition: all 0.2s; }
+        .sidebar-item:hover, .sidebar-item.active { background-color: #eef5ff; color: #0070f3; font-weight: 500; }
+        .sidebar-item.active { border-right: 3px solid #0070f3; }
+    </style>
+</head>
+<body class="text-gray-800 h-screen overflow-hidden flex bg-[#f8fafc]">
+
+    <!-- Sidebar -->
+    <aside class="w-68 bg-white border-r border-slate-200 flex flex-col h-screen shrink-0 z-30 select-none shadow-sm">
+        <div class="h-20 flex items-center px-4 border-b border-slate-100 shrink-0 bg-white">
+            <a href="home.html" class="flex items-center gap-3 w-full group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-105 transition-transform shrink-0 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i class="fa-solid fa-cloud-bolt text-lg text-white"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xl font-black text-slate-900 tracking-tight leading-none">ZION</span>
+                        <span class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded-md tracking-wider shadow-sm uppercase">CPaaS</span>
+                    </div>
+                    <p class="text-[9.5px] text-slate-500 font-bold tracking-tight mt-1 truncate uppercase flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>
+                        Omnichannel Cloud
+                    </p>
+                </div>
+            </a>
+        </div>
+
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1.5">
+            <a href="home.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-house"></i></div>
+                <div class="flex-1 min-w-0"><div class="text-sm font-bold text-slate-800 leading-tight">Home</div><div class="text-[10px] text-slate-400 font-medium">Platform Overview</div></div>
+            </a>
+            
+            <a href="dashboard.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-chart-pie"></i></div>
+                <div class="flex-1 min-w-0 flex items-center justify-between"><div><div class="text-sm font-bold text-slate-800 leading-tight">Dashboard</div><div class="text-[10px] text-slate-400 font-medium">Live Analytics</div></div><span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">LIVE</span></div>
+            </a>
+
+            <!-- SMS -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all" onclick="toggleSubmenu(event, 'sms-submenu', 'sms-icon')">
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-comment-dots"></i></div><div class="text-left"><div class="text-sm font-bold text-slate-800 leading-tight">SMS</div><div class="text-[10px] text-slate-400 font-medium">Transactional &amp; Promo</div></div></div>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200" id="sms-icon"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-blue-200 pl-3 overflow-hidden hidden" id="sms-submenu">
+                    <a href="send-sms.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Send SMS</a>
+                    <a href="reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Reports</a>
+                    <a href="groups.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Contacts / Groups</a>
+                </div>
+            </div>
+
+            <!-- RCS -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-purple-50 hover:text-purple-700 transition-all" onclick="toggleSubmenu(event, 'rcs-submenu', 'rcs-icon')">
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-comment-sms"></i></div><div class="text-left"><div class="text-sm font-bold text-purple-800 leading-tight">RCS</div><div class="text-[10px] text-purple-500 font-medium">Rich Business Messaging</div></div></div>
+                    <i class="fa-solid fa-chevron-down text-xs text-purple-400 transition-transform duration-200" id="rcs-icon"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-purple-200 pl-3 overflow-hidden hidden" id="rcs-submenu">
+                    <a href="rcs-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Campaign</a>
+                    <a href="rcs-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Report</a>
+                    <a href="rcs-configuration.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Configuration</a>
+                </div>
+            </div>
+
+            <!-- WhatsApp Section - ACTIVE -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-emerald-700 bg-emerald-50/70 border border-emerald-100/80 transition-all" onclick="toggleSubmenu(event, 'wa-submenu', 'wa-icon')">
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-brands fa-whatsapp"></i></div><div class="text-left"><div class="text-sm font-bold text-emerald-800 leading-tight">WhatsApp</div><div class="text-[10px] text-emerald-600 font-medium">Cloud API Official</div></div></div>
+                    <i class="fa-solid fa-chevron-down text-xs text-emerald-600 transition-transform duration-200" id="wa-icon" style="transform: rotate(180deg);"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-emerald-200 pl-3 overflow-hidden" id="wa-submenu">
+                    <a href="whatsapp-config.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Config</a>
+                    <a href="whatsapp-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Campaign</a>
+                    <a href="whatsapp-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-bold text-emerald-700 bg-emerald-100/80">Report</a>
+                    <a href="whatsapp-agents.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Agent</a>
+                    <a href="whatsapp-automation.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Automation</a>
+                </div>
+            </div>
+
+            <!-- Credits & Wallet -->
+            <div class="pt-1">
+                <a href="credit-report.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50/70 hover:text-emerald-700 transition-all">
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-wallet"></i></div><div class="flex-1 min-w-0 text-left"><div class="text-sm font-bold text-slate-800 leading-tight">Credits &amp; Wallet</div><div class="text-[10px] text-emerald-600 font-semibold">INR Recharge &amp; Deduct</div></div></div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">₹ WALLET</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#f4f7fb]">
+
+        <!-- Header -->
+        <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0 z-10">
+            <div class="flex items-center gap-3">
+                <h1 class="text-base font-black text-slate-800 tracking-tight flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-emerald-600 text-lg"></i>
+                    <span>WhatsApp Campaign Report</span>
+                </h1>
+                <span class="bg-emerald-100 text-emerald-800 text-[9px] font-black px-2 py-0.5 rounded-md uppercase">Campaign Analytics</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="whatsapp-reports.html" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-arrow-left text-xs"></i>
+                    <span>Back to Reports</span>
+                </a>
+                <button onclick="alert('Exporting Excel...')" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-2xs transition-all flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-file-excel"></i>
+                    <span>Export CSV</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Scrollable Content Area -->
+        <div class="flex-1 overflow-y-auto p-6 lg:p-8">
+            <div class="max-w-[1400px] mx-auto space-y-6">
+                
+                <!-- Page Breadcrumbs & Title -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div>
+                        <div class="flex items-center text-xs text-gray-500 mb-2">
+                            <a href="whatsapp-reports.html" class="hover:text-emerald-600 cursor-pointer">WhatsApp Reports</a>
+                            <i class="fa-solid fa-chevron-right text-[8px] mx-2"></i>
+                            <span class="text-gray-700 font-semibold">Campaign Report</span>
+                        </div>
+                        <h1 class="text-2xl font-extrabold text-gray-900">WhatsApp Campaign Report</h1>
+                        <p class="text-sm text-gray-500 mt-1">Detailed performance, delivery status, and conversion metrics per campaign broadcast.</p>
+                    </div>
+                </div>
+
+                <!-- Top Navigation Tabs (Pills Style like SMS campaign report) -->
+                <div class="flex flex-wrap items-center gap-2 border-b border-slate-200 pb-4">
+                    <button class="px-4 py-2 bg-white border border-emerald-400 text-emerald-700 rounded-xl text-xs font-extrabold flex items-center shadow-2xs">
+                        <i class="fa-regular fa-calendar mr-2"></i> 
+                        <input type="text" value="18-Sep-2026 - 20-Sep-2026" class="outline-none text-emerald-700 placeholder-emerald-700 bg-transparent w-44 text-xs font-bold">
+                    </button>
+                    <button onclick="switchTab('campaign')" id="tab-btn-campaign" class="px-5 py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold flex items-center shadow-sm">
+                        <i class="fa-solid fa-bullhorn mr-2"></i> Campaign Report
+                    </button>
+                    <button onclick="switchTab('delivery')" id="tab-btn-delivery" class="px-5 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold flex items-center shadow-2xs transition-colors">
+                        <i class="fa-regular fa-calendar-check mr-2"></i> Delivery Logs
+                    </button>
+                    <button onclick="switchTab('fallback')" id="tab-btn-fallback" class="px-5 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold flex items-center shadow-2xs transition-colors">
+                        <i class="fa-solid fa-rotate-left mr-2"></i> Fallback Analytics
+                    </button>
+                </div>
+
+                <!-- Filter Card -->
+                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-2xs">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-xs font-black uppercase text-slate-500 tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-filter text-emerald-600"></i> Filter Campaign Records
+                        </h3>
+                    </div>
+                    <div class="flex flex-wrap items-end gap-3">
+                        <div class="flex-1 min-w-[200px]">
+                            <label class="block text-[10px] font-black uppercase text-slate-400 mb-1">Search Mobile / Campaign ID</label>
+                            <input type="text" placeholder="Enter phone or campaign name..." class="w-full px-3 py-1.5 text-xs font-bold bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-black uppercase text-slate-400 mb-1">Sender Account</label>
+                            <select class="px-3 py-1.5 text-xs font-bold bg-slate-50 border border-slate-200 rounded-xl text-slate-800">
+                                <option>All WhatsApp Senders (2)</option>
+                                <option>+91 88586 74641 (Primary)</option>
+                                <option>+91 99345 11029 (Backup)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-black uppercase text-slate-400 mb-1">Status</label>
+                            <select class="px-3 py-1.5 text-xs font-bold bg-slate-50 border border-slate-200 rounded-xl text-slate-800">
+                                <option>All Statuses</option>
+                                <option>Completed</option>
+                                <option>Processing</option>
+                                <option>Failed</option>
+                            </select>
+                        </div>
+                        <button onclick="alert('Filters applied!')" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-all shadow-sm">
+                            Apply Filter
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KPI Overview Cards -->
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs">
+                        <div class="text-[10px] font-bold uppercase text-slate-400">Total Sent</div>
+                        <div class="text-xl font-bold text-slate-900 mt-1">42,850</div>
+                        <div class="text-[10px] text-slate-400 font-medium">100% Broadcast</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs">
+                        <div class="text-[10px] font-bold uppercase text-slate-500">Delivered</div>
+                        <div class="text-xl font-bold text-emerald-600 mt-1">41,890</div>
+                        <div class="text-[10px] text-emerald-600 font-medium">97.8% DLR</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs">
+                        <div class="text-[10px] font-bold uppercase text-slate-500">Read</div>
+                        <div class="text-xl font-bold text-slate-800 mt-1">36,420</div>
+                        <div class="text-[10px] text-slate-500 font-medium">86.9% Read Rate</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs">
+                        <div class="text-[10px] font-bold uppercase text-slate-500">CTA Clicks</div>
+                        <div class="text-xl font-bold text-slate-800 mt-1">14,210</div>
+                        <div class="text-[10px] text-slate-500 font-medium">39.0% CTR</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs">
+                        <div class="text-[10px] font-bold uppercase text-slate-500">Replies</div>
+                        <div class="text-xl font-bold text-slate-800 mt-1">8,940</div>
+                        <div class="text-[10px] text-slate-500 font-medium">24.5% Engagement</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs">
+                        <div class="text-[10px] font-bold uppercase text-slate-500">Failed</div>
+                        <div class="text-xl font-bold text-slate-800 mt-1">960</div>
+                        <div class="text-[10px] text-rose-500 font-medium">2.2% Undelivered</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-2xs">
+                        <div class="text-[10px] font-bold uppercase text-slate-400">INR Spend</div>
+                        <div class="text-xl font-bold text-slate-900 mt-1">₹4,713</div>
+                        <div class="text-[10px] text-slate-500 font-medium">₹0.11/Msg</div>
+                    </div>
+                </div>
+
+                <!-- Main Data Table Card -->
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
+                    <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-emerald-600"></i>
+                            <h3 class="text-sm font-black text-slate-900">Campaign Broadcast Logs</h3>
+                        </div>
+                        <button onclick="alert('Downloading CSV...')" class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700 cursor-pointer hover:bg-slate-50">
+                            <i class="fa-solid fa-download text-emerald-600 mr-1"></i> Export CSV
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-50 border-b border-slate-200 text-[10px] font-black uppercase text-slate-500">
+                                <tr>
+                                    <th class="py-3 px-4">Campaign Name</th>
+                                    <th class="py-3 px-4">Template</th>
+                                    <th class="py-3 px-4">Sender</th>
+                                    <th class="py-3 px-4">Total Sent</th>
+                                    <th class="py-3 px-4">Delivered</th>
+                                    <th class="py-3 px-4">Read</th>
+                                    <th class="py-3 px-4">Replies</th>
+                                    <th class="py-3 px-4">Fallback Triggered</th>
+                                    <th class="py-3 px-4">Cost</th>
+                                    <th class="py-3 px-4 text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 font-semibold text-slate-700">
+                                <tr class="hover:bg-slate-50/60">
+                                    <td class="py-3.5 px-4 font-bold text-slate-900">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                                            diwali_mega_discount_blast
+                                        </div>
+                                        <div class="text-[10px] text-slate-400 pl-4">Sep 20, 2026 • 11:15 AM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4"><span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[10px] font-bold">diwali_mega_v1</span></td>
+                                    <td class="py-3.5 px-4 text-slate-600">+91 88586 74641</td>
+                                    <td class="py-3.5 px-4 font-bold">25,000</td>
+                                    <td class="py-3.5 px-4 text-emerald-600 font-bold">24,650 (98.6%)</td>
+                                    <td class="py-3.5 px-4 text-slate-700 font-semibold">21,400 (86.8%)</td>
+                                    <td class="py-3.5 px-4 text-slate-700 font-semibold">5,200</td>
+                                    <td class="py-3.5 px-4"><span class="bg-slate-100 text-slate-700 text-[10px] font-medium px-2 py-0.5 rounded">350 RCS Fallback</span></td>
+                                    <td class="py-3.5 px-4 font-bold text-slate-900">₹2,750</td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="alert('Viewing detailed analytics for diwali_mega_discount_blast')" class="px-2.5 py-1 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg text-xs font-bold transition-all">Details</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/60">
+                                    <td class="py-3.5 px-4 font-bold text-slate-900">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                                            order_tracking_alerts_q3
+                                        </div>
+                                        <div class="text-[10px] text-slate-400 pl-4">Sep 20, 2026 • 09:30 AM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4"><span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[10px] font-bold">order_dispatch</span></td>
+                                    <td class="py-3.5 px-4 text-slate-600">+91 88586 74641</td>
+                                    <td class="py-3.5 px-4 font-bold">12,850</td>
+                                    <td class="py-3.5 px-4 text-emerald-600 font-bold">12,540 (97.6%)</td>
+                                    <td class="py-3.5 px-4 text-slate-700 font-semibold">11,200 (89.3%)</td>
+                                    <td class="py-3.5 px-4 text-slate-700 font-semibold">2,100</td>
+                                    <td class="py-3.5 px-4"><span class="bg-slate-100 text-slate-700 text-[10px] font-medium px-2 py-0.5 rounded">310 SMS Fallback</span></td>
+                                    <td class="py-3.5 px-4 font-bold text-slate-900">₹1,413</td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="alert('Viewing detailed analytics for order_tracking_alerts_q3')" class="px-2.5 py-1 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg text-xs font-bold transition-all">Details</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/60">
+                                    <td class="py-3.5 px-4 font-bold text-slate-900">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                                            festive_flash_voucher
+                                        </div>
+                                        <div class="text-[10px] text-slate-400 pl-4">Sep 19, 2026 • 04:20 PM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4"><span class="bg-teal-50 text-teal-700 px-2 py-0.5 rounded text-[10px] font-black">festive_v1</span></td>
+                                    <td class="py-3.5 px-4 text-slate-600">+91 99345 11029</td>
+                                    <td class="py-3.5 px-4 font-bold">18,500</td>
+                                    <td class="py-3.5 px-4 text-emerald-600 font-bold">18,120 (97.9%)</td>
+                                    <td class="py-3.5 px-4 text-indigo-600 font-bold">15,900 (87.7%)</td>
+                                    <td class="py-3.5 px-4 text-purple-600 font-bold">3,850</td>
+                                    <td class="py-3.5 px-4"><span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded">380 WA#2 Fallback</span></td>
+                                    <td class="py-3.5 px-4 font-bold">₹2,035</td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="alert('Viewing detailed analytics for festive_flash_voucher')" class="px-2.5 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded-lg text-xs font-bold">Details</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleSubmenu(event, submenuId, iconId) {
+            event.preventDefault();
+            document.querySelectorAll('div[id$="-submenu"]').forEach(s => {
+                if (s.id !== submenuId) {
+                    s.classList.add('hidden');
+                    const ic = document.getElementById(s.id.replace('-submenu', '-icon'));
+                    if (ic) ic.style.transform = 'rotate(0deg)';
+                }
+            });
+            const sub = document.getElementById(submenuId);
+            const ico = document.getElementById(iconId);
+            if (sub) {
+                const isHidden = sub.classList.contains('hidden');
+                sub.classList.toggle('hidden', !isHidden);
+                if (ico) ico.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+            }
+        }
+    </script>
+</body>
+</html>

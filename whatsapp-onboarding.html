@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta WhatsApp Business Onboarding Wizard - ZION CPaaS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        zionBlue: '#0070f3',
+                        zionLightBlue: '#eef5ff',
+                        zionDarkText: '#111827',
+                        zionGrayText: '#6b7280',
+                        zionBorder: '#e5e7eb',
+                        zionBg: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .sidebar-item { transition: all 0.2s; }
+        .sidebar-item:hover, .sidebar-item.active { background-color: #eef5ff; color: #0070f3; font-weight: 500; }
+        .sidebar-item.active { border-right: 3px solid #0070f3; }
+        .step-node.active { background-color: #059669; color: white; border-color: #059669; box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.2); }
+        .step-node.completed { background-color: #10b981; color: white; border-color: #10b981; }
+    </style>
+</head>
+<body class="text-gray-800 h-screen overflow-hidden flex bg-[#f8fafc]">
+
+    <!-- Sidebar -->
+    <aside class="w-68 bg-white border-r border-slate-200 flex flex-col h-screen shrink-0 z-30 select-none shadow-sm">
+        <div class="h-20 flex items-center px-4 border-b border-slate-100 shrink-0 bg-white">
+            <a href="home.html" class="flex items-center gap-3 w-full group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-105 transition-transform shrink-0 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i class="fa-solid fa-cloud-bolt text-lg text-white"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xl font-black text-slate-900 tracking-tight leading-none">ZION</span>
+                        <span class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded-md tracking-wider shadow-sm uppercase">CPaaS</span>
+                    </div>
+                    <p class="text-[9.5px] text-slate-500 font-bold tracking-tight mt-1 truncate uppercase flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>
+                        Omnichannel Cloud
+                    </p>
+                </div>
+            </a>
+        </div>
+
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1.5">
+            <a href="home.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-house"></i></div>
+                <div class="flex-1 min-w-0"><div class="text-sm font-bold text-slate-800 leading-tight">Home</div><div class="text-[10px] text-slate-400 font-medium">Platform Overview</div></div>
+            </a>
+            
+            <a href="dashboard.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-chart-pie"></i></div>
+                <div class="flex-1 min-w-0 flex items-center justify-between"><div><div class="text-sm font-bold text-slate-800 leading-tight">Dashboard</div><div class="text-[10px] text-slate-400 font-medium">Live Analytics</div></div><span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">LIVE</span></div>
+            </a>
+
+            <!-- SMS -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all" onclick="toggleSubmenu(event, 'sms-submenu', 'sms-icon')">
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-comment-dots"></i></div><div class="text-left"><div class="text-sm font-bold text-slate-800 leading-tight">SMS</div><div class="text-[10px] text-slate-400 font-medium">Transactional &amp; Promo</div></div></div>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200" id="sms-icon"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-blue-200 pl-3 overflow-hidden hidden" id="sms-submenu">
+                    <a href="send-sms.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Send SMS</a>
+                    <a href="reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Reports</a>
+                    <a href="groups.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Contacts / Groups</a>
+                </div>
+            </div>
+
+            <!-- RCS -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-purple-50 hover:text-purple-700 transition-all" onclick="toggleSubmenu(event, 'rcs-submenu', 'rcs-icon')">
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-comment-sms"></i></div><div class="text-left"><div class="text-sm font-bold text-purple-800 leading-tight">RCS</div><div class="text-[10px] text-purple-500 font-medium">Rich Business Messaging</div></div></div>
+                    <i class="fa-solid fa-chevron-down text-xs text-purple-400 transition-transform duration-200" id="rcs-icon"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-purple-200 pl-3 overflow-hidden hidden" id="rcs-submenu">
+                    <a href="rcs-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Campaign</a>
+                    <a href="rcs-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Report</a>
+                    <a href="rcs-configuration.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Configuration</a>
+                </div>
+            </div>
+
+            <!-- WhatsApp Section - ACTIVE -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-emerald-700 bg-emerald-50/70 border border-emerald-100/80 transition-all" onclick="toggleSubmenu(event, 'wa-submenu', 'wa-icon')">
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-brands fa-whatsapp"></i></div><div class="text-left"><div class="text-sm font-bold text-emerald-800 leading-tight">WhatsApp</div><div class="text-[10px] text-emerald-600 font-medium">Cloud API Official</div></div></div>
+                    <i class="fa-solid fa-chevron-down text-xs text-emerald-600 transition-transform duration-200" id="wa-icon" style="transform: rotate(180deg);"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-emerald-200 pl-3 overflow-hidden" id="wa-submenu">
+                    <a href="whatsapp-config.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-bold text-emerald-700 bg-emerald-100/80">Config</a>
+                    <a href="whatsapp-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Campaign</a>
+                    <a href="whatsapp-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Report</a>
+                    <a href="whatsapp-agents.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Agent</a>
+                    <a href="whatsapp-automation.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Automation</a>
+                </div>
+            </div>
+
+            <!-- Credits & Wallet -->
+            <div class="pt-1">
+                <a href="credit-report.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50/70 hover:text-emerald-700 transition-all">
+                    <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-sm shrink-0"><i class="fa-solid fa-wallet"></i></div><div class="flex-1 min-w-0 text-left"><div class="text-sm font-bold text-slate-800 leading-tight">Credits &amp; Wallet</div><div class="text-[10px] text-emerald-600 font-semibold">INR Recharge &amp; Deduct</div></div></div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">₹ WALLET</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#f4f7fb]">
+        
+        <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0 z-10">
+            <div class="flex items-center gap-3">
+                <a href="whatsapp-config.html" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-all">
+                    <i class="fa-solid fa-arrow-left text-xs"></i>
+                </a>
+                <div>
+                    <h1 class="text-base font-black text-slate-800 tracking-tight flex items-center gap-2">
+                        <span>Meta WhatsApp Business Onboarding</span>
+                        <span class="bg-blue-100 text-blue-800 text-[9px] font-black px-2 py-0.5 rounded-md uppercase">10-Step Wizard</span>
+                    </h1>
+                    <p class="text-xs text-slate-400 font-medium">Automated Meta Embedded Signup flow, WABA provisioning, and Webhook handshake</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button onclick="testFailureSimulation()" class="px-3 py-1.5 bg-rose-50 text-rose-700 border border-rose-200 rounded-xl text-xs font-bold hover:bg-rose-100 transition-all flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-bug text-xs"></i> Test Failure State
+                </button>
+                <a href="whatsapp-config.html" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-500/20 transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-sliders text-xs"></i> Config Hub
+                </a>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-6 lg:p-8">
+            <div class="max-w-6xl mx-auto space-y-6">
+
+                <!-- 10-Step Progress Flow Map -->
+                <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <h3 class="text-xs font-black text-slate-900 uppercase tracking-wide">Enterprise Onboarding Pipeline</h3>
+                        </div>
+                        <span class="text-xs text-slate-500 font-bold" id="stepCounterText">Step 1 of 10: Business Information</span>
+                    </div>
+
+                    <!-- Step Pills Grid / Pipeline -->
+                    <div class="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-10 gap-2 text-center text-[10px] font-bold">
+                        <div class="step-node active p-2 rounded-xl border border-slate-200 transition-all" id="stepPill1">1. Biz Info</div>
+                        <div class="step-node p-2 rounded-xl border border-slate-200 transition-all bg-slate-50 text-slate-400" id="stepPill2">2. Meta Login</div>
+                        <div class="step-node p-2 rounded-xl border border-slate-200 transition-all bg-slate-50 text-slate-400" id="stepPill3">3. WABA Select</div>
+                        <div class="step-node p-2 rounded-xl border border-slate-200 transition-all bg-slate-50 text-slate-400" id="stepPill4">4. Add Phone</div>
+                        <div class="step-node p-2 rounded-xl border border-slate-200 transition-all bg-slate-50 text-slate-400" id="stepPill5">5. Verify OTP</div>
+                        <div class="step-node p-2 rounded-xl border border-slate-200 transition-all bg-slate-50 text-slate-400" id="stepPill6">6. Display Name</div>
+                        <div class="step-node p-2 rounded-xl border border-slate-200 transition-all bg-slate-50 text-slate-400" id="stepPill7">7. SmartPing</div>
+                        <div class="step-node p-2 rounded-xl border border-slate-200 transition-all bg-slate-50 text-slate-400" id="stepPill8">8. Webhook</div>
+                        <div class="step-node p-2 rounded-xl border border-slate-200 transition-all bg-slate-50 text-slate-400" id="stepPill9">9. Sync API</div>
+                        <div class="step-node p-2 rounded-xl border border-slate-200 transition-all bg-slate-50 text-slate-400" id="stepPill10">10. Connected</div>
+                    </div>
+                </div>
+
+                <!-- Failure Diagnostics Card (Visible only when an onboarding step fails) -->
+                <div id="onboardingFailureCard" class="hidden p-6 bg-rose-50 border-2 border-rose-300 rounded-3xl space-y-4 animate-fade-in-up">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-rose-600 text-white flex items-center justify-center text-xl shrink-0 shadow-lg shadow-rose-600/30">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <div class="flex-1 space-y-1">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-sm font-black text-rose-950 uppercase tracking-wide">Meta WhatsApp Onboarding Failure Alert</h3>
+                                <span class="px-2.5 py-0.5 rounded text-[10px] font-black bg-rose-200 text-rose-900 font-mono" id="failErrorCode">ERR_DISPLAY_NAME_REJECTED</span>
+                            </div>
+                            <p class="text-xs text-rose-800 font-bold" id="failStepText">Failed at Step 6: Configure Display Name</p>
+                            <p class="text-xs text-rose-700 leading-relaxed pt-1" id="failReasonText">
+                                Meta rejected the display name "Zion Mega 50% Deals" because it does not match your legal business entity and contains promotional keywords which violate Meta WhatsApp Display Name Guidelines.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-white/80 rounded-2xl border border-rose-200 space-y-2">
+                        <div class="text-xs font-black text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-lightbulb text-amber-500"></i> Recommended Action:
+                        </div>
+                        <p class="text-xs text-slate-600 font-medium" id="failActionText">
+                            Change your display name to match your registered corporate brand name (e.g. "Zion Technologies" or "Zion CPaaS Official") and re-verify.
+                        </p>
+                    </div>
+
+                    <div class="flex items-center justify-end gap-3 pt-2">
+                        <button onclick="dismissFailureCard()" class="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-xs font-bold rounded-xl hover:bg-slate-100 transition-all cursor-pointer">
+                            Dismiss
+                        </button>
+                        <button onclick="retryOnboardingStep()" class="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold rounded-xl shadow-md shadow-rose-500/20 transition-all flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-rotate text-xs"></i> Retry Step
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step Execution Interactive Forms -->
+                <div class="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-sm space-y-6" id="wizardContainer">
+                    
+                    <!-- Form Step 1: Business Information -->
+                    <div id="stepContent1" class="space-y-5">
+                        <div class="border-b border-slate-100 pb-3">
+                            <h3 class="text-base font-black text-slate-900">Step 1: Corporate Business Information</h3>
+                            <p class="text-xs text-slate-500">Enter your official business details registered with government authorities.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Legal Business Name</label>
+                                <input type="text" value="Zion Technologies Ltd" class="w-full px-3.5 py-2.5 text-xs font-bold bg-slate-50 border border-slate-200 rounded-xl outline-none text-slate-800">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Corporate Website URL</label>
+                                <input type="text" value="https://zioncpaas.com" class="w-full px-3.5 py-2.5 text-xs font-bold bg-slate-50 border border-slate-200 rounded-xl outline-none text-slate-800 font-mono">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Business Country</label>
+                                <select class="w-full px-3.5 py-2.5 text-xs font-bold bg-slate-50 border border-slate-200 rounded-xl outline-none text-slate-800">
+                                    <option value="IN" selected>India (+91)</option>
+                                    <option value="US">United States (+1)</option>
+                                    <option value="AE">United Arab Emirates (+971)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 mb-1">Business Vertical / Category</label>
+                                <select class="w-full px-3.5 py-2.5 text-xs font-bold bg-slate-50 border border-slate-200 rounded-xl outline-none text-slate-800">
+                                    <option value="TECH" selected>Telecommunications &amp; Software</option>
+                                    <option value="FIN">Banking &amp; Financial Services</option>
+                                    <option value="RETAIL">Retail &amp; eCommerce</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-end pt-4 border-t border-slate-100">
+                            <button onclick="goToStep(2)" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-500/20 transition-all flex items-center gap-1.5 cursor-pointer">
+                                <span>Next: Connect Meta Business</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Form Step 2: Connect Meta Business -->
+                    <div id="stepContent2" class="hidden space-y-5">
+                        <div class="border-b border-slate-100 pb-3">
+                            <h3 class="text-base font-black text-slate-900">Step 2: Connect Meta / Facebook Business</h3>
+                            <p class="text-xs text-slate-500">Authorize Zion CPaaS to provision WhatsApp Business API via Meta Embedded Signup.</p>
+                        </div>
+
+                        <div class="p-6 bg-blue-50/50 rounded-2xl border border-blue-200 flex flex-col items-center justify-center text-center space-y-3">
+                            <div class="w-14 h-14 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-2xl shadow-md">
+                                <i class="fa-brands fa-facebook"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-black text-slate-900">Meta Embedded Signup Authorization</h4>
+                                <p class="text-xs text-slate-600 mt-1 max-w-md">Tokens and credentials are securely handled server-side through encrypted channels. No raw secrets are stored in browser.</p>
+                            </div>
+                            <button onclick="simulateMetaOAuth()" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-lg shadow-blue-600/30 transition-all flex items-center gap-2 cursor-pointer">
+                                <i class="fa-brands fa-meta text-sm"></i>
+                                <span>Log In with Facebook Business</span>
+                            </button>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+                            <button onclick="goToStep(1)" class="px-4 py-2 border border-slate-200 text-slate-600 text-xs font-bold rounded-xl hover:bg-slate-50 transition-all cursor-pointer">Back</button>
+                            <button onclick="goToStep(3)" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-500/20 transition-all flex items-center gap-1.5 cursor-pointer">
+                                <span>Next: Select WABA</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Steps 3-10 Handlers -->
+                    <div id="stepContentGeneric" class="hidden space-y-5">
+                        <div class="border-b border-slate-100 pb-3">
+                            <h3 class="text-base font-black text-slate-900" id="genericStepTitle">Step Title</h3>
+                            <p class="text-xs text-slate-500" id="genericStepDesc">Step description</p>
+                        </div>
+
+                        <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-3" id="genericStepBody">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 font-black flex items-center justify-center">
+                                    <i class="fa-solid fa-check text-emerald-600"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-black text-slate-900" id="genericSubhead">Step Configured</div>
+                                    <div class="text-[11px] text-slate-500" id="genericDetail">All parameters validated through Meta Graph API handshake.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+                            <button onclick="goBackGeneric()" class="px-4 py-2 border border-slate-200 text-slate-600 text-xs font-bold rounded-xl hover:bg-slate-50 transition-all cursor-pointer">Back</button>
+                            <button onclick="goNextGeneric()" id="genericNextBtn" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-500/20 transition-all flex items-center gap-1.5 cursor-pointer">
+                                <span>Next Step</span>
+                                <i class="fa-solid fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Zero Token Exposure Notice -->
+                <div class="p-4 bg-slate-100 rounded-2xl border border-slate-200 flex items-center justify-between text-xs text-slate-500">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-shield-halved text-emerald-600 text-sm"></i>
+                        <span>Meta Graph API Access Tokens and Provider Passwords are AES-256 encrypted server-side and never exposed in browser logs.</span>
+                    </div>
+                    <span class="text-[10px] font-black uppercase text-slate-400">SOC2 / ISO 27001 Compliant</span>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentStep = 1;
+
+        const stepMeta = [
+            { num: 1, name: "Business Information", desc: "Enter corporate legal details and registered entity profile." },
+            { num: 2, name: "Connect Meta / Facebook Business", desc: "Authorize Meta Embedded Signup via server-side OAuth2 handshake." },
+            { num: 3, name: "Select / Create WABA", desc: "Provision new or select existing WhatsApp Business Account ID." },
+            { num: 4, name: "Add Phone Number", desc: "Assign fresh corporate MSISDN clean of WhatsApp consumer registration." },
+            { num: 5, name: "Verify Phone Number (OTP)", desc: "Trigger 6-digit Meta SMS/Voice OTP verification handshake." },
+            { num: 6, name: "Configure Display Name", desc: "Set public WhatsApp verified brand name conforming to Meta policy." },
+            { num: 7, name: "Connect Provider (SmartPing)", desc: "Link SmartPing Provider Adapter for enterprise message routing." },
+            { num: 8, name: "Configure Webhook", desc: "Establish HMAC-SHA256 authenticated callback URL for real-time delivery events." },
+            { num: 9, name: "Sync Account", desc: "Fetch official quality rating, tier limits (100K/24h), and certificate status." },
+            { num: 10, name: "Connected & Live", desc: "Your WhatsApp Business Cloud Account is 100% active and broadcast ready!" }
+        ];
+
+        function goToStep(step) {
+            currentStep = step;
+            document.getElementById('stepCounterText').innerText = `Step ${step} of 10: ${stepMeta[step-1].name}`;
+
+            for (let i = 1; i <= 10; i++) {
+                const pill = document.getElementById(`stepPill${i}`);
+                pill.className = 'step-node p-2 rounded-xl border border-slate-200 transition-all';
+                if (i < step) {
+                    pill.classList.add('completed');
+                } else if (i === step) {
+                    pill.classList.add('active');
+                } else {
+                    pill.classList.add('bg-slate-50', 'text-slate-400');
+                }
+            }
+
+            const step1 = document.getElementById('stepContent1');
+            const step2 = document.getElementById('stepContent2');
+            const generic = document.getElementById('stepContentGeneric');
+
+            if (step === 1) {
+                step1.classList.remove('hidden');
+                step2.classList.add('hidden');
+                generic.classList.add('hidden');
+            } else if (step === 2) {
+                step1.classList.add('hidden');
+                step2.classList.remove('hidden');
+                generic.classList.add('hidden');
+            } else {
+                step1.classList.add('hidden');
+                step2.classList.add('hidden');
+                generic.classList.remove('hidden');
+
+                document.getElementById('genericStepTitle').innerText = `Step ${step}: ${stepMeta[step-1].name}`;
+                document.getElementById('genericStepDesc').innerText = stepMeta[step-1].desc;
+                document.getElementById('genericSubhead').innerText = `${stepMeta[step-1].name} Ready`;
+                
+                if (step === 10) {
+                    document.getElementById('genericNextBtn').innerHTML = `<i class="fa-solid fa-check text-xs"></i> <span>Go to WhatsApp Overview</span>`;
+                } else {
+                    document.getElementById('genericNextBtn').innerHTML = `<span>Next Step</span> <i class="fa-solid fa-arrow-right text-xs"></i>`;
+                }
+            }
+        }
+
+        function goNextGeneric() {
+            if (currentStep === 10) {
+                window.location.href = 'whatsapp-overview.html';
+            } else {
+                goToStep(currentStep + 1);
+            }
+        }
+
+        function goBackGeneric() {
+            goToStep(currentStep - 1);
+        }
+
+        function simulateMetaOAuth() {
+            alert('Meta Embedded Signup pop-up completed! WABA ID: 108492049182390 successfully authorized.');
+            goToStep(3);
+        }
+
+        function testFailureSimulation() {
+            const card = document.getElementById('onboardingFailureCard');
+            card.classList.remove('hidden');
+            card.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function dismissFailureCard() {
+            document.getElementById('onboardingFailureCard').classList.add('hidden');
+        }
+
+        function retryOnboardingStep() {
+            dismissFailureCard();
+            alert('Retrying Step 6: Validating new display name with Meta Graph API...');
+            setTimeout(() => {
+                alert('Display name "Zion CPaaS Official" approved by Meta! Proceeding to Step 7.');
+                goToStep(7);
+            }, 800);
+        }
+
+        function toggleSubmenu(event, submenuId, iconId) {
+            event.preventDefault();
+            const allSubmenus = document.querySelectorAll('div[id$="-submenu"]');
+            allSubmenus.forEach(otherSub => {
+                if (otherSub.id !== submenuId) {
+                    otherSub.classList.add('hidden');
+                    const otherIconId = otherSub.id.replace('-submenu', '-icon');
+                    const otherIcon = document.getElementById(otherIconId);
+                    if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                }
+            });
+
+            const submenu = document.getElementById(submenuId);
+            const icon = document.getElementById(iconId);
+            if (submenu) {
+                if (submenu.classList.contains('hidden')) {
+                    submenu.classList.remove('hidden');
+                    if(icon) icon.style.transform = 'rotate(180deg)';
+                } else {
+                    submenu.classList.add('hidden');
+                    if(icon) icon.style.transform = 'rotate(0deg)';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

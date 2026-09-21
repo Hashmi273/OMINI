@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RCS Chatbot & Flow Automation - ZION</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        zionBlue: '#0070f3',
+                        zionPurple: '#7c3aed',
+                        zionLightPurple: '#f5f3ff',
+                        zionDarkText: '#0f172a',
+                        zionGrayText: '#64748b',
+                        zionBorder: '#e2e8f0',
+                        zionBg: '#f8fafc',
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 10px -2px rgba(0, 0, 0, 0.02)',
+                        'premium-hover': '0 20px 40px -10px rgba(124, 58, 237, 0.15), 0 8px 16px -4px rgba(0, 0, 0, 0.04)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .sidebar-item { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .sidebar-item:hover, .sidebar-item.active { background-color: #f5f3ff; color: #7c3aed; font-weight: 600; }
+        .sidebar-item.active { border-right: 3px solid #7c3aed; }
+        
+        .flow-card {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .flow-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .input-custom {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 0.625rem 0.875rem;
+            font-size: 0.8125rem;
+            transition: all 0.2s;
+            width: 100%;
+        }
+        .input-custom:focus {
+            background-color: #ffffff;
+            border-color: #7c3aed;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+        }
+
+        .filter-btn.active {
+            background-color: #7c3aed;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        /* Node Canvas Grid */
+        .node-canvas-bg {
+            background-image: radial-gradient(#cbd5e1 1.2px, transparent 1.2px);
+            background-size: 24px 24px;
+            background-color: #f8fafc;
+        }
+
+        /* Toggle switch */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #7c3aed;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #7c3aed;
+        }
+
+        .phone-mockup-wrap {
+            filter: drop-shadow(0 20px 30px rgba(15, 23, 42, 0.25));
+        }
+
+        @keyframes bounceSlow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        .animate-bounce-slow {
+            animation: bounceSlow 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="text-slate-800 h-screen overflow-hidden flex">
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-6 right-6 z-50 transform translate-y-[-120%] opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-700">
+            <div id="toastIcon" class="w-7 h-7 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-sm">
+                <i class="fa-solid fa-robot"></i>
+            </div>
+            <div>
+                <p id="toastTitle" class="text-xs font-bold text-white">Flow Updated</p>
+                <p id="toastMessage" class="text-[11px] text-slate-300">Action performed successfully</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+        <!-- Left Fixed Sidebar -->
+        <!-- Left Fixed Big-Icon Sidebar (Image 2 Style) -->
+        <!-- Left Fixed Sidebar with Channels & Dropdowns -->
+    <aside class="w-68 bg-white border-r border-slate-200 flex flex-col h-screen shrink-0 z-30 select-none shadow-sm">
+        
+        <!-- Big Enterprise CPaaS Brand Logo -->
+        <div class="h-20 flex items-center px-4 border-b border-slate-100 shrink-0 bg-white">
+            <a href="home.html" class="flex items-center gap-3 w-full group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-105 transition-transform shrink-0 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i class="fa-solid fa-cloud-bolt text-lg text-white"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xl font-black text-slate-900 tracking-tight leading-none">ZION</span>
+                        <span class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded-md tracking-wider shadow-sm uppercase">CPaaS</span>
+                    </div>
+                    <p class="text-[9.5px] text-slate-500 font-bold tracking-tight mt-1 truncate uppercase flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>
+                        Omnichannel Cloud
+                    </p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Vertical Menu Scrollable List -->
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1.5">
+            <!-- Home -->
+            <a href="home.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">Home</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Platform Overview</div>
+                </div>
+            </a>
+            
+            <!-- Dashboard -->
+            <a href="dashboard.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </div>
+                <div class="flex-1 min-w-0 flex items-center justify-between">
+                    <div>
+                        <div class="text-sm font-bold text-slate-800 leading-tight">Dashboard</div>
+                        <div class="text-[10px] text-slate-400 font-medium">Live Analytics</div>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">LIVE</span>
+                </div>
+            </a>
+
+            <!-- SMS Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all" onclick="toggleSubmenu(event, 'sms-submenu', 'sms-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-comment-dots"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">SMS</div>
+                            <div class="text-[10px] text-slate-400 font-medium">Transactional &amp; Promo</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200" id="sms-icon" ></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-blue-200 pl-3 overflow-hidden hidden" id="sms-submenu">
+                    <a href="send-sms.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Send SMS</a>
+                    <a href="reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Reports</a>
+                    <a href="groups.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Contacts / Groups</a>
+                    <a href="dlt-dashboard.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">DLT / Compliance</a>
+                    <a href="#" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Blacklist / Whitelist</a>
+                </div>
+            </div>
+
+            <!-- RCS Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-purple-700 bg-purple-50/70 border border-purple-100/80 transition-all" onclick="toggleSubmenu(event, 'rcs-submenu', 'rcs-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-comment-sms"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-purple-800 leading-tight">RCS</div>
+                            <div class="text-[10px] text-purple-500 font-medium">Rich Business Messaging</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-purple-400 transition-transform duration-200" id="rcs-icon" style="transform: rotate(180deg);"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-purple-200 pl-3 overflow-hidden " id="rcs-submenu">
+                    <a href="rcs-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Campaign</a>
+                    <a href="rcs-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Report</a>
+                    <a href="rcs-configuration.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Configuration</a>
+                    <a href="rcs-chatbot.html" class="sidebar-item flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-purple-700 font-bold bg-purple-100/70">
+                        <span>Chat Bot</span>
+                        <span class="bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded">AI</span>
+                    </a>
+                </div>
+            </div>
+
+                        <!-- WhatsApp Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 transition-all" onclick="toggleSubmenu(event, 'wa-submenu', 'wa-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">WhatsApp</div>
+                            <div class="text-[10px] text-emerald-600 font-medium">Cloud API Official</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-emerald-400 transition-transform duration-200" id="wa-icon"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-emerald-200 pl-3 overflow-hidden hidden" id="wa-submenu">
+                    <a href="whatsapp-config.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Config</a>
+                    <a href="whatsapp-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Campaign</a>
+                    <a href="whatsapp-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Report</a>
+                    <a href="whatsapp-agents.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Agent</a>
+                    <a href="whatsapp-automation.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Automation</a>
+                </div>
+            </div>
+            
+            <!-- OBD Voice -->
+            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">OBD (Voice)</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Outbound Audio &amp; TTS</div>
+                </div>
+            </a>
+
+            <!-- IVR -->
+            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">IVR</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Smart Voice Tree</div>
+                </div>
+            </a>
+
+            <!-- Dedicated Credit & Wallet Ledger Menu Item -->
+            <div class="pt-1">
+                <a href="credit-report.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50/70 hover:text-emerald-700 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">Credits &amp; Wallet</div>
+                            <div class="text-[10px] text-emerald-600 font-semibold">INR Recharge &amp; Deduct</div>
+                        </div>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">₹ WALLET</span>
+                </a>
+            </div>
+
+            <!-- Dedicated API & Integration Menu Item -->
+            <div class="pt-1">
+                <a href="api-integration.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-indigo-50/70 hover:text-indigo-700 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-code text-xl"></i>
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">API &amp; Integration</div>
+                            <div class="text-[10px] text-indigo-500 font-semibold">Universal REST Hub</div>
+                        </div>
+                    </div>
+                    <span class="bg-indigo-100 text-indigo-700 text-[8px] font-black px-1.5 py-0.5 rounded">REST</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Bottom User Profile -->
+        <div class="border-t border-slate-100 p-4 shrink-0 bg-slate-50/60">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white text-sm font-black shadow-md shadow-purple-200 shrink-0">P</div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-bold text-slate-800 truncate leading-tight">Parvez</p>
+                    <p class="text-[11px] text-slate-400 font-medium truncate">Enterprise Admin</p>
+                </div>
+                <button class="text-slate-400 hover:text-red-500 transition-colors p-1.5 rounded-lg hover:bg-red-50">
+                    <i class="fa-solid fa-right-from-bracket text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#f4f7fb]">
+        <!-- Top Header -->
+        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 shrink-0 z-10">
+            <!-- Left Back Button & Search -->
+            <div class="flex items-center gap-3">
+                <a href="rcs-configuration.html" class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 text-xs font-black shadow-xs transition-all shrink-0">
+                    <i class="fa-solid fa-arrow-left text-xs"></i>
+                    <span>Back to Configuration</span>
+                </a>
+                <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
+                <div class="relative w-72 sm:w-96">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-search text-slate-400 text-sm"></i>
+                    </div>
+                    <input type="text" id="flowSearchInput" onkeyup="filterFlows()" placeholder="Search chatbot flows, triggers, bot agents..."
+                        class="block w-full pl-10 pr-4 py-2 border border-slate-200 rounded-xl text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 bg-slate-50/50">
+                </div>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center space-x-3">
+                <div class="flex items-center gap-3 bg-white border border-slate-200 px-3.5 py-1.5 rounded-xl shadow-sm hover:border-emerald-300 transition-all cursor-pointer">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-inner">
+                        <i class="fa-solid fa-wallet text-xs"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-0.5">INR Wallet Balance</p>
+                        <p class="text-xs font-black text-slate-900 leading-none">₹48,500.00 <span class="text-[10px] text-slate-400 font-medium">(12,450 Cr)</span></p>
+                    </div>
+                </div>
+
+                <button onclick="openPhoneSimulator('VIP Onboarding & Welcome Flow')" class="px-3.5 py-2 border border-purple-200 bg-white hover:bg-purple-50 text-purple-700 font-bold text-xs rounded-xl flex items-center gap-2 shadow-xs transition-all">
+                    <i class="fa-solid fa-mobile-screen-button text-purple-600"></i>
+                    <span>Live Simulator</span>
+                </button>
+                <button onclick="openCreateFlowModal()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-xs px-4 py-2 rounded-xl flex items-center gap-2 shadow-md shadow-purple-200 transition-all">
+                    <i class="fa-solid fa-plus text-xs"></i>
+                    <span>+ Add Chatbot Flow</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Scrollable Body -->
+        <div class="flex-1 overflow-y-auto p-6 lg:p-8">
+            <div class="max-w-[1400px] mx-auto space-y-6">
+
+                <!-- Breadcrumb & Luxury Banner Header -->
+                <div class="bg-gradient-to-r from-purple-800 via-indigo-800 to-purple-950 rounded-3xl p-7 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                    <div class="absolute -right-10 -top-24 w-64 h-64 bg-purple-400/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="absolute -left-10 -bottom-24 w-48 h-48 bg-indigo-400/20 rounded-full blur-2xl pointer-events-none"></div>
+                    
+                    <div class="relative z-10 max-w-xl">
+                        <div class="flex items-center text-xs text-purple-200 mb-2 space-x-2 font-medium">
+                            <a href="rcs-configuration.html" class="hover:text-white transition-colors flex items-center gap-1.5 bg-white/15 hover:bg-white/25 px-2.5 py-1 rounded-lg border border-white/20">
+                                <i class="fa-solid fa-arrow-left text-[10px]"></i> RCS Configuration Hub
+                            </a>
+                            <i class="fa-solid fa-chevron-right text-[8px] text-purple-300"></i>
+                            <span class="text-white font-bold bg-white/10 px-2 py-0.5 rounded-full">Chatbot Automation</span>
+                        </div>
+                        <h1 class="text-2xl lg:text-3xl font-black tracking-tight text-white flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-purple-400 to-indigo-500 flex items-center justify-center text-white shadow-md">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <span>RCS Chatbot & Flow Automation</span>
+                        </h1>
+                        <p class="text-xs lg:text-sm text-purple-100 mt-1.5 leading-relaxed">
+                            Visual 2-way conversational flow builder. Bind Google Verified Bots to automated keyword triggers, rich cards, carousel menus, branching decision logic, CRM APIs, and AI smart responses.
+                        </p>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="relative z-10 flex flex-wrap items-center gap-2.5 shrink-0">
+                        <a href="rcs-configuration.html" class="bg-white/20 hover:bg-white/30 border border-white/40 text-white font-extrabold text-xs px-4 py-3 rounded-2xl shadow-sm flex items-center gap-2 transition-all">
+                            <i class="fa-solid fa-arrow-left text-xs"></i>
+                            <span>Back to Config Hub</span>
+                        </a>
+                        <button onclick="openCreateFlowModal()" class="bg-white hover:bg-purple-50 text-purple-700 font-extrabold text-xs px-5 py-3 rounded-2xl shadow-xl flex items-center gap-2 transition-all transform hover:-translate-y-0.5">
+                            <i class="fa-solid fa-plus text-xs"></i>
+                            <span>+ Create New Flow</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- AI & Telemetry Stats Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-diagram-project"></i>
+                        </div>
+                        <div>
+                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Active Bot Flows</p>
+                            <h3 id="statActiveFlows" class="text-2xl font-black text-slate-900 mt-0.5">5</h3>
+                            <p class="text-[10px] text-emerald-600 font-semibold mt-0.5 flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> 1 Draft Flow
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <div>
+                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Automated Replies (24h)</p>
+                            <h3 class="text-2xl font-black text-slate-900 mt-0.5">14,890</h3>
+                            <p class="text-[10px] text-blue-600 font-semibold mt-0.5">Instant < 0.4s response</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div>
+                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Bot Resolution Rate</p>
+                            <h3 class="text-2xl font-black text-slate-900 mt-0.5">94.2%</h3>
+                            <p class="text-[10px] text-emerald-600 font-semibold mt-0.5">Zero human agent needed</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-microchip"></i>
+                        </div>
+                        <div>
+                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">AI LLM Fallback</p>
+                            <h3 class="text-2xl font-black text-amber-600 mt-0.5">5.8%</h3>
+                            <p class="text-[10px] text-amber-600 font-semibold mt-0.5">Gemini / GPT Auto-routed</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chatbot Flows Management List Section -->
+                <div class="bg-white rounded-3xl border border-slate-200 shadow-premium overflow-hidden">
+                    <!-- Toolbar & Filters -->
+                    <div class="p-5 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <!-- Left Filter Tabs -->
+                        <div class="flex items-center gap-2 overflow-x-auto text-xs pb-1 md:pb-0">
+                            <button onclick="setFlowFilter('all')" id="flow-filter-all" class="filter-btn active px-3.5 py-1.5 rounded-xl font-bold transition-all">
+                                All Flows (<span id="countAllFlows">6</span>)
+                            </button>
+                            <button onclick="setFlowFilter('keyword')" id="flow-filter-keyword" class="filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-xl font-bold transition-all flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                                <span>Keyword Triggers</span>
+                            </button>
+                            <button onclick="setFlowFilter('button')" id="flow-filter-button" class="filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-xl font-bold transition-all flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                                <span>Button / Action Clicks</span>
+                            </button>
+                            <button onclick="setFlowFilter('ai')" id="flow-filter-ai" class="filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-3.5 py-1.5 rounded-xl font-bold transition-all flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                                <span>AI Smart Agent</span>
+                            </button>
+                        </div>
+
+                        <!-- Right Info -->
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs text-slate-400 font-medium">Showing <b class="text-slate-700" id="showingFlowCount">6</b> flows</span>
+                        </div>
+                    </div>
+
+                    <!-- Flow Cards Grid -->
+                    <div id="flowListContainer" class="p-6 grid grid-cols-1 lg:grid-cols-2 gap-5">
+                        <!-- Dynamically rendered via JS -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ================= MODAL: ADD / EDIT CHATBOT FLOW ================= -->
+    <div id="modal-flow-form" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-7 space-y-5 shadow-2xl relative max-h-[90vh] overflow-y-auto border border-slate-100">
+            <!-- Close Button -->
+            <button onclick="closeModal('modal-flow-form')" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+            
+            <!-- Header -->
+            <div class="flex items-center gap-4 border-b border-slate-100 pb-4 pr-10">
+                <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl shadow-sm border border-purple-200/50">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div>
+                    <h3 id="flowModalTitle" class="text-xl font-extrabold text-slate-900 tracking-tight">RCS Chatbot Flow</h3>
+                    <p class="text-xs text-slate-500 mt-0.5">Configure bot name, assigned verified agent, trigger conditions & status</p>
+                </div>
+            </div>
+
+            <!-- Form Content -->
+            <form onsubmit="saveFlowForm(event)" class="space-y-4">
+                <input type="hidden" id="editFlowId" value="">
+
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Bot / Flow Name <span class="text-red-500">*</span></label>
+                    <input type="text" id="inputFlowName" required placeholder="e.g. VIP Onboarding & Support Flow" class="input-custom font-semibold">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Assigned Agent (Google Verified) <span class="text-red-500">*</span></label>
+                        <select id="inputFlowAgent" class="input-custom font-semibold text-xs">
+                            <option value="Zion_Official_Bot">🤖 Zion_Official_Bot (Primary Agent)</option>
+                            <option value="Zion_Support_Assistant">🎧 Zion_Support_Assistant (Customer Care)</option>
+                            <option value="Zion_Retail_Bot">🛍️ Zion_Retail_Bot (E-commerce)</option>
+                            <option value="Zion_Festive_Offers">🎉 Zion_Festive_Offers (Marketing)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Trigger Condition Type <span class="text-red-500">*</span></label>
+                        <select id="inputTriggerType" onchange="toggleTriggerTypeInputs()" class="input-custom font-semibold text-xs">
+                            <option value="keyword">Inbound Keyword Match (Exact / Contains)</option>
+                            <option value="button">Interactive Button CTA / Action Payload</option>
+                            <option value="welcome">First Inbound Message (Welcome Flow)</option>
+                            <option value="ai">AI Smart Fallback (Unhandled Messages)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Dynamic Keyword Tag Input -->
+                <div id="keywordConfigBox">
+                    <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Trigger Keywords (Comma or Enter separated)</label>
+                    <div class="p-2 border border-slate-200 rounded-xl bg-slate-50/50 flex flex-wrap items-center gap-1.5 min-h-[44px]">
+                        <div id="keywordTagsList" class="flex flex-wrap items-center gap-1.5">
+                            <span class="bg-purple-100 text-purple-800 text-[11px] font-bold px-2 py-0.5 rounded-lg flex items-center gap-1">
+                                hi <button type="button" onclick="this.parentElement.remove()" class="text-purple-600 hover:text-purple-900">&times;</button>
+                            </span>
+                            <span class="bg-purple-100 text-purple-800 text-[11px] font-bold px-2 py-0.5 rounded-lg flex items-center gap-1">
+                                hello <button type="button" onclick="this.parentElement.remove()" class="text-purple-600 hover:text-purple-900">&times;</button>
+                            </span>
+                            <span class="bg-purple-100 text-purple-800 text-[11px] font-bold px-2 py-0.5 rounded-lg flex items-center gap-1">
+                                menu <button type="button" onclick="this.parentElement.remove()" class="text-purple-600 hover:text-purple-900">&times;</button>
+                            </span>
+                        </div>
+                        <input type="text" id="newKeywordInput" onkeydown="handleKeywordKeydown(event)" placeholder="+ Add keyword..." class="bg-transparent border-none text-xs text-slate-700 outline-none flex-1 min-w-[100px] px-2 py-1">
+                    </div>
+                    <p class="text-[10px] text-slate-400 mt-1">Example: "hi, hello, menu, start, help"</p>
+                </div>
+
+                <!-- Starter Template Selection -->
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Starter Flow Template</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs">
+                        <label class="border border-purple-300 bg-purple-50/40 p-3 rounded-2xl cursor-pointer hover:border-purple-500 transition-all flex flex-col justify-between">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-bold text-purple-900">Welcome Menu</span>
+                                <input type="radio" name="flowTemplate" value="welcome" checked class="text-purple-600">
+                            </div>
+                            <p class="text-[10px] text-slate-500">Rich Card + 3 Quick Replies</p>
+                        </label>
+                        <label class="border border-slate-200 bg-slate-50 p-3 rounded-2xl cursor-pointer hover:border-purple-300 transition-all flex flex-col justify-between">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-bold text-slate-800">Support Helper</span>
+                                <input type="radio" name="flowTemplate" value="support" class="text-purple-600">
+                            </div>
+                            <p class="text-[10px] text-slate-500">FAQ + Ticket Creation</p>
+                        </label>
+                        <label class="border border-slate-200 bg-slate-50 p-3 rounded-2xl cursor-pointer hover:border-purple-300 transition-all flex flex-col justify-between">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-bold text-slate-800">Order Tracker</span>
+                                <input type="radio" name="flowTemplate" value="order" class="text-purple-600">
+                            </div>
+                            <p class="text-[10px] text-slate-500">API Lookup + Status Card</p>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Status Toggle -->
+                <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                    <div>
+                        <p class="text-xs font-bold text-slate-900">Flow Active Status</p>
+                        <p class="text-[11px] text-slate-500">When enabled, bot will respond in real-time to customer messages</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="inputFlowStatus" checked class="sr-only peer">
+                        <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
+                    </label>
+                </div>
+
+                <!-- Submit Buttons -->
+                <div class="flex justify-end gap-3 pt-3 border-t border-slate-100">
+                    <button type="button" onclick="closeModal('modal-flow-form')" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold text-xs transition-colors">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold text-xs shadow-md shadow-purple-200 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-floppy-disk text-xs"></i>
+                        <span id="btnSaveFlowText">Save Changes</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= MODAL: VISUAL FLOW BUILDER & CANVAS ================= -->
+    <div id="modal-visual-builder" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-2 sm:p-4 hidden">
+        <div class="bg-white rounded-3xl w-full max-w-6xl h-[92vh] flex flex-col shadow-2xl relative overflow-hidden border border-slate-200">
+            <!-- Builder Top Navigation Bar -->
+            <div class="h-16 px-6 bg-white border-b border-slate-200 flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-lg font-bold">
+                        <i class="fa-solid fa-diagram-project"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 id="builderFlowTitle" class="text-sm font-extrabold text-slate-900">VIP Onboarding & Welcome Flow</h3>
+                            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full">Active</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 font-mono">Agent: <span id="builderAgentBadge" class="text-purple-600 font-bold">Zion_Official_Bot</span></p>
+                    </div>
+                </div>
+
+                <!-- Builder Actions -->
+                <div class="flex items-center gap-2">
+                    <button onclick="openPhoneSimulator()" class="px-3.5 py-2 rounded-xl bg-purple-50 text-purple-700 hover:bg-purple-100 text-xs font-bold flex items-center gap-2 border border-purple-200 transition-colors">
+                        <i class="fa-solid fa-mobile-screen text-xs"></i>
+                        <span>Test in Phone</span>
+                    </button>
+                    <button onclick="saveVisualFlow()" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold flex items-center gap-2 shadow-md shadow-purple-200 transition-colors">
+                        <i class="fa-solid fa-check text-xs"></i>
+                        <span>Save & Publish</span>
+                    </button>
+                    <button onclick="closeModal('modal-visual-builder')" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition-colors ml-2">
+                        <i class="fa-solid fa-xmark text-sm"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Builder Body (Canvas + Node Toolbar) -->
+            <div class="flex-1 flex overflow-hidden">
+                <!-- Left Node Toolbox -->
+                <div class="w-64 bg-slate-50 border-r border-slate-200 p-4 space-y-4 overflow-y-auto shrink-0 hidden md:block">
+                    <div>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-wider mb-2">Add Step Node</p>
+                        <div class="space-y-2">
+                            <button onclick="addNode('rich_card')" class="w-full bg-white hover:bg-purple-50 hover:border-purple-300 border border-slate-200 rounded-xl p-3 text-left shadow-xs transition-all flex items-center gap-3 group">
+                                <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-sm group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-image"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-800">Rich Card</p>
+                                    <p class="text-[10px] text-slate-400">Image, title & CTA</p>
+                                </div>
+                            </button>
+
+                            <button onclick="addNode('quick_reply')" class="w-full bg-white hover:bg-purple-50 hover:border-purple-300 border border-slate-200 rounded-xl p-3 text-left shadow-xs transition-all flex items-center gap-3 group">
+                                <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center text-sm group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-list-check"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-800">Quick Replies</p>
+                                    <p class="text-[10px] text-slate-400">Pill suggestion buttons</p>
+                                </div>
+                            </button>
+
+                            <button onclick="addNode('carousel')" class="w-full bg-white hover:bg-purple-50 hover:border-purple-300 border border-slate-200 rounded-xl p-3 text-left shadow-xs transition-all flex items-center gap-3 group">
+                                <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center text-sm group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-images"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-800">Carousel</p>
+                                    <p class="text-[10px] text-slate-400">Multi-card slider</p>
+                                </div>
+                            </button>
+
+                            <button onclick="addNode('branch')" class="w-full bg-white hover:bg-purple-50 hover:border-purple-300 border border-slate-200 rounded-xl p-3 text-left shadow-xs transition-all flex items-center gap-3 group">
+                                <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-code-branch"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-800">Condition Branch</p>
+                                    <p class="text-[10px] text-slate-400">If/Else logic split</p>
+                                </div>
+                            </button>
+
+                            <button onclick="addNode('webhook')" class="w-full bg-white hover:bg-purple-50 hover:border-purple-300 border border-slate-200 rounded-xl p-3 text-left shadow-xs transition-all flex items-center gap-3 group">
+                                <div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center text-sm group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-network-wired"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-800">API Webhook</p>
+                                    <p class="text-[10px] text-slate-400">CRM & Order lookup</p>
+                                </div>
+                            </button>
+
+                            <button onclick="addNode('ai_fallback')" class="w-full bg-white hover:bg-purple-50 hover:border-purple-300 border border-slate-200 rounded-xl p-3 text-left shadow-xs transition-all flex items-center gap-3 group">
+                                <div class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-brain"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-800">AI LLM Auto-Reply</p>
+                                    <p class="text-[10px] text-slate-400">Gemini/GPT responder</p>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center Canvas Area -->
+                <div class="flex-1 node-canvas-bg p-8 overflow-y-auto space-y-6 flex flex-col items-center">
+                    
+                    <!-- Canvas Node 1: Trigger -->
+                    <div class="w-full max-w-lg bg-white rounded-2xl border-2 border-purple-500 shadow-md p-4 relative">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-3">
+                            <div class="flex items-center gap-2 text-xs font-extrabold text-purple-700">
+                                <i class="fa-solid fa-bolt"></i>
+                                <span>1. Inbound Trigger</span>
+                            </div>
+                            <span class="bg-purple-100 text-purple-800 text-[10px] font-bold px-2 py-0.5 rounded-md font-mono">Trigger Node</span>
+                        </div>
+                        <div class="text-xs space-y-1">
+                            <p class="text-slate-500">When client sends any of these keywords:</p>
+                            <div class="flex flex-wrap gap-1 pt-1">
+                                <span class="bg-slate-100 border border-slate-200 text-slate-800 font-bold px-2 py-0.5 rounded text-[11px]">hi</span>
+                                <span class="bg-slate-100 border border-slate-200 text-slate-800 font-bold px-2 py-0.5 rounded text-[11px]">hello</span>
+                                <span class="bg-slate-100 border border-slate-200 text-slate-800 font-bold px-2 py-0.5 rounded text-[11px]">menu</span>
+                                <span class="bg-slate-100 border border-slate-200 text-slate-800 font-bold px-2 py-0.5 rounded text-[11px]">start</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Flow Connector Line -->
+                    <div class="flex flex-col items-center">
+                        <div class="w-0.5 h-6 bg-purple-400"></div>
+                        <i class="fa-solid fa-chevron-down text-purple-500 text-xs"></i>
+                    </div>
+
+                    <!-- Canvas Node 2: Rich Card Response -->
+                    <div class="w-full max-w-lg bg-white rounded-2xl border border-slate-200 shadow-md p-4 relative hover:border-purple-300 transition-all">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-3">
+                            <div class="flex items-center gap-2 text-xs font-extrabold text-blue-600">
+                                <i class="fa-solid fa-image"></i>
+                                <span>2. Bot Response: Welcome Card</span>
+                            </div>
+                            <button onclick="alert('Edit Rich Card Content')" class="text-slate-400 hover:text-purple-600 text-xs">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                        </div>
+                        <div class="space-y-2 text-xs">
+                            <div class="h-28 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-sm">
+                                [ Banner Image Preview: Welcome to ZION ]
+                            </div>
+                            <p class="font-extrabold text-slate-900 text-sm">Hello {#name#}, Welcome to Zion Communication!</p>
+                            <p class="text-slate-500 text-[11px]">How can our automated assistant help you today? Please choose an option below:</p>
+                        </div>
+                    </div>
+
+                    <!-- Flow Connector Line -->
+                    <div class="flex flex-col items-center">
+                        <div class="w-0.5 h-6 bg-purple-400"></div>
+                        <i class="fa-solid fa-chevron-down text-purple-500 text-xs"></i>
+                    </div>
+
+                    <!-- Canvas Node 3: Quick Reply Chips -->
+                    <div class="w-full max-w-lg bg-white rounded-2xl border border-slate-200 shadow-md p-4 relative hover:border-purple-300 transition-all">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-3">
+                            <div class="flex items-center gap-2 text-xs font-extrabold text-purple-600">
+                                <i class="fa-solid fa-list-check"></i>
+                                <span>3. Suggested Quick Replies</span>
+                            </div>
+                            <button onclick="alert('Add Quick Reply Option')" class="text-purple-600 hover:text-purple-800 text-xs font-bold">
+                                + Add Option
+                            </button>
+                        </div>
+                        <div class="flex flex-wrap gap-2 text-xs">
+                            <span class="bg-purple-50 text-purple-700 border border-purple-200 px-3 py-1.5 rounded-full font-bold flex items-center gap-1.5">
+                                <i class="fa-solid fa-truck-fast text-[10px]"></i> Track Order
+                            </span>
+                            <span class="bg-blue-50 text-blue-700 border border-blue-200 px-3 py-1.5 rounded-full font-bold flex items-center gap-1.5">
+                                <i class="fa-solid fa-tags text-[10px]"></i> View Offers
+                            </span>
+                            <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1.5 rounded-full font-bold flex items-center gap-1.5">
+                                <i class="fa-solid fa-headset text-[10px]"></i> Talk to Human Agent
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Flow Connector Line -->
+                    <div class="flex flex-col items-center">
+                        <div class="w-0.5 h-6 bg-purple-400"></div>
+                        <i class="fa-solid fa-chevron-down text-purple-500 text-xs"></i>
+                    </div>
+
+                    <!-- Canvas Node 4: Branching Decision Node -->
+                    <div class="w-full max-w-lg bg-slate-50 rounded-2xl border-2 border-dashed border-purple-300 p-4 text-center">
+                        <button onclick="addNode('branch')" class="text-purple-700 hover:text-purple-900 font-bold text-xs flex items-center justify-center gap-2 mx-auto">
+                            <i class="fa-solid fa-plus-circle"></i>
+                            <span>Add Next Step / Handoff Node</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL: LIVE PHONE CHAT SIMULATOR (GOOGLE MESSAGES) ================= -->
+    <div id="modal-phone-simulator" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="relative flex flex-col items-center">
+            <!-- Close Button -->
+            <button onclick="closeModal('modal-phone-simulator')" class="absolute -top-12 right-0 sm:-right-12 w-9 h-9 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+
+            <!-- Phone Shell -->
+            <div class="w-[360px] h-[680px] bg-slate-900 rounded-[44px] p-3 shadow-2xl border-4 border-slate-700 relative flex flex-col overflow-hidden">
+                <!-- Speaker / Camera Notch -->
+                <div class="absolute top-4 left-1/2 -translate-x-1/2 w-28 h-4 bg-slate-800 rounded-full z-30 flex items-center justify-center">
+                    <div class="w-2.5 h-2.5 rounded-full bg-slate-900 mr-2"></div>
+                    <div class="w-8 h-1 bg-slate-700 rounded-full"></div>
+                </div>
+
+                <!-- Phone Inner Screen -->
+                <div class="w-full h-full bg-[#f8fafc] rounded-[36px] overflow-hidden flex flex-col pt-7 relative">
+                    <!-- Google Messages Chat Header -->
+                    <div class="bg-white border-b border-slate-200 px-4 py-2.5 flex items-center justify-between shrink-0 shadow-xs">
+                        <div class="flex items-center gap-2.5">
+                            <button onclick="closeModal('modal-phone-simulator')" class="text-slate-500"><i class="fa-solid fa-arrow-left text-xs"></i></button>
+                            <div class="w-8 h-8 rounded-full bg-purple-600 text-white font-black text-xs flex items-center justify-center shadow-xs">Z</div>
+                            <div>
+                                <div class="flex items-center gap-1">
+                                    <p id="simBotHeaderName" class="text-xs font-black text-slate-900 truncate">Zion_Official_Bot</p>
+                                    <i class="fa-solid fa-circle-check text-purple-600 text-[11px]"></i>
+                                </div>
+                                <p class="text-[9px] text-emerald-600 font-bold">Verified Business • Online</p>
+                            </div>
+                        </div>
+                        <button onclick="resetSimChat()" title="Reset Chat" class="text-slate-400 hover:text-purple-600 p-1.5"><i class="fa-solid fa-rotate-right text-xs"></i></button>
+                    </div>
+
+                    <!-- Chat Messages Log Area -->
+                    <div id="simChatBody" class="flex-1 overflow-y-auto p-3.5 space-y-3 text-xs">
+                        <!-- Initial Bot Welcome Card -->
+                        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs max-w-[280px]">
+                            <div class="h-24 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-800 p-3 flex flex-col justify-end text-white">
+                                <span class="bg-white/20 text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded-full self-start mb-1">Google RCS Verified</span>
+                                <h4 class="font-extrabold text-xs">Welcome to ZION</h4>
+                            </div>
+                            <div class="p-3 space-y-1.5">
+                                <p class="font-bold text-slate-800 text-[11px]">Hello Parvez! 👋</p>
+                                <p class="text-slate-500 text-[10px] leading-snug">Welcome to Zion Communication. How can our automated assistant help you today?</p>
+                            </div>
+                        </div>
+
+                        <!-- Bot Suggested Quick Replies -->
+                        <div id="simQuickRepliesContainer" class="flex flex-wrap gap-1.5 pt-1">
+                            <button onclick="sendSimUserMessage('Track Order')" class="bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all flex items-center gap-1">
+                                <span>📦 Track Order</span>
+                            </button>
+                            <button onclick="sendSimUserMessage('View Offers')" class="bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all flex items-center gap-1">
+                                <span>🏷️ View Offers</span>
+                            </button>
+                            <button onclick="sendSimUserMessage('Talk to Agent')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all flex items-center gap-1">
+                                <span>🎧 Support</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Typing indicator (hidden by default) -->
+                    <div id="simTypingIndicator" class="hidden px-4 py-1 text-[10px] text-slate-400 italic flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-purple-500 animate-bounce"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-purple-500 animate-bounce" style="animation-delay: 0.2s"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-purple-500 animate-bounce" style="animation-delay: 0.4s"></span>
+                        <span>Zion Bot is typing...</span>
+                    </div>
+
+                    <!-- Input Bar -->
+                    <div class="p-2.5 bg-white border-t border-slate-200 flex items-center gap-2 shrink-0">
+                        <input type="text" id="simUserInput" onkeydown="if(event.key === 'Enter') sendSimInput()" placeholder="Type a message (e.g. hi, track, help)..."
+                            class="flex-1 bg-slate-100 border-none rounded-full px-3.5 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-purple-500">
+                        <button onclick="sendSimInput()" class="w-8 h-8 rounded-full bg-purple-600 hover:bg-purple-700 text-white flex items-center justify-center transition-colors">
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS Logic -->
+    <script>
+        // Chatbot Flows Database
+        let chatbotFlows = [
+            {
+                id: 'flow_1',
+                name: 'VIP Onboarding & Welcome Flow',
+                agent: 'Zion_Official_Bot',
+                agentLabel: 'Primary Agent',
+                agentIcon: 'fa-robot',
+                agentColor: 'bg-purple-600',
+                triggerType: 'keyword',
+                triggerSummary: 'hi, hello, menu, start',
+                keywords: ['hi', 'hello', 'menu', 'start'],
+                nodesCount: 5,
+                status: true,
+                updatedAt: '19 Sep 2026, 11:20 AM'
+            },
+            {
+                id: 'flow_2',
+                name: 'Instant Order Status & Tracking',
+                agent: 'Zion_Retail_Bot',
+                agentLabel: 'E-Commerce Bot',
+                agentIcon: 'fa-bag-shopping',
+                agentColor: 'bg-amber-600',
+                triggerType: 'keyword',
+                triggerSummary: 'track, order, status, shipment',
+                keywords: ['track', 'order', 'status', 'shipment'],
+                nodesCount: 4,
+                status: true,
+                updatedAt: '19 Sep 2026, 10:15 AM'
+            },
+            {
+                id: 'flow_3',
+                name: '24x7 Customer Support & Ticket Resolver',
+                agent: 'Zion_Support_Assistant',
+                agentLabel: 'Support Agent',
+                agentIcon: 'fa-headset',
+                agentColor: 'bg-blue-600',
+                triggerType: 'keyword',
+                triggerSummary: 'help, support, ticket, human, agent',
+                keywords: ['help', 'support', 'ticket', 'human', 'agent'],
+                nodesCount: 7,
+                status: true,
+                updatedAt: '18 Sep 2026, 06:40 PM'
+            },
+            {
+                id: 'flow_4',
+                name: 'Diwali Festive Discount & Voucher Claim',
+                agent: 'Zion_Festive_Offers',
+                agentLabel: 'Marketing Deals',
+                agentIcon: 'fa-tag',
+                agentColor: 'bg-rose-600',
+                triggerType: 'button',
+                triggerSummary: 'Payload: action_claim_diwali_deal',
+                keywords: ['offer', 'discount', 'coupon'],
+                nodesCount: 4,
+                status: true,
+                updatedAt: '18 Sep 2026, 02:10 PM'
+            },
+            {
+                id: 'flow_5',
+                name: 'AI Smart LLM Assistant (Gemini Fallback)',
+                agent: 'Zion_Official_Bot',
+                agentLabel: 'Smart AI Agent',
+                agentIcon: 'fa-brain',
+                agentColor: 'bg-purple-600',
+                triggerType: 'ai',
+                triggerSummary: 'Fallback on all unhandled customer messages',
+                keywords: ['ai-fallback'],
+                nodesCount: 3,
+                status: true,
+                updatedAt: '17 Sep 2026, 09:30 AM'
+            },
+            {
+                id: 'flow_6',
+                name: 'Lead Qualification & Demo Request',
+                agent: 'Zion_Official_Bot',
+                agentLabel: 'Sales Automation',
+                agentIcon: 'fa-bullseye',
+                agentColor: 'bg-purple-600',
+                triggerType: 'keyword',
+                triggerSummary: 'pricing, demo, quote, sales',
+                keywords: ['pricing', 'demo', 'quote', 'sales'],
+                nodesCount: 6,
+                status: false,
+                updatedAt: '16 Sep 2026, 04:00 PM'
+            }
+        ];
+
+        let currentFlowFilter = 'all';
+
+        function toggleSubmenu(event, submenuId, iconId) {
+            event.preventDefault();
+            const submenu = document.getElementById(submenuId);
+            const icon = document.getElementById(iconId);
+            if (submenu) {
+                submenu.classList.toggle('hidden');
+                if (icon) {
+                    icon.style.transform = submenu.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+                }
+            }
+        }
+
+        function showToast(title, message, isSuccess = true) {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toastIcon');
+            document.getElementById('toastTitle').innerText = title;
+            document.getElementById('toastMessage').innerText = message;
+            
+            if (isSuccess) {
+                icon.className = 'w-7 h-7 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-sm';
+                icon.innerHTML = '<i class="fa-solid fa-check"></i>';
+            } else {
+                icon.className = 'w-7 h-7 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center text-sm';
+                icon.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+            }
+
+            toast.classList.remove('translate-y-[-120%]', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-[-120%]', 'opacity-0');
+            }, 3000);
+        }
+
+        function renderFlowCards() {
+            const container = document.getElementById('flowListContainer');
+            container.innerHTML = '';
+
+            const filtered = chatbotFlows.filter(flow => {
+                if (currentFlowFilter === 'all') return true;
+                return flow.triggerType === currentFlowFilter;
+            });
+
+            document.getElementById('showingFlowCount').innerText = filtered.length;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-slate-400">
+                        <i class="fa-solid fa-diagram-project text-4xl mb-3 text-slate-300"></i>
+                        <p class="font-bold text-slate-700">No Chatbot Flows Found</p>
+                        <p class="text-xs text-slate-400 mt-1">Get started by creating your first RCS chatbot automated flow.</p>
+                        <button onclick="openCreateFlowModal()" class="mt-4 bg-purple-600 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md">
+                            + Create Flow
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(flow => {
+                let badgeStyle = 'bg-purple-100 text-purple-800 border-purple-200';
+                if (flow.triggerType === 'button') badgeStyle = 'bg-blue-100 text-blue-800 border-blue-200';
+                if (flow.triggerType === 'ai') badgeStyle = 'bg-amber-100 text-amber-800 border-amber-200';
+
+                const card = document.createElement('div');
+                card.className = 'flow-card bg-white rounded-3xl p-6 border border-slate-200/80 shadow-premium hover:border-purple-200 flex flex-col justify-between relative overflow-hidden group';
+                card.innerHTML = `
+                    <div>
+                        <!-- Header & Status Toggle -->
+                        <div class="flex items-start justify-between gap-3 mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-11 h-11 rounded-2xl ${flow.agentColor} text-white flex items-center justify-center text-lg font-bold shadow-md shadow-purple-200/50 shrink-0">
+                                    <i class="fa-solid ${flow.agentIcon}"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-base font-extrabold text-slate-900 group-hover:text-purple-700 transition-colors">${flow.name}</h4>
+                                    <div class="flex items-center gap-1.5 mt-0.5">
+                                        <span class="text-[11px] font-bold text-slate-600">${flow.agent}</span>
+                                        <i class="fa-solid fa-circle-check text-purple-600 text-[10px]"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Status Toggle -->
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] font-extrabold ${flow.status ? 'text-emerald-700 bg-emerald-50 border-emerald-200' : 'text-slate-400 bg-slate-100 border-slate-200'} border px-2 py-0.5 rounded-full">
+                                    ${flow.status ? 'Active' : 'Draft'}
+                                </span>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" ${flow.status ? 'checked' : ''} onchange="toggleFlowStatus('${flow.id}')" class="sr-only peer">
+                                    <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-purple-600"></div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Triggers & Nodes Info Box -->
+                        <div class="py-3 px-3.5 bg-slate-50/80 rounded-2xl border border-slate-100 space-y-2 text-xs my-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-400 font-medium"><i class="fa-solid fa-bolt text-purple-500 mr-1"></i> Trigger Type:</span>
+                                <span class="${badgeStyle} border px-2 py-0.5 rounded-md font-bold text-[10px] uppercase">${flow.triggerType}</span>
+                            </div>
+                            <div class="flex items-start justify-between gap-2">
+                                <span class="text-slate-400 font-medium shrink-0"><i class="fa-solid fa-key text-amber-500 mr-1"></i> Conditions:</span>
+                                <span class="font-bold text-slate-700 text-right truncate">${flow.triggerSummary}</span>
+                            </div>
+                            <div class="flex items-center justify-between pt-1 border-t border-slate-200/60 text-[11px]">
+                                <span class="text-slate-400"><i class="fa-solid fa-diagram-project text-blue-500 mr-1"></i> Flow Steps:</span>
+                                <span class="font-extrabold text-purple-700 bg-purple-50 px-2 py-0.5 rounded">${flow.nodesCount} Automated Nodes</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Action Buttons -->
+                    <div class="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="openVisualBuilder('${flow.name}', '${flow.agent}')" class="bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 px-3 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-colors">
+                                <i class="fa-solid fa-diagram-project text-[10px]"></i>
+                                <span>Visual Builder</span>
+                            </button>
+                            <button onclick="openPhoneSimulator('${flow.name}')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-colors">
+                                <i class="fa-solid fa-mobile-screen text-[10px]"></i>
+                                <span>Test on Phone</span>
+                            </button>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <!-- Prominent Edit Button -->
+                            <button onclick="openEditFlowModal('${flow.id}')" class="bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 px-3 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1.5 shadow-xs transition-colors">
+                                <i class="fa-solid fa-pen-to-square text-[11px] text-amber-600"></i>
+                                <span>Edit</span>
+                            </button>
+                            <!-- Prominent Delete Button -->
+                            <button onclick="deleteFlow('${flow.id}')" class="bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 px-3 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1.5 shadow-xs transition-colors">
+                                <i class="fa-solid fa-trash-can text-[11px] text-red-500"></i>
+                                <span>Delete</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function setFlowFilter(filter) {
+            currentFlowFilter = filter;
+            ['all', 'keyword', 'button', 'ai'].forEach(f => {
+                const btn = document.getElementById(`flow-filter-${f}`);
+                if (btn) {
+                    if (f === filter) {
+                        btn.classList.add('active');
+                        btn.classList.remove('bg-slate-100', 'text-slate-700');
+                    } else {
+                        btn.classList.remove('active');
+                        btn.classList.add('bg-slate-100', 'text-slate-700');
+                    }
+                }
+            });
+            renderFlowCards();
+        }
+
+        function filterFlows() {
+            const query = document.getElementById('flowSearchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.flow-card');
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                card.style.display = text.includes(query) ? '' : 'none';
+            });
+        }
+
+        function openModal(id) {
+            document.getElementById(id)?.classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id)?.classList.add('hidden');
+        }
+
+        function openCreateFlowModal() {
+            document.getElementById('flowModalTitle').innerText = 'Create New Chatbot Flow';
+            document.getElementById('btnSaveFlowText').innerText = 'Create & Open Visual Builder';
+            document.getElementById('editFlowId').value = '';
+            document.getElementById('inputFlowName').value = '';
+            document.getElementById('inputFlowStatus').checked = true;
+            
+            // Default keyword tags
+            const tagsContainer = document.getElementById('keywordTagsList');
+            tagsContainer.innerHTML = `
+                <span class="bg-purple-100 text-purple-800 text-[11px] font-bold px-2 py-0.5 rounded-lg flex items-center gap-1">
+                    hi <button type="button" onclick="this.parentElement.remove()" class="text-purple-600 hover:text-purple-900">&times;</button>
+                </span>
+                <span class="bg-purple-100 text-purple-800 text-[11px] font-bold px-2 py-0.5 rounded-lg flex items-center gap-1">
+                    hello <button type="button" onclick="this.parentElement.remove()" class="text-purple-600 hover:text-purple-900">&times;</button>
+                </span>
+            `;
+            openModal('modal-flow-form');
+        }
+
+        function openEditFlowModal(flowId) {
+            const flow = chatbotFlows.find(f => f.id === flowId);
+            if (!flow) return;
+
+            document.getElementById('flowModalTitle').innerText = `Edit Flow: ${flow.name}`;
+            document.getElementById('btnSaveFlowText').innerText = 'Save Changes';
+            document.getElementById('editFlowId').value = flow.id;
+            document.getElementById('inputFlowName').value = flow.name;
+            document.getElementById('inputFlowAgent').value = flow.agent;
+            document.getElementById('inputTriggerType').value = flow.triggerType;
+            document.getElementById('inputFlowStatus').checked = flow.status;
+
+            // Populate keywords
+            const tagsContainer = document.getElementById('keywordTagsList');
+            tagsContainer.innerHTML = '';
+            (flow.keywords || ['hi', 'hello']).forEach(kw => {
+                const tag = document.createElement('span');
+                tag.className = 'bg-purple-100 text-purple-800 text-[11px] font-bold px-2 py-0.5 rounded-lg flex items-center gap-1';
+                tag.innerHTML = `${kw} <button type="button" onclick="this.parentElement.remove()" class="text-purple-600 hover:text-purple-900">&times;</button>`;
+                tagsContainer.appendChild(tag);
+            });
+
+            openModal('modal-flow-form');
+        }
+
+        function toggleTriggerTypeInputs() {
+            const type = document.getElementById('inputTriggerType').value;
+            const kwBox = document.getElementById('keywordConfigBox');
+            if (type === 'keyword' || type === 'button') {
+                kwBox.classList.remove('hidden');
+            } else {
+                kwBox.classList.add('hidden');
+            }
+        }
+
+        function handleKeywordKeydown(event) {
+            if (event.key === 'Enter' || event.key === ',') {
+                event.preventDefault();
+                const input = event.target;
+                const val = input.value.trim().replace(',', '');
+                if (val) {
+                    const tag = document.createElement('span');
+                    tag.className = 'bg-purple-100 text-purple-800 text-[11px] font-bold px-2 py-0.5 rounded-lg flex items-center gap-1';
+                    tag.innerHTML = `${val} <button type="button" onclick="this.parentElement.remove()" class="text-purple-600 hover:text-purple-900">&times;</button>`;
+                    document.getElementById('keywordTagsList').appendChild(tag);
+                    input.value = '';
+                }
+            }
+        }
+
+        function saveFlowForm(event) {
+            event.preventDefault();
+            const editId = document.getElementById('editFlowId').value;
+            const name = document.getElementById('inputFlowName').value.trim();
+            const agent = document.getElementById('inputFlowAgent').value;
+            const triggerType = document.getElementById('inputTriggerType').value;
+            const status = document.getElementById('inputFlowStatus').checked;
+
+            if (editId) {
+                const flow = chatbotFlows.find(f => f.id === editId);
+                if (flow) {
+                    flow.name = name;
+                    flow.agent = agent;
+                    flow.triggerType = triggerType;
+                    flow.status = status;
+                }
+                showToast('Flow Updated', `Saved changes to "${name}".`);
+            } else {
+                const newFlow = {
+                    id: 'flow_' + Date.now(),
+                    name: name,
+                    agent: agent,
+                    agentLabel: 'Automated Bot',
+                    agentIcon: 'fa-robot',
+                    agentColor: 'bg-purple-600',
+                    triggerType: triggerType,
+                    triggerSummary: 'hi, hello, support, start',
+                    keywords: ['hi', 'hello', 'support'],
+                    nodesCount: 4,
+                    status: status,
+                    updatedAt: 'Just now'
+                };
+                chatbotFlows.unshift(newFlow);
+                showToast('Flow Created!', `New chatbot flow "${name}" is now live.`);
+            }
+
+            closeModal('modal-flow-form');
+            renderFlowCards();
+        }
+
+        function toggleFlowStatus(flowId) {
+            const flow = chatbotFlows.find(f => f.id === flowId);
+            if (flow) {
+                flow.status = !flow.status;
+                showToast('Status Updated', `Flow "${flow.name}" is now ${flow.status ? 'Active' : 'Inactive'}.`);
+                renderFlowCards();
+            }
+        }
+
+        function duplicateFlow(flowId) {
+            const flow = chatbotFlows.find(f => f.id === flowId);
+            if (flow) {
+                const cloned = {
+                    ...flow,
+                    id: 'flow_' + Date.now(),
+                    name: `${flow.name} (Copy)`,
+                    status: false,
+                    updatedAt: 'Just now'
+                };
+                chatbotFlows.unshift(cloned);
+                renderFlowCards();
+                showToast('Flow Duplicated', `Created copy of "${flow.name}".`);
+            }
+        }
+
+        function deleteFlow(flowId) {
+            if (confirm('Are you sure you want to delete this chatbot automation flow?')) {
+                chatbotFlows = chatbotFlows.filter(f => f.id !== flowId);
+                renderFlowCards();
+                showToast('Flow Deleted', 'Chatbot flow removed.', false);
+            }
+        }
+
+        // Visual Builder Operations
+        function openVisualBuilder(flowName, agentName) {
+            document.getElementById('builderFlowTitle').innerText = flowName || 'VIP Onboarding & Welcome Flow';
+            document.getElementById('builderAgentBadge').innerText = agentName || 'Zion_Official_Bot';
+            openModal('modal-visual-builder');
+        }
+
+        function saveVisualFlow() {
+            showToast('Flow Saved & Published', 'All node changes and logic published to Google RCS gateway.');
+            closeModal('modal-visual-builder');
+        }
+
+        function addNode(type) {
+            showToast('Node Added to Canvas', `Added new ${type} step.`);
+        }
+
+        // Phone Simulator Operations
+        function openPhoneSimulator(flowName = 'VIP Onboarding & Welcome Flow') {
+            document.getElementById('simBotHeaderName').innerText = 'Zion_Official_Bot';
+            openModal('modal-phone-simulator');
+        }
+
+        function sendSimInput() {
+            const input = document.getElementById('simUserInput');
+            const text = input.value.trim();
+            if (!text) return;
+            input.value = '';
+            sendSimUserMessage(text);
+        }
+
+        function sendSimUserMessage(text) {
+            const chatBody = document.getElementById('simChatBody');
+            const indicator = document.getElementById('simTypingIndicator');
+
+            // Append User Message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'flex justify-end';
+            userMsg.innerHTML = `
+                <div class="bg-purple-600 text-white rounded-2xl rounded-tr-none px-3.5 py-2 max-w-[240px] shadow-xs">
+                    <p>${text}</p>
+                </div>
+            `;
+            chatBody.appendChild(userMsg);
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            // Show Typing Indicator
+            indicator.classList.remove('hidden');
+
+            setTimeout(() => {
+                indicator.classList.add('hidden');
+                respondSimBot(text);
+            }, 1000);
+        }
+
+        function respondSimBot(userText) {
+            const chatBody = document.getElementById('simChatBody');
+            const lower = userText.toLowerCase();
+
+            let botResponseHtml = '';
+
+            if (lower.includes('track') || lower.includes('order')) {
+                botResponseHtml = `
+                    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs max-w-[280px]">
+                        <div class="bg-emerald-600 text-white p-2.5 flex items-center justify-between">
+                            <span class="font-bold text-xs">Order #ZN-98442</span>
+                            <span class="bg-white/20 text-[9px] px-1.5 py-0.5 rounded-full font-bold">In Transit 🚚</span>
+                        </div>
+                        <div class="p-3 space-y-1.5 text-xs">
+                            <p class="font-bold text-slate-800">Delivery by Tomorrow, 2:00 PM</p>
+                            <p class="text-slate-500 text-[10px]">Courier: BlueDart Express (AWB: 88419204)</p>
+                            <button onclick="alert('Opening Live GPS Map...')" class="w-full mt-2 bg-purple-50 text-purple-700 hover:bg-purple-100 font-bold py-1.5 rounded-lg text-[11px] flex items-center justify-center gap-1 border border-purple-200">
+                                <i class="fa-solid fa-location-crosshairs text-[10px]"></i> Track Live Location
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (lower.includes('offer') || lower.includes('deal') || lower.includes('coupon')) {
+                botResponseHtml = `
+                    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs max-w-[280px]">
+                        <div class="bg-gradient-to-r from-amber-500 to-rose-500 text-white p-3">
+                            <span class="text-[9px] font-bold uppercase bg-white/20 px-2 py-0.5 rounded-full">Special Festival Discount</span>
+                            <h4 class="font-black text-sm mt-1">Flat 40% OFF Voucher</h4>
+                        </div>
+                        <div class="p-3 space-y-2 text-xs">
+                            <p class="text-slate-600 text-[11px]">Use coupon code <b class="text-purple-700 bg-purple-50 px-1.5 py-0.5 rounded font-mono">ZIONFEST40</b> at checkout.</p>
+                            <button onclick="alert('Voucher Applied!')" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded-xl text-xs shadow-xs">
+                                Claim Discount Now
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (lower.includes('agent') || lower.includes('support') || lower.includes('help')) {
+                botResponseHtml = `
+                    <div class="bg-white rounded-2xl border border-slate-200 p-3.5 shadow-xs max-w-[260px] space-y-2">
+                        <div class="flex items-center gap-2 text-emerald-700 font-bold text-xs">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span>Live Agent Connected</span>
+                        </div>
+                        <p class="text-slate-600 text-[11px]">Support Executive <b>Rahul S.</b> has joined the conversation to assist you.</p>
+                    </div>
+                `;
+            } else {
+                botResponseHtml = `
+                    <div class="bg-white rounded-2xl border border-slate-200 p-3.5 shadow-xs max-w-[260px] space-y-2">
+                        <p class="text-slate-800 text-xs">I understood: <b>"${userText}"</b>. How else can I assist you?</p>
+                        <div class="flex flex-wrap gap-1">
+                            <button onclick="sendSimUserMessage('Track Order')" class="bg-purple-50 text-purple-700 text-[10px] font-bold px-2.5 py-1 rounded-full border border-purple-200">Track Order</button>
+                            <button onclick="sendSimUserMessage('Talk to Agent')" class="bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2.5 py-1 rounded-full border border-emerald-200">Live Support</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            const botDiv = document.createElement('div');
+            botDiv.className = 'flex justify-start';
+            botDiv.innerHTML = botResponseHtml;
+            chatBody.appendChild(botDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function resetSimChat() {
+            const chatBody = document.getElementById('simChatBody');
+            chatBody.innerHTML = `
+                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs max-w-[280px]">
+                    <div class="h-24 bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-800 p-3 flex flex-col justify-end text-white">
+                        <span class="bg-white/20 text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded-full self-start mb-1">Google RCS Verified</span>
+                        <h4 class="font-extrabold text-xs">Welcome to ZION</h4>
+                    </div>
+                    <div class="p-3 space-y-1.5">
+                        <p class="font-bold text-slate-800 text-[11px]">Hello Parvez! 👋</p>
+                        <p class="text-slate-500 text-[10px] leading-snug">Welcome to Zion Communication. How can our automated assistant help you today?</p>
+                    </div>
+                </div>
+                <div id="simQuickRepliesContainer" class="flex flex-wrap gap-1.5 pt-1">
+                    <button onclick="sendSimUserMessage('Track Order')" class="bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all flex items-center gap-1">
+                        <span>📦 Track Order</span>
+                    </button>
+                    <button onclick="sendSimUserMessage('View Offers')" class="bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all flex items-center gap-1">
+                        <span>🏷️ View Offers</span>
+                    </button>
+                    <button onclick="sendSimUserMessage('Talk to Agent')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-1.5 rounded-full text-[10px] font-bold transition-all flex items-center gap-1">
+                        <span>🎧 Support</span>
+                    </button>
+                </div>
+            `;
+            showToast('Chat Simulator Reset', 'Simulator history cleared.');
+        }
+
+        // Initialize cards on DOM load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderFlowCards();
+        });
+    </script>
+</body>
+</html>

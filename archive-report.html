@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive Report (6-Month Historical Data) - ZION CPaaS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        zionBlue: '#0070f3',
+                        zionLightBlue: '#eef5ff',
+                        zionDarkText: '#111827',
+                        zionGrayText: '#6b7280',
+                        zionBorder: '#e5e7eb',
+                        zionBg: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .sidebar-item { transition: all 0.2s; }
+        .sidebar-item:hover, .sidebar-item.active { background-color: #eef5ff; color: #0070f3; font-weight: 500; }
+        .sidebar-item.active { border-right: 3px solid #0070f3; }
+        
+        .preset-btn.active {
+            background-color: #4f46e5;
+            color: #ffffff;
+            border-color: #4f46e5;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+        }
+    </style>
+</head>
+<body class="text-gray-800 h-screen overflow-hidden flex bg-[#f8fafc]">
+
+    <!-- Sidebar -->
+    <aside class="w-68 bg-white border-r border-slate-200 flex flex-col h-screen shrink-0 z-30 select-none shadow-sm">
+        
+        <!-- Big Enterprise CPaaS Brand Logo -->
+        <div class="h-20 flex items-center px-4 border-b border-slate-100 shrink-0 bg-white">
+            <a href="home.html" class="flex items-center gap-3 w-full group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-105 transition-transform shrink-0 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i class="fa-solid fa-cloud-bolt text-lg text-white"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xl font-black text-slate-900 tracking-tight leading-none">ZION</span>
+                        <span class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded-md tracking-wider shadow-sm uppercase">CPaaS</span>
+                    </div>
+                    <p class="text-[9.5px] text-slate-500 font-bold tracking-tight mt-1 truncate uppercase flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>
+                        Omnichannel Cloud
+                    </p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Vertical Menu Scrollable List -->
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1.5">
+            <!-- Home -->
+            <a href="home.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">Home</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Platform Overview</div>
+                </div>
+            </a>
+            
+            <!-- Dashboard -->
+            <a href="dashboard.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </div>
+                <div class="flex-1 min-w-0 flex items-center justify-between">
+                    <div>
+                        <div class="text-sm font-bold text-slate-800 leading-tight">Dashboard</div>
+                        <div class="text-[10px] text-slate-400 font-medium">Live Analytics</div>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">LIVE</span>
+                </div>
+            </a>
+
+            <!-- SMS Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all" onclick="toggleSubmenu(event, 'sms-submenu', 'sms-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-comment-dots"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">SMS</div>
+                            <div class="text-[10px] text-slate-400 font-medium">Transactional &amp; Promo</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200" id="sms-icon"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-blue-200 pl-3 overflow-hidden hidden" id="sms-submenu">
+                    <a href="send-sms.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Send SMS</a>
+                    <a href="reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Reports</a>
+                    <a href="groups.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Contacts / Groups</a>
+                    <a href="dlt-dashboard.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">DLT / Compliance</a>
+                    <a href="#" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Blacklist / Whitelist</a>
+                </div>
+            </div>
+
+            <!-- RCS Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-purple-700 bg-purple-50/70 border border-purple-100/80 transition-all" onclick="toggleSubmenu(event, 'rcs-submenu', 'rcs-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-comment-sms"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-purple-800 leading-tight">RCS</div>
+                            <div class="text-[10px] text-purple-500 font-medium">Rich Business Messaging</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-purple-400 transition-transform duration-200" id="rcs-icon" style="transform: rotate(180deg);"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-purple-200 pl-3 overflow-hidden" id="rcs-submenu">
+                    <a href="rcs-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Campaign</a>
+                    <a href="rcs-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-purple-700 font-bold bg-purple-100/70">Report Hub</a>
+                    <a href="rcs-delivery-report.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Delivery Report</a>
+                    <a href="rcs-cta-report.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">CTA &amp; Reply Report</a>
+                    <a href="rcs-cost-billing.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Cost &amp; Billing</a>
+                    <a href="archive-report.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-bold text-purple-700 bg-purple-100/90 shadow-sm">Archive (6 Months)</a>
+                    <a href="rcs-configuration.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Configuration</a>
+                    <a href="rcs-chatbot.html" class="sidebar-item flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">
+                        <span>Chat Bot</span>
+                        <span class="bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded">AI</span>
+                    </a>
+                </div>
+            </div>
+
+                        <!-- WhatsApp Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 transition-all" onclick="toggleSubmenu(event, 'wa-submenu', 'wa-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">WhatsApp</div>
+                            <div class="text-[10px] text-emerald-600 font-medium">Cloud API Official</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-emerald-400 transition-transform duration-200" id="wa-icon"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-emerald-200 pl-3 overflow-hidden hidden" id="wa-submenu">
+                    <a href="whatsapp-config.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Config</a>
+                    <a href="whatsapp-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Campaign</a>
+                    <a href="whatsapp-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Report</a>
+                    <a href="whatsapp-agents.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Agent</a>
+                    <a href="whatsapp-automation.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Automation</a>
+                </div>
+            </div>
+            
+            <!-- OBD Voice -->
+            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">OBD (Voice)</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Outbound Audio &amp; TTS</div>
+                </div>
+            </a>
+
+            <!-- IVR -->
+            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">IVR</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Smart Voice Tree</div>
+                </div>
+            </a>
+
+            <!-- Dedicated Credit & Wallet Ledger Menu Item -->
+            <div class="pt-1">
+                <a href="credit-report.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50/70 hover:text-emerald-700 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">Credits &amp; Wallet</div>
+                            <div class="text-[10px] text-emerald-600 font-semibold">INR Recharge &amp; Deduct</div>
+                        </div>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">₹ WALLET</span>
+                </a>
+            </div>
+
+            <!-- Dedicated API & Integration Menu Item -->
+            <div class="pt-1">
+                <a href="api-integration.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-indigo-50/70 hover:text-indigo-700 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-code text-xl"></i>
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">API &amp; Integration</div>
+                            <div class="text-[10px] text-indigo-500 font-semibold">Universal REST Hub</div>
+                        </div>
+                    </div>
+                    <span class="bg-indigo-100 text-indigo-700 text-[8px] font-black px-1.5 py-0.5 rounded">REST</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Bottom User Profile -->
+        <div class="border-t border-slate-100 p-4 shrink-0 bg-slate-50/60">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white text-sm font-black shadow-md shadow-purple-200 shrink-0">P</div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-bold text-slate-800 truncate leading-tight">Parvez</p>
+                    <p class="text-[11px] text-slate-400 font-medium truncate">Enterprise Admin</p>
+                </div>
+                <button class="text-slate-400 hover:text-red-500 transition-colors p-1.5 rounded-lg hover:bg-red-50">
+                    <i class="fa-solid fa-right-from-bracket text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#f4f7fb]">
+        <!-- Header -->
+        <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0 z-10">
+            <!-- Search -->
+            <div class="relative w-96">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <i class="fa-solid fa-search text-gray-400 text-sm"></i>
+                </div>
+                <input type="text" placeholder="Search campaigns, mobile numbers, reports..."
+                    class="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 bg-gray-50">
+            </div>
+            <!-- Right Actions -->
+            <div class="flex items-center space-x-5">
+                <div class="flex items-center gap-3 bg-white border border-slate-200 px-3.5 py-1.5 rounded-xl shadow-sm hover:border-emerald-300 transition-all cursor-pointer">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-inner">
+                        <i class="fa-solid fa-wallet text-xs"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-0.5">INR Wallet Balance</p>
+                        <p class="text-xs font-black text-slate-900 leading-none">₹48,500.00 <span class="text-[10px] text-slate-400 font-medium">(12,450 Cr)</span></p>
+                    </div>
+                </div>
+                <button class="text-gray-400 hover:text-gray-600 relative">
+                    <i class="fa-regular fa-bell text-lg"></i>
+                    <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+                </button>
+                <button class="text-gray-400 hover:text-gray-600">
+                    <i class="fa-regular fa-circle-question text-lg"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Scrollable Content Area -->
+        <div class="flex-1 overflow-y-auto p-6 lg:p-8">
+            <div class="max-w-[1550px] mx-auto space-y-6">
+                
+                <!-- Page Title & Top Actions -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <div class="flex items-center text-xs text-gray-500 mb-2">
+                            <a href="home.html" class="hover:text-purple-600">Home</a> 
+                            <i class="fa-solid fa-chevron-right text-[8px] mx-2"></i> 
+                            <a href="rcs-reports.html" class="hover:text-purple-600">Reports</a> 
+                            <i class="fa-solid fa-chevron-right text-[8px] mx-2"></i> 
+                            <span class="text-purple-700 font-bold">Archive Report (6 Months)</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <a href="rcs-reports.html" class="w-9 h-9 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-slate-600 hover:text-purple-600 hover:border-purple-300 transition-all shadow-sm">
+                                <i class="fa-solid fa-arrow-left text-sm"></i>
+                            </a>
+                            <div>
+                                <h1 class="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2.5">
+                                    <span>Archive Report &amp; Historical Logs</span>
+                                    <span class="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 px-2.5 py-1 rounded-full font-bold uppercase tracking-wider flex items-center gap-1.5">
+                                        <i class="fa-solid fa-database text-[10px]"></i> 6-Month Data Vault
+                                    </span>
+                                </h1>
+                                <p class="text-xs text-slate-500 font-medium mt-0.5">Filter by date range up to the last 6 months, view number-wise status with exact delivered &amp; read times, and download raw Excel/CSV archives.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Action Export -->
+                    <div class="flex items-center gap-2.5 self-start md:self-auto">
+                        <button onclick="downloadArchiveCSV()" class="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-500/20 hover:scale-[1.02] transition-all cursor-pointer">
+                            <i class="fa-solid fa-file-excel text-sm"></i>
+                            <span>Download Full 6-Month Excel / CSV</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Date Range Selector & Search Filter Bar -->
+                <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm space-y-4">
+                    
+                    <!-- Presets Header -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-calendar-days text-purple-600 text-sm"></i>
+                            <span class="text-xs font-black text-slate-800 uppercase tracking-wider">Select Archive Period:</span>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2" id="presetButtons">
+                            <button onclick="setPreset('7d', this)" class="preset-btn px-3 py-1.5 text-xs font-bold rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all">Last 7 Days</button>
+                            <button onclick="setPreset('30d', this)" class="preset-btn px-3 py-1.5 text-xs font-bold rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all">Last 30 Days</button>
+                            <button onclick="setPreset('3m', this)" class="preset-btn px-3 py-1.5 text-xs font-bold rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all">Last 3 Months</button>
+                            <button onclick="setPreset('6m', this)" class="preset-btn active px-3.5 py-1.5 text-xs font-black rounded-lg border transition-all flex items-center gap-1.5">
+                                <i class="fa-solid fa-clock-rotate-left text-[10px]"></i> Last 6 Months (Max)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Custom Inputs & Filter Dropdowns -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 pt-1">
+                        <!-- Start Date -->
+                        <div>
+                            <label class="block text-[11px] font-black uppercase tracking-wider text-slate-500 mb-1">Start Date</label>
+                            <div class="relative">
+                                <input type="date" id="archiveStartDate" value="2026-03-20" class="w-full px-3 py-2 text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 transition-all">
+                            </div>
+                        </div>
+
+                        <!-- End Date -->
+                        <div>
+                            <label class="block text-[11px] font-black uppercase tracking-wider text-slate-500 mb-1">End Date</label>
+                            <div class="relative">
+                                <input type="date" id="archiveEndDate" value="2026-09-20" class="w-full px-3 py-2 text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 transition-all">
+                            </div>
+                        </div>
+
+                        <!-- Status Filter -->
+                        <div>
+                            <label class="block text-[11px] font-black uppercase tracking-wider text-slate-500 mb-1">Delivery Status</label>
+                            <select id="statusFilter" onchange="filterArchiveTable()" class="w-full px-3 py-2 text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 transition-all">
+                                <option value="ALL">All Statuses (Delivered, Read, Failed, Pending)</option>
+                                <option value="READ">Read Receipts Only</option>
+                                <option value="DELIVERED">Delivered (Handset)</option>
+                                <option value="FAILED">Failed Logs Only</option>
+                                <option value="PENDING">Pending / Processing</option>
+                            </select>
+                        </div>
+
+                        <!-- Bot / SenderID Filter -->
+                        <div>
+                            <label class="block text-[11px] font-black uppercase tracking-wider text-slate-500 mb-1">RCS Bot / Sender ID</label>
+                            <select id="botFilter" onchange="filterArchiveTable()" class="w-full px-3 py-2 text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 transition-all">
+                                <option value="ALL">All Bots &amp; Senders</option>
+                                <option value="Zion_Official_Bot">Zion_Official_Bot</option>
+                                <option value="Zion_Alerts">Zion_Alerts</option>
+                                <option value="IMMENSE smart solution">IMMENSE smart solution</option>
+                                <option value="ZIONTX">ZIONTX (SMS Fallback)</option>
+                            </select>
+                        </div>
+
+                        <!-- Search Mobile Number -->
+                        <div>
+                            <label class="block text-[11px] font-black uppercase tracking-wider text-slate-500 mb-1">Search Mobile / Campaign</label>
+                            <div class="relative">
+                                <i class="fa-solid fa-search text-slate-400 text-xs absolute left-3 top-2.5"></i>
+                                <input type="text" id="searchInput" onkeyup="filterArchiveTable()" placeholder="e.g. 9876543210 or Mega Sale" class="w-full pl-8 pr-3 py-2 text-xs font-bold text-slate-800 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 transition-all">
+                            </div>
+                        </div>
+
+                        <!-- Filter Action Buttons -->
+                        <div class="flex items-end gap-2">
+                            <button onclick="applyDateFilter()" class="flex-1 py-2 px-3 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold rounded-xl shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+                                <i class="fa-solid fa-filter text-xs"></i>
+                                <span>Fetch Archive</span>
+                            </button>
+                            <button onclick="resetFilters()" title="Reset All Filters" class="p-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl text-xs font-bold transition-all">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- 6-Month Archive Summary Metric Cards -->
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <!-- Total Archived -->
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm relative overflow-hidden group hover:border-purple-300 transition-all">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Total Records</span>
+                            <div class="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-database"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-black text-slate-900 leading-none mb-1" id="cardTotal">1,248,500</h3>
+                        <p class="text-[10px] text-slate-400 font-semibold flex items-center gap-1">
+                            <span class="text-indigo-600 font-bold">100%</span> in 6 Months
+                        </p>
+                    </div>
+
+                    <!-- Delivered Handset -->
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm relative overflow-hidden group hover:border-emerald-300 transition-all">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-black text-emerald-600 uppercase tracking-wider">Delivered</span>
+                            <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-black text-emerald-600 leading-none mb-1" id="cardDelivered">1,189,320</h3>
+                        <p class="text-[10px] text-slate-400 font-semibold flex items-center gap-1">
+                            <span class="text-emerald-600 font-bold">95.26%</span> success rate
+                        </p>
+                    </div>
+
+                    <!-- Read Receipts -->
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm relative overflow-hidden group hover:border-cyan-300 transition-all">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-black text-cyan-600 uppercase tracking-wider">Read Receipts</span>
+                            <div class="w-7 h-7 rounded-lg bg-cyan-50 text-cyan-600 flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-eye"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-black text-cyan-600 leading-none mb-1" id="cardRead">894,150</h3>
+                        <p class="text-[10px] text-slate-400 font-semibold flex items-center gap-1">
+                            <span class="text-cyan-600 font-bold">75.18%</span> opened by user
+                        </p>
+                    </div>
+
+                    <!-- Failed Messages -->
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm relative overflow-hidden group hover:border-rose-300 transition-all">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-black text-rose-600 uppercase tracking-wider">Failed</span>
+                            <div class="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-circle-xmark"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-black text-rose-600 leading-none mb-1" id="cardFailed">46,180</h3>
+                        <p class="text-[10px] text-slate-400 font-semibold flex items-center gap-1">
+                            <span class="text-rose-600 font-bold">3.70%</span> auto-refunded
+                        </p>
+                    </div>
+
+                    <!-- Pending in Queue -->
+                    <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm relative overflow-hidden group hover:border-amber-300 transition-all">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-black text-amber-600 uppercase tracking-wider">Pending</span>
+                            <div class="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-hourglass-half"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-black text-amber-600 leading-none mb-1" id="cardPending">13,000</h3>
+                        <p class="text-[10px] text-slate-400 font-semibold flex items-center gap-1">
+                            <span class="text-amber-600 font-bold">1.04%</span> in retry queue
+                        </p>
+                    </div>
+
+                    <!-- Date Range Span -->
+                    <div class="bg-gradient-to-br from-indigo-900 to-slate-900 rounded-2xl p-4 text-white shadow-sm flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] font-black text-indigo-300 uppercase tracking-wider">Active Period Span</span>
+                            <h4 class="text-xs font-black text-white mt-1" id="activeSpanText">20 Mar 2026 - 20 Sep 2026</h4>
+                        </div>
+                        <div class="flex items-center justify-between text-[10px] text-slate-300 pt-2 border-t border-white/10">
+                            <span>Status:</span>
+                            <span class="text-emerald-400 font-bold flex items-center gap-1"><i class="fa-solid fa-circle text-[7px]"></i> Indexed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Number-Wise Detailed Historical Archive Table -->
+                <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+                    
+                    <!-- Table Header Controls -->
+                    <div class="p-4 border-b border-slate-100 flex flex-wrap items-center justify-between gap-3 bg-slate-50/50">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-8 h-8 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-sm font-bold">
+                                <i class="fa-solid fa-list-check"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-black text-slate-900">Historical Message Logs (By Mobile Number)</h3>
+                                <p class="text-[11px] text-slate-400 font-semibold">Showing detailed timestamp breakdown including Delivered and Read Time</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-slate-500 font-semibold" id="tableRecordCount">Showing 10 of 10 records</span>
+                            <button onclick="downloadArchiveCSV()" class="px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 cursor-pointer">
+                                <i class="fa-solid fa-file-csv"></i> Export Filtered CSV
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Table Responsive Wrapper -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse" id="archiveTable">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-black uppercase tracking-wider text-slate-500">
+                                    <th class="py-3 px-4 text-center w-12">#</th>
+                                    <th class="py-3 px-4">Submit Date &amp; Time</th>
+                                    <th class="py-3 px-4">Mobile Number</th>
+                                    <th class="py-3 px-4">Campaign Name</th>
+                                    <th class="py-3 px-4">Bot / Sender ID</th>
+                                    <th class="py-3 px-4 text-center">Delivery Status</th>
+                                    <th class="py-3 px-4">Delivered Date &amp; Time</th>
+                                    <th class="py-3 px-4">Read Date &amp; Time</th>
+                                    <th class="py-3 px-4">Delivery Remarks / Error</th>
+                                    <th class="py-3 px-4 text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-xs font-semibold text-slate-700" id="archiveTableBody">
+                                
+                                <!-- Row 1: Read -->
+                                <tr class="hover:bg-slate-50/80 transition-colors" data-status="READ" data-bot="Zion_Official_Bot" data-mobile="9876543210" data-campaign="Diwali Mega Festival Offer">
+                                    <td class="py-3.5 px-4 text-center font-bold text-slate-400">1</td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-slate-600">
+                                        <div class="font-bold text-slate-800">20/09/2026</div>
+                                        <div class="text-[10px] text-slate-400">11:15:20 AM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono font-bold text-slate-900">
+                                        <div class="flex items-center gap-1.5">
+                                            <i class="fa-solid fa-phone text-[10px] text-slate-400"></i>
+                                            <span>+91 98765 43210</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="font-bold text-slate-900">Diwali Mega Festival Offer</div>
+                                        <span class="text-[10px] text-purple-600 font-bold bg-purple-50 px-1.5 py-0.5 rounded">RCS Rich Card</span>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                                            <span class="font-bold text-slate-800">Zion_Official_Bot</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-cyan-50 text-cyan-700 border border-cyan-200">
+                                            <i class="fa-solid fa-check-double text-[9px]"></i> READ
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-emerald-700">
+                                        <div class="font-bold">20/09/2026</div>
+                                        <div class="text-[10px] text-emerald-600/80">11:15:24 AM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-cyan-700">
+                                        <div class="font-bold">20/09/2026</div>
+                                        <div class="text-[10px] text-cyan-600/80">11:18:02 AM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <span class="text-xs text-slate-600 font-medium flex items-center gap-1">
+                                            <i class="fa-solid fa-circle-check text-emerald-500 text-[10px]"></i> Read by recipient on RCS client
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="copyNumber('9876543210')" class="text-slate-400 hover:text-purple-600 transition-colors p-1" title="Copy Number">
+                                            <i class="fa-regular fa-copy"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 2: Delivered (Not Read) -->
+                                <tr class="hover:bg-slate-50/80 transition-colors" data-status="DELIVERED" data-bot="IMMENSE smart solution" data-mobile="9823456781" data-campaign="Holi Special Discount 40%">
+                                    <td class="py-3.5 px-4 text-center font-bold text-slate-400">2</td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-slate-600">
+                                        <div class="font-bold text-slate-800">19/09/2026</div>
+                                        <div class="text-[10px] text-slate-400">03:45:10 PM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono font-bold text-slate-900">
+                                        <div class="flex items-center gap-1.5">
+                                            <i class="fa-solid fa-phone text-[10px] text-slate-400"></i>
+                                            <span>+91 98234 56781</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="font-bold text-slate-900">Holi Special Discount 40%</div>
+                                        <span class="text-[10px] text-purple-600 font-bold bg-purple-50 px-1.5 py-0.5 rounded">RCS Carousel</span>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                                            <span class="font-bold text-slate-800">IMMENSE smart solution</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                            <i class="fa-solid fa-check text-[9px]"></i> DELIVERED
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-emerald-700">
+                                        <div class="font-bold">19/09/2026</div>
+                                        <div class="text-[10px] text-emerald-600/80">03:45:14 PM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-slate-400">
+                                        <span class="text-slate-400 italic">Unopened / No Read</span>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <span class="text-xs text-slate-600 font-medium flex items-center gap-1">
+                                            <i class="fa-solid fa-check text-emerald-500 text-[10px]"></i> Handset Acknowledged DLR
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="copyNumber('9823456781')" class="text-slate-400 hover:text-purple-600 transition-colors p-1" title="Copy Number">
+                                            <i class="fa-regular fa-copy"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 3: Failed -->
+                                <tr class="hover:bg-slate-50/80 transition-colors bg-rose-50/20" data-status="FAILED" data-bot="Zion_Alerts" data-mobile="9112233445" data-campaign="KYC Verification & Re-link">
+                                    <td class="py-3.5 px-4 text-center font-bold text-slate-400">3</td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-slate-600">
+                                        <div class="font-bold text-slate-800">18/09/2026</div>
+                                        <div class="text-[10px] text-slate-400">09:10:00 AM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono font-bold text-slate-900">
+                                        <div class="flex items-center gap-1.5">
+                                            <i class="fa-solid fa-phone text-[10px] text-slate-400"></i>
+                                            <span>+91 91122 33445</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="font-bold text-slate-900">KYC Verification &amp; Re-link</div>
+                                        <span class="text-[10px] text-indigo-600 font-bold bg-indigo-50 px-1.5 py-0.5 rounded">RCS OTP / Alert</span>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                                            <span class="font-bold text-slate-800">Zion_Alerts</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-rose-50 text-rose-700 border border-rose-200">
+                                            <i class="fa-solid fa-circle-xmark text-[9px]"></i> FAILED
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-rose-500">
+                                        <span class="italic">---</span>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-rose-500">
+                                        <span class="italic">---</span>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <span class="text-xs text-rose-600 font-bold flex items-center gap-1">
+                                            <i class="fa-solid fa-circle-exclamation text-rose-500 text-[10px]"></i> Handset Offline / Absent Subscriber
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="copyNumber('9112233445')" class="text-slate-400 hover:text-purple-600 transition-colors p-1" title="Copy Number">
+                                            <i class="fa-regular fa-copy"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 4: Read -->
+                                <tr class="hover:bg-slate-50/80 transition-colors" data-status="READ" data-bot="Zion_Official_Bot" data-mobile="8858674641" data-campaign="Weekend Flash 50% Off">
+                                    <td class="py-3.5 px-4 text-center font-bold text-slate-400">4</td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-slate-600">
+                                        <div class="font-bold text-slate-800">15/08/2026</div>
+                                        <div class="text-[10px] text-slate-400">02:20:15 PM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono font-bold text-slate-900">
+                                        <div class="flex items-center gap-1.5">
+                                            <i class="fa-solid fa-phone text-[10px] text-slate-400"></i>
+                                            <span>+91 88586 74641</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="font-bold text-slate-900">Weekend Flash 50% Off</div>
+                                        <span class="text-[10px] text-purple-600 font-bold bg-purple-50 px-1.5 py-0.5 rounded">RCS Rich Card</span>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                                            <span class="font-bold text-slate-800">Zion_Official_Bot</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-cyan-50 text-cyan-700 border border-cyan-200">
+                                            <i class="fa-solid fa-check-double text-[9px]"></i> READ
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-emerald-700">
+                                        <div class="font-bold">15/08/2026</div>
+                                        <div class="text-[10px] text-emerald-600/80">02:20:19 PM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-cyan-700">
+                                        <div class="font-bold">15/08/2026</div>
+                                        <div class="text-[10px] text-cyan-600/80">02:22:40 PM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <span class="text-xs text-slate-600 font-medium flex items-center gap-1">
+                                            <i class="fa-solid fa-circle-check text-emerald-500 text-[10px]"></i> Read by recipient on RCS client
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="copyNumber('8858674641')" class="text-slate-400 hover:text-purple-600 transition-colors p-1" title="Copy Number">
+                                            <i class="fa-regular fa-copy"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 5: Pending -->
+                                <tr class="hover:bg-slate-50/80 transition-colors bg-amber-50/20" data-status="PENDING" data-bot="Zion_Alerts" data-mobile="9765432190" data-campaign="Payment Due Reminder">
+                                    <td class="py-3.5 px-4 text-center font-bold text-slate-400">5</td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-slate-600">
+                                        <div class="font-bold text-slate-800">10/08/2026</div>
+                                        <div class="text-[10px] text-slate-400">08:00:00 AM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono font-bold text-slate-900">
+                                        <div class="flex items-center gap-1.5">
+                                            <i class="fa-solid fa-phone text-[10px] text-slate-400"></i>
+                                            <span>+91 97654 32190</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="font-bold text-slate-900">Payment Due Reminder</div>
+                                        <span class="text-[10px] text-indigo-600 font-bold bg-indigo-50 px-1.5 py-0.5 rounded">RCS Rich Card</span>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                                            <span class="font-bold text-slate-800">Zion_Alerts</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-50 text-amber-700 border border-amber-200">
+                                            <i class="fa-solid fa-hourglass-half text-[9px]"></i> PENDING
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-amber-600">
+                                        <span class="italic">In Gateway Queue</span>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-slate-400">
+                                        <span class="italic">---</span>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <span class="text-xs text-amber-700 font-medium flex items-center gap-1">
+                                            <i class="fa-solid fa-clock text-amber-500 text-[10px]"></i> Telco Gateway Processing / Retry In Progress
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="copyNumber('9765432190')" class="text-slate-400 hover:text-purple-600 transition-colors p-1" title="Copy Number">
+                                            <i class="fa-regular fa-copy"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 6: SMS Fallback Delivered -->
+                                <tr class="hover:bg-slate-50/80 transition-colors" data-status="DELIVERED" data-bot="ZIONTX" data-mobile="9988776655" data-campaign="Diwali Mega Festival Offer">
+                                    <td class="py-3.5 px-4 text-center font-bold text-slate-400">6</td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-slate-600">
+                                        <div class="font-bold text-slate-800">22/07/2026</div>
+                                        <div class="text-[10px] text-slate-400">01:10:45 PM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono font-bold text-slate-900">
+                                        <div class="flex items-center gap-1.5">
+                                            <i class="fa-solid fa-phone text-[10px] text-slate-400"></i>
+                                            <span>+91 99887 76655</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="font-bold text-slate-900">Diwali Mega Festival Offer</div>
+                                        <span class="text-[10px] text-blue-600 font-bold bg-blue-50 px-1.5 py-0.5 rounded">SMS Fallback</span>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                                            <span class="font-bold text-slate-800">ZIONTX (SMS)</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                            <i class="fa-solid fa-check text-[9px]"></i> DELIVERED
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-emerald-700">
+                                        <div class="font-bold">22/07/2026</div>
+                                        <div class="text-[10px] text-emerald-600/80">01:10:49 PM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-slate-400">
+                                        <span class="text-slate-400 italic">SMS (No Read Receipt)</span>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <span class="text-xs text-slate-600 font-medium flex items-center gap-1">
+                                            <i class="fa-solid fa-check text-emerald-500 text-[10px]"></i> Delivered via Telecom SMS DLR
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="copyNumber('9988776655')" class="text-slate-400 hover:text-purple-600 transition-colors p-1" title="Copy Number">
+                                            <i class="fa-regular fa-copy"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 7: Read (June) -->
+                                <tr class="hover:bg-slate-50/80 transition-colors" data-status="READ" data-bot="IMMENSE smart solution" data-mobile="9012345678" data-campaign="Monsoon Special Clearance">
+                                    <td class="py-3.5 px-4 text-center font-bold text-slate-400">7</td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-slate-600">
+                                        <div class="font-bold text-slate-800">14/06/2026</div>
+                                        <div class="text-[10px] text-slate-400">06:05:30 PM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono font-bold text-slate-900">
+                                        <div class="flex items-center gap-1.5">
+                                            <i class="fa-solid fa-phone text-[10px] text-slate-400"></i>
+                                            <span>+91 90123 45678</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="font-bold text-slate-900">Monsoon Special Clearance</div>
+                                        <span class="text-[10px] text-purple-600 font-bold bg-purple-50 px-1.5 py-0.5 rounded">RCS Rich Card</span>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                                            <span class="font-bold text-slate-800">IMMENSE smart solution</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-cyan-50 text-cyan-700 border border-cyan-200">
+                                            <i class="fa-solid fa-check-double text-[9px]"></i> READ
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-emerald-700">
+                                        <div class="font-bold">14/06/2026</div>
+                                        <div class="text-[10px] text-emerald-600/80">06:05:33 PM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-cyan-700">
+                                        <div class="font-bold">14/06/2026</div>
+                                        <div class="text-[10px] text-cyan-600/80">06:12:15 PM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <span class="text-xs text-slate-600 font-medium flex items-center gap-1">
+                                            <i class="fa-solid fa-circle-check text-emerald-500 text-[10px]"></i> Read by recipient on RCS client
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="copyNumber('9012345678')" class="text-slate-400 hover:text-purple-600 transition-colors p-1" title="Copy Number">
+                                            <i class="fa-regular fa-copy"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 8: Failed DND -->
+                                <tr class="hover:bg-slate-50/80 transition-colors bg-rose-50/20" data-status="FAILED" data-bot="Zion_Official_Bot" data-mobile="9833445566" data-campaign="Weekend Flash 50% Off">
+                                    <td class="py-3.5 px-4 text-center font-bold text-slate-400">8</td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-slate-600">
+                                        <div class="font-bold text-slate-800">28/05/2026</div>
+                                        <div class="text-[10px] text-slate-400">10:45:00 AM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono font-bold text-slate-900">
+                                        <div class="flex items-center gap-1.5">
+                                            <i class="fa-solid fa-phone text-[10px] text-slate-400"></i>
+                                            <span>+91 98334 45566</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="font-bold text-slate-900">Weekend Flash 50% Off</div>
+                                        <span class="text-[10px] text-purple-600 font-bold bg-purple-50 px-1.5 py-0.5 rounded">RCS Carousel</span>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                                            <span class="font-bold text-slate-800">Zion_Official_Bot</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-rose-50 text-rose-700 border border-rose-200">
+                                            <i class="fa-solid fa-circle-xmark text-[9px]"></i> FAILED
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-rose-500">
+                                        <span class="italic">---</span>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-rose-500">
+                                        <span class="italic">---</span>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <span class="text-xs text-rose-600 font-bold flex items-center gap-1">
+                                            <i class="fa-solid fa-ban text-rose-500 text-[10px]"></i> User Non-RCS Capable &amp; DND Blocked
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="copyNumber('9833445566')" class="text-slate-400 hover:text-purple-600 transition-colors p-1" title="Copy Number">
+                                            <i class="fa-regular fa-copy"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 9: Read (April) -->
+                                <tr class="hover:bg-slate-50/80 transition-colors" data-status="READ" data-bot="Zion_Alerts" data-mobile="9345678901" data-campaign="Account Security Alert">
+                                    <td class="py-3.5 px-4 text-center font-bold text-slate-400">9</td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-slate-600">
+                                        <div class="font-bold text-slate-800">12/04/2026</div>
+                                        <div class="text-[10px] text-slate-400">04:18:22 PM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono font-bold text-slate-900">
+                                        <div class="flex items-center gap-1.5">
+                                            <i class="fa-solid fa-phone text-[10px] text-slate-400"></i>
+                                            <span>+91 93456 78901</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="font-bold text-slate-900">Account Security Alert</div>
+                                        <span class="text-[10px] text-indigo-600 font-bold bg-indigo-50 px-1.5 py-0.5 rounded">RCS OTP / Alert</span>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                                            <span class="font-bold text-slate-800">Zion_Alerts</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-cyan-50 text-cyan-700 border border-cyan-200">
+                                            <i class="fa-solid fa-check-double text-[9px]"></i> READ
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-emerald-700">
+                                        <div class="font-bold">12/04/2026</div>
+                                        <div class="text-[10px] text-emerald-600/80">04:18:25 PM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-cyan-700">
+                                        <div class="font-bold">12/04/2026</div>
+                                        <div class="text-[10px] text-cyan-600/80">04:19:10 PM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <span class="text-xs text-slate-600 font-medium flex items-center gap-1">
+                                            <i class="fa-solid fa-circle-check text-emerald-500 text-[10px]"></i> Read by recipient on RCS client
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="copyNumber('9345678901')" class="text-slate-400 hover:text-purple-600 transition-colors p-1" title="Copy Number">
+                                            <i class="fa-regular fa-copy"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 10: Delivered (March 6-month boundary) -->
+                                <tr class="hover:bg-slate-50/80 transition-colors" data-status="DELIVERED" data-bot="Zion_Official_Bot" data-mobile="9877001122" data-campaign="Holi Special Discount 40%">
+                                    <td class="py-3.5 px-4 text-center font-bold text-slate-400">10</td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-slate-600">
+                                        <div class="font-bold text-slate-800">22/03/2026</div>
+                                        <div class="text-[10px] text-slate-400">11:00:00 AM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono font-bold text-slate-900">
+                                        <div class="flex items-center gap-1.5">
+                                            <i class="fa-solid fa-phone text-[10px] text-slate-400"></i>
+                                            <span>+91 98770 01122</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="font-bold text-slate-900">Holi Special Discount 40%</div>
+                                        <span class="text-[10px] text-purple-600 font-bold bg-purple-50 px-1.5 py-0.5 rounded">RCS Rich Card</span>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                                            <span class="font-bold text-slate-800">Zion_Official_Bot</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                            <i class="fa-solid fa-check text-[9px]"></i> DELIVERED
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-emerald-700">
+                                        <div class="font-bold">22/03/2026</div>
+                                        <div class="text-[10px] text-emerald-600/80">11:00:06 AM</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 font-mono text-[11px] text-slate-400">
+                                        <span class="text-slate-400 italic">Unopened / No Read</span>
+                                    </td>
+                                    <td class="py-3.5 px-4">
+                                        <span class="text-xs text-slate-600 font-medium flex items-center gap-1">
+                                            <i class="fa-solid fa-check text-emerald-500 text-[10px]"></i> Handset Acknowledged DLR
+                                        </span>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <button onclick="copyNumber('9877001122')" class="text-slate-400 hover:text-purple-600 transition-colors p-1" title="Copy Number">
+                                            <i class="fa-regular fa-copy"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination / Footer -->
+                    <div class="p-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 bg-slate-50/50">
+                        <div class="text-xs text-slate-500 font-medium">
+                            Displaying historical entries within the chosen date range (Max: 6 months).
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <button class="px-3 py-1 text-xs font-bold rounded-lg border border-slate-200 bg-white text-slate-400 cursor-not-allowed" disabled>Prev</button>
+                            <button class="px-3 py-1 text-xs font-bold rounded-lg border border-purple-600 bg-purple-600 text-white shadow-sm">1</button>
+                            <button class="px-3 py-1 text-xs font-bold rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-100">2</button>
+                            <button class="px-3 py-1 text-xs font-bold rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-100">3</button>
+                            <button class="px-3 py-1 text-xs font-bold rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-100">Next</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Copy Toast Notification -->
+    <div id="copyToast" class="fixed bottom-6 right-6 bg-slate-900 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-xl border border-slate-700 hidden flex items-center gap-2 z-50 animate-bounce">
+        <i class="fa-solid fa-check text-emerald-400"></i>
+        <span id="copyToastText">Mobile Number Copied!</span>
+    </div>
+
+    <script>
+        // Preset Date Switcher
+        function setPreset(preset, btnElement) {
+            // Update active button UI
+            document.querySelectorAll('.preset-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            btnElement.classList.add('active');
+
+            const now = new Date();
+            let startDate = new Date();
+
+            if (preset === '7d') {
+                startDate.setDate(now.getDate() - 7);
+            } else if (preset === '30d') {
+                startDate.setDate(now.getDate() - 30);
+            } else if (preset === '3m') {
+                startDate.setMonth(now.getMonth() - 3);
+            } else if (preset === '6m') {
+                startDate.setMonth(now.getMonth() - 6);
+            }
+
+            const formatDate = (d) => {
+                const year = d.getFullYear();
+                const month = String(d.getMonth() + 1).padStart(2, '0');
+                const day = String(d.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            };
+
+            document.getElementById('archiveStartDate').value = formatDate(startDate);
+            document.getElementById('archiveEndDate').value = formatDate(now);
+            
+            document.getElementById('activeSpanText').innerText = `${formatDate(startDate)} to ${formatDate(now)}`;
+            applyDateFilter();
+        }
+
+        // Apply Date Filter Simulator
+        function applyDateFilter() {
+            const start = document.getElementById('archiveStartDate').value;
+            const end = document.getElementById('archiveEndDate').value;
+            document.getElementById('activeSpanText').innerText = `${start} to ${end}`;
+            filterArchiveTable();
+        }
+
+        // Reset Filter
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('statusFilter').value = 'ALL';
+            document.getElementById('botFilter').value = 'ALL';
+            const sixMonthBtn = document.querySelectorAll('.preset-btn')[3];
+            setPreset('6m', sixMonthBtn);
+        }
+
+        // Filter Table by Status, Bot, and Search Term
+        function filterArchiveTable() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            const statusFilter = document.getElementById('statusFilter').value;
+            const botFilter = document.getElementById('botFilter').value;
+            
+            const rows = document.querySelectorAll('#archiveTableBody tr');
+            let visibleCount = 0;
+
+            rows.forEach(row => {
+                const rowStatus = row.getAttribute('data-status') || '';
+                const rowBot = row.getAttribute('data-bot') || '';
+                const rowMobile = row.getAttribute('data-mobile') || '';
+                const rowCampaign = (row.getAttribute('data-campaign') || '').toLowerCase();
+                const rowText = row.innerText.toLowerCase();
+
+                let matchStatus = (statusFilter === 'ALL' || rowStatus === statusFilter);
+                let matchBot = (botFilter === 'ALL' || rowBot === botFilter);
+                let matchSearch = (searchTerm === '' || rowMobile.includes(searchTerm) || rowCampaign.includes(searchTerm) || rowText.includes(searchTerm));
+
+                if (matchStatus && matchBot && matchSearch) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            document.getElementById('tableRecordCount').innerText = `Showing ${visibleCount} of ${rows.length} records`;
+        }
+
+        // Copy Number Toast Helper
+        function copyNumber(num) {
+            navigator.clipboard.writeText(num);
+            const toast = document.getElementById('copyToast');
+            document.getElementById('copyToastText').innerText = `Mobile +91 ${num} copied!`;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 2000);
+        }
+
+        // Download Full 6-Month Dataset as CSV
+        function downloadArchiveCSV() {
+            const data = [
+                ["S.No", "Submit Date & Time", "Mobile Number", "Campaign Name", "Channel", "Bot / Sender ID", "Delivery Status", "Delivered Date & Time", "Read Date & Time", "Delivery Remarks / Error"],
+                ["1", "20/09/2026 11:15:20 AM", "9876543210", "Diwali Mega Festival Offer", "RCS", "Zion_Official_Bot", "READ", "20/09/2026 11:15:24 AM", "20/09/2026 11:18:02 AM", "Read by recipient on RCS client"],
+                ["2", "19/09/2026 03:45:10 PM", "9823456781", "Holi Special Discount 40%", "RCS", "IMMENSE smart solution", "DELIVERED", "19/09/2026 03:45:14 PM", "---", "Handset Acknowledged DLR"],
+                ["3", "18/09/2026 09:10:00 AM", "9112233445", "KYC Verification & Re-link", "RCS", "Zion_Alerts", "FAILED", "---", "---", "Handset Offline / Absent Subscriber"],
+                ["4", "15/08/2026 02:20:15 PM", "8858674641", "Weekend Flash 50% Off", "RCS", "Zion_Official_Bot", "READ", "15/08/2026 02:20:19 PM", "15/08/2026 02:22:40 PM", "Read by recipient on RCS client"],
+                ["5", "10/08/2026 08:00:00 AM", "9765432190", "Payment Due Reminder", "RCS", "Zion_Alerts", "PENDING", "In Gateway Queue", "---", "Telco Gateway Processing / Retry In Progress"],
+                ["6", "22/07/2026 01:10:45 PM", "9988776655", "Diwali Mega Festival Offer", "SMS", "ZIONTX", "DELIVERED", "22/07/2026 01:10:49 PM", "---", "Delivered via Telecom SMS DLR"],
+                ["7", "14/06/2026 06:05:30 PM", "9012345678", "Monsoon Special Clearance", "RCS", "IMMENSE smart solution", "READ", "14/06/2026 06:05:33 PM", "14/06/2026 06:12:15 PM", "Read by recipient on RCS client"],
+                ["8", "28/05/2026 10:45:00 AM", "9833445566", "Weekend Flash 50% Off", "RCS", "Zion_Official_Bot", "FAILED", "---", "---", "User Non-RCS Capable & DND Blocked"],
+                ["9", "12/04/2026 04:18:22 PM", "9345678901", "Account Security Alert", "RCS", "Zion_Alerts", "READ", "12/04/2026 04:18:25 PM", "12/04/2026 04:19:10 PM", "Read by recipient on RCS client"],
+                ["10", "22/03/2026 11:00:00 AM", "9877001122", "Holi Special Discount 40%", "RCS", "Zion_Official_Bot", "DELIVERED", "22/03/2026 11:00:06 AM", "---", "Handset Acknowledged DLR"]
+            ];
+
+            let csvContent = "data:text/csv;charset=utf-8," 
+                + data.map(e => e.map(item => `"${item}"`).join(",")).join("\n");
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            const start = document.getElementById('archiveStartDate').value;
+            const end = document.getElementById('archiveEndDate').value;
+            link.setAttribute("download", `ZION_Archive_Report_6Months_${start}_to_${end}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Toggle Sidebar Submenus
+        function toggleSubmenu(event, submenuId, iconId) {
+            event.preventDefault();
+            
+            const allSubmenus = document.querySelectorAll('div[id$="-submenu"]');
+            allSubmenus.forEach(otherSub => {
+                if (otherSub.id !== submenuId) {
+                    otherSub.classList.add('hidden');
+                    const otherIconId = otherSub.id.replace('-submenu', '-icon');
+                    const otherIcon = document.getElementById(otherIconId);
+                    if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                }
+            });
+
+            const submenu = document.getElementById(submenuId);
+            const icon = document.getElementById(iconId);
+            if (submenu) {
+                if (submenu.classList.contains('hidden')) {
+                    submenu.classList.remove('hidden');
+                    if(icon) icon.style.transform = 'rotate(180deg)';
+                } else {
+                    submenu.classList.add('hidden');
+                    if(icon) icon.style.transform = 'rotate(0deg)';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

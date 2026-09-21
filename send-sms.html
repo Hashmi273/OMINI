@@ -1,0 +1,2251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send SMS - ZION</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        zionBlue: '#0070f3',
+                        zionLightBlue: '#eef5ff',
+                        zionDarkText: '#111827',
+                        zionGrayText: '#6b7280',
+                        zionBorder: '#e5e7eb',
+                        zionBg: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .sidebar-item { transition: all 0.2s; }
+        .sidebar-item:hover, .sidebar-item.active { background-color: #eef5ff; color: #0070f3; font-weight: 500; }
+        .sidebar-item.active { border-right: 3px solid #0070f3; }
+        
+        .toggle-checkbox:checked { right: 0; border-color: #10b981; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #10b981; }
+        
+        .phone-mockup {
+            border: 8px solid #1f2937;
+            border-radius: 36px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .phone-notch {
+            width: 40%; height: 16px; background-color: #1f2937;
+            border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
+            position: absolute; top: 0; left: 30%;
+        }
+    </style>
+</head>
+<body class="text-gray-800 h-screen overflow-hidden flex">
+
+    <!-- Sidebar -->
+        <!-- Left Fixed Sidebar -->
+        <!-- Left Fixed Big-Icon Sidebar (Image 2 Style) -->
+        <!-- Left Fixed Sidebar with Channels & Dropdowns -->
+    <aside class="w-68 bg-white border-r border-slate-200 flex flex-col h-screen shrink-0 z-30 select-none shadow-sm">
+        
+        <!-- Big Enterprise CPaaS Brand Logo -->
+        <div class="h-20 flex items-center px-4 border-b border-slate-100 shrink-0 bg-white">
+            <a href="home.html" class="flex items-center gap-3 w-full group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-105 transition-transform shrink-0 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i class="fa-solid fa-cloud-bolt text-lg text-white"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xl font-black text-slate-900 tracking-tight leading-none">ZION</span>
+                        <span class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded-md tracking-wider shadow-sm uppercase">CPaaS</span>
+                    </div>
+                    <p class="text-[9.5px] text-slate-500 font-bold tracking-tight mt-1 truncate uppercase flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>
+                        Omnichannel Cloud
+                    </p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Vertical Menu Scrollable List -->
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1.5">
+            <!-- Home -->
+            <a href="home.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">Home</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Platform Overview</div>
+                </div>
+            </a>
+            
+            <!-- Dashboard -->
+            <a href="dashboard.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </div>
+                <div class="flex-1 min-w-0 flex items-center justify-between">
+                    <div>
+                        <div class="text-sm font-bold text-slate-800 leading-tight">Dashboard</div>
+                        <div class="text-[10px] text-slate-400 font-medium">Live Analytics</div>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">LIVE</span>
+                </div>
+            </a>
+
+            <!-- SMS Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-blue-700 bg-blue-50/70 border border-blue-100/80 transition-all" onclick="toggleSubmenu(event, 'sms-submenu', 'sms-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-comment-dots"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">SMS</div>
+                            <div class="text-[10px] text-slate-400 font-medium">Transactional &amp; Promo</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200" id="sms-icon" style="transform: rotate(180deg);"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-blue-200 pl-3 overflow-hidden " id="sms-submenu">
+                    <a href="send-sms.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-blue-700 font-bold bg-blue-50">Send SMS</a>
+                    <a href="reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Reports</a>
+                    <a href="groups.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Contacts / Groups</a>
+                    <a href="dlt-dashboard.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">DLT / Compliance</a>
+                    <a href="#" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Blacklist / Whitelist</a>
+                </div>
+            </div>
+
+            <!-- RCS Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-purple-50 hover:text-purple-700 transition-all" onclick="toggleSubmenu(event, 'rcs-submenu', 'rcs-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-comment-sms"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-purple-800 leading-tight">RCS</div>
+                            <div class="text-[10px] text-purple-500 font-medium">Rich Business Messaging</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-purple-400 transition-transform duration-200" id="rcs-icon" ></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-purple-200 pl-3 overflow-hidden hidden" id="rcs-submenu">
+                    <a href="rcs-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Campaign</a>
+                    <a href="rcs-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Report</a>
+                    <a href="rcs-configuration.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Configuration</a>
+                    <a href="rcs-chatbot.html" class="sidebar-item flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">
+                        <span>Chat Bot</span>
+                        <span class="bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded">AI</span>
+                    </a>
+                </div>
+            </div>
+
+                        <!-- WhatsApp Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 transition-all" onclick="toggleSubmenu(event, 'wa-submenu', 'wa-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">WhatsApp</div>
+                            <div class="text-[10px] text-emerald-600 font-medium">Cloud API Official</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-emerald-400 transition-transform duration-200" id="wa-icon"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-emerald-200 pl-3 overflow-hidden hidden" id="wa-submenu">
+                    <a href="whatsapp-config.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Config</a>
+                    <a href="whatsapp-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Campaign</a>
+                    <a href="whatsapp-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Report</a>
+                    <a href="whatsapp-agents.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Agent</a>
+                    <a href="whatsapp-automation.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Automation</a>
+                </div>
+            </div>
+            
+            <!-- OBD Voice -->
+            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">OBD (Voice)</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Outbound Audio &amp; TTS</div>
+                </div>
+            </a>
+
+            <!-- IVR -->
+            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">IVR</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Smart Voice Tree</div>
+                </div>
+            </a>
+
+            <!-- Dedicated Credit & Wallet Ledger Menu Item -->
+            <div class="pt-1">
+                <a href="credit-report.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50/70 hover:text-emerald-700 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">Credits &amp; Wallet</div>
+                            <div class="text-[10px] text-emerald-600 font-semibold">INR Recharge &amp; Deduct</div>
+                        </div>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">₹ WALLET</span>
+                </a>
+            </div>
+
+            <!-- Dedicated API & Integration Menu Item -->
+            <div class="pt-1">
+                <a href="api-integration.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-indigo-50/70 hover:text-indigo-700 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-code text-xl"></i>
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">API &amp; Integration</div>
+                            <div class="text-[10px] text-indigo-500 font-semibold">Universal REST Hub</div>
+                        </div>
+                    </div>
+                    <span class="bg-indigo-100 text-indigo-700 text-[8px] font-black px-1.5 py-0.5 rounded">REST</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Bottom User Profile -->
+        <div class="border-t border-slate-100 p-4 shrink-0 bg-slate-50/60">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white text-sm font-black shadow-md shadow-purple-200 shrink-0">P</div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-bold text-slate-800 truncate leading-tight">Parvez</p>
+                    <p class="text-[11px] text-slate-400 font-medium truncate">Enterprise Admin</p>
+                </div>
+                <button class="text-slate-400 hover:text-red-500 transition-colors p-1.5 rounded-lg hover:bg-red-50">
+                    <i class="fa-solid fa-right-from-bracket text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#f4f7fb]">
+        <!-- Header -->
+        <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0 z-10">
+            <!-- Search -->
+            <div class="relative w-96">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <i class="fa-solid fa-search text-gray-400 text-sm"></i>
+                </div>
+                <input type="text" placeholder="Search campaigns, contacts, reports..."
+                    class="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-gray-50">
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center space-x-5">
+                <!-- Wallet Balance -->
+                <div class="flex items-center gap-3 bg-white border border-slate-200 px-4 py-2 rounded-xl shadow-sm hover:border-emerald-300 transition-all cursor-pointer">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-inner">
+                        <i class="fa-solid fa-wallet text-sm"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-0.5">INR Wallet Balance</p>
+                        <p class="text-sm font-black text-slate-900 leading-none">₹48,500.00 <span class="text-[10px] text-slate-400 font-medium">(12,450 Cr)</span></p>
+                    </div>
+                </div>
+
+                <button class="text-gray-400 hover:text-gray-600 relative">
+                    <i class="fa-regular fa-bell text-lg"></i>
+                    <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+                </button>
+                <button class="text-gray-400 hover:text-gray-600">
+                    <i class="fa-regular fa-circle-question text-lg"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Scrollable Content Area -->
+        <div class="flex-1 overflow-y-auto p-6 lg:p-8">
+            <div class="w-full mx-auto space-y-6">
+<!-- Page Title & Top Actions -->
+<div class="mb-6 flex justify-between items-start">
+    <div>
+        <div class="flex items-center text-sm text-gray-500 mb-2">
+            <a href="index.html" class="hover:text-blue-600">SMS</a>
+            <i class="fa-solid fa-chevron-right text-[10px] mx-2"></i>
+            <span class="text-blue-600 font-medium">Send SMS</span>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Send SMS Campaign</h1>
+        <p class="text-[13px] text-gray-500 mt-1">Create and send your SMS campaign in a few simple steps.</p>
+    </div>
+    
+    <div class="flex items-center gap-3 bg-white border border-slate-200 rounded-xl px-4 py-2 shadow-sm hover:border-emerald-300 transition-all cursor-pointer">
+        <div class="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-inner">
+            <i class="fa-solid fa-wallet text-sm"></i>
+        </div>
+        <div>
+            <p class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-0.5">INR Wallet Balance</p>
+            <p class="text-base font-black text-slate-900 leading-tight">₹48,500.00 <span class="text-xs text-slate-400 font-medium">(12,450 Cr)</span></p>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    
+    <!-- Left Column (Form) -->
+    <div class="lg:col-span-2 space-y-6">
+        
+        <!-- Step 1: Campaign Details -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 lg:p-6 shadow-2xs space-y-5">
+            <div class="flex items-center gap-2.5 border-b border-slate-100 pb-3.5">
+                <span class="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-bold">1</span>
+                <div>
+                    <h3 class="text-sm font-bold text-slate-900 leading-tight">SMS Campaign Details</h3>
+                    <p class="text-[11px] text-slate-400 font-medium">Enter campaign information and DLT approved message content</p>
+                </div>
+            </div>
+
+            <!-- Row 1: Campaign Name, Route & Sender ID -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Campaign Name <span class="text-rose-500">*</span></label>
+                    <input type="text" id="campaignName" placeholder="e.g. Diwali Flash Sale" value="Diwali Flash Sale 2026" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-blue-600 bg-white font-medium text-slate-800">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Route <span class="text-rose-500">*</span></label>
+                    <select id="smsRouteSelect" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-blue-600 bg-white font-medium text-slate-800">
+                        <option value="promotional">Promotional</option>
+                        <option value="transactional" selected>Transactional</option>
+                        <option value="otp">OTP</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Sender ID <span class="text-rose-500">*</span></label>
+                    <select id="smsSenderIdSelect" onchange="onSmsSenderIdChange(this.value)" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-blue-600 bg-white font-bold text-blue-700">
+                        <option value="ZIONIN">ZIONIN</option>
+                        <option value="ZIONOT">ZIONOT</option>
+                        <option value="ZIONPR">ZIONPR</option>
+                        <option value="ZIONDL">ZIONDL</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Row 2: Approved DLT Template -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">Approved DLT Template <span class="text-rose-500">*</span></label>
+                    <select id="smsTemplateSelect" onchange="onSmsTemplateSelectChange(this.value)" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-blue-600 bg-white font-bold text-blue-700">
+                        <option value="sms_dlt_promo">DIWALI_PROMO_DLT_100234</option>
+                        <option value="sms_dlt_otp">OTP_AUTH_DLT_100982</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5">DLT Entity &amp; Template ID</label>
+                    <input type="text" id="smsDltIdDisplay" readonly value="DLT-1107168291028392102" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs font-mono font-bold bg-slate-50 text-slate-600">
+                </div>
+            </div>
+
+            <!-- Row 3: Recipients (1st CopyPaste, 2nd File Upload, 3rd Group) -->
+            <div class="space-y-2 pt-1">
+                <label class="block text-xs font-bold text-slate-700">Recipients <span class="text-rose-500">*</span></label>
+                
+                <!-- Recipient Tabs Bar -->
+                <div class="flex items-center gap-6 border-b border-slate-200 text-xs font-bold">
+                    <button type="button" id="tabBtnPaste" onclick="switchRecipientTab('paste')" class="recipient-tab pb-2 text-blue-600 border-b-2 border-blue-600 flex items-center gap-1.5 transition-colors cursor-pointer font-bold">
+                        <i class="fa-solid fa-clipboard text-xs"></i> <span>Paste Numbers</span>
+                    </button>
+                    <button type="button" id="tabBtnUpload" onclick="switchRecipientTab('upload')" class="recipient-tab pb-2 text-slate-400 hover:text-slate-700 border-b-2 border-transparent flex items-center gap-1.5 transition-colors cursor-pointer">
+                        <i class="fa-solid fa-file-arrow-up text-xs"></i> <span>Upload File</span>
+                    </button>
+                    <button type="button" id="tabBtnGroup" onclick="switchRecipientTab('group')" class="recipient-tab pb-2 text-slate-400 hover:text-slate-700 border-b-2 border-transparent flex items-center gap-1.5 transition-colors cursor-pointer">
+                        <i class="fa-solid fa-users text-xs"></i> <span>Select Group</span>
+                    </button>
+                </div>
+
+                <!-- Tab 1 Pane: Paste Numbers (Default Active) -->
+                <div id="panePasteNumbers" class="space-y-2 pt-2">
+                    <div class="relative">
+                        <textarea id="pasteNumbersInput" rows="4" oninput="onPasteNumbersChange(this.value)" placeholder="Enter or paste mobile numbers with country code e.g.&#10;919876543210&#10;919876543211&#10;919123456789" class="w-full p-3 border border-slate-200 rounded-xl text-xs font-mono focus:outline-none focus:border-blue-600 bg-slate-50 text-slate-800 leading-relaxed"></textarea>
+                        <div class="flex justify-between items-center text-[11px] text-slate-500 pt-1">
+                            <span>Separate by new line, comma, or spaces</span>
+                            <span id="pasteCountBadge" class="bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded-md">0 Numbers Detected</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2 Pane: Upload File -->
+                <div id="paneUploadFile" class="hidden space-y-3 pt-2">
+                    <div class="border border-dashed border-slate-300 hover:border-blue-500 bg-slate-50/60 hover:bg-blue-50/30 rounded-xl p-5 text-center transition-all cursor-pointer relative group">
+                        <input type="file" id="audienceFileInput" onchange="onAudienceFileUploaded(event)" accept=".csv,.xlsx,.txt" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg mx-auto mb-1.5 transition-transform">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                        <h4 class="text-xs font-bold text-slate-800">Drag &amp; drop contact CSV / Excel file or <span class="text-blue-600 underline">Browse</span></h4>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Supported formats: CSV, XLS, XLSX, TXT (Up to 500,000 records per file)</p>
+                    </div>
+
+                    <!-- Upload File Metadata & Sample Download -->
+                    <div class="flex items-center justify-between text-xs pt-1 text-slate-500">
+                        <a href="#" onclick="alert('Sample CSV Template downloaded successfully.'); return false;" class="text-blue-600 hover:text-blue-800 font-bold hover:underline flex items-center gap-1 text-[11px]">
+                            <i class="fa-solid fa-file-csv"></i> Download Sample CSV
+                        </a>
+                        <span id="uploadedFileStatus" class="text-slate-400 text-[11px]">No file chosen</span>
+                    </div>
+                </div>
+
+                <!-- Tab 3 Pane: Select Group -->
+                <div id="paneSelectGroup" class="hidden space-y-2 pt-2">
+                    <select id="recipientGroupSelect" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-blue-600 bg-slate-50 font-medium text-slate-800">
+                        <option value="">-- Choose a Saved Group --</option>
+                        <option value="diwali_vip" selected>Diwali VIP Customers (45,210 Numbers)</option>
+                        <option value="festive_shoppers">Festive Shoppers 2026 (12,800 Numbers)</option>
+                        <option value="mumbai_leads">Mumbai Leads (Oct) (12,050 Numbers)</option>
+                        <option value="all_leads">All Registered Leads (62,500 Numbers)</option>
+                    </select>
+                    <div class="flex justify-between items-center text-xs pt-1">
+                        <a href="groups.html" class="text-blue-600 hover:text-blue-800 font-bold hover:underline flex items-center gap-1 text-[11px]">
+                            <span>Manage Contacts &amp; Groups</span> &rarr;
+                        </a>
+                        <span class="text-slate-400 text-[11px] font-medium">Synced from Audience Manager</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 4: Dynamic Variables (Section 1) -->
+            <div class="space-y-2 pt-2 border-t border-slate-100">
+                <div class="flex items-center justify-between">
+                    <label class="block text-xs font-bold text-slate-700">Variable Values (If required by SMS template)</label>
+                    <span class="text-[10px] text-blue-600 font-medium">Updates live in phone preview</span>
+                </div>
+                <div id="section1VariablesBox" class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                    <!-- Populated dynamically based on template -->
+                </div>
+            </div>
+
+            <!-- Options Checkboxes & Add Fallback Action Button -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-slate-100 text-xs font-bold text-slate-700">
+                <div class="flex flex-wrap items-center gap-6">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="removeDuplicateCheck" checked class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300">
+                        <span>Remove Duplicate Numbers</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" id="scheduleCheck" onchange="toggleScheduleOptions(this.checked)" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-slate-300">
+                        <span>Schedule Campaign</span>
+                    </label>
+                </div>
+
+                <!-- Add / Remove Fallback Channel Trigger Button -->
+                <button type="button" id="btnToggleFallbackChannel" onclick="triggerAddFallbackClick()" class="px-3.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs">
+                    <i class="fa-solid fa-plus text-[10px]" id="fallbackBtnIcon"></i>
+                    <span id="fallbackBtnText">Add Fallback Channel (RCS / WA)</span>
+                </button>
+            </div>
+
+            <!-- Dynamic Schedule Date/Time Container -->
+            <div id="scheduleOptionsContainer" class="hidden grid grid-cols-1 md:grid-cols-3 gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-700 mb-1">Date</label>
+                    <input type="date" id="scheduleDate" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-800">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-700 mb-1">Time</label>
+                    <input type="time" id="scheduleTime" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-800">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-bold text-slate-700 mb-1">Timezone</label>
+                    <select id="scheduleTimezone" class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-medium text-slate-800">
+                        <option value="Asia/Kolkata">India (IST) GMT+5:30</option>
+                        <option value="UTC">UTC</option>
+                        <option value="Asia/Dubai">Dubai (GST) GMT+4:00</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- STEP 2: Smart Omnichannel Fallback Cascade (Hidden by default when OFF) -->
+        <div id="step2FallbackSectionCard" class="hidden bg-white rounded-2xl border border-slate-200 p-5 lg:p-6 shadow-2xs space-y-4">
+            
+            <!-- Step 2 Header & Master ON/OFF Switch -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-3.5">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-bold">2</span>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="text-sm font-bold text-slate-900 leading-tight">Smart Omnichannel Fallback Cascade</h3>
+                            <span id="journeyBadge" class="bg-blue-50 text-blue-700 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">SMS ➔ RCS ➔ WhatsApp</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 font-medium mt-0.5" id="journeyDescText">
+                            Build your custom failover sequence for undelivered SMS.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Master Toggle Switch -->
+                <div class="flex items-center gap-2.5 self-end sm:self-center bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
+                    <span class="text-xs font-bold text-slate-600">Fallback Engine:</span>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="toggleSmartJourney" onchange="onToggleSmartJourney(this.checked)" class="sr-only peer">
+                        <div class="w-10 h-5.5 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4.5 after:w-4.5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Smart Journey Interactive Builder Container (Hidden by default until enabled by user) -->
+            <div id="smartJourneyBuilder" class="hidden space-y-4 pt-1">
+
+                <!-- Dynamic Horizontal Journey Cascade Stages Strip -->
+                <div class="bg-white p-4 rounded-xl border border-slate-200">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-diagram-project text-slate-500"></i> Execution Sequence Flow
+                        </span>
+                        <span class="text-[11px] font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md" id="stageCounterText">3 Stages Active</span>
+                    </div>
+
+                    <!-- Dynamic Horizontal Container (overflow-visible for popovers) -->
+                    <div id="stagesContainer" class="flex items-center gap-3 overflow-x-auto pb-4 scrollbar-thin pt-2">
+                        <!-- Populated dynamically by JS -->
+                    </div>
+                </div>
+
+                <!-- Stage Specific Detail Settings -->
+                <div id="activeStageSettings" class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <!-- Live Simulation & Test Bar -->
+                <div class="flex flex-wrap items-center justify-between gap-4 pt-1">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <span class="text-xs font-bold text-slate-700">Active Route: <span id="activeFlowPath" class="text-blue-600 font-bold">SMS ➔ RCS ➔ WhatsApp</span></span>
+                    </div>
+
+                    <button type="button" onclick="runDynamicJourneySimulation()" class="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-play text-slate-500 text-[10px]"></i> Test Simulation
+                    </button>
+                </div>
+
+                <!-- Live Simulation Log Container -->
+                <div id="simLogContainer" class="hidden bg-slate-900 text-blue-200 border border-slate-800 rounded-xl p-4 font-mono text-xs space-y-2 animate-fade-in-up">
+                    <div class="flex items-center justify-between text-yellow-300 font-bold border-b border-slate-800 pb-2">
+                        <span><i class="fa-solid fa-circle-nodes mr-1.5"></i> Live Dynamic Journey Execution Trace</span>
+                        <span id="simTimer" class="bg-slate-800 px-2.5 py-0.5 rounded text-amber-400">00:00</span>
+                    </div>
+                    <div id="simLogs" class="space-y-1.5 text-[11px]">
+                        <div class="text-slate-400">[00:00] Initializing custom pipeline...</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Dispatch Actions -->
+        <div class="flex items-center justify-end gap-3 pt-2">
+            <button type="button" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition-colors">Save Draft</button>
+            <button type="button" id="btnLaunchCampaign" onclick="onLaunchCampaignClick()" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-xs transition-all flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-paper-plane text-xs"></i>
+                <span id="btnLaunchText">Send SMS Campaign (Direct)</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Right Column: Live Mobile Preview -->
+    <div class="lg:col-span-1">
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-2xs sticky top-6 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div>
+                    <h3 class="text-xs font-bold text-slate-900" id="phonePreviewHeading">Live Device Preview</h3>
+                    <p class="text-[10px] text-slate-400 font-medium" id="phonePreviewSubHeading">Synchronized with message content</p>
+                </div>
+                <span id="phonePreviewBadge" class="bg-blue-50 text-blue-700 text-[9px] font-bold px-2 py-0.5 rounded">SMS Live</span>
+            </div>
+
+            <!-- Dynamic Channel Preview Switcher Tabs (Only shows active products in journey) -->
+            <div id="phonePreviewTabs" class="bg-slate-100 p-1 rounded-xl flex gap-1 text-[11px] font-bold overflow-x-auto scrollbar-none">
+                <!-- Populated dynamically by JS -->
+            </div>
+
+            <!-- Phone Mockup Container -->
+            <div class="phone-mockup relative w-[290px] h-[520px] bg-white overflow-hidden mx-auto shadow-2xl flex flex-col">
+                <!-- Notch -->
+                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-5 bg-slate-800 rounded-b-xl z-50"></div>
+                
+                <!-- Phone Top Status Bar -->
+                <div class="flex justify-between items-center px-6 pt-2 text-[11px] font-bold text-slate-800 bg-slate-50 shrink-0">
+                    <span>9:41</span>
+                    <div class="flex space-x-1.5 items-center">
+                        <i class="fa-solid fa-signal text-[9px]"></i>
+                        <i class="fa-solid fa-wifi text-[9px]"></i>
+                        <i class="fa-solid fa-battery-full text-[11px]"></i>
+                    </div>
+                </div>
+
+                <!-- Dynamic Phone Screen Body (SMS / RCS / WhatsApp / OBD) -->
+                <div id="phoneDeviceScreen" class="flex-1 flex flex-col overflow-hidden">
+                    <!-- Populated dynamically based on selected preview tab -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</div>
+</div>
+</main>
+
+<!-- Interactive Javascript Logic -->
+<script>
+    function toggleSubmenu(event, submenuId, iconId) {
+        if (event) event.preventDefault();
+        const submenu = document.getElementById(submenuId);
+        const icon = document.getElementById(iconId);
+        if (submenu) {
+            if (submenu.classList.contains('hidden')) {
+                submenu.classList.remove('hidden');
+                if (icon) icon.style.transform = 'rotate(180deg)';
+            } else {
+                submenu.classList.add('hidden');
+                if (icon) icon.style.transform = 'rotate(0deg)';
+            }
+        }
+    }
+
+    // ==========================================
+    // SECTION 1 RECIPIENTS & TEMPLATE CONTROLLERS
+    // ==========================================
+    function switchRecipientTab(tab) {
+        const btnGroup = document.getElementById('tabBtnGroup');
+        const btnPaste = document.getElementById('tabBtnPaste');
+        const btnUpload = document.getElementById('tabBtnUpload');
+
+        const paneGroup = document.getElementById('paneSelectGroup');
+        const panePaste = document.getElementById('panePasteNumbers');
+        const paneUpload = document.getElementById('paneUploadFile');
+
+        // Reset styles
+        [btnGroup, btnPaste, btnUpload].forEach(btn => {
+            if (btn) {
+                btn.className = 'recipient-tab pb-2 text-slate-400 hover:text-slate-700 border-b-2 border-transparent flex items-center gap-1.5 transition-colors cursor-pointer';
+            }
+        });
+        [paneGroup, panePaste, paneUpload].forEach(pane => {
+            if (pane) pane.classList.add('hidden');
+        });
+
+        if (tab === 'group') {
+            if (btnGroup) btnGroup.className = 'recipient-tab pb-2 text-blue-600 border-b-2 border-blue-600 flex items-center gap-1.5 transition-colors cursor-pointer font-black';
+            if (paneGroup) paneGroup.classList.remove('hidden');
+        } else if (tab === 'paste') {
+            if (btnPaste) btnPaste.className = 'recipient-tab pb-2 text-blue-600 border-b-2 border-blue-600 flex items-center gap-1.5 transition-colors cursor-pointer font-black';
+            if (panePaste) panePaste.classList.remove('hidden');
+        } else if (tab === 'upload') {
+            if (btnUpload) btnUpload.className = 'recipient-tab pb-2 text-blue-600 border-b-2 border-blue-600 flex items-center gap-1.5 transition-colors cursor-pointer font-black';
+            if (paneUpload) paneUpload.classList.remove('hidden');
+        }
+    }
+
+    function onPasteNumbersChange(val) {
+        const badge = document.getElementById('pasteCountBadge');
+        if (!badge) return;
+        const nums = val.split(/[\n, ]+/).map(s => s.trim()).filter(s => s.length >= 8);
+        badge.innerText = `${nums.length} Number${nums.length === 1 ? '' : 's'} Detected`;
+    }
+
+    function onAudienceFileUploaded(event) {
+        const file = event.target.files[0];
+        const statusEl = document.getElementById('uploadedFileStatus');
+        if (file && statusEl) {
+            statusEl.innerHTML = `<span class="text-emerald-600 font-bold"><i class="fa-solid fa-circle-check"></i> ${file.name}</span> <span class="text-slate-400">(${(file.size / 1024).toFixed(1)} KB)</span>`;
+        }
+    }
+
+    function toggleScheduleOptions(isChecked) {
+        const container = document.getElementById('scheduleOptionsContainer');
+        if (container) container.classList.toggle('hidden', !isChecked);
+    }
+
+    function onSmsSenderIdChange(senderId) {
+        channelMeta['sms'].bots = [senderId];
+        renderPhoneDeviceScreen();
+    }
+
+    function onSmsTemplateSelectChange(templateId) {
+        const templates = channelTemplateRepo['sms'] || [];
+        const tpl = templates.find(t => t.id === templateId) || templates[0];
+        if (!tpl) return;
+
+        const dltDisplay = document.getElementById('smsDltIdDisplay');
+        if (dltDisplay) dltDisplay.value = tpl.dltId || 'DLT-1107168291028392102';
+
+        selectedStageTemplates['sms'] = {
+            templateId: tpl.id,
+            name: tpl.name,
+            vars: (selectedStageTemplates['sms'] && selectedStageTemplates['sms'].templateId === tpl.id) ? selectedStageTemplates['sms'].vars : (tpl.defaults || [])
+        };
+
+        renderSection1Variables(tpl.id);
+        renderJourneyStages();
+        renderPhoneDeviceScreen();
+    }
+
+    function renderSection1Variables(templateId) {
+        const container = document.getElementById('section1VariablesBox');
+        if (!container) return;
+
+        const templates = channelTemplateRepo['sms'] || [];
+        const tpl = templates.find(t => t.id === templateId);
+
+        if (!tpl || !tpl.variables || tpl.variables.length === 0) {
+            container.innerHTML = `
+                <div class="py-2 text-slate-400 text-xs italic flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-circle-check text-emerald-500"></i> Selected template does not require dynamic variables.
+                </div>
+            `;
+            return;
+        }
+
+        const curVars = (selectedStageTemplates['sms'] && selectedStageTemplates['sms'].templateId === templateId) ? selectedStageTemplates['sms'].vars : tpl.defaults;
+
+        let rowsHtml = tpl.variables.map((vName, idx) => {
+            const val = (curVars && curVars[idx] !== undefined) ? curVars[idx] : (tpl.defaults[idx] || '');
+            return `
+                <div class="space-y-1 text-left">
+                    <div class="flex items-center justify-between text-xs">
+                        <label class="font-bold text-slate-700 flex items-center gap-1.5">
+                            <span class="bg-blue-100 text-blue-700 font-mono font-black text-[10px] px-1.5 py-0.5 rounded">{#var${idx + 1}#}</span>
+                            <span>${vName}</span>
+                        </label>
+                    </div>
+                    <input type="text" id="sec1VarInput_${idx}" value="${val}" oninput="onSection1VarInput('${tpl.id}')" placeholder="Enter ${vName}..." class="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all">
+                </div>
+            `;
+        }).join('');
+
+        container.innerHTML = `
+            <div class="grid grid-cols-1 md:grid-cols-${Math.min(tpl.variables.length, 3)} gap-3 text-left">
+                ${rowsHtml}
+            </div>
+        `;
+    }
+
+    function onSection1VarInput(templateId) {
+        const templates = channelTemplateRepo['sms'] || [];
+        const tpl = templates.find(t => t.id === templateId);
+        if (!tpl) return;
+
+        const collected = [];
+        tpl.variables.forEach((_, idx) => {
+            const input = document.getElementById(`sec1VarInput_${idx}`);
+            collected.push(input ? input.value : '');
+        });
+
+        selectedStageTemplates['sms'].vars = collected;
+        renderPhoneDeviceScreen();
+    }
+
+    // ==========================================================
+    // FALLBACK CASCADE REPOSITORY & DATA CONFIGURATION
+    // ==========================================================
+    let currentStages = ['sms', 'rcs1', 'whatsapp'];
+
+    const channelMeta = {
+        sms: {
+            name: 'SMS (DLT Guaranteed)',
+            sub: 'DLT Registered Sender ID Route',
+            icon: 'fa-solid fa-comment-sms',
+            bgIcon: 'bg-blue-100 text-blue-600',
+            badgeBg: 'bg-blue-600',
+            border: 'border-blue-500',
+            bots: ['ZIONIN (DLT Header)', 'ZIONOT (Transactional OTP)', 'ZIONPR (Promotional)'],
+            defaultCondition: 'Primary Stage',
+            canDelete: false
+        },
+        rcs1: {
+            name: 'RCS Bot #1',
+            sub: 'Google Verified RBM Agent',
+            icon: 'fa-solid fa-comment-dots',
+            bgIcon: 'bg-purple-100 text-purple-600',
+            badgeBg: 'bg-purple-600',
+            border: 'border-purple-500',
+            bots: ['Zion_Official_Bot', 'Zion_Alerts', 'Zion_Offers_Bot'],
+            defaultCondition: 'If SMS Fails (30s DLR)',
+            canDelete: true
+        },
+        rcs2: {
+            name: 'RCS Bot #2',
+            sub: 'Google Daily Throttle Rescue',
+            icon: 'fa-solid fa-shield-halved',
+            bgIcon: 'bg-amber-100 text-amber-600',
+            badgeBg: 'bg-amber-600',
+            border: 'border-amber-500',
+            bots: ['Zion_Backup_Bot', 'Zion_Promo_Secondary'],
+            defaultCondition: 'If Bot #1 Throttled',
+            canDelete: true
+        },
+        whatsapp: {
+            name: 'WhatsApp Business API',
+            sub: 'Official Cloud API with Green Tick',
+            icon: 'fa-brands fa-whatsapp',
+            bgIcon: 'bg-emerald-100 text-emerald-600',
+            badgeBg: 'bg-emerald-600',
+            border: 'border-emerald-500',
+            bots: ['+91 98765 43210 (Zion Cloud WA)', '+91 80000 12345 (Zion Support)'],
+            defaultCondition: 'If RCS Fails (No Data)',
+            canDelete: true
+        },
+        obd: {
+            name: 'OBD Voice Broadcast',
+            sub: 'AI Voice Engine + DTMF Call',
+            icon: 'fa-solid fa-phone-volume',
+            bgIcon: 'bg-rose-100 text-rose-500',
+            badgeBg: 'bg-rose-500',
+            border: 'border-rose-500',
+            bots: ['PRI Trunk #1 (120 Channels)', 'SIP Gateway Mumbai'],
+            defaultCondition: 'If Undelivered / Critical',
+            canDelete: true
+        }
+    };
+
+    const channelTemplateRepo = {
+        sms: [
+            {
+                id: 'sms_dlt_promo',
+                name: 'DIWALI_PROMO_DLT_100234',
+                type: 'DLT Registered Promotional SMS',
+                channel: 'sms',
+                dltId: 'DLT-1107168291028392102',
+                senderId: 'ZIONIN',
+                content: 'Flat {#var1#}% OFF on all CPaaS cloud plans. Use coupon code {#var2#} at checkout on website {#var3#}. - ZION CPaaS',
+                variables: ['Discount Rate', 'Promo Code', 'Short Link'],
+                defaults: ['50', 'FESTIVE50', 'https://zion.in/d50'],
+                buttons: []
+            },
+            {
+                id: 'sms_dlt_otp',
+                name: 'OTP_AUTH_DLT_100982',
+                type: 'DLT Transactional OTP Route',
+                channel: 'sms',
+                dltId: 'DLT-1107168291028392999',
+                senderId: 'ZIONOT',
+                content: '{#var1#} is your ZION verification security OTP. Valid for {#var2#} mins. Do not share code with anyone. - ZIONIN',
+                variables: ['OTP Code', 'Expiry Minutes'],
+                defaults: ['482910', '10'],
+                buttons: []
+            }
+        ],
+        rcs1: [
+            {
+                id: 'rcs_diwali_mega',
+                name: '🎉 Diwali Mega Flash Sale',
+                type: 'RCS Rich Card with Media & CTA',
+                channel: 'rcs',
+                mediaType: 'image',
+                mediaUrl: 'https://images.unsplash.com/photo-1605371924599-2d0365da26f5?w=600&auto=format&fit=crop&q=80',
+                title: 'Mega Festive Deals & Instant Cashback',
+                content: 'Namaste {#var1#}, enjoy a massive flat {#var2#}% instant discount across all cloud services with coupon {#var3#}. Valid for next 4 hours only!',
+                variables: ['Customer Name', 'Discount %', 'Coupon Code'],
+                defaults: ['Parvez', '50', 'DIWALI50'],
+                buttons: [
+                    { text: 'Claim Offer Now', type: 'url', action: 'https://zioncpass.com/offers/diwali', icon: 'fa-solid fa-bag-shopping' },
+                    { text: 'Call Support', type: 'call', action: '+919876543210', icon: 'fa-solid fa-phone' }
+                ]
+            },
+            {
+                id: 'rcs_order_dispatch',
+                name: '📦 Order Dispatch & Live Tracking',
+                type: 'RCS Rich Card (Transactional)',
+                channel: 'rcs',
+                mediaType: 'image',
+                mediaUrl: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&auto=format&fit=crop&q=80',
+                title: 'Your Order is Out for Delivery!',
+                content: 'Hello {#var1#}, your package with tracking ID {#var2#} is arriving today by {#var3#}. Please keep payment ready if COD.',
+                variables: ['Customer Name', 'Tracking ID', 'Delivery Time'],
+                defaults: ['Parvez', 'TRK-9920148', '4:30 PM'],
+                buttons: [
+                    { text: 'Live GPS Tracking', type: 'url', action: 'https://zioncpass.com/track/TRK-9920148', icon: 'fa-solid fa-location-dot' },
+                    { text: 'Change Delivery Time', type: 'url', action: 'https://zioncpass.com/reschedule', icon: 'fa-solid fa-clock' }
+                ]
+            }
+        ],
+        rcs2: [
+            {
+                id: 'rcs2_flash_deal',
+                name: '⚡ Exclusive Flash Deal (Bot #2)',
+                type: 'RCS Rich Card - Secondary Rescue',
+                channel: 'rcs',
+                mediaType: 'image',
+                mediaUrl: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600&auto=format&fit=crop&q=80',
+                title: 'Last Chance: Voucher Expiring Tonight',
+                content: 'Hello {#var1#}, your special voucher worth Rs.{#var2#} is waiting in your account. Redeem before midnight!',
+                variables: ['Customer Name', 'Voucher Amount'],
+                defaults: ['Customer', '500'],
+                buttons: [
+                    { text: 'Claim Voucher Rs. 500', type: 'url', action: 'https://zioncpass.com/voucher/claim', icon: 'fa-solid fa-gift' }
+                ]
+            }
+        ],
+        whatsapp: [
+            {
+                id: 'wa_festive_offer',
+                name: 'festive_offer_rich_card',
+                type: 'Meta Approved WhatsApp Business Template',
+                channel: 'whatsapp',
+                mediaType: 'image',
+                mediaUrl: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600&auto=format&fit=crop&q=80',
+                headerText: '🎉 Official Diwali Celebration Rewards',
+                content: 'Greetings {#var1#},\n\nUnlock festive rewards up to Rs.{#var2#} today! Enjoy 1-click cloud activation with 24/7 dedicated enterprise support.\n\nReply STOP to unsubscribe.',
+                variables: ['Client Name', 'Max Reward'],
+                defaults: ['Parvez', '2,000'],
+                buttons: [
+                    { text: 'Claim Festive Reward', type: 'url', action: 'https://zioncpass.com/wa/claim', icon: 'fa-solid fa-arrow-up-right-from-square' },
+                    { text: 'Chat with Agent', type: 'quick_reply', action: 'START_CHAT', icon: 'fa-brands fa-whatsapp' }
+                ]
+            },
+            {
+                id: 'wa_urgent_alert',
+                name: 'urgent_account_action',
+                type: 'WhatsApp Official Utility Template',
+                channel: 'whatsapp',
+                mediaType: 'none',
+                headerText: '⚠️ Payment & Renewal Notice',
+                content: 'Important Notice for {#var1#}:\n\nYour cloud subscription invoice #{#var2#} is due on {#var3#}. Complete payment online to ensure zero service disruption.',
+                variables: ['Company Name', 'Invoice ID', 'Due Date'],
+                defaults: ['Acme Corp', 'INV-2026-990', 'Tomorrow 6:00 PM'],
+                buttons: [
+                    { text: 'Pay Invoice Online', type: 'url', action: 'https://zioncpass.com/pay/inv-990', icon: 'fa-solid fa-credit-card' }
+                ]
+            }
+        ],
+        obd: [
+            {
+                id: 'obd_promo_clip',
+                name: 'Hindi_Offer_Voice_30s.mp3',
+                type: 'Pre-Recorded Studio Voice Broadcast',
+                channel: 'obd',
+                duration: '00:30',
+                content: 'Namaste {#var1#}, ZION CPaaS ki taraf se special festive greetings! Aapke account par 50% discount offer activate ho chuka hai. Offer accept karne ke liye apne phone ka 1 dabayein.',
+                variables: ['Customer Name'],
+                defaults: ['Parvez'],
+                buttons: [
+                    { text: 'Keypad 1: Connect to Executive', type: 'dtmf', action: 'Transfer Call', icon: 'fa-solid fa-phone' },
+                    { text: 'Keypad 9: Repeat Message', type: 'dtmf', action: 'Replay Audio', icon: 'fa-solid fa-rotate-left' }
+                ]
+            }
+        ]
+    };
+
+    let selectedStageTemplates = {
+        sms: { templateId: 'sms_dlt_promo', name: 'DIWALI_PROMO_DLT_100234', vars: ['50', 'FESTIVE50', 'https://zion.in/d50'] },
+        rcs1: { templateId: 'rcs_diwali_mega', name: '🎉 Diwali Mega Flash Sale', vars: ['Parvez', '50', 'DIWALI50'] },
+        rcs2: { templateId: 'rcs2_flash_deal', name: '⚡ Exclusive Flash Deal (Bot #2)', vars: ['Customer', '500'] },
+        whatsapp: { templateId: 'wa_festive_offer', name: 'festive_offer_rich_card', vars: ['Parvez', '2,000'] },
+        obd: { templateId: 'obd_promo_clip', name: 'Hindi_Offer_Voice_30s.mp3', vars: ['Parvez'] }
+    };
+
+    let activePhonePreviewChannel = 'sms';
+    let currentModalStageKey = null;
+    let activeModalTplId = null;
+
+    function getActivePipelineChannels() {
+        const toggleEl = document.getElementById('toggleSmartJourney');
+        const isEnabled = toggleEl ? toggleEl.checked : true;
+        if (!isEnabled) {
+            return ['sms'];
+        }
+        return currentStages;
+    }
+
+    function renderJourneyStages() {
+        const container = document.getElementById('stagesContainer');
+        if (!container) return;
+        container.innerHTML = '';
+
+        const allAvailableKeys = ['sms', 'rcs1', 'rcs2', 'whatsapp', 'obd'];
+        const isAllAdded = allAvailableKeys.every(k => currentStages.includes(k));
+
+        currentStages.forEach((channelKey, index) => {
+            const meta = channelMeta[channelKey];
+            if (!meta) return;
+
+            // Add Arrow separator if not first
+            if (index > 0) {
+                const arrowDiv = document.createElement('div');
+                arrowDiv.className = 'flex flex-col items-center justify-center text-slate-300 px-0.5 shrink-0';
+                arrowDiv.innerHTML = `
+                    <span class="text-[8px] font-medium text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded mb-0.5 text-center leading-tight whitespace-nowrap">${meta.defaultCondition}</span>
+                    <i class="fa-solid fa-arrow-right-long text-xs text-slate-400"></i>
+                `;
+                container.appendChild(arrowDiv);
+            }
+
+            // Stage Card with Bot selector + Template Popup Button
+            const card = document.createElement('div');
+            card.className = `bg-white p-3 rounded-xl border border-slate-200 flex flex-col items-center text-center relative group w-44 shrink-0`;
+            
+            let deleteBtnHtml = '';
+            if (meta.canDelete) {
+                deleteBtnHtml = `
+                    <button type="button" onclick="removeStage(${index})" title="Remove stage" class="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-slate-100 hover:bg-rose-50 text-slate-400 hover:text-rose-600 flex items-center justify-center text-[9px] border border-slate-200 transition-colors z-10 cursor-pointer">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                `;
+            }
+
+            let botOptions = meta.bots.map(opt => `<option>${opt}</option>`).join('');
+            let selTpl = selectedStageTemplates[channelKey] || { name: 'Select Template', vars: [] };
+
+            card.innerHTML = `
+                <div class="absolute -top-2 left-2 bg-slate-100 text-slate-500 text-[8px] font-bold px-1.5 py-0.5 rounded uppercase">Stage ${index + 1}</div>
+                ${deleteBtnHtml}
+                <div class="w-6 h-6 rounded-lg bg-slate-50 text-slate-600 flex justify-center items-center mt-1 mb-1">
+                    <i class="${meta.icon} text-xs"></i>
+                </div>
+                <span class="text-xs font-bold text-slate-900 leading-tight truncate w-full">${meta.name}</span>
+                <span class="text-[9px] text-slate-400 font-medium mb-2 truncate w-full">${meta.sub}</span>
+                
+                <!-- Bot / Sender Select -->
+                <div class="w-full space-y-1.5 text-left">
+                    <div>
+                        <span class="text-[8px] font-bold uppercase tracking-wider text-slate-400 block leading-none mb-0.5">Sender / Bot</span>
+                        <select onchange="updatePhonePreviewBot()" class="w-full px-1.5 py-1 border border-slate-200 rounded-lg text-[10px] font-medium text-slate-800 bg-slate-50 focus:outline-none focus:border-blue-500 truncate">
+                            ${botOptions}
+                        </select>
+                    </div>
+
+                    <!-- Interactive Select Template Trigger Button -->
+                    <div>
+                        <span class="text-[8px] font-bold uppercase tracking-wider text-slate-400 block leading-none mb-0.5">Approved Template</span>
+                        <button type="button" onclick="openTemplatePickerModal('${channelKey}')" class="w-full px-2 py-1 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg text-[10px] font-bold text-slate-700 flex items-center justify-between transition-all cursor-pointer">
+                            <span class="truncate max-w-[110px]">${selTpl.name}</span>
+                            <i class="fa-solid fa-pen-to-square text-[9px] text-slate-400"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Add + Next Channel Action Button Card ONLY IF NOT ALL CHANNELS ADDED
+        if (!isAllAdded) {
+            const addCard = document.createElement('div');
+            addCard.className = 'flex items-center pl-1 shrink-0';
+            addCard.innerHTML = `
+                <div class="relative inline-block text-left group">
+                    <button type="button" id="btnAddStageDropdown" onclick="toggleAddDropdown()" class="px-3 py-5 border border-dashed border-slate-300 hover:border-blue-500 bg-slate-50 hover:bg-blue-50/50 rounded-xl text-slate-600 hover:text-blue-600 flex flex-col items-center justify-center gap-1 transition-all w-36 shrink-0 cursor-pointer">
+                        <div class="w-6 h-6 rounded-lg bg-white border border-slate-200 text-slate-500 flex items-center justify-center text-xs font-bold shadow-2xs">
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                        <span class="text-xs font-bold leading-tight">+ Add Next</span>
+                        <span class="text-[9px] text-slate-400 font-medium">Fallback Channel</span>
+                    </button>
+                    
+                    <!-- Dropdown Menu (Opens Above Button to prevent clipping) -->
+                    <div id="addStageMenu" class="hidden absolute right-0 bottom-full mb-2 w-52 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 z-50 text-xs">
+                        <div class="px-3 py-1 text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-100">Select Next Channel</div>
+                        ${!currentStages.includes('rcs1') ? `
+                        <button type="button" onclick="addStage('rcs1')" class="w-full px-3 py-2 text-left hover:bg-purple-50 flex items-center gap-2 text-slate-800 font-bold">
+                            <i class="fa-solid fa-comment-dots text-purple-600"></i> RCS Bot #1 (Google Verified)
+                        </button>` : ''}
+                        ${!currentStages.includes('rcs2') ? `
+                        <button type="button" onclick="addStage('rcs2')" class="w-full px-3 py-2 text-left hover:bg-amber-50 flex items-center gap-2 text-slate-800 font-bold">
+                            <i class="fa-solid fa-shield-halved text-amber-500"></i> RCS Bot #2 (Google Cap)
+                        </button>` : ''}
+                        ${!currentStages.includes('whatsapp') ? `
+                        <button type="button" onclick="addStage('whatsapp')" class="w-full px-3 py-2 text-left hover:bg-emerald-50 flex items-center gap-2 text-slate-800 font-bold">
+                            <i class="fa-brands fa-whatsapp text-emerald-600 text-sm"></i> WhatsApp Business API
+                        </button>` : ''}
+                        ${!currentStages.includes('obd') ? `
+                        <button type="button" onclick="addStage('obd')" class="w-full px-3 py-2 text-left hover:bg-rose-50 flex items-center gap-2 text-slate-800 font-bold">
+                            <i class="fa-solid fa-phone-volume text-rose-500"></i> OBD Voice Broadcast
+                        </button>` : ''}
+                    </div>
+                </div>
+            `;
+            container.appendChild(addCard);
+        }
+
+        // Update badge, text & settings
+        updateFlowSummary();
+        renderActiveStageSettings();
+        renderPhonePreviewTabs();
+    }
+
+    function toggleAddDropdown() {
+        const menu = document.getElementById('addStageMenu');
+        if (menu) menu.classList.toggle('hidden');
+    }
+
+    document.addEventListener('click', function(e) {
+        const btn = document.getElementById('btnAddStageDropdown');
+        const menu = document.getElementById('addStageMenu');
+        if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+            menu.classList.add('hidden');
+        }
+    });
+
+    function addStage(channelKey) {
+        if (!currentStages.includes(channelKey)) {
+            currentStages.push(channelKey);
+            renderJourneyStages();
+        }
+        const menu = document.getElementById('addStageMenu');
+        if (menu) menu.classList.add('hidden');
+    }
+
+    function removeStage(index) {
+        if (index >= 0 && index < currentStages.length && currentStages[index] !== 'sms') {
+            currentStages.splice(index, 1);
+            renderJourneyStages();
+        }
+    }
+
+    function loadPreset(presetName) {
+        if (presetName === 'sms_rcs_wa') {
+            currentStages = ['sms', 'rcs1', 'whatsapp'];
+        } else if (presetName === 'sms_wa_obd') {
+            currentStages = ['sms', 'whatsapp', 'obd'];
+        } else if (presetName === 'sms_all') {
+            currentStages = ['sms', 'rcs1', 'rcs2', 'whatsapp', 'obd'];
+        }
+        renderJourneyStages();
+    }
+
+    function triggerAddFallbackClick() {
+        const toggleEl = document.getElementById('toggleSmartJourney');
+        if (toggleEl) {
+            toggleEl.checked = !toggleEl.checked;
+            onToggleSmartJourney(toggleEl.checked);
+        }
+    }
+
+    function onToggleSmartJourney(isChecked) {
+        const builder = document.getElementById('smartJourneyBuilder');
+        const card = document.getElementById('step2FallbackSectionCard');
+        const btnText = document.getElementById('fallbackBtnText');
+        const btnIcon = document.getElementById('fallbackBtnIcon');
+        const btn = document.getElementById('btnToggleFallbackChannel');
+
+        if (builder) builder.classList.toggle('hidden', !isChecked);
+        if (card) card.classList.toggle('hidden', !isChecked);
+
+        if (btnText && btnIcon && btn) {
+            if (isChecked) {
+                btnText.innerText = 'Remove Fallback Channel';
+                btnIcon.className = 'fa-solid fa-xmark text-[10px]';
+                btn.className = 'px-3.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs';
+            } else {
+                btnText.innerText = 'Add Fallback Channel (RCS / WA)';
+                btnIcon.className = 'fa-solid fa-plus text-[10px]';
+                btn.className = 'px-3.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs';
+            }
+        }
+
+        updateFlowSummary();
+        renderPhonePreviewTabs();
+    }
+
+    function updateFlowSummary() {
+        const flowPathEl = document.getElementById('activeFlowPath');
+        const counterEl = document.getElementById('stageCounterText');
+        const badgeEl = document.getElementById('journeyBadge');
+        const descEl = document.getElementById('journeyDescText');
+        const launchBtnTextEl = document.getElementById('btnLaunchText');
+        const toggleEl = document.getElementById('toggleSmartJourney');
+        const isEnabled = toggleEl ? toggleEl.checked : true;
+        
+        const readableNames = currentStages.map(k => {
+            if (k === 'sms') return 'SMS';
+            if (k === 'rcs1') return 'RCS 1';
+            if (k === 'rcs2') return 'RCS 2';
+            if (k === 'whatsapp') return 'WhatsApp';
+            if (k === 'obd') return 'OBD';
+            return k;
+        });
+
+        const pathStr = readableNames.join(' ➔ ');
+        if (flowPathEl) flowPathEl.innerText = pathStr;
+        if (counterEl) counterEl.innerText = `${currentStages.length} Stages Active`;
+
+        if (badgeEl) {
+            if (isEnabled) {
+                badgeEl.className = 'bg-blue-100 text-blue-700 text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider';
+                badgeEl.innerText = pathStr;
+            } else {
+                badgeEl.className = 'bg-slate-100 text-slate-500 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider';
+                badgeEl.innerText = 'OFF (SMS Only)';
+            }
+        }
+
+        if (descEl) {
+            if (isEnabled) {
+                descEl.innerHTML = 'Build your own custom sequential sequence: Click <strong class="text-blue-700">+ Add Next Channel</strong> to decide failover route.';
+            } else {
+                descEl.innerHTML = 'Fallback cascade is <strong class="text-slate-700">DISABLED</strong>. Messages will be dispatched via Primary SMS only without failover cascade.';
+            }
+        }
+
+        if (launchBtnTextEl) {
+            launchBtnTextEl.innerText = isEnabled ? 'Launch Smart SMS Campaign' : 'Send SMS Campaign (Direct)';
+        }
+    }
+
+    function renderActiveStageSettings() {
+        const settingsContainer = document.getElementById('activeStageSettings');
+        if (!settingsContainer) return;
+        settingsContainer.innerHTML = '';
+
+        // Setting 1: DLR Timeout
+        const timeoutBox = document.createElement('div');
+        timeoutBox.innerHTML = `
+            <label class="block text-xs font-bold text-slate-700 mb-1">
+                <i class="fa-solid fa-stopwatch text-blue-600 mr-1"></i> SMS DLR Timeout Delay
+            </label>
+            <select id="failoverTimeout" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs font-bold text-blue-700 bg-slate-50 focus:outline-none focus:border-blue-500">
+                <option value="30" selected>30 Seconds (Telecom Standard)</option>
+                <option value="15">15 Seconds (Fast Turbo)</option>
+                <option value="45">45 Seconds (Standard)</option>
+                <option value="60">60 Seconds</option>
+            </select>
+            <p class="text-[10px] text-slate-400 mt-1">DLR wait time before routing to next fallback stage.</p>
+        `;
+        settingsContainer.appendChild(timeoutBox);
+
+        // Setting 2: If RCS in pipeline
+        if (currentStages.includes('rcs1')) {
+            const rcsBox = document.createElement('div');
+            const curRcs = selectedStageTemplates['rcs1'];
+            rcsBox.innerHTML = `
+                <label class="block text-xs font-bold text-slate-700 mb-1">
+                    <i class="fa-solid fa-comment-dots text-purple-600 mr-1"></i> RCS Bot Template
+                </label>
+                <div class="flex items-center gap-2">
+                    <input type="text" readonly value="${curRcs.name}" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 bg-slate-50">
+                    <button type="button" onclick="openTemplatePickerModal('rcs1')" class="px-3 py-2 bg-purple-50 text-purple-700 border border-purple-200 rounded-xl text-xs font-bold hover:bg-purple-100">Edit</button>
+                </div>
+                <p class="text-[10px] text-slate-400 mt-1">Google RBM rich card template.</p>
+            `;
+            settingsContainer.appendChild(rcsBox);
+        }
+
+        // Setting 3: If WhatsApp or OBD in pipeline
+        if (currentStages.includes('whatsapp') || currentStages.includes('obd')) {
+            const mediaBox = document.createElement('div');
+            const key = currentStages.includes('whatsapp') ? 'whatsapp' : 'obd';
+            const curItem = selectedStageTemplates[key];
+            mediaBox.innerHTML = `
+                <label class="block text-xs font-bold text-slate-700 mb-1">
+                    <i class="fa-brands fa-whatsapp text-emerald-600 mr-1"></i> ${key === 'whatsapp' ? 'WhatsApp Template' : 'OBD Audio Asset'}
+                </label>
+                <div class="flex items-center gap-2">
+                    <input type="text" readonly value="${curItem.name}" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 bg-slate-50">
+                    <button type="button" onclick="openTemplatePickerModal('${key}')" class="px-3 py-2 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl text-xs font-bold hover:bg-emerald-100">Edit</button>
+                </div>
+                <p class="text-[10px] text-slate-400 mt-1">Configured payload for ${key.toUpperCase()}.</p>
+            `;
+            settingsContainer.appendChild(mediaBox);
+        }
+    }
+
+    // ==========================================
+    // RIGHT PHONE DEVICE LIVE PREVIEW CONTROLLERS
+    // ==========================================
+    function renderPhonePreviewTabs() {
+        const tabsContainer = document.getElementById('phonePreviewTabs');
+        const badgeEl = document.getElementById('phonePreviewBadge');
+        const headingEl = document.getElementById('phonePreviewHeading');
+        const subHeadingEl = document.getElementById('phonePreviewSubHeading');
+        if (!tabsContainer) return;
+
+        const activeChannels = getActivePipelineChannels();
+        if (!activeChannels.includes(activePhonePreviewChannel)) {
+            activePhonePreviewChannel = activeChannels[0] || 'sms';
+        }
+
+        tabsContainer.innerHTML = '';
+
+        activeChannels.forEach(channelKey => {
+            const meta = channelMeta[channelKey];
+            if (!meta) return;
+            const isActive = (channelKey === activePhonePreviewChannel);
+
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.onclick = () => switchPhonePreview(channelKey);
+            btn.className = `flex-1 py-1.5 px-2 rounded-lg text-center transition-all whitespace-nowrap cursor-pointer flex items-center justify-center gap-1.5 text-[11px] ${
+                isActive 
+                    ? 'bg-white text-blue-700 shadow-xs font-black' 
+                    : 'text-slate-500 hover:text-slate-800 font-semibold'
+            }`;
+            
+            let iconHtml = `<i class="${meta.icon} text-[10px]"></i>`;
+            let label = channelKey === 'sms' ? 'SMS (DLT)' : (channelKey === 'rcs1' ? 'RCS #1' : (channelKey === 'rcs2' ? 'RCS #2' : meta.name.split(' ')[0]));
+            btn.innerHTML = `${iconHtml} <span>${label}</span>`;
+            tabsContainer.appendChild(btn);
+        });
+
+        // Update Header
+        const curMeta = channelMeta[activePhonePreviewChannel];
+        if (curMeta) {
+            if (badgeEl) {
+                badgeEl.className = `${curMeta.badgeBg} text-white text-[9px] font-black px-2 py-0.5 rounded shadow-2xs`;
+                badgeEl.innerText = `${curMeta.name} Live`;
+            }
+            if (headingEl) {
+                headingEl.innerText = `${curMeta.name} Preview`;
+            }
+            if (subHeadingEl) {
+                subHeadingEl.innerText = `Product View: ${curMeta.sub}`;
+            }
+        }
+
+        renderPhoneDeviceScreen();
+        renderPhoneDeliveryStats();
+    }
+
+    function switchPhonePreview(channelKey) {
+        activePhonePreviewChannel = channelKey;
+        renderPhonePreviewTabs();
+    }
+
+    function renderPhoneDeliveryStats() {
+        const statsBox = document.getElementById('phoneDeliveryStatsBox');
+        if (!statsBox) return;
+
+        const activeChannels = getActivePipelineChannels();
+        const count = activeChannels.length;
+
+        let reach = '~78.2%';
+        let boost = '';
+        let barWidth = '78.2%';
+
+        if (count === 1) {
+            reach = '78.2%';
+            boost = 'Single SMS Route';
+            barWidth = '78.2%';
+        } else if (count === 2) {
+            reach = '94.6%';
+            boost = '+16.4% RCS Failover Boost';
+            barWidth = '94.6%';
+        } else if (count === 3) {
+            reach = '98.9%';
+            boost = '+20.7% Omnichannel Boost';
+            barWidth = '98.9%';
+        } else {
+            reach = '99.8%';
+            boost = '+21.6% Full Cascade Guarantee';
+            barWidth = '99.8%';
+        }
+
+        statsBox.innerHTML = `
+            <div class="flex justify-between items-center text-slate-600">
+                <span>Active Pipeline Stages:</span>
+                <span class="font-bold text-slate-800">${count} Channel${count > 1 ? 's' : ''}</span>
+            </div>
+            <div class="flex justify-between items-center text-blue-700 font-bold">
+                <span>Expected Total Reach:</span>
+                <span class="font-black text-emerald-600 text-sm">${reach} <span class="text-[10px] font-semibold text-emerald-500">(${boost})</span></span>
+            </div>
+            <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-blue-600 to-emerald-500 rounded-full transition-all duration-500" style="width: ${barWidth}"></div>
+            </div>
+        `;
+    }
+
+    function renderPhoneDeviceScreen() {
+        const screen = document.getElementById('phoneDeviceScreen');
+        if (!screen) return;
+
+        const channelKey = activePhonePreviewChannel;
+        const meta = channelMeta[channelKey];
+        const templates = channelTemplateRepo[channelKey] || [];
+        const selInfo = selectedStageTemplates[channelKey];
+        const tpl = templates.find(t => t.id === (selInfo ? selInfo.templateId : '')) || templates[0];
+
+        if (!tpl) {
+            screen.innerHTML = '<div class="p-6 text-center text-slate-400 text-xs">No template selected.</div>';
+            return;
+        }
+
+        const currentVars = (selInfo && selInfo.vars && selInfo.vars.length > 0) ? selInfo.vars : (tpl.defaults || []);
+        let resolvedText = tpl.content;
+        if (tpl.variables) {
+            tpl.variables.forEach((_, idx) => {
+                const val = (currentVars[idx] !== undefined && currentVars[idx] !== '') ? currentVars[idx] : `{var${idx + 1}}`;
+                resolvedText = resolvedText.replaceAll(`{#var${idx + 1}#}`, val);
+            });
+        }
+
+        if (channelKey === 'sms') {
+            screen.innerHTML = `
+                <div class="flex items-center px-4 py-3 bg-slate-50 border-b border-slate-200 gap-3">
+                    <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs">Z</div>
+                    <div class="flex-1">
+                        <div class="text-xs font-black text-slate-900 leading-tight">VM-ZIONIN</div>
+                        <div class="text-[9px] text-slate-400 font-semibold">DLT Registered Header</div>
+                    </div>
+                </div>
+                <div class="flex-1 p-3.5 overflow-y-auto space-y-2 bg-[#f8fafc]">
+                    <div class="text-center text-[9px] text-slate-400 font-semibold my-1">Today &bull; 9:41 AM</div>
+                    <div class="bg-blue-600 text-white p-3.5 rounded-2xl rounded-tr-xs text-xs shadow-xs space-y-1 max-w-[90%] ml-auto">
+                        <div class="leading-relaxed whitespace-pre-line font-medium">${resolvedText}</div>
+                        <div class="text-[8px] text-blue-200 text-right font-mono">Delivered &bull; DLT ID: ${tpl.dltId || '11071682'}</div>
+                    </div>
+                </div>
+            `;
+        } else if (channelKey === 'rcs1' || channelKey === 'rcs2') {
+            let btnsHtml = '';
+            if (tpl.buttons && tpl.buttons.length > 0) {
+                btnsHtml = tpl.buttons.map(b => `
+                    <button class="w-full py-2 bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-xl text-xs font-bold border border-purple-200 flex items-center justify-center gap-1.5 shadow-2xs">
+                        <i class="${b.icon} text-[11px]"></i> <span>${b.text}</span>
+                    </button>
+                `).join('');
+            }
+
+            screen.innerHTML = `
+                <div class="flex items-center px-4 py-3 bg-white border-b border-slate-200 gap-3">
+                    <div class="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-cloud-bolt"></i></div>
+                    <div class="flex-1">
+                        <div class="text-xs font-black text-slate-900 leading-tight flex items-center gap-1">Zion CPaaS <i class="fa-solid fa-circle-check text-purple-600 text-[10px]"></i></div>
+                        <div class="text-[9px] text-slate-400 font-semibold">Google Verified RBM</div>
+                    </div>
+                </div>
+                <div class="flex-1 p-3 overflow-y-auto space-y-2 bg-[#f0f4f9]">
+                    <div class="text-center text-[9px] text-slate-400 font-semibold my-1">RCS Business Message</div>
+                    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-md overflow-hidden space-y-2.5 p-3">
+                        ${tpl.mediaUrl ? `<img src="${tpl.mediaUrl}" class="w-full h-28 object-cover rounded-xl shadow-2xs">` : ''}
+                        ${tpl.title ? `<div class="text-xs font-black text-slate-900 leading-snug">${tpl.title}</div>` : ''}
+                        <div class="text-xs text-slate-700 leading-relaxed font-medium">${resolvedText}</div>
+                        ${btnsHtml ? `<div class="space-y-1.5 pt-1">${btnsHtml}</div>` : ''}
+                    </div>
+                </div>
+            `;
+        } else if (channelKey === 'whatsapp') {
+            screen.innerHTML = `
+                <div class="flex items-center px-4 py-3 bg-[#075e54] text-white gap-3">
+                    <div class="w-8 h-8 rounded-full bg-white text-[#075e54] flex items-center justify-center font-bold text-xs"><i class="fa-brands fa-whatsapp text-lg"></i></div>
+                    <div class="flex-1">
+                        <div class="text-xs font-black leading-tight flex items-center gap-1">ZION Official <i class="fa-solid fa-circle-check text-emerald-300 text-[10px]"></i></div>
+                        <div class="text-[9px] text-emerald-100 font-medium">Meta Cloud API</div>
+                    </div>
+                </div>
+                <div class="flex-1 p-3 overflow-y-auto space-y-2 bg-[#efeae2]">
+                    <div class="text-center text-[9px] text-slate-500 font-semibold my-1">Official WhatsApp Business</div>
+                    <div class="bg-white rounded-2xl rounded-tl-xs p-3.5 shadow-sm space-y-2 max-w-[92%]">
+                        ${tpl.mediaUrl ? `<img src="${tpl.mediaUrl}" class="w-full h-28 object-cover rounded-lg">` : ''}
+                        ${tpl.headerText ? `<div class="text-xs font-black text-slate-900">${tpl.headerText}</div>` : ''}
+                        <div class="text-xs text-slate-800 leading-relaxed whitespace-pre-line font-medium">${resolvedText}</div>
+                        <div class="text-[9px] text-slate-400 text-right flex items-center justify-end gap-1">9:41 AM <i class="fa-solid fa-check-double text-blue-500"></i></div>
+                    </div>
+                </div>
+            `;
+        } else if (channelKey === 'obd') {
+            screen.innerHTML = `
+                <div class="flex-1 flex flex-col items-center justify-center bg-slate-900 text-white p-6 text-center space-y-4">
+                    <div class="w-16 h-16 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-500 flex items-center justify-center text-2xl animate-pulse">
+                        <i class="fa-solid fa-phone-volume"></i>
+                    </div>
+                    <div>
+                        <div class="text-sm font-black">ZION Voice Broadcast</div>
+                        <div class="text-xs text-slate-400">PRI Trunk &bull; Connected 00:14</div>
+                    </div>
+                    <div class="w-full bg-slate-800 p-3 rounded-xl border border-slate-700 text-xs text-slate-300 font-mono text-left">
+                        <strong>Audio Script:</strong> ${resolvedText}
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    // ==========================================
+    // TEMPLATE PICKER MODAL
+    // ==========================================
+    function openTemplatePickerModal(channelKey) {
+        currentModalStageKey = channelKey;
+        const meta = channelMeta[channelKey];
+        const templates = channelTemplateRepo[channelKey] || [];
+        const modal = document.getElementById('templatePickerModal');
+        
+        document.getElementById('modalStageTitle').innerText = `${meta.name} - Select Template`;
+        document.getElementById('modalStageSub').innerText = `Choose approved template for ${meta.sub}`;
+
+        const selInfo = selectedStageTemplates[channelKey];
+        activeModalTplId = selInfo ? selInfo.templateId : (templates[0] ? templates[0].id : null);
+
+        renderModalTemplateList(templates);
+        renderModalVariablesAndPreview();
+
+        if (modal) modal.classList.remove('hidden');
+    }
+
+    function renderModalTemplateList(templates) {
+        const listContainer = document.getElementById('modalTemplateList');
+        if (!listContainer) return;
+        listContainer.innerHTML = '';
+
+        templates.forEach(tpl => {
+            const isSelected = (tpl.id === activeModalTplId);
+            const card = document.createElement('div');
+            card.className = `p-3 rounded-xl border-2 transition-all cursor-pointer flex flex-col gap-1 ${
+                isSelected ? 'border-blue-600 bg-blue-50/50 shadow-xs' : 'border-slate-200 bg-white hover:border-slate-300'
+            }`;
+            card.onclick = () => {
+                activeModalTplId = tpl.id;
+                renderModalTemplateList(templates);
+                renderModalVariablesAndPreview();
+            };
+
+            card.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-black text-slate-900">${tpl.name}</span>
+                    <span class="text-[9px] font-bold px-1.5 py-0.5 rounded ${isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600'}">${tpl.type || 'Approved'}</span>
+                </div>
+                <p class="text-[11px] text-slate-500 line-clamp-2">${tpl.content}</p>
+            `;
+            listContainer.appendChild(card);
+        });
+    }
+
+    function renderModalVariablesAndPreview() {
+        const templates = channelTemplateRepo[currentModalStageKey] || [];
+        const tpl = templates.find(t => t.id === activeModalTplId) || templates[0];
+        if (!tpl) return;
+
+        const varContainer = document.getElementById('modalVarInputsContainer');
+        const selInfo = selectedStageTemplates[currentModalStageKey];
+        const curVars = (selInfo && selInfo.templateId === tpl.id && selInfo.vars) ? selInfo.vars : (tpl.defaults || []);
+
+        if (tpl.variables && tpl.variables.length > 0) {
+            varContainer.innerHTML = tpl.variables.map((vName, idx) => {
+                const val = (curVars && curVars[idx] !== undefined) ? curVars[idx] : (tpl.defaults[idx] || '');
+                return `
+                    <div class="space-y-1">
+                        <label class="text-[11px] font-bold text-slate-700 flex items-center gap-1">
+                            <span class="bg-blue-100 text-blue-700 font-mono text-[9px] px-1.5 py-0.5 rounded">{#var${idx + 1}#}</span>
+                            <span>${vName}</span>
+                        </label>
+                        <input type="text" id="modalVarInput_${idx}" value="${val}" oninput="onModalVarChange()" class="w-full px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-semibold focus:outline-none focus:border-blue-600 bg-white">
+                    </div>
+                `;
+            }).join('');
+        } else {
+            varContainer.innerHTML = '<div class="text-xs text-slate-400 italic py-2">No variables required.</div>';
+        }
+
+        renderModalLiveProductPreview(tpl);
+    }
+
+    function renderModalLiveProductPreview(tpl) {
+        const previewBox = document.getElementById('modalLiveProductPreview');
+        if (!previewBox) return;
+
+        const collectedVars = [];
+        if (tpl.variables) {
+            tpl.variables.forEach((_, idx) => {
+                const input = document.getElementById(`modalVarInput_${idx}`);
+                collectedVars.push(input ? input.value : (tpl.defaults[idx] || ''));
+            });
+        }
+
+        let resolved = tpl.content;
+        if (tpl.variables) {
+            tpl.variables.forEach((_, idx) => {
+                resolved = resolved.replaceAll(`{#var${idx + 1}#}`, collectedVars[idx] || `{var${idx + 1}}`);
+            });
+        }
+
+        previewBox.innerHTML = `
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2 text-xs">
+                ${tpl.mediaUrl ? `<img src="${tpl.mediaUrl}" class="w-full h-32 object-cover rounded-lg mb-2">` : ''}
+                ${tpl.title ? `<div class="font-black text-slate-900">${tpl.title}</div>` : ''}
+                <div class="text-slate-700 leading-relaxed font-medium">${resolved}</div>
+            </div>
+        `;
+    }
+
+    function onModalVarChange() {
+        const templates = channelTemplateRepo[currentModalStageKey] || [];
+        const tpl = templates.find(t => t.id === activeModalTplId);
+        if (tpl) renderModalLiveProductPreview(tpl);
+    }
+
+    function autofillSampleVariables() {
+        const templates = channelTemplateRepo[currentModalStageKey] || [];
+        const tpl = templates.find(t => t.id === activeModalTplId);
+        if (!tpl || !tpl.defaults) return;
+
+        tpl.defaults.forEach((def, idx) => {
+            const input = document.getElementById(`modalVarInput_${idx}`);
+            if (input) input.value = def;
+        });
+        renderModalLiveProductPreview(tpl);
+    }
+
+    function applyModalTemplateSelection() {
+        if (!currentModalStageKey || !activeModalTplId) return;
+        const templates = channelTemplateRepo[currentModalStageKey] || [];
+        const tpl = templates.find(t => t.id === activeModalTplId);
+        if (!tpl) return;
+
+        const collectedVars = [];
+        if (tpl.variables) {
+            tpl.variables.forEach((_, idx) => {
+                const input = document.getElementById(`modalVarInput_${idx}`);
+                collectedVars.push(input ? input.value : '');
+            });
+        }
+
+        selectedStageTemplates[currentModalStageKey] = {
+            templateId: tpl.id,
+            name: tpl.name,
+            vars: collectedVars
+        };
+
+        closeTemplatePickerModal();
+        renderJourneyStages();
+    }
+
+    function closeTemplatePickerModal() {
+        const modal = document.getElementById('templatePickerModal');
+        if (modal) modal.classList.add('hidden');
+    }
+
+    // ==========================================
+    // CAMPAIGN CONFIRMATION & DISPATCH CONTROLLER
+    // ==========================================
+    function onLaunchCampaignClick() {
+        try {
+            // 1. Gather Campaign Basics
+            const nameInput = document.getElementById('campaignName');
+            const campaignName = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : 'Diwali Flash Sale 2026';
+            
+            const senderSelect = document.getElementById('smsSenderIdSelect');
+            const senderId = (senderSelect && senderSelect.value) ? senderSelect.value : 'ZIONIN';
+
+            const tplSelect = document.getElementById('smsTemplateSelect');
+            const tplName = (tplSelect && tplSelect.options && tplSelect.selectedIndex >= 0 && tplSelect.options[tplSelect.selectedIndex]) 
+                ? tplSelect.options[tplSelect.selectedIndex].text 
+                : 'DIWALI_PROMO_DLT_100234';
+
+            // 2. Gather Audience / Data Count
+            let totalCount = 45210;
+            let audienceSource = 'Group: Diwali VIP Customers';
+            
+            const paneGroup = document.getElementById('paneSelectGroup');
+            const panePaste = document.getElementById('panePasteNumbers');
+            const paneUpload = document.getElementById('paneUploadFile');
+
+            if (paneGroup && !paneGroup.classList.contains('hidden')) {
+                const groupSelect = document.getElementById('recipientGroupSelect');
+                if (groupSelect && groupSelect.value && groupSelect.selectedIndex >= 0) {
+                    const selText = groupSelect.options[groupSelect.selectedIndex].text;
+                    audienceSource = `Group: ${selText.split('(')[0].trim()}`;
+                    const match = selText.match(/([\d,]+)\s*Numbers/i);
+                    if (match) {
+                        totalCount = parseInt(match[1].replace(/,/g, ''), 10) || 45210;
+                    }
+                } else {
+                    audienceSource = 'Group: Diwali VIP Customers (Default)';
+                    totalCount = 45210;
+                }
+            } else if (panePaste && !panePaste.classList.contains('hidden')) {
+                const pasteInput = document.getElementById('pasteNumbersInput');
+                const raw = pasteInput ? pasteInput.value : '';
+                const nums = raw.split(/[\n, ]+/).map(s => s.trim()).filter(s => s.length >= 8);
+                if (nums.length > 0) {
+                    totalCount = nums.length;
+                    audienceSource = `Direct Paste (${totalCount} Numbers)`;
+                } else {
+                    totalCount = 1500;
+                    audienceSource = 'Direct Paste (Sample 1,500 Numbers)';
+                }
+            } else if (paneUpload && !paneUpload.classList.contains('hidden')) {
+                const fileInput = document.getElementById('audienceFileInput');
+                if (fileInput && fileInput.files && fileInput.files[0]) {
+                    audienceSource = `File: ${fileInput.files[0].name}`;
+                    totalCount = 18450;
+                } else {
+                    audienceSource = 'File: customer_contacts_oct.csv';
+                    totalCount = 18450;
+                }
+            }
+
+            // Deduplication calculation
+            const dupCheckbox = document.getElementById('removeDuplicateCheck');
+            const isDedupe = dupCheckbox ? dupCheckbox.checked : true;
+            const duplicateCount = isDedupe ? Math.max(12, Math.round(totalCount * 0.024)) : 0;
+            const validCount = Math.max(1, totalCount - duplicateCount);
+
+            // 3. INR / Credit Cost Calculation
+            const ratePerSMS = 0.18; // ₹0.18 INR per DLT SMS delivered
+            const estimatedCostINR = (validCount * ratePerSMS);
+            const currentWalletINR = 48500.00;
+            const remainingWalletINR = currentWalletINR - estimatedCostINR;
+
+            // 4. Schedule Details
+            const schedCheckbox = document.getElementById('scheduleCheck');
+            const isScheduled = schedCheckbox ? schedCheckbox.checked : false;
+            let scheduleText = 'Instant Dispatch (Immediate)';
+            if (isScheduled) {
+                const dateVal = document.getElementById('scheduleDate') ? document.getElementById('scheduleDate').value : '';
+                const timeVal = document.getElementById('scheduleTime') ? document.getElementById('scheduleTime').value : '';
+                scheduleText = `Scheduled for ${dateVal || '2026-10-25'} at ${timeVal || '10:00 AM'} (IST)`;
+            }
+
+            // 5. Fallback Journey Details
+            const toggleEl = document.getElementById('toggleSmartJourney');
+            const isFallbackEnabled = toggleEl ? toggleEl.checked : true;
+
+            // Helper for setting inner text safely
+            const safeSetText = (id, val) => {
+                const el = document.getElementById(id);
+                if (el) el.innerText = val;
+            };
+
+            // Populate Modal DOM elements
+            safeSetText('confCampaignName', campaignName);
+            safeSetText('confSenderIdText', senderId);
+            safeSetText('confTemplateName', tplName);
+            safeSetText('confScheduleInfo', scheduleText);
+
+            safeSetText('confTotalCount', totalCount.toLocaleString('en-IN'));
+            safeSetText('confValidCount', validCount.toLocaleString('en-IN'));
+            safeSetText('confDuplicateCount', duplicateCount > 0 ? `-${duplicateCount.toLocaleString('en-IN')} (${((duplicateCount/totalCount)*100).toFixed(1)}%)` : '0 (No filter)');
+            safeSetText('confAudienceSource', audienceSource);
+
+            safeSetText('confRatePerMsg', `₹${ratePerSMS.toFixed(2)}`);
+            safeSetText('confTotalCostINR', `₹${estimatedCostINR.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
+            safeSetText('confCreditUse', `${validCount.toLocaleString('en-IN')} Credits`);
+            safeSetText('confCurrentBalance', `₹${currentWalletINR.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
+            safeSetText('confRemainingBalance', `₹${(Math.max(0, remainingWalletINR)).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
+
+            // Render Fallback Cascade in Modal
+            const cascadeContainer = document.getElementById('confCascadeContainer');
+            if (cascadeContainer) {
+                if (isFallbackEnabled) {
+                    let cascadeHtml = '<div class="flex flex-wrap items-center gap-2">';
+                    currentStages.forEach((stageKey, idx) => {
+                        const meta = channelMeta[stageKey];
+                        if (!meta) return;
+                        const selTpl = selectedStageTemplates[stageKey] || { name: 'Default Template' };
+                        let label = stageKey === 'sms' ? 'SMS (DLT Primary)' : meta.name;
+                        
+                        if (idx > 0) {
+                            cascadeHtml += `<div class="text-slate-400 flex items-center gap-1 text-[11px] font-bold"><i class="fa-solid fa-arrow-right text-slate-400"></i></div>`;
+                        }
+
+                        cascadeHtml += `
+                            <div class="bg-white border-2 ${meta.border} px-3 py-2 rounded-xl flex items-center gap-2 shadow-xs">
+                                <div class="w-6 h-6 rounded-lg ${meta.badgeBg} text-white flex items-center justify-center text-[10px] font-bold">
+                                    <i class="${meta.icon}"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-black text-slate-900 leading-none">${label}</div>
+                                    <div class="text-[10px] text-blue-600 font-semibold truncate max-w-[120px] mt-0.5">${selTpl.name}</div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    cascadeHtml += '</div>';
+                    cascadeHtml += `
+                        <div class="mt-2.5 flex items-center gap-2 text-[11px] text-slate-500 bg-blue-50/70 p-2.5 rounded-xl border border-blue-100">
+                            <i class="fa-solid fa-clock-rotate-left text-blue-600"></i>
+                            <span>Failover condition: <strong>30s DLR Timeout</strong> per stage before routing to next channel.</span>
+                        </div>
+                    `;
+                    cascadeContainer.innerHTML = cascadeHtml;
+                } else {
+                    cascadeContainer.innerHTML = `
+                        <div class="bg-amber-50 border border-amber-200 p-3.5 rounded-xl flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center text-sm font-bold shrink-0">
+                                <i class="fa-solid fa-shield-slash"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-bold text-amber-900">Fallback Cascade Disabled</div>
+                                <div class="text-[11px] text-amber-700">Messages will only be sent via Primary DLT SMS (<strong>${senderId}</strong>) without secondary failover.</div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            // Open Confirmation Modal
+            const modal = document.getElementById('campaignConfirmModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+            }
+        } catch (err) {
+            console.error("Error opening SMS campaign confirm modal:", err);
+            const modal = document.getElementById('campaignConfirmModal');
+            if (modal) modal.classList.remove('hidden');
+        }
+    }
+
+    function closeConfirmModal() {
+        const modal = document.getElementById('campaignConfirmModal');
+        if (modal) modal.classList.add('hidden');
+    }
+
+    function executeFinalCampaignDispatch() {
+        const confirmBtn = document.getElementById('btnConfirmDispatchFinal');
+        const progressOverlay = document.getElementById('dispatchProgressOverlay');
+        
+        if (confirmBtn) {
+            confirmBtn.disabled = true;
+            confirmBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Dispatching Engine...';
+        }
+
+        if (progressOverlay) {
+            progressOverlay.classList.remove('hidden');
+            
+            const progressText = document.getElementById('dispatchProgressStatus');
+            const progressBar = document.getElementById('dispatchProgressBar');
+            
+            setTimeout(() => {
+                if (progressText) progressText.innerText = 'Step 1/3: Authenticating DLT Principal Entity & Headers...';
+                if (progressBar) progressBar.style.width = '35%';
+            }, 600);
+
+            setTimeout(() => {
+                if (progressText) progressText.innerText = 'Step 2/3: Queueing verified mobile numbers into high-throughput queue...';
+                if (progressBar) progressBar.style.width = '75%';
+            }, 1300);
+
+            setTimeout(() => {
+                if (progressText) progressText.innerText = 'Step 3/3: Campaign Broadcast Live! Initializing Real-time DLR Tracking...';
+                if (progressBar) progressBar.style.width = '100%';
+            }, 2000);
+
+            setTimeout(() => {
+                closeConfirmModal();
+                if (progressOverlay) progressOverlay.classList.add('hidden');
+                if (confirmBtn) {
+                    confirmBtn.disabled = false;
+                    confirmBtn.innerHTML = '<i class="fa-solid fa-rocket mr-1.5"></i> Confirm &amp; Dispatch Campaign Now';
+                }
+
+                // Open Success Modal
+                const successModal = document.getElementById('campaignSuccessModal');
+                if (successModal) {
+                    const randomId = 'CMP-SMS-' + Math.floor(100000 + Math.random() * 900000);
+                    const idEl = document.getElementById('successCampaignId');
+                    if (idEl) idEl.innerText = randomId;
+                    successModal.classList.remove('hidden');
+                }
+            }, 2600);
+        }
+    }
+
+    function closeSuccessModal() {
+        const successModal = document.getElementById('campaignSuccessModal');
+        if (successModal) successModal.classList.add('hidden');
+    }
+
+    function runDynamicJourneySimulation() {
+        const container = document.getElementById('simLogContainer');
+        const logBox = document.getElementById('simLogs');
+        const timer = document.getElementById('simTimer');
+        container.classList.remove('hidden');
+
+        logBox.innerHTML = `<div class="text-blue-300 font-bold">[00:00] Initializing Custom Pipeline: [ ${currentStages.map(k => channelMeta[k].name).join(' ➔ ')} ] for 10,000 Numbers...</div>`;
+        timer.innerText = '00:00';
+        switchPhonePreview('sms');
+
+        let delay = 600;
+
+        currentStages.forEach((stageKey, idx) => {
+            setTimeout(() => {
+                const selTpl = selectedStageTemplates[stageKey];
+                const tplName = selTpl ? selTpl.name : 'Default Template';
+                switchPhonePreview(stageKey);
+
+                if (stageKey === 'sms') {
+                    logBox.innerHTML += `<div class="text-blue-400">[00:05] Stage 1 (DLT SMS): Using [${tplName}] ➔ 7,820 Delivered | 2,180 Pending/DND.</div>`;
+                    timer.innerText = '00:05';
+                } else if (stageKey === 'rcs1') {
+                    logBox.innerHTML += '<div class="text-purple-300 font-bold">[00:30] ⏱️ 30s Timeout: Routing 2,180 pending to Stage 2: RCS Bot #1...</div>';
+                    logBox.innerHTML += `<div class="text-purple-400">[00:33] RCS Bot #1: Dispatched with [${tplName}] ➔ 1,940 Delivered with Rich Carousel!</div>`;
+                    timer.innerText = '00:33';
+                } else if (stageKey === 'rcs2') {
+                    logBox.innerHTML += `<div class="text-amber-300 font-bold">[00:35] ⚡ Routing 240 throttled to RCS Bot #2 with [${tplName}]...</div>`;
+                    logBox.innerHTML += '<div class="text-amber-400">[00:36] RCS Bot #2: 210 Rescued &amp; Delivered.</div>';
+                    timer.innerText = '00:36';
+                } else if (stageKey === 'whatsapp') {
+                    logBox.innerHTML += `<div class="text-emerald-300 font-bold">[00:38] 💬 Routing to WhatsApp Cloud API [${tplName}]...</div>`;
+                    logBox.innerHTML += '<div class="text-emerald-400">[00:39] WhatsApp: 26 Delivered with Read Receipts!</div>';
+                    timer.innerText = '00:39';
+                } else if (stageKey === 'obd') {
+                    logBox.innerHTML += `<div class="text-rose-300 font-bold">[00:41] 📞 Triggering OBD Voice Call with [${tplName}]...</div>`;
+                    logBox.innerHTML += '<div class="text-rose-400">[00:43] OBD Voice: 4 Calls Answered &amp; Audio Broadcast Played!</div>';
+                    timer.innerText = '00:43';
+                }
+
+                // If last stage
+                if (idx === currentStages.length - 1) {
+                    setTimeout(() => {
+                        logBox.innerHTML += '<div class="text-white font-black pt-2 border-t border-slate-700 bg-slate-800/90 p-2.5 rounded-lg mt-1">🎉 100.0% PERFECT AUDIENCE REACH ACHIEVED ACROSS YOUR CUSTOM PIPELINE!</div>';
+                        timer.innerText = 'DONE (100%)';
+                    }, 500);
+                }
+            }, delay);
+
+            delay += 1000;
+        });
+    }
+
+    // Initialize Dynamic Stages on Load (Fallback Engine disabled by default)
+    document.addEventListener('DOMContentLoaded', () => {
+        renderJourneyStages();
+        renderSection1Variables('sms_dlt_promo');
+        updateFlowSummary();
+        renderPhonePreviewTabs();
+    });
+    // Immediate render fallback
+    renderJourneyStages();
+    renderSection1Variables('sms_dlt_promo');
+    updateFlowSummary();
+    renderPhonePreviewTabs();
+</script>
+
+<!-- Template Picker Modal (Product-Specific Rich Preview & Dynamic Variable Fillers) -->
+<div id="templatePickerModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 animate-fade-in">
+    <div class="bg-white rounded-2xl max-w-4xl w-full shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[92vh]">
+        
+        <!-- Modal Header -->
+        <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-lg font-black shadow-xs shrink-0">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <div>
+                    <div id="modalStageTitle" class="text-sm font-black text-slate-900">Select Approved Template</div>
+                    <p class="text-[11px] text-slate-400 font-medium" id="modalStageSub">Choose template and inspect action URLs &amp; variables</p>
+                </div>
+            </div>
+            <button type="button" onclick="closeTemplatePickerModal()" class="w-8 h-8 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center transition-colors cursor-pointer">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+        </div>
+
+        <!-- Modal Body (2-Column Grid: Left Selection & Variables, Right Channel Preview Mockup) -->
+        <div class="p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
+            
+            <!-- Left Column: Template List & Variable Inputs -->
+            <div class="space-y-5">
+                
+                <!-- 1. Choose Template List -->
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between">
+                        <label class="text-xs font-black text-slate-900 uppercase tracking-wider">1. Choose Template</label>
+                        <span class="text-[10px] text-slate-400 font-semibold">Click to select</span>
+                    </div>
+
+                    <!-- Template Scrollable Cards List -->
+                    <div id="modalTemplateList" class="space-y-2 max-h-52 overflow-y-auto pr-1 scrollbar-thin pt-1">
+                        <!-- Populated dynamically by JS -->
+                    </div>
+                </div>
+
+                <!-- 2. Dynamic Variables Section -->
+                <div id="modalVariablesSection" class="border-t border-slate-100 pt-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-sliders text-blue-600"></i> 2. Fill Dynamic Variables
+                        </label>
+                        <button type="button" onclick="autofillSampleVariables()" class="text-[10px] font-bold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-lg transition-colors flex items-center gap-1 cursor-pointer">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Auto-fill Sample
+                        </button>
+                    </div>
+                    
+                    <div id="modalVarInputsContainer" class="grid grid-cols-1 gap-2.5 bg-slate-50/80 p-3.5 rounded-xl border border-slate-200">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Product-Specific Live Preview Mockup -->
+            <div class="bg-slate-50/70 p-4 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between border-b border-slate-200/80 pb-2.5 mb-3">
+                        <span class="text-xs font-black text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-mobile-screen text-blue-600"></i> Live Channel Preview
+                        </span>
+                        <span class="bg-emerald-100 text-emerald-800 text-[9px] font-black px-2 py-0.5 rounded-full uppercase flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            Live Sync
+                        </span>
+                    </div>
+
+                    <!-- Dynamic Product Specific Preview Canvas -->
+                    <div id="modalLiveProductPreview" class="pt-1">
+                        <!-- Rendered according to product -->
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-slate-200/80 text-[11px] text-slate-500 flex items-center justify-between">
+                    <div class="flex items-center gap-1.5">
+                        <i class="fa-solid fa-shield-check text-emerald-600"></i>
+                        <span>Variables &amp; DLT validated</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400 font-mono">100% Compliant</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Modal Footer Actions -->
+        <div class="px-6 py-3.5 border-t border-slate-100 flex items-center justify-between bg-slate-50/70">
+            <div class="text-xs text-slate-500 truncate max-w-sm" id="modalFooterSummary">
+                <!-- Ready to apply -->
+            </div>
+            <div class="flex items-center gap-3">
+                <button type="button" onclick="closeTemplatePickerModal()" class="px-4 py-2 bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs rounded-xl border border-slate-200 transition-colors cursor-pointer">Cancel</button>
+                <button type="button" onclick="applyModalTemplateSelection()" class="px-6 py-2.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold text-xs rounded-xl shadow-md shadow-blue-200 transition-all flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-check"></i> Apply Template &amp; Variables
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Pre-Flight Campaign Confirmation Modal -->
+<div id="campaignConfirmModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4 animate-fade-in">
+    <div class="bg-white rounded-3xl max-w-3xl w-full shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[92vh] relative">
+        
+        <!-- Modal Header -->
+        <div class="px-6 py-4.5 bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950 text-white flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-500 to-indigo-500 flex items-center justify-center text-white text-xl shadow-lg shadow-blue-500/30 shrink-0">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h3 class="text-base font-black tracking-tight">Review &amp; Confirm Campaign Dispatch</h3>
+                        <span class="bg-blue-500/30 border border-blue-400/40 text-blue-200 text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">Pre-Flight Review</span>
+                    </div>
+                    <p class="text-[11px] text-slate-300 font-medium">Please review your audience count, sender ID, and credit estimation before launch.</p>
+                </div>
+            </div>
+            <button type="button" onclick="closeConfirmModal()" class="w-8 h-8 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 flex items-center justify-center transition-colors cursor-pointer">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+        </div>
+
+        <!-- Modal Content (4 Detailed Structured Info Cards) -->
+        <div class="p-6 overflow-y-auto space-y-4 flex-1 bg-slate-50/50">
+            
+            <!-- CARD 1: Campaign & Sender Identity -->
+            <div class="bg-white p-4.5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                    <span class="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-bullhorn text-blue-600"></i> 1. Campaign &amp; Sender Identity
+                    </span>
+                    <span class="bg-blue-50 text-blue-700 text-[10px] font-black px-2 py-0.5 rounded-md border border-blue-100">DLT Verified Header</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 text-xs">
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                        <span class="text-[10px] text-slate-400 font-bold block mb-0.5 uppercase tracking-wide">Campaign Name</span>
+                        <span id="confCampaignName" class="font-extrabold text-slate-900 text-sm truncate block">Diwali Flash Sale 2026</span>
+                    </div>
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                        <span class="text-[10px] text-slate-400 font-bold block mb-0.5 uppercase tracking-wide">Primary Sender ID (Header)</span>
+                        <span id="confSenderId" class="font-black text-blue-700 text-sm flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-check text-emerald-500 text-xs"></i>
+                            <span id="confSenderIdText">ZIONIN</span>
+                        </span>
+                    </div>
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                        <span class="text-[10px] text-slate-400 font-bold block mb-0.5 uppercase tracking-wide">Approved Template</span>
+                        <span id="confTemplateName" class="font-bold text-slate-800 truncate block">DIWALI_PROMO_DLT_100234</span>
+                    </div>
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                        <span class="text-[10px] text-slate-400 font-bold block mb-0.5 uppercase tracking-wide">Dispatch Schedule</span>
+                        <span id="confScheduleInfo" class="font-bold text-emerald-700 flex items-center gap-1">
+                            <i class="fa-solid fa-bolt text-amber-500"></i> Instant Dispatch (Immediate)
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 2: Total Number of Data Count & Audience Metrics -->
+            <div class="bg-white p-4.5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                    <span class="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-users-viewfinder text-blue-600"></i> 2. Total Data Count &amp; Audience Breakdown
+                    </span>
+                    <span id="confAudienceSource" class="bg-blue-50 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded-md border border-blue-100">Group: Diwali VIP Customers</span>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3 text-center">
+                    <div class="bg-gradient-to-b from-slate-50 to-white p-3 rounded-xl border border-slate-200">
+                        <div class="text-[10px] text-slate-400 font-black uppercase tracking-wider">Total Raw Count</div>
+                        <div id="confTotalCount" class="text-lg font-black text-slate-800 mt-0.5">45,210</div>
+                        <span class="text-[9px] text-slate-400 font-medium">Parsed from source</span>
+                    </div>
+                    <div class="bg-gradient-to-b from-rose-50/40 to-white p-3 rounded-xl border border-rose-100">
+                        <div class="text-[10px] text-rose-500 font-black uppercase tracking-wider">Duplicates Filtered</div>
+                        <div id="confDuplicateCount" class="text-lg font-black text-rose-600 mt-0.5">-1,085 (2.4%)</div>
+                        <span class="text-[9px] text-rose-400 font-medium">Smart Deduplication</span>
+                    </div>
+                    <div class="bg-gradient-to-b from-emerald-50/50 to-white p-3 rounded-xl border border-emerald-200 shadow-xs">
+                        <div class="text-[10px] text-emerald-700 font-black uppercase tracking-wider">Net Valid Targets</div>
+                        <div id="confValidCount" class="text-lg font-black text-emerald-600 mt-0.5">44,125</div>
+                        <span class="text-[9px] text-emerald-600 font-bold">100% Deliverable</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 3: INR & Credit Usage Estimation -->
+            <div class="bg-white p-4.5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                    <span class="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-wallet text-emerald-600"></i> 3. Cost (INR ₹) &amp; Credit Usage Calculation
+                    </span>
+                    <span class="bg-emerald-50 text-emerald-700 text-[10px] font-black px-2 py-0.5 rounded-md border border-emerald-100">Live Wallet Billing</span>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                        <span class="text-[10px] text-slate-400 font-bold block mb-0.5 uppercase tracking-wide">Base Rate / SMS</span>
+                        <span id="confRatePerMsg" class="font-extrabold text-slate-800 text-sm">₹0.18</span>
+                        <span class="text-[9px] text-slate-400 block">per delivered msg</span>
+                    </div>
+                    <div class="bg-blue-50/80 p-2.5 rounded-xl border border-blue-200">
+                        <span class="text-[10px] text-blue-700 font-bold block mb-0.5 uppercase tracking-wide">Total Estimated INR</span>
+                        <span id="confTotalCostINR" class="font-black text-blue-800 text-sm">₹7,942.50</span>
+                        <span id="confCreditUse" class="text-[9px] text-blue-600 font-bold block">44,125 Credits</span>
+                    </div>
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                        <span class="text-[10px] text-slate-400 font-bold block mb-0.5 uppercase tracking-wide">Available Balance</span>
+                        <span id="confCurrentBalance" class="font-extrabold text-slate-800 text-sm">₹48,500.00</span>
+                        <span class="text-[9px] text-emerald-600 font-bold block">Sufficient Funds</span>
+                    </div>
+                    <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                        <span class="text-[10px] text-slate-400 font-bold block mb-0.5 uppercase tracking-wide">Remaining Balance</span>
+                        <span id="confRemainingBalance" class="font-extrabold text-slate-900 text-sm">₹40,557.50</span>
+                        <span class="text-[9px] text-slate-400 block">after full dispatch</span>
+                    </div>
+                </div>
+
+                <div class="text-[11px] text-slate-500 bg-slate-50 p-2.5 rounded-xl border border-slate-100 flex items-center justify-between">
+                    <span class="flex items-center gap-1.5">
+                        <i class="fa-solid fa-shield-check text-emerald-600"></i>
+                        <strong>Smart Escrow Guarantee:</strong> Undelivered numbers are auto-refunded to your wallet in real-time.
+                    </span>
+                    <span class="text-[10px] font-mono text-blue-700 font-bold">Auto-Protected</span>
+                </div>
+            </div>
+
+            <!-- CARD 4: Multi-Channel Fallback Journey Details -->
+            <div class="bg-white p-4.5 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                    <span class="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-route text-indigo-600"></i> 4. Active Fallback Journey Cascade
+                    </span>
+                    <span class="text-[10px] text-slate-400 font-semibold">Sequential Failover Route</span>
+                </div>
+
+                <div id="confCascadeContainer">
+                    <!-- Populated dynamically by JS -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Modal Footer Actions -->
+        <div class="px-6 py-4 border-t border-slate-200 bg-white flex items-center justify-between shrink-0">
+            <button type="button" onclick="closeConfirmModal()" class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition-colors cursor-pointer flex items-center gap-1.5">
+                <i class="fa-solid fa-arrow-left"></i> Cancel / Edit Settings
+            </button>
+
+            <button type="button" id="btnConfirmDispatchFinal" onclick="executeFinalCampaignDispatch()" class="px-7 py-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs rounded-xl shadow-lg shadow-blue-500/25 transition-all flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-rocket"></i>
+                <span>🚀 Confirm &amp; Dispatch Campaign Now</span>
+            </button>
+        </div>
+
+        <!-- Animated Dispatch Progress Overlay -->
+        <div id="dispatchProgressOverlay" class="hidden absolute inset-0 bg-slate-900/90 backdrop-blur-sm z-50 flex flex-col items-center justify-center p-6 text-white text-center animate-fade-in">
+            <div class="w-16 h-16 rounded-3xl bg-gradient-to-tr from-blue-500 to-indigo-500 flex items-center justify-center text-2xl shadow-xl shadow-blue-500/40 animate-bounce mb-4">
+                <i class="fa-solid fa-paper-plane"></i>
+            </div>
+            <h3 class="text-lg font-black tracking-tight mb-1">Broadcasting Your SMS Campaign...</h3>
+            <p id="dispatchProgressStatus" class="text-xs text-blue-200 font-medium mb-5">Step 1/3: Authenticating DLT Principal Entity &amp; Headers...</p>
+            
+            <div class="w-72 bg-slate-800 h-2.5 rounded-full overflow-hidden border border-slate-700 p-0.5">
+                <div id="dispatchProgressBar" class="h-full bg-gradient-to-r from-blue-500 to-emerald-400 rounded-full transition-all duration-500" style="width: 15%"></div>
+            </div>
+            <p class="text-[10px] text-slate-400 font-mono mt-3">High-Throughput Telecom Gateway &bull; 10,000 TPS</p>
+        </div>
+
+    </div>
+</div>
+
+<!-- Final Success Confirmation Modal -->
+<div id="campaignSuccessModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4 animate-fade-in">
+    <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-slate-200 overflow-hidden text-center p-6 space-y-4">
+        <div class="w-16 h-16 rounded-3xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl mx-auto shadow-lg shadow-emerald-500/20">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div>
+            <h3 class="text-lg font-black text-slate-900 tracking-tight">Campaign Dispatched Successfully!</h3>
+            <p class="text-xs text-slate-500 font-medium mt-1">Your SMS campaign is now live and routing through telecom operator gateways.</p>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-left space-y-2 text-xs">
+            <div class="flex justify-between items-center text-slate-600">
+                <span>Campaign Reference ID:</span>
+                <span id="successCampaignId" class="font-mono font-black text-blue-700">CMP-SMS-2026-9842</span>
+            </div>
+            <div class="flex justify-between items-center text-slate-600">
+                <span>Queue Status:</span>
+                <span class="bg-emerald-100 text-emerald-800 text-[10px] font-black px-2 py-0.5 rounded-md flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span> Active &amp; Dispatching
+                </span>
+            </div>
+            <div class="flex justify-between items-center text-slate-600">
+                <span>Engine Throughput:</span>
+                <span class="font-bold text-slate-800">10,000 Msg / Sec</span>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3 pt-2">
+            <a href="reports.html" class="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs rounded-xl shadow-md shadow-blue-200 transition-all flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-chart-line"></i> View Live Reports
+            </a>
+            <button type="button" onclick="closeSuccessModal(); window.location.reload();" class="py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition-colors cursor-pointer">
+                Done
+            </button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

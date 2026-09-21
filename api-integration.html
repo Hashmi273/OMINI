@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omnichannel API & Integration Hub - ZION CPASS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        zionBlue: '#0070f3',
+                        zionPurple: '#7c3aed',
+                        zionLightPurple: '#f5f3ff',
+                        zionDarkText: '#0f172a',
+                        zionGrayText: '#64748b',
+                        zionBorder: '#e2e8f0',
+                        zionBg: '#f8fafc',
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 10px -2px rgba(0, 0, 0, 0.02)',
+                        'premium-hover': '0 20px 40px -10px rgba(99, 102, 241, 0.15), 0 8px 16px -4px rgba(0, 0, 0, 0.04)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .sidebar-item { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .sidebar-item:hover, .sidebar-item.active { background-color: #f5f3ff; color: #7c3aed; font-weight: 600; }
+        .sidebar-item.active { border-right: 3px solid #7c3aed; }
+        
+        .api-tab-btn.active {
+            border-bottom: 2px solid #6366f1;
+            color: #4f46e5;
+            font-weight: 800;
+        }
+
+        .lang-btn.active {
+            background-color: #4f46e5;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .code-container {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Fira Code', monospace;
+        }
+    </style>
+</head>
+<body class="text-slate-800 h-screen overflow-hidden flex">
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-6 right-6 z-50 transform translate-y-[-120%] opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-700">
+            <div id="toastIcon" class="w-7 h-7 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-sm">
+                <i class="fa-solid fa-code"></i>
+            </div>
+            <div>
+                <p id="toastTitle" class="text-xs font-bold text-white">API Action</p>
+                <p id="toastMessage" class="text-[11px] text-slate-300">Snippet copied to clipboard</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+        <!-- Left Fixed Sidebar -->
+        <!-- Left Fixed Big-Icon Sidebar (Image 2 Style) -->
+        <!-- Left Fixed Sidebar with Channels & Dropdowns -->
+    <aside class="w-68 bg-white border-r border-slate-200 flex flex-col h-screen shrink-0 z-30 select-none shadow-sm">
+        
+        <!-- Big Enterprise CPaaS Brand Logo -->
+        <div class="h-20 flex items-center px-4 border-b border-slate-100 shrink-0 bg-white">
+            <a href="home.html" class="flex items-center gap-3 w-full group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-105 transition-transform shrink-0 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i class="fa-solid fa-cloud-bolt text-lg text-white"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xl font-black text-slate-900 tracking-tight leading-none">ZION</span>
+                        <span class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded-md tracking-wider shadow-sm uppercase">CPaaS</span>
+                    </div>
+                    <p class="text-[9.5px] text-slate-500 font-bold tracking-tight mt-1 truncate uppercase flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>
+                        Omnichannel Cloud
+                    </p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Vertical Menu Scrollable List -->
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1.5">
+            <!-- Home -->
+            <a href="home.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">Home</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Platform Overview</div>
+                </div>
+            </a>
+            
+            <!-- Dashboard -->
+            <a href="dashboard.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </div>
+                <div class="flex-1 min-w-0 flex items-center justify-between">
+                    <div>
+                        <div class="text-sm font-bold text-slate-800 leading-tight">Dashboard</div>
+                        <div class="text-[10px] text-slate-400 font-medium">Live Analytics</div>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">LIVE</span>
+                </div>
+            </a>
+
+            <!-- SMS Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all" onclick="toggleSubmenu(event, 'sms-submenu', 'sms-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-comment-dots"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">SMS</div>
+                            <div class="text-[10px] text-slate-400 font-medium">Transactional &amp; Promo</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200" id="sms-icon" ></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-blue-200 pl-3 overflow-hidden hidden" id="sms-submenu">
+                    <a href="send-sms.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Send SMS</a>
+                    <a href="reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Reports</a>
+                    <a href="groups.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Contacts / Groups</a>
+                    <a href="dlt-dashboard.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">DLT / Compliance</a>
+                    <a href="#" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Blacklist / Whitelist</a>
+                </div>
+            </div>
+
+            <!-- RCS Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-purple-50 hover:text-purple-700 transition-all" onclick="toggleSubmenu(event, 'rcs-submenu', 'rcs-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-comment-sms"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-purple-800 leading-tight">RCS</div>
+                            <div class="text-[10px] text-purple-500 font-medium">Rich Business Messaging</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-purple-400 transition-transform duration-200" id="rcs-icon" ></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-purple-200 pl-3 overflow-hidden hidden" id="rcs-submenu">
+                    <a href="rcs-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Campaign</a>
+                    <a href="rcs-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Report</a>
+                    <a href="rcs-configuration.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Configuration</a>
+                    <a href="rcs-chatbot.html" class="sidebar-item flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">
+                        <span>Chat Bot</span>
+                        <span class="bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded">AI</span>
+                    </a>
+                </div>
+            </div>
+
+                        <!-- WhatsApp Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 transition-all" onclick="toggleSubmenu(event, 'wa-submenu', 'wa-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">WhatsApp</div>
+                            <div class="text-[10px] text-emerald-600 font-medium">Cloud API Official</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-emerald-400 transition-transform duration-200" id="wa-icon"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-emerald-200 pl-3 overflow-hidden hidden" id="wa-submenu">
+                    <a href="whatsapp-config.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Config</a>
+                    <a href="whatsapp-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Campaign</a>
+                    <a href="whatsapp-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Report</a>
+                    <a href="whatsapp-agents.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Agent</a>
+                    <a href="whatsapp-automation.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Automation</a>
+                </div>
+            </div>
+            
+            <!-- OBD Voice -->
+            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">OBD (Voice)</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Outbound Audio &amp; TTS</div>
+                </div>
+            </a>
+
+            <!-- IVR -->
+            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">IVR</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Smart Voice Tree</div>
+                </div>
+            </a>
+
+            <!-- Dedicated Credit & Wallet Ledger Menu Item -->
+            <div class="pt-1">
+                <a href="credit-report.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50/70 hover:text-emerald-700 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">Credits &amp; Wallet</div>
+                            <div class="text-[10px] text-emerald-600 font-semibold">INR Recharge &amp; Deduct</div>
+                        </div>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">₹ WALLET</span>
+                </a>
+            </div>
+
+            <!-- Dedicated API & Integration Menu Item -->
+            <div class="pt-1">
+                <a href="api-integration.html" class="sidebar-item active flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-indigo-700 bg-indigo-50/90 border border-indigo-200/80 shadow-sm transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-xl shadow-md shadow-indigo-200 shrink-0">
+                            <i class="fa-solid fa-code text-xl"></i>
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">API &amp; Integration</div>
+                            <div class="text-[10px] text-indigo-500 font-semibold">Universal REST Hub</div>
+                        </div>
+                    </div>
+                    <span class="bg-indigo-600 text-white text-[8px] font-black px-1.5 py-0.5 rounded shadow-sm">REST</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Bottom User Profile -->
+        <div class="border-t border-slate-100 p-4 shrink-0 bg-slate-50/60">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white text-sm font-black shadow-md shadow-purple-200 shrink-0">P</div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-bold text-slate-800 truncate leading-tight">Parvez</p>
+                    <p class="text-[11px] text-slate-400 font-medium truncate">Enterprise Admin</p>
+                </div>
+                <button class="text-slate-400 hover:text-red-500 transition-colors p-1.5 rounded-lg hover:bg-red-50">
+                    <i class="fa-solid fa-right-from-bracket text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#f4f7fb]">
+        <!-- Top Header -->
+        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 shrink-0 z-10">
+            <div class="flex items-center gap-3">
+                <div class="relative w-80 sm:w-96">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-search text-slate-400 text-sm"></i>
+                    </div>
+                    <input type="text" id="apiSearchInput" placeholder="Search API endpoints (SMS, RCS, WhatsApp, OBD, Fallback)..."
+                        class="block w-full pl-10 pr-4 py-2 border border-slate-200 rounded-xl text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-slate-50/50">
+                </div>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center space-x-3">
+                <div class="flex items-center gap-3 bg-white border border-slate-200 px-3.5 py-1.5 rounded-xl shadow-sm hover:border-emerald-300 transition-all cursor-pointer">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-inner">
+                        <i class="fa-solid fa-wallet text-xs"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-0.5">INR Wallet Balance</p>
+                        <p class="text-xs font-black text-slate-900 leading-none">₹48,500.00 <span class="text-[10px] text-slate-400 font-medium">(12,450 Cr)</span></p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3 bg-white border border-slate-200 px-3.5 py-1.5 rounded-xl shadow-sm">
+                    <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                        <i class="fa-solid fa-key text-xs"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider leading-none mb-0.5">Environment</p>
+                        <p class="text-xs font-black text-emerald-600 leading-none flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Production (Live)
+                        </p>
+                    </div>
+                </div>
+                <button onclick="scrollToSandbox()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-4 py-2 rounded-xl flex items-center gap-2 shadow-md shadow-indigo-200 transition-all">
+                    <i class="fa-solid fa-terminal text-xs"></i>
+                    <span>Live API Sandbox</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Scrollable Body -->
+        <div class="flex-1 overflow-y-auto p-6 lg:p-8">
+            <div class="max-w-[1400px] mx-auto space-y-6">
+
+                <!-- Header Banner Card (Omnichannel Developer Hub) -->
+                <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-7 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border border-slate-800">
+                    <div class="absolute -right-10 -top-24 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="absolute -left-10 -bottom-24 w-48 h-48 bg-purple-500/20 rounded-full blur-2xl pointer-events-none"></div>
+                    
+                    <div class="relative z-10 max-w-xl">
+                        <div class="flex items-center text-xs text-indigo-300 mb-2 space-x-2 font-medium">
+                            <span>ZION Developer Platform</span>
+                            <i class="fa-solid fa-chevron-right text-[8px] text-indigo-400"></i>
+                            <span class="text-white font-bold bg-white/10 px-2 py-0.5 rounded-full">REST API v1.0</span>
+                        </div>
+                        <h1 class="text-2xl lg:text-3xl font-black tracking-tight text-white flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-lg shadow-md">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
+                            <span>Universal CPASS API Hub</span>
+                        </h1>
+                        <p class="text-xs lg:text-sm text-slate-300 mt-1.5 leading-relaxed">
+                            Single unified API suite powering <b>SMS</b>, <b>RCS Business Messaging</b>, <b>WhatsApp Business</b>, <b>OBD Voice Calls</b>, and <b>Smart Fallback Cascades</b> with 99.99% carrier uptime.
+                        </p>
+                    </div>
+
+                    <!-- API Key & Credentials Box -->
+                    <div class="relative z-10 bg-slate-800/90 border border-slate-700 rounded-2xl p-4 shrink-0 w-full md:w-96 shadow-lg space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Your Live Secret API Key</span>
+                            <span class="text-[10px] font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-800 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Active
+                            </span>
+                        </div>
+                        <div class="flex items-center justify-between bg-slate-950 px-3 py-2 rounded-xl border border-slate-700/80">
+                            <span id="apiKeyDisplay" class="font-mono text-xs text-indigo-300 font-semibold truncate">zn_live_98a72b84c10df4821e90</span>
+                            <button onclick="copyToClipboard('zn_live_98a72b84c10df4821e90', 'API Key')" class="text-slate-400 hover:text-white p-1 ml-2 transition-colors">
+                                <i class="fa-solid fa-copy text-xs"></i>
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1">
+                            <span>Base URL: <b class="text-slate-200 font-mono">https://api.zioncpass.com/v1</b></span>
+                            <button onclick="regenerateKey()" class="text-indigo-400 hover:text-indigo-300 font-bold text-[10px] underline">Regenerate</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Omnichannel Channel Navigation Tabs -->
+                <div class="bg-white rounded-2xl p-2 border border-slate-200 shadow-sm flex items-center gap-2 overflow-x-auto text-xs">
+                    <button onclick="switchChannelApi('sms')" id="tab-sms" class="api-tab-btn active px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0">
+                        <i class="fa-solid fa-comment-dots text-blue-500"></i>
+                        <span>1. SMS API</span>
+                    </button>
+                    <button onclick="switchChannelApi('rcs')" id="tab-rcs" class="api-tab-btn text-slate-500 hover:text-slate-800 px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0">
+                        <i class="fa-solid fa-comment-sms text-purple-600"></i>
+                        <span>2. RCS Messaging API</span>
+                    </button>
+                    <button onclick="switchChannelApi('whatsapp')" id="tab-whatsapp" class="api-tab-btn text-slate-500 hover:text-slate-800 px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0">
+                        <i class="fa-brands fa-whatsapp text-emerald-500 text-sm"></i>
+                        <span>3. WhatsApp API</span>
+                    </button>
+                    <button onclick="switchChannelApi('obd')" id="tab-obd" class="api-tab-btn text-slate-500 hover:text-slate-800 px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0">
+                        <i class="fa-solid fa-phone text-orange-500"></i>
+                        <span>4. OBD (Voice) API</span>
+                    </button>
+                    <button onclick="switchChannelApi('fallback')" id="tab-fallback" class="api-tab-btn text-slate-500 hover:text-slate-800 px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0">
+                        <i class="fa-solid fa-shuffle text-indigo-600"></i>
+                        <span>5. Smart Fallback Cascade API</span>
+                    </button>
+                    <button onclick="switchChannelApi('webhooks')" id="tab-webhooks" class="api-tab-btn text-slate-500 hover:text-slate-800 px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0">
+                        <i class="fa-solid fa-bolt text-amber-500"></i>
+                        <span>6. Inbound Webhooks & Events</span>
+                    </button>
+                </div>
+
+                <!-- API Content Container (Dynamic according to selected tab) -->
+                <div id="apiContentArea" class="space-y-6">
+                    <!-- Loaded dynamically via JavaScript -->
+                </div>
+
+                <!-- LIVE INTERACTIVE API SANDBOX & TESTER -->
+                <div id="sandboxSection" class="bg-white rounded-3xl border border-slate-200 shadow-premium p-6 space-y-5">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-lg font-bold">
+                                <i class="fa-solid fa-flask"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-base font-extrabold text-slate-900">Live API Sandbox & Request Console</h3>
+                                <p class="text-xs text-slate-500">Send an instant test request across any channel and inspect the JSON response</p>
+                            </div>
+                        </div>
+                        <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-extrabold px-3 py-1 rounded-full flex items-center gap-1.5 self-start sm:self-auto">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> 200 OK Sandbox Engine
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Request Config Form -->
+                        <div class="space-y-4 text-xs">
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div>
+                                    <label class="block font-bold text-slate-700 uppercase tracking-wider text-[10px] mb-1">Target Channel</label>
+                                    <select id="sandboxChannel" onchange="updateSandboxPayload()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-indigo-700 focus:outline-none focus:border-indigo-500">
+                                        <option value="rcs">🟣 RCS Business Messaging</option>
+                                        <option value="sms">💬 SMS (DLT Template)</option>
+                                        <option value="whatsapp">🟢 WhatsApp Business</option>
+                                        <option value="obd">📞 OBD Voice Call</option>
+                                        <option value="fallback">🔀 Smart Fallback Cascade</option>
+                                    </select>
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label class="block font-bold text-slate-700 uppercase tracking-wider text-[10px] mb-1">Recipient Mobile Number</label>
+                                    <input type="text" id="sandboxPhone" value="+91 98858 67454" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono text-slate-900 focus:outline-none focus:border-indigo-500">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-slate-700 uppercase tracking-wider text-[10px] mb-1">JSON Request Payload</label>
+                                <textarea id="sandboxJsonInput" rows="7" class="w-full code-container p-3.5 rounded-2xl text-[11px] leading-relaxed border border-slate-700 focus:outline-none"></textarea>
+                            </div>
+
+                            <button onclick="executeSandboxTest()" id="btnExecuteSandbox" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-extrabold text-xs py-3 px-4 rounded-xl shadow-md shadow-indigo-200 transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane text-xs"></i>
+                                <span>Send Test API Request</span>
+                            </button>
+                        </div>
+
+                        <!-- Live JSON Response Viewer -->
+                        <div class="flex flex-col">
+                            <div class="flex items-center justify-between mb-1 text-xs">
+                                <span class="font-bold text-slate-700">Response Payload (HTTP 200 OK)</span>
+                                <span id="sandboxLatency" class="text-[10px] font-mono text-emerald-600 font-bold">Latency: 38ms</span>
+                            </div>
+                            <pre id="sandboxResponseBox" class="flex-1 code-container p-4 rounded-2xl text-[11px] leading-relaxed overflow-x-auto border border-slate-700 min-h-[220px]">
+{
+  "status": "success",
+  "message_id": "zn_msg_982144120938",
+  "channel": "rcs",
+  "phone": "+919885867454",
+  "delivery_status": "delivered",
+  "carrier": "JIO_RBM_GATEWAY",
+  "timestamp": "2026-09-19T23:05:12.441Z",
+  "billing": {
+    "credits_deducted": 1,
+    "remaining_balance": 12449
+  }
+}
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- JS Logic -->
+    <script>
+        let currentChannel = 'sms';
+        let currentLang = 'curl';
+
+        const apiDocumentation = {
+            'sms': {
+                title: 'SMS Messaging REST API',
+                desc: 'Send Single & Bulk SMS, DLT approved template messages, and OTPs with high-speed carrier routing.',
+                endpoint: 'POST https://api.zioncpass.com/v1/sms/send',
+                params: [
+                    { name: 'sender_id', type: 'string', req: 'Required', desc: 'Approved 6-character DLT Header / Sender ID (e.g. ZIONIN)' },
+                    { name: 'dlt_template_id', type: 'string', req: 'Required', desc: '19-digit DLT approved Content Template ID' },
+                    { name: 'to', type: 'string / array', req: 'Required', desc: 'Destination mobile number in E.164 format (+919876543210)' },
+                    { name: 'message', type: 'string', req: 'Required', desc: 'SMS text content with exact template variable matches' },
+                    { name: 'unicode', type: 'boolean', req: 'Optional', desc: 'Set true for Hindi or Regional language SMS (default: false)' },
+                    { name: 'callback_url', type: 'string', req: 'Optional', desc: 'Webhook URL for real-time delivery receipt updates' }
+                ],
+                snippets: {
+                    curl: `curl -X POST https://api.zioncpass.com/v1/sms/send \\
+  -H "Authorization: Bearer zn_live_98a72b84c10df4821e90" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "sender_id": "ZIONIN",
+    "dlt_template_id": "140716892341002341",
+    "to": "+919876543210",
+    "message": "Your ZION verification code is 482910. Valid for 10 minutes.",
+    "callback_url": "https://yourdomain.com/webhook/sms-dlr"
+  }'`,
+                    python: `import requests
+
+url = "https://api.zioncpass.com/v1/sms/send"
+headers = {
+    "Authorization": "Bearer zn_live_98a72b84c10df4821e90",
+    "Content-Type": "application/json"
+}
+payload = {
+    "sender_id": "ZIONIN",
+    "dlt_template_id": "140716892341002341",
+    "to": "+919876543210",
+    "message": "Your ZION verification code is 482910. Valid for 10 minutes.",
+    "callback_url": "https://yourdomain.com/webhook/sms-dlr"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.json())`,
+                    node: `const axios = require('axios');
+
+async function sendSms() {
+  const res = await axios.post('https://api.zioncpass.com/v1/sms/send', {
+    sender_id: 'ZIONIN',
+    dlt_template_id: '140716892341002341',
+    to: '+919876543210',
+    message: 'Your ZION verification code is 482910. Valid for 10 minutes.',
+    callback_url: 'https://yourdomain.com/webhook/sms-dlr'
+  }, {
+    headers: {
+      'Authorization': 'Bearer zn_live_98a72b84c10df4821e90',
+      'Content-Type': 'application/json'
+    }
+  });
+  console.log(res.data);
+}
+sendSms();`,
+                    php: `<?php
+$ch = curl_init('https://api.zioncpass.com/v1/sms/send');
+$data = [
+    'sender_id' => 'ZIONIN',
+    'dlt_template_id' => '140716892341002341',
+    'to' => '+919876543210',
+    'message' => 'Your ZION verification code is 482910. Valid for 10 minutes.',
+    'callback_url' => 'https://yourdomain.com/webhook/sms-dlr'
+];
+
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer zn_live_98a72b84c10df4821e90',
+    'Content-Type: application/json'
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+$response = curl_exec($ch);
+curl_close($ch);
+echo $response;
+?>`,
+                    java: `import java.net.URI;
+import java.net.http.*;
+
+public class ZionSms {
+    public static void main(String[] args) throws Exception {
+        String json = "{\\"sender_id\\":\\"ZIONIN\\",\\"dlt_template_id\\":\\"140716892341002341\\",\\"to\\":\\"+919876543210\\",\\"message\\":\\"Your ZION code is 482910.\\"}";
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("https://api.zioncpass.com/v1/sms/send"))
+            .header("Authorization", "Bearer zn_live_98a72b84c10df4821e90")
+            .header("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString(json))
+            .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+    }
+}`
+                }
+            },
+            'rcs': {
+                title: 'RCS Business Messaging (RBM) API',
+                desc: 'Deliver Verified Rich Cards, Multi-Card Carousels, Action Buttons (Dialer, URL, Calendar, Location), and Interactive Quick Reply Chips.',
+                endpoint: 'POST https://api.zioncpass.com/v1/rcs/send',
+                params: [
+                    { name: 'bot_id', type: 'string', req: 'Required', desc: 'Google Verified RCS Bot identifier (e.g. bot_zion_789124)' },
+                    { name: 'to', type: 'string', req: 'Required', desc: 'Target mobile phone number (+919876543210)' },
+                    { name: 'card_orientation', type: 'string', req: 'Optional', desc: 'VERTICAL or HORIZONTAL (default: VERTICAL)' },
+                    { name: 'media_url', type: 'string', req: 'Optional', desc: 'High-res image, video, or PDF file URL' },
+                    { name: 'title', type: 'string', req: 'Required', desc: 'Rich Card Header Title' },
+                    { name: 'description', type: 'string', req: 'Required', desc: 'Rich card message body' },
+                    { name: 'suggestions', type: 'array', req: 'Optional', desc: 'Array of suggested action buttons (Reply, Open URL, Dial Phone, Share Location)' }
+                ],
+                snippets: {
+                    curl: `curl -X POST https://api.zioncpass.com/v1/rcs/send \\
+  -H "Authorization: Bearer zn_live_98a72b84c10df4821e90" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "bot_id": "bot_zion_789124",
+    "to": "+919876543210",
+    "card_orientation": "VERTICAL",
+    "media_url": "https://cdn.zion.com/media/festive_deal.jpg",
+    "title": "Diwali Mega Flash Sale: Flat 40% OFF!",
+    "description": "Exclusive festival discount on premium electronics. Free doorstep delivery.",
+    "suggestions": [
+      { "type": "URL", "text": "Shop Deals Online", "url": "https://zion.com/shop" },
+      { "type": "DIALER", "text": "Call Support Desk", "phone_number": "+918858674541" },
+      { "type": "REPLY", "text": "Claim Voucher", "payload": "ACTION_CLAIM_40" }
+    ]
+  }'`,
+                    python: `import requests
+
+url = "https://api.zioncpass.com/v1/rcs/send"
+headers = {
+    "Authorization": "Bearer zn_live_98a72b84c10df4821e90",
+    "Content-Type": "application/json"
+}
+payload = {
+    "bot_id": "bot_zion_789124",
+    "to": "+919876543210",
+    "media_url": "https://cdn.zion.com/media/festive_deal.jpg",
+    "title": "Diwali Mega Flash Sale: Flat 40% OFF!",
+    "description": "Exclusive festival discount on premium electronics.",
+    "suggestions": [
+        {"type": "URL", "text": "Shop Online", "url": "https://zion.com/shop"},
+        {"type": "DIALER", "text": "Call Us", "phone_number": "+918858674541"}
+    ]
+}
+
+response = requests.post(url, json=payload, headers=headers)
+print(response.json())`,
+                    node: `const axios = require('axios');
+
+async function sendRcsCard() {
+  const res = await axios.post('https://api.zioncpass.com/v1/rcs/send', {
+    bot_id: 'bot_zion_789124',
+    to: '+919876543210',
+    media_url: 'https://cdn.zion.com/media/festive_deal.jpg',
+    title: 'Diwali Mega Flash Sale: Flat 40% OFF!',
+    description: 'Exclusive festival discount on premium electronics.',
+    suggestions: [
+      { type: 'URL', text: 'Shop Online', url: 'https://zion.com/shop' },
+      { type: 'DIALER', text: 'Call Us', phone_number: '+918858674541' }
+    ]
+  }, {
+    headers: { 'Authorization': 'Bearer zn_live_98a72b84c10df4821e90' }
+  });
+  console.log(res.data);
+}
+sendRcsCard();`,
+                    php: `<?php
+$ch = curl_init('https://api.zioncpass.com/v1/rcs/send');
+$payload = [
+    'bot_id' => 'bot_zion_789124',
+    'to' => '+919876543210',
+    'title' => 'Diwali Mega Flash Sale!',
+    'description' => 'Flat 40% OFF on all electronics.',
+    'suggestions' => [
+        ['type' => 'URL', 'text' => 'Shop Now', 'url' => 'https://zion.com/shop']
+    ]
+];
+curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: Bearer zn_live_98a72b84c10df4821e90', 'Content-Type: application/json']);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$res = curl_exec($ch);
+curl_close($ch);
+echo $res;
+?>`,
+                    java: `// Java RCS Implementation example available in full SDK documentation`
+                }
+            },
+            'whatsapp': {
+                title: 'WhatsApp Business Cloud REST API',
+                desc: 'Send Official Meta-approved WhatsApp template messages, interactive quick replies, catalog lists, and media documents.',
+                endpoint: 'POST https://api.zioncpass.com/v1/whatsapp/send',
+                params: [
+                    { name: 'phone_number_id', type: 'string', req: 'Required', desc: 'Registered WhatsApp WABA Sender Number ID' },
+                    { name: 'to', type: 'string', req: 'Required', desc: 'Customer phone number in E.164 format (+919876543210)' },
+                    { name: 'template_name', type: 'string', req: 'Required', desc: 'Meta Approved WhatsApp Template Name' },
+                    { name: 'language', type: 'string', req: 'Required', desc: 'Language code (e.g. en_US, hi)' },
+                    { name: 'components', type: 'array', req: 'Optional', desc: 'Header media and dynamic variable parameters' }
+                ],
+                snippets: {
+                    curl: `curl -X POST https://api.zioncpass.com/v1/whatsapp/send \\
+  -H "Authorization: Bearer zn_live_98a72b84c10df4821e90" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "phone_number_id": "waba_num_88129031",
+    "to": "+919876543210",
+    "template_name": "order_dispatch_update",
+    "language": "en_US",
+    "components": [
+      {
+        "type": "body",
+        "parameters": [
+          { "type": "text", "text": "Parvez" },
+          { "type": "text", "text": "ZN-98442" },
+          { "type": "text", "text": "Tomorrow, 2 PM" }
+        ]
+      }
+    ]
+  }'`,
+                    python: `import requests
+
+url = "https://api.zioncpass.com/v1/whatsapp/send"
+headers = {"Authorization": "Bearer zn_live_98a72b84c10df4821e90", "Content-Type": "application/json"}
+data = {
+    "phone_number_id": "waba_num_88129031",
+    "to": "+919876543210",
+    "template_name": "order_dispatch_update",
+    "language": "en_US",
+    "components": [{"type": "body", "parameters": [{"type": "text", "text": "Parvez"}, {"type": "text", "text": "ZN-98442"}]}]
+}
+print(requests.post(url, json=data, headers=headers).json())`,
+                    node: `const axios = require('axios');
+axios.post('https://api.zioncpass.com/v1/whatsapp/send', {
+  phone_number_id: 'waba_num_88129031',
+  to: '+919876543210',
+  template_name: 'order_dispatch_update',
+  language: 'en_US',
+  components: [{ type: 'body', parameters: [{ type: 'text', text: 'Parvez' }] }]
+}, { headers: { Authorization: 'Bearer zn_live_98a72b84c10df4821e90' } }).then(r => console.log(r.data));`,
+                    php: `<?php /* PHP WhatsApp Cloud Implementation */ ?>`,
+                    java: `// Java WhatsApp Cloud Implementation`
+                }
+            },
+            'obd': {
+                title: 'OBD (Outbound Voice Dialing) API',
+                desc: 'Trigger automated outbound voice calls, dynamic Text-To-Speech (TTS) announcements, and IVR keypress recordings.',
+                endpoint: 'POST https://api.zioncpass.com/v1/voice/obd',
+                params: [
+                    { name: 'caller_id', type: 'string', req: 'Required', desc: 'Virtual Caller ID (DID / PRI number)' },
+                    { name: 'to', type: 'string / array', req: 'Required', desc: 'Recipient phone number' },
+                    { name: 'audio_url', type: 'string', req: 'Optional', desc: 'WAV/MP3 pre-recorded audio file URL' },
+                    { name: 'tts_text', type: 'string', req: 'Optional', desc: 'Dynamic Text-To-Speech string to synthesize and speak' },
+                    { name: 'tts_voice', type: 'string', req: 'Optional', desc: 'Language voice (hi-IN-Standard-A, en-IN-Standard-B)' },
+                    { name: 'dtmf_capture', type: 'boolean', req: 'Optional', desc: 'Enable keypad response recording (1-9)' }
+                ],
+                snippets: {
+                    curl: `curl -X POST https://api.zioncpass.com/v1/voice/obd \\
+  -H "Authorization: Bearer zn_live_98a72b84c10df4821e90" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "caller_id": "+918047192000",
+    "to": "+919876543210",
+    "tts_text": "Namaste Parvez, your electricity bill of 1450 rupees is due today. Press 1 to pay now or 2 to request callback.",
+    "tts_voice": "hi-IN-Standard-A",
+    "dtmf_capture": true,
+    "callback_url": "https://yourdomain.com/webhook/voice-dtmf"
+  }'`,
+                    python: `import requests
+url = "https://api.zioncpass.com/v1/voice/obd"
+payload = {
+    "caller_id": "+918047192000",
+    "to": "+919876543210",
+    "tts_text": "Namaste, your appointment is confirmed.",
+    "dtmf_capture": True
+}
+print(requests.post(url, json=payload, headers={"Authorization": "Bearer zn_live_98a72b84c10df4821e90"}).json())`,
+                    node: `const axios = require('axios');
+axios.post('https://api.zioncpass.com/v1/voice/obd', {
+  caller_id: '+918047192000',
+  to: '+919876543210',
+  tts_text: 'Your flight is on schedule.'
+}, { headers: { Authorization: 'Bearer zn_live_98a72b84c10df4821e90' } }).then(r => console.log(r.data));`,
+                    php: `<?php /* PHP Voice Implementation */ ?>`,
+                    java: `// Java Voice Implementation`
+                }
+            },
+            'fallback': {
+                title: 'Smart Fallback & Omnichannel Cascade API',
+                desc: 'Deliver with 100% guarantee across RCS ➔ WhatsApp ➔ SMS failover cascade. Automatically routes through the next channel if undelivered within specified timeout.',
+                endpoint: 'POST https://api.zioncpass.com/v1/omnichannel/fallback',
+                params: [
+                    { name: 'to', type: 'string', req: 'Required', desc: 'Recipient phone number (+919876543210)' },
+                    { name: 'channels_priority', type: 'array', req: 'Required', desc: 'Priority order: ["RCS", "WHATSAPP", "SMS"]' },
+                    { name: 'timeout_seconds', type: 'integer', req: 'Optional', desc: 'Seconds to wait for delivery receipt before failover (default: 15)' },
+                    { name: 'rcs_payload', type: 'object', req: 'Optional', desc: 'Rich Card / Carousel payload if RCS is capable' },
+                    { name: 'whatsapp_payload', type: 'object', req: 'Optional', desc: 'WhatsApp template payload' },
+                    { name: 'sms_payload', type: 'object', req: 'Required', desc: 'DLT SMS fallback payload if all rich channels fail' }
+                ],
+                snippets: {
+                    curl: `curl -X POST https://api.zioncpass.com/v1/omnichannel/fallback \\
+  -H "Authorization: Bearer zn_live_98a72b84c10df4821e90" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "to": "+919876543210",
+    "channels_priority": ["RCS", "WHATSAPP", "SMS"],
+    "timeout_seconds": 20,
+    "rcs_payload": {
+      "bot_id": "bot_zion_789124",
+      "title": "Your Order Has Shipped!",
+      "description": "Track live package arrival.",
+      "media_url": "https://cdn.zion.com/order.jpg"
+    },
+    "whatsapp_payload": {
+      "template_name": "order_shipped_v2"
+    },
+    "sms_payload": {
+      "sender_id": "ZIONIN",
+      "dlt_template_id": "140716892341002341",
+      "message": "Your order ZN-98442 has been shipped. Track at https://zion.com/t/98442"
+    }
+  }'`,
+                    python: `import requests
+url = "https://api.zioncpass.com/v1/omnichannel/fallback"
+payload = {
+    "to": "+919876543210",
+    "channels_priority": ["RCS", "WHATSAPP", "SMS"],
+    "timeout_seconds": 15,
+    "rcs_payload": {"title": "Flash Sale!"},
+    "sms_payload": {"message": "Flash Sale! Shop at zion.com"}
+}
+print(requests.post(url, json=payload, headers={"Authorization": "Bearer zn_live_98a72b84c10df4821e90"}).json())`,
+                    node: `const axios = require('axios');
+axios.post('https://api.zioncpass.com/v1/omnichannel/fallback', {
+  to: '+919876543210',
+  channels_priority: ['RCS', 'WHATSAPP', 'SMS'],
+  timeout_seconds: 15,
+  rcs_payload: { title: 'Order Arriving Today' },
+  sms_payload: { message: 'Order arriving today. ZION.' }
+}, { headers: { Authorization: 'Bearer zn_live_98a72b84c10df4821e90' } }).then(r => console.log(r.data));`,
+                    php: `<?php /* PHP Smart Fallback Implementation */ ?>`,
+                    java: `// Java Smart Fallback Implementation`
+                }
+            },
+            'webhooks': {
+                title: 'Inbound Webhooks & Events Receiver',
+                desc: 'Receive real-time carrier Delivery Receipts (DLR), customer chat replies, STOP keyword opt-outs, and interactive button clicks via HTTP POST.',
+                endpoint: 'WEBHOOK PAYLOAD: Inbound POST from ZION to your server',
+                params: [
+                    { name: 'event_type', type: 'string', req: 'System', desc: 'delivery_receipt | user_reply | opt_out_stop | voice_dtmf' },
+                    { name: 'message_id', type: 'string', req: 'System', desc: 'Unique ZION tracking identifier' },
+                    { name: 'channel', type: 'string', req: 'System', desc: 'RCS | SMS | WHATSAPP | OBD' },
+                    { name: 'sender', type: 'string', req: 'System', desc: 'Customer phone number (+919876543210)' },
+                    { name: 'text_received', type: 'string', req: 'System', desc: 'Text content sent by user (e.g. STOP, HELP, 1)' }
+                ],
+                snippets: {
+                    curl: `// Example Webhook JSON delivered to your endpoint:
+{
+  "event_type": "user_reply",
+  "channel": "RCS",
+  "bot_id": "bot_zion_789124",
+  "from": "+919876543210",
+  "message_id": "zn_inbound_48291034",
+  "text": "STOP",
+  "action_payload": null,
+  "timestamp": "2026-09-19T23:10:04.281Z"
+}`,
+                    python: `# Flask / FastAPI Webhook Handler:
+from flask import Flask, request, jsonify
+app = Flask(__name__)
+
+@app.route('/webhook/zion-events', methods=['POST'])
+def handle_event():
+    data = request.json
+    print(f"Received {data['event_type']} from {data['from']}: {data.get('text')}")
+    if data.get('text') == 'STOP':
+        # Customer opted out
+        pass
+    return jsonify({"status": "received"}), 200`,
+                    node: `// Express.js Webhook Handler:
+const express = require('express');
+const app = express();
+app.use(express.json());
+
+app.post('/webhook/zion-events', (req, res) => {
+  const { event_type, channel, from, text } = req.body;
+  console.log(\`Received \${event_type} on \${channel} from \${from}: \${text}\`);
+  res.status(200).json({ status: 'received' });
+});
+app.listen(3000);`,
+                    php: `<?php
+$raw = file_get_contents('php://input');
+$event = json_decode($raw, true);
+file_put_contents('events.log', $event['from'] . " sent: " . $event['text'] . "\n", FILE_APPEND);
+http_response_code(200);
+echo json_encode(["status" => "received"]);
+?>`,
+                    java: `// Java Spring Boot Webhook Controller example`
+                }
+            }
+        };
+
+        function toggleSubmenu(event, submenuId, iconId) {
+            event.preventDefault();
+            const submenu = document.getElementById(submenuId);
+            const icon = document.getElementById(iconId);
+            if (submenu) {
+                submenu.classList.toggle('hidden');
+                if (icon) {
+                    icon.style.transform = submenu.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+                }
+            }
+        }
+
+        function showToast(title, message, isSuccess = true) {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toastIcon');
+            document.getElementById('toastTitle').innerText = title;
+            document.getElementById('toastMessage').innerText = message;
+            
+            if (isSuccess) {
+                icon.className = 'w-7 h-7 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-sm';
+                icon.innerHTML = '<i class="fa-solid fa-check"></i>';
+            } else {
+                icon.className = 'w-7 h-7 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center text-sm';
+                icon.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+            }
+
+            toast.classList.remove('translate-y-[-120%]', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-[-120%]', 'opacity-0');
+            }, 3000);
+        }
+
+        function copyToClipboard(text, label) {
+            navigator.clipboard.writeText(text);
+            showToast('Copied to Clipboard', `${label} copied successfully.`);
+        }
+
+        function regenerateKey() {
+            if (confirm('Are you sure you want to regenerate your API Key? Any existing applications using the old key will need to be updated.')) {
+                const newKey = 'zn_live_' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+                document.getElementById('apiKeyDisplay').innerText = newKey;
+                showToast('New Key Generated', 'Your new production secret API key is now active.');
+            }
+        }
+
+        function switchChannelApi(channel) {
+            currentChannel = channel;
+            ['sms', 'rcs', 'whatsapp', 'obd', 'fallback', 'webhooks'].forEach(ch => {
+                const btn = document.getElementById(`tab-${ch}`);
+                if (btn) {
+                    if (ch === channel) {
+                        btn.classList.add('active');
+                        btn.classList.remove('text-slate-500');
+                    } else {
+                        btn.classList.remove('active');
+                        btn.classList.add('text-slate-500');
+                    }
+                }
+            });
+            renderApiDetails();
+            document.getElementById('sandboxChannel').value = channel === 'webhooks' ? 'rcs' : channel;
+            updateSandboxPayload();
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            ['curl', 'python', 'node', 'php', 'java'].forEach(l => {
+                const btn = document.getElementById(`lang-btn-${l}`);
+                if (btn) {
+                    if (l === lang) {
+                        btn.classList.add('active');
+                        btn.classList.remove('text-slate-400', 'hover:text-white');
+                    } else {
+                        btn.classList.remove('active');
+                        btn.classList.add('text-slate-400', 'hover:text-white');
+                    }
+                }
+            });
+            const codeEl = document.getElementById('apiCodeBlock');
+            if (codeEl) {
+                codeEl.innerText = apiDocumentation[currentChannel].snippets[lang] || apiDocumentation[currentChannel].snippets['curl'];
+            }
+        }
+
+        function renderApiDetails() {
+            const data = apiDocumentation[currentChannel];
+            const area = document.getElementById('apiContentArea');
+
+            let paramsHtml = '';
+            data.params.forEach(p => {
+                const reqBadge = p.req === 'Required' 
+                    ? '<span class="bg-red-50 text-red-700 border border-red-200 px-2 py-0.5 rounded text-[10px] font-bold">Required</span>'
+                    : '<span class="bg-slate-100 text-slate-600 border border-slate-200 px-2 py-0.5 rounded text-[10px] font-medium">Optional</span>';
+
+                paramsHtml += `
+                    <tr class="hover:bg-slate-50/80 transition-colors">
+                        <td class="py-3 px-4 font-mono font-bold text-indigo-700 text-xs">${p.name}</td>
+                        <td class="py-3 px-4 font-mono text-slate-500 text-[11px]">${p.type}</td>
+                        <td class="py-3 px-4">${reqBadge}</td>
+                        <td class="py-3 px-4 text-slate-700 text-xs">${p.desc}</td>
+                    </tr>
+                `;
+            });
+
+            area.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Left: API Info & Parameters -->
+                    <div class="lg:col-span-6 space-y-5">
+                        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-premium space-y-4">
+                            <div>
+                                <span class="bg-indigo-50 text-indigo-700 border border-indigo-200 text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase">Official REST API</span>
+                                <h3 class="text-xl font-extrabold text-slate-900 mt-2">${data.title}</h3>
+                                <p class="text-xs text-slate-500 mt-1 leading-relaxed">${data.desc}</p>
+                            </div>
+
+                            <div class="bg-slate-900 text-indigo-300 p-3.5 rounded-2xl border border-slate-700 font-mono text-xs flex items-center justify-between">
+                                <span class="truncate">${data.endpoint}</span>
+                                <button onclick="copyToClipboard('${data.endpoint}', 'Endpoint URL')" class="text-slate-400 hover:text-white ml-2 shrink-0">
+                                    <i class="fa-solid fa-copy text-xs"></i>
+                                </button>
+                            </div>
+
+                            <div>
+                                <h4 class="font-extrabold text-slate-900 text-xs uppercase tracking-wider mb-2">Request Parameters</h4>
+                                <div class="overflow-x-auto border border-slate-200 rounded-2xl">
+                                    <table class="w-full text-left border-collapse text-xs">
+                                        <thead>
+                                            <tr class="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider text-[10px]">
+                                                <th class="py-2.5 px-4">Field</th>
+                                                <th class="py-2.5 px-4">Type</th>
+                                                <th class="py-2.5 px-4">State</th>
+                                                <th class="py-2.5 px-4">Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-100 font-medium">
+                                            ${paramsHtml}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Code Snippets & Language Selector -->
+                    <div class="lg:col-span-6">
+                        <div class="bg-slate-900 rounded-3xl border border-slate-800 shadow-2xl overflow-hidden flex flex-col h-full">
+                            <!-- Code Header -->
+                            <div class="px-5 py-3.5 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+                                <div class="flex items-center gap-1.5 text-xs">
+                                    <button onclick="setLanguage('curl')" id="lang-btn-curl" class="lang-btn ${currentLang === 'curl' ? 'active' : 'text-slate-400 hover:text-white'} px-3 py-1 rounded-lg font-bold text-xs transition-colors">cURL</button>
+                                    <button onclick="setLanguage('python')" id="lang-btn-python" class="lang-btn ${currentLang === 'python' ? 'active' : 'text-slate-400 hover:text-white'} px-3 py-1 rounded-lg font-bold text-xs transition-colors">Python</button>
+                                    <button onclick="setLanguage('node')" id="lang-btn-node" class="lang-btn ${currentLang === 'node' ? 'active' : 'text-slate-400 hover:text-white'} px-3 py-1 rounded-lg font-bold text-xs transition-colors">Node.js</button>
+                                    <button onclick="setLanguage('php')" id="lang-btn-php" class="lang-btn ${currentLang === 'php' ? 'active' : 'text-slate-400 hover:text-white'} px-3 py-1 rounded-lg font-bold text-xs transition-colors">PHP</button>
+                                    <button onclick="setLanguage('java')" id="lang-btn-java" class="lang-btn ${currentLang === 'java' ? 'active' : 'text-slate-400 hover:text-white'} px-3 py-1 rounded-lg font-bold text-xs transition-colors">Java</button>
+                                </div>
+                                <button onclick="copySnippet()" class="text-xs font-bold text-indigo-400 hover:text-indigo-300 flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-xl border border-slate-700 transition-colors">
+                                    <i class="fa-solid fa-copy text-[11px]"></i>
+                                    <span>Copy Code</span>
+                                </button>
+                            </div>
+
+                            <!-- Code Editor Body -->
+                            <div class="flex-1 p-5 overflow-auto">
+                                <pre id="apiCodeBlock" class="code-container text-xs leading-relaxed">${data.snippets[currentLang] || data.snippets['curl']}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function copySnippet() {
+            const code = document.getElementById('apiCodeBlock').innerText;
+            copyToClipboard(code, 'Code Snippet');
+        }
+
+        function scrollToSandbox() {
+            document.getElementById('sandboxSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateSandboxPayload() {
+            const ch = document.getElementById('sandboxChannel').value;
+            const phone = document.getElementById('sandboxPhone').value || '+91 98858 67454';
+            const jsonArea = document.getElementById('sandboxJsonInput');
+
+            if (ch === 'rcs') {
+                jsonArea.value = JSON.stringify({
+                    bot_id: "bot_zion_789124",
+                    to: phone,
+                    title: "Special Festival Discount: Flat 40% OFF",
+                    description: "Hello! Tap below to claim your exclusive voucher.",
+                    suggestions: [
+                        { type: "URL", text: "Shop Online", url: "https://zion.com/shop" },
+                        { type: "DIALER", text: "Call Support", phone_number: "+918858674541" }
+                    ]
+                }, null, 2);
+            } else if (ch === 'sms') {
+                jsonArea.value = JSON.stringify({
+                    sender_id: "ZIONIN",
+                    dlt_template_id: "140716892341002341",
+                    to: phone,
+                    message: "Your ZION verification OTP is 584910. Valid for 10 minutes."
+                }, null, 2);
+            } else if (ch === 'whatsapp') {
+                jsonArea.value = JSON.stringify({
+                    phone_number_id: "waba_num_88129031",
+                    to: phone,
+                    template_name: "order_dispatch_update",
+                    language: "en_US",
+                    components: [{ type: "body", parameters: [{ type: "text", text: "Parvez" }] }]
+                }, null, 2);
+            } else if (ch === 'obd') {
+                jsonArea.value = JSON.stringify({
+                    caller_id: "+918047192000",
+                    to: phone,
+                    tts_text: "Namaste, your appointment with ZION has been confirmed for tomorrow.",
+                    dtmf_capture: true
+                }, null, 2);
+            } else if (ch === 'fallback') {
+                jsonArea.value = JSON.stringify({
+                    to: phone,
+                    channels_priority: ["RCS", "WHATSAPP", "SMS"],
+                    timeout_seconds: 15,
+                    rcs_payload: { title: "Order Shipped" },
+                    sms_payload: { message: "Order ZN-98442 shipped." }
+                }, null, 2);
+            }
+        }
+
+        function executeSandboxTest() {
+            const ch = document.getElementById('sandboxChannel').value;
+            const phone = document.getElementById('sandboxPhone').value;
+            const btn = document.getElementById('btnExecuteSandbox');
+            const resBox = document.getElementById('sandboxResponseBox');
+            const latency = document.getElementById('sandboxLatency');
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Sending Request...</span>';
+
+            setTimeout(() => {
+                const randomMsgId = 'zn_msg_' + Math.floor(100000000000 + Math.random() * 900000000000);
+                const randomLatency = Math.floor(28 + Math.random() * 45);
+
+                latency.innerText = `Latency: ${randomLatency}ms`;
+                resBox.innerText = JSON.stringify({
+                    status: "success",
+                    message_id: randomMsgId,
+                    channel: ch,
+                    destination: phone,
+                    delivery_status: "delivered",
+                    carrier_ack: "200_OK",
+                    gateway_timestamp: new Date().toISOString(),
+                    billing: {
+                        credits_deducted: 1,
+                        remaining_balance: 12449
+                    }
+                }, null, 2);
+
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-paper-plane text-xs"></i><span>Send Test API Request</span>';
+                showToast('200 OK Response Received', `Successfully simulated ${ch.toUpperCase()} API execution.`);
+            }, 600);
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderApiDetails();
+            updateSandboxPayload();
+        });
+    </script>
+</body>
+</html>

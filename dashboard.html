@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZION CPaaS - Real-Time Analytics Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .sidebar-item { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); }
+        @keyframes pulseSlow { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.05); } }
+        .animate-pulse-slow { animation: pulseSlow 3s infinite ease-in-out; }
+    </style>
+</head>
+<body class="text-slate-800 h-screen overflow-hidden flex bg-slate-900/5 antialiased">
+
+    <!-- Sidebar -->
+        <!-- Left Fixed Sidebar -->
+        <!-- Left Fixed Big-Icon Sidebar (Image 2 Style) -->
+        <!-- Left Fixed Sidebar with Channels & Dropdowns -->
+    <aside class="w-68 bg-white border-r border-slate-200 flex flex-col h-screen shrink-0 z-30 select-none shadow-sm">
+        
+        <!-- Big Enterprise CPaaS Brand Logo -->
+        <div class="h-20 flex items-center px-4 border-b border-slate-100 shrink-0 bg-white">
+            <a href="home.html" class="flex items-center gap-3 w-full group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-105 transition-transform shrink-0 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i class="fa-solid fa-cloud-bolt text-lg text-white"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xl font-black text-slate-900 tracking-tight leading-none">ZION</span>
+                        <span class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded-md tracking-wider shadow-sm uppercase">CPaaS</span>
+                    </div>
+                    <p class="text-[9.5px] text-slate-500 font-bold tracking-tight mt-1 truncate uppercase flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>
+                        Omnichannel Cloud
+                    </p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Vertical Menu Scrollable List -->
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1.5">
+            <!-- Home -->
+            <a href="home.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">Home</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Platform Overview</div>
+                </div>
+            </a>
+            
+            <!-- Dashboard -->
+            <a href="dashboard.html" class="sidebar-item active flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-purple-700 bg-purple-50/90 border border-purple-200/80 shadow-sm transition-all">
+                <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-xl shadow-md shadow-purple-200 shrink-0">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </div>
+                <div class="flex-1 min-w-0 flex items-center justify-between">
+                    <div>
+                        <div class="text-sm font-extrabold text-purple-900 leading-tight">Dashboard</div>
+                        <div class="text-[10px] text-purple-600 font-semibold">Live Analytics</div>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">LIVE</span>
+                </div>
+            </a>
+
+            <!-- SMS Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all" onclick="toggleSubmenu(event, 'sms-submenu', 'sms-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-comment-dots"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">SMS</div>
+                            <div class="text-[10px] text-slate-400 font-medium">Transactional &amp; Promo</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200" id="sms-icon" ></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-blue-200 pl-3 overflow-hidden hidden" id="sms-submenu">
+                    <a href="send-sms.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Send SMS</a>
+                    <a href="reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Reports</a>
+                    <a href="groups.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Contacts / Groups</a>
+                    <a href="dlt-dashboard.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">DLT / Compliance</a>
+                    <a href="#" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Blacklist / Whitelist</a>
+                </div>
+            </div>
+
+            <!-- RCS Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-purple-50 hover:text-purple-700 transition-all" onclick="toggleSubmenu(event, 'rcs-submenu', 'rcs-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-comment-sms"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-purple-800 leading-tight">RCS</div>
+                            <div class="text-[10px] text-purple-500 font-medium">Rich Business Messaging</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-purple-400 transition-transform duration-200" id="rcs-icon" ></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-purple-200 pl-3 overflow-hidden hidden" id="rcs-submenu">
+                    <a href="rcs-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Campaign</a>
+                    <a href="rcs-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Report</a>
+                    <a href="rcs-configuration.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Configuration</a>
+                    <a href="rcs-chatbot.html" class="sidebar-item flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">
+                        <span>Chat Bot</span>
+                        <span class="bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded">AI</span>
+                    </a>
+                </div>
+            </div>
+
+                        <!-- WhatsApp Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 transition-all" onclick="toggleSubmenu(event, 'wa-submenu', 'wa-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">WhatsApp</div>
+                            <div class="text-[10px] text-emerald-600 font-medium">Cloud API Official</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-emerald-400 transition-transform duration-200" id="wa-icon"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-emerald-200 pl-3 overflow-hidden hidden" id="wa-submenu">
+                    <a href="whatsapp-config.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Config</a>
+                    <a href="whatsapp-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Campaign</a>
+                    <a href="whatsapp-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Report</a>
+                    <a href="whatsapp-agents.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Agent</a>
+                    <a href="whatsapp-automation.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Automation</a>
+                </div>
+            </div>
+            
+            <!-- OBD Voice -->
+            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">OBD (Voice)</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Outbound Audio &amp; TTS</div>
+                </div>
+            </a>
+
+            <!-- IVR -->
+            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">IVR</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Smart Voice Tree</div>
+                </div>
+            </a>
+
+            <!-- Dedicated Credit & Wallet Ledger Menu Item -->
+            <div class="pt-1">
+                <a href="credit-report.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50/70 hover:text-emerald-700 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">Credits &amp; Wallet</div>
+                            <div class="text-[10px] text-emerald-600 font-semibold">INR Recharge &amp; Deduct</div>
+                        </div>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">₹ WALLET</span>
+                </a>
+            </div>
+
+            <!-- Dedicated API & Integration Menu Item -->
+            <div class="pt-1">
+                <a href="api-integration.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-indigo-50/70 hover:text-indigo-700 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-code text-xl"></i>
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">API &amp; Integration</div>
+                            <div class="text-[10px] text-indigo-500 font-semibold">Universal REST Hub</div>
+                        </div>
+                    </div>
+                    <span class="bg-indigo-100 text-indigo-700 text-[8px] font-black px-1.5 py-0.5 rounded">REST</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Bottom User Profile -->
+        <div class="border-t border-slate-100 p-4 shrink-0 bg-slate-50/60">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white text-sm font-black shadow-md shadow-purple-200 shrink-0">P</div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-bold text-slate-800 truncate leading-tight">Parvez</p>
+                    <p class="text-[11px] text-slate-400 font-medium truncate">Enterprise Admin</p>
+                </div>
+                <button class="text-slate-400 hover:text-red-500 transition-colors p-1.5 rounded-lg hover:bg-red-50">
+                    <i class="fa-solid fa-right-from-bracket text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#f4f7fb]">
+        
+        <!-- Header -->
+        <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-6 lg:px-8 shrink-0 z-10">
+            <div class="flex items-center gap-4">
+                <div class="relative w-72 md:w-96">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-magnifying-glass text-slate-400 text-sm"></i>
+                    </div>
+                    <input type="text" placeholder="Search campaigns, logs, sender IDs, DLT templates..."
+                        class="block w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 bg-slate-50/70 transition-all font-medium">
+                </div>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center gap-4">
+                <!-- Channel Wallet Balance -->
+                <div class="flex items-center gap-3 bg-white border border-slate-200 px-4 py-2 rounded-xl shadow-sm hover:border-emerald-300 transition-all cursor-pointer">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-inner">
+                        <i class="fa-solid fa-wallet text-sm"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-0.5">INR Wallet Balance</p>
+                        <p class="text-sm font-black text-slate-900 leading-none">₹48,500.00 <span class="text-[10px] text-slate-400 font-medium">(12,450 Cr)</span></p>
+                    </div>
+                </div>
+
+                <div class="h-7 w-px bg-slate-200 hidden sm:block"></div>
+
+                <button class="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200 text-slate-500 hover:text-purple-600 hover:border-purple-300 transition-all flex items-center justify-center relative">
+                    <i class="fa-regular fa-bell text-base"></i>
+                    <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white"></span>
+                </button>
+
+                <a href="send-sms.html" class="px-5 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white rounded-xl text-sm font-bold shadow-md shadow-purple-500/20 transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                    <span>Quick Campaign</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- Scrollable Dashboard Body -->
+        <div class="flex-1 overflow-y-auto p-6 lg:p-8 space-y-8">
+            
+            <!-- Dashboard Title & Dynamic Date + Product Filter Bar -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-5 lg:p-6 rounded-2xl border border-slate-200/80 shadow-2xs">
+                <div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-slate-100 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Performance Overview</span>
+                        <span class="text-xs text-slate-400 font-medium">• Real-time Updates</span>
+                    </div>
+                    <h1 class="text-2xl font-bold text-slate-900 tracking-tight" id="dashTitleText">Overall Products Dashboard</h1>
+                    <p class="text-xs text-slate-500 mt-0.5 font-medium">View throughput, delivery rates, and analytics by date range and product filter.</p>
+                </div>
+                
+                <!-- Dynamic Filters: Date Range + Product Select -->
+                <div class="flex flex-wrap items-center gap-3">
+                    <!-- Product Channel Filter -->
+                    <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 shadow-2xs">
+                        <i class="fa-solid fa-layer-group text-slate-500 text-xs"></i>
+                        <label class="text-[10px] font-bold uppercase text-slate-400 mr-1">Product:</label>
+                        <select id="productFilterSelect" onchange="filterDashboardData()" class="bg-transparent text-xs font-bold text-slate-800 outline-none cursor-pointer">
+                            <option value="all" selected>All Products (Overall)</option>
+                            <option value="sms">SMS Service</option>
+                            <option value="rcs">RCS Business</option>
+                            <option value="whatsapp">WhatsApp Cloud</option>
+                            <option value="obd">OBD Voice</option>
+                        </select>
+                    </div>
+
+                    <!-- Date Range Filter -->
+                    <div class="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 shadow-2xs">
+                        <i class="fa-regular fa-calendar text-emerald-600 text-xs"></i>
+                        <label class="text-[10px] font-bold uppercase text-slate-400 mr-1">Date:</label>
+                        <select id="dateRangeSelect" onchange="filterDashboardData()" class="bg-transparent text-xs font-bold text-slate-800 outline-none cursor-pointer">
+                            <option value="today" selected>Today (Live 24h)</option>
+                            <option value="yesterday">Yesterday</option>
+                            <option value="7days">Last 7 Days</option>
+                            <option value="30days">Last 30 Days</option>
+                            <option value="month">This Month</option>
+                        </select>
+                    </div>
+
+                    <button onclick="alert('Exporting Report...')" class="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-download text-slate-500"></i> Export
+                    </button>
+                </div>
+            </div>
+
+            <!-- Top 5 Large Key Metrics Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+                
+                <!-- Total Volume -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs relative overflow-hidden group hover:shadow-md transition-all">
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-full" id="statBadge1">+18.4%</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Total Traffic Sent</p>
+                        <h3 class="text-2xl lg:text-3xl font-bold text-slate-900" id="statTotalSent">2,845,210</h3>
+                        <p class="text-xs text-slate-500 font-medium mt-1" id="statSub1">Across 4 active channels</p>
+                    </div>
+                </div>
+
+                <!-- Delivered Rate -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs relative overflow-hidden group hover:shadow-md transition-all">
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-check-double"></i>
+                            </div>
+                            <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full" id="statBadge2">99.42%</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Delivered Successfully</p>
+                        <h3 class="text-2xl lg:text-3xl font-bold text-slate-900" id="statDelivered">2,828,705</h3>
+                        <p class="text-xs text-emerald-600 font-medium mt-1"><i class="fa-solid fa-arrow-trend-up mr-1"></i> Industry Benchmark</p>
+                    </div>
+                </div>
+
+                <!-- Read & Engagement -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs relative overflow-hidden group hover:shadow-md transition-all">
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-eye"></i>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-full" id="statBadge3">78.6%</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Read &amp; Engagement</p>
+                        <h3 class="text-2xl lg:text-3xl font-bold text-slate-900" id="statRead">1,940,110</h3>
+                        <p class="text-xs text-slate-500 font-medium mt-1">Interactive Templates</p>
+                    </div>
+                </div>
+
+                <!-- Fallback Rescued Messages -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs relative overflow-hidden group hover:shadow-md transition-all">
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-route"></i>
+                            </div>
+                            <span class="text-[11px] font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-full">Cascade</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Fallback Rescued</p>
+                        <h3 class="text-2xl lg:text-3xl font-bold text-slate-900" id="statRescued">48,390</h3>
+                        <p class="text-xs text-slate-500 font-medium mt-1">Converted via Cascade</p>
+                    </div>
+                </div>
+
+                <!-- API Response Latency -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-2xs relative overflow-hidden group hover:shadow-md transition-all">
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-gauge-high"></i>
+                            </div>
+                            <span class="text-[11px] font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded-full">Optimal</span>
+                        </div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Avg API Latency</p>
+                        <h3 class="text-2xl lg:text-3xl font-bold text-slate-900" id="statLatency">42 ms</h3>
+                        <p class="text-xs text-teal-600 font-medium mt-1"><i class="fa-solid fa-bolt mr-1"></i> Direct Telecom Pipe</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Two Column Chart & Pie Chart Distribution Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- Left: Omnichannel Traffic Pie Chart Visual (Replaces bar chart) -->
+                <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 lg:p-7 shadow-sm flex flex-col justify-between">
+                    <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-4 mb-6">
+                        <div>
+                            <h3 class="text-lg font-black text-slate-900" id="chartMainHeader">Channel Share & Distribution (Pie Chart)</h3>
+                            <p class="text-xs text-slate-400 font-medium mt-0.5" id="chartSubHeader">Live message volume breakdown by channel based on selected date range</p>
+                        </div>
+                        <div class="flex items-center gap-2 flex-wrap" id="pieBadgeGroup">
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-lg">
+                                <span class="w-2.5 h-2.5 rounded-full bg-purple-600"></span> RCS (<span id="badgeRCS">44%</span>)
+                            </span>
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg">
+                                <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> SMS (<span id="badgeSMS">32%</span>)
+                            </span>
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg">
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> WhatsApp (<span id="badgeWA">16%</span>)
+                            </span>
+                            <span class="inline-flex items-center gap-1 text-xs font-bold text-orange-600 bg-orange-50 px-2.5 py-1 rounded-lg">
+                                <span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span> Voice/OBD (<span id="badgeOBD">8%</span>)
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Clean Pie Chart Graphic & Dynamic Legend -->
+                    <div class="flex flex-col md:flex-row items-center justify-around gap-6 my-4 py-4">
+                        
+                        <!-- Donut / Pie Chart SVG Container -->
+                        <div class="relative w-56 h-56 flex items-center justify-center shrink-0">
+                            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                <!-- Background Circle -->
+                                <circle cx="18" cy="18" r="15.91549430918954" fill="transparent" stroke="#f1f5f9" stroke-width="4"></circle>
+                                
+                                <!-- Segment 1: RCS (Purple) -->
+                                <circle id="pieSegmentRCS" cx="18" cy="18" r="15.91549430918954" fill="transparent" 
+                                    stroke="#8b5cf6" stroke-width="4.5" 
+                                    stroke-dasharray="44 56" stroke-dashoffset="0" class="transition-all duration-700 ease-out"></circle>
+                                
+                                <!-- Segment 2: SMS (Blue) -->
+                                <circle id="pieSegmentSMS" cx="18" cy="18" r="15.91549430918954" fill="transparent" 
+                                    stroke="#3b82f6" stroke-width="4.5" 
+                                    stroke-dasharray="32 68" stroke-dashoffset="-44" class="transition-all duration-700 ease-out"></circle>
+
+                                <!-- Segment 3: WhatsApp (Emerald) -->
+                                <circle id="pieSegmentWA" cx="18" cy="18" r="15.91549430918954" fill="transparent" 
+                                    stroke="#10b981" stroke-width="4.5" 
+                                    stroke-dasharray="16 84" stroke-dashoffset="-76" class="transition-all duration-700 ease-out"></circle>
+
+                                <!-- Segment 4: OBD/Voice (Orange) -->
+                                <circle id="pieSegmentOBD" cx="18" cy="18" r="15.91549430918954" fill="transparent" 
+                                    stroke="#f97316" stroke-width="4.5" 
+                                    stroke-dasharray="8 92" stroke-dashoffset="-92" class="transition-all duration-700 ease-out"></circle>
+                            </svg>
+
+                            <!-- Center Pie Label -->
+                            <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                                <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Total Volume</span>
+                                <span class="text-xl font-black text-slate-900 leading-tight" id="pieCenterTotal">2.84M</span>
+                                <span class="text-[10px] font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full mt-0.5" id="pieCenterLabel">All Channels</span>
+                            </div>
+                        </div>
+
+                        <!-- Pie Chart Breakdowns Legend -->
+                        <div class="flex-1 space-y-3 w-full max-w-xs">
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-purple-50/60 border border-purple-100">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-3 h-3 rounded-full bg-purple-600"></span>
+                                    <span class="text-xs font-bold text-slate-800">RCS Messaging</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-xs font-black text-purple-700" id="legendRCSVal">1,245,000</span>
+                                    <span class="text-[10px] font-bold text-slate-500 ml-1" id="legendRCSPct">(44%)</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-blue-50/60 border border-blue-100">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                                    <span class="text-xs font-bold text-slate-800">DLT SMS</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-xs font-black text-blue-700" id="legendSMSVal">920,400</span>
+                                    <span class="text-[10px] font-bold text-slate-500 ml-1" id="legendSMSPct">(32%)</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-emerald-50/60 border border-emerald-100">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                                    <span class="text-xs font-bold text-slate-800">WhatsApp API</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-xs font-black text-emerald-700" id="legendWAVal">460,000</span>
+                                    <span class="text-[10px] font-bold text-slate-500 ml-1" id="legendWAPct">(16%)</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-orange-50/60 border border-orange-100">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="w-3 h-3 rounded-full bg-orange-500"></span>
+                                    <span class="text-xs font-bold text-slate-800">OBD / IVR Voice</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-xs font-black text-orange-700" id="legendOBDVal">219,810</span>
+                                    <span class="text-[10px] font-bold text-slate-500 ml-1" id="legendOBDPct">(8%)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap items-center justify-between text-xs text-slate-500 pt-4 border-t border-slate-100">
+                        <div class="flex items-center gap-6">
+                            <span><strong class="text-slate-800">Peak TPS:</strong> 1,420 msgs/sec</span>
+                            <span><strong class="text-slate-800">Direct Carrier DLR:</strong> 99.8%</span>
+                        </div>
+                        <a href="reports.html" class="text-purple-600 hover:text-purple-700 font-bold flex items-center gap-1">
+                            Detailed Analytics Breakdown <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Omnichannel Channel Distribution Summary -->
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 lg:p-7 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <div>
+                                <h3 class="text-lg font-black text-slate-900">Delivery Status</h3>
+                                <p class="text-xs text-slate-400 font-medium">Outcome breakdown for selected period</p>
+                            </div>
+                            <span class="text-xs font-bold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg" id="deliveryPeriodTag">Today</span>
+                        </div>
+
+                        <div class="space-y-5">
+                            <!-- Delivered -->
+                            <div>
+                                <div class="flex justify-between items-center mb-1.5">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded-md bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs">
+                                            <i class="fa-solid fa-circle-check"></i>
+                                        </div>
+                                        <span class="text-xs font-bold text-slate-800">Delivered</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-xs font-black text-emerald-700" id="delivVal">2,828,705</span>
+                                        <span class="text-[10px] text-slate-400 font-bold ml-1" id="delivPct">(99.4%)</span>
+                                    </div>
+                                </div>
+                                <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                                    <div class="h-full bg-emerald-500 rounded-full" style="width: 99.4%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Failed / Undelivered -->
+                            <div>
+                                <div class="flex justify-between items-center mb-1.5">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded-md bg-rose-100 text-rose-600 flex items-center justify-center text-xs">
+                                            <i class="fa-solid fa-circle-xmark"></i>
+                                        </div>
+                                        <span class="text-xs font-bold text-slate-800">Failed / Undelivered</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-xs font-black text-rose-700" id="failedVal">11,505</span>
+                                        <span class="text-[10px] text-slate-400 font-bold ml-1" id="failedPct">(0.4%)</span>
+                                    </div>
+                                </div>
+                                <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                                    <div class="h-full bg-rose-500 rounded-full" style="width: 15%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Pending / Queued -->
+                            <div>
+                                <div class="flex justify-between items-center mb-1.5">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded-md bg-amber-100 text-amber-600 flex items-center justify-center text-xs">
+                                            <i class="fa-solid fa-clock"></i>
+                                        </div>
+                                        <span class="text-xs font-bold text-slate-800">Pending / In-Transit</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-xs font-black text-amber-700" id="pendingVal">5,000</span>
+                                        <span class="text-[10px] text-slate-400 font-bold ml-1" id="pendingPct">(0.2%)</span>
+                                    </div>
+                                </div>
+                                <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                                    <div class="h-full bg-amber-500 rounded-full" style="width: 10%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 border-t border-slate-100 mt-6 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span class="text-xs font-bold text-slate-700">Operators Active</span>
+                        </div>
+                        <a href="api-integration.html" class="text-xs font-bold text-indigo-600 hover:text-indigo-700">API Live Logs</a>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </main>
+
+    <script>
+        function toggleSubmenu(event, submenuId, iconId) {
+            event.preventDefault();
+            const submenu = document.getElementById(submenuId);
+            const icon = document.getElementById(iconId);
+            if (submenu) {
+                if (submenu.classList.contains('hidden')) {
+                    submenu.classList.remove('hidden');
+                    if(icon) icon.style.transform = 'rotate(180deg)';
+                } else {
+                    submenu.classList.add('hidden');
+                    if(icon) icon.style.transform = 'rotate(0deg)';
+                }
+            }
+        }
+
+        // Product & Date Range Dynamic Dashboard & Pie Chart Data Map
+        const dashboardDataset = {
+            all: {
+                today: { 
+                    title: 'Overall Products Dashboard (Today)', sent: '2,845,210', delivered: '2,828,705', read: '1,940,110', rescued: '48,390', latency: '42 ms', sub: 'Across 4 active channels',
+                    pieTotal: '2.84M',
+                    rcs: { val: '1,245,000', pct: 44 },
+                    sms: { val: '920,400', pct: 32 },
+                    wa: { val: '460,000', pct: 16 },
+                    obd: { val: '219,810', pct: 8 }
+                },
+                yesterday: { 
+                    title: 'Overall Products Dashboard (Yesterday)', sent: '2,610,400', delivered: '2,592,100', read: '1,780,200', rescued: '42,100', latency: '45 ms', sub: 'Across 4 active channels',
+                    pieTotal: '2.61M',
+                    rcs: { val: '1,150,000', pct: 44 },
+                    sms: { val: '835,000', pct: 32 },
+                    wa: { val: '417,000', pct: 16 },
+                    obd: { val: '208,400', pct: 8 }
+                },
+                '7days': { 
+                    title: 'Overall Products Dashboard (Last 7 Days)', sent: '18,450,900', delivered: '18,320,400', read: '12,950,000', rescued: '310,500', latency: '41 ms', sub: 'Across 4 active channels',
+                    pieTotal: '18.4M',
+                    rcs: { val: '7,933,000', pct: 43 },
+                    sms: { val: '6,457,000', pct: 35 },
+                    wa: { val: '2,767,000', pct: 15 },
+                    obd: { val: '1,293,000', pct: 7 }
+                },
+                '30days': { 
+                    title: 'Overall Products Dashboard (Last 30 Days)', sent: '74,200,000', delivered: '73,810,000', read: '51,400,000', rescued: '1,240,000', latency: '40 ms', sub: 'Across 4 active channels',
+                    pieTotal: '74.2M',
+                    rcs: { val: '33,390,000', pct: 45 },
+                    sms: { val: '22,260,000', pct: 30 },
+                    wa: { val: '12,614,000', pct: 17 },
+                    obd: { val: '5,936,000', pct: 8 }
+                },
+                month: { 
+                    title: 'Overall Products Dashboard (This Month)', sent: '52,100,000', delivered: '51,800,000', read: '36,200,000', rescued: '890,000', latency: '43 ms', sub: 'Across 4 active channels',
+                    pieTotal: '52.1M',
+                    rcs: { val: '22,924,000', pct: 44 },
+                    sms: { val: '16,672,000', pct: 32 },
+                    wa: { val: '8,336,000', pct: 16 },
+                    obd: { val: '4,168,000', pct: 8 }
+                }
+            },
+            sms: {
+                today: { title: 'DLT SMS Performance Dashboard', sent: '920,400', delivered: '918,500', read: '— (DLT SMS)', rescued: '12,400', latency: '35 ms', sub: 'Single Product: DLT SMS', pieTotal: '920K', rcs: { val: '0', pct: 0 }, sms: { val: '920,400', pct: 100 }, wa: { val: '0', pct: 0 }, obd: { val: '0', pct: 0 } },
+                yesterday: { title: 'DLT SMS Performance Dashboard', sent: '890,100', delivered: '888,200', read: '— (DLT SMS)', rescued: '10,900', latency: '38 ms', sub: 'Single Product: DLT SMS', pieTotal: '890K', rcs: { val: '0', pct: 0 }, sms: { val: '890,100', pct: 100 }, wa: { val: '0', pct: 0 }, obd: { val: '0', pct: 0 } },
+                '7days': { title: 'DLT SMS Performance Dashboard', sent: '6,410,000', delivered: '6,390,000', read: '— (DLT SMS)', rescued: '85,000', latency: '34 ms', sub: 'Single Product: DLT SMS', pieTotal: '6.41M', rcs: { val: '0', pct: 0 }, sms: { val: '6,410,000', pct: 100 }, wa: { val: '0', pct: 0 }, obd: { val: '0', pct: 0 } },
+                '30days': { title: 'DLT SMS Performance Dashboard', sent: '25,800,000', delivered: '25,710,000', read: '— (DLT SMS)', rescued: '340,000', latency: '36 ms', sub: 'Single Product: DLT SMS', pieTotal: '25.8M', rcs: { val: '0', pct: 0 }, sms: { val: '25,800,000', pct: 100 }, wa: { val: '0', pct: 0 }, obd: { val: '0', pct: 0 } },
+                month: { title: 'DLT SMS Performance Dashboard', sent: '18,200,000', delivered: '18,130,000', read: '— (DLT SMS)', rescued: '240,000', latency: '37 ms', sub: 'Single Product: DLT SMS', pieTotal: '18.2M', rcs: { val: '0', pct: 0 }, sms: { val: '18,200,000', pct: 100 }, wa: { val: '0', pct: 0 }, obd: { val: '0', pct: 0 } }
+            },
+            rcs: {
+                today: { title: 'RCS Business Messaging Dashboard', sent: '1,245,000', delivered: '1,238,000', read: '980,400', rescued: '22,100', latency: '48 ms', sub: 'Single Product: RCS Rich Cards', pieTotal: '1.24M', rcs: { val: '1,245,000', pct: 100 }, sms: { val: '0', pct: 0 }, wa: { val: '0', pct: 0 }, obd: { val: '0', pct: 0 } },
+                yesterday: { title: 'RCS Business Messaging Dashboard', sent: '1,120,000', delivered: '1,114,000', read: '875,000', rescued: '19,800', latency: '50 ms', sub: 'Single Product: RCS Rich Cards', pieTotal: '1.12M', rcs: { val: '1,120,000', pct: 100 }, sms: { val: '0', pct: 0 }, wa: { val: '0', pct: 0 }, obd: { val: '0', pct: 0 } },
+                '7days': { title: 'RCS Business Messaging Dashboard', sent: '7,980,000', delivered: '7,935,000', read: '6,240,000', rescued: '142,000', latency: '46 ms', sub: 'Single Product: RCS Rich Cards', pieTotal: '7.98M', rcs: { val: '7,980,000', pct: 100 }, sms: { val: '0', pct: 0 }, wa: { val: '0', pct: 0 }, obd: { val: '0', pct: 0 } },
+                '30days': { title: 'RCS Business Messaging Dashboard', sent: '31,500,000', delivered: '31,320,000', read: '24,800,000', rescued: '560,000', latency: '45 ms', sub: 'Single Product: RCS Rich Cards', pieTotal: '31.5M', rcs: { val: '31,500,000', pct: 100 }, sms: { val: '0', pct: 0 }, wa: { val: '0', pct: 0 }, obd: { val: '0', pct: 0 } },
+                month: { title: 'RCS Business Messaging Dashboard', sent: '22,400,000', delivered: '22,270,000', read: '17,600,000', rescued: '390,000', latency: '47 ms', sub: 'Single Product: RCS Rich Cards', pieTotal: '22.4M', rcs: { val: '22,400,000', pct: 100 }, sms: { val: '0', pct: 0 }, wa: { val: '0', pct: 0 }, obd: { val: '0', pct: 0 } }
+            },
+            whatsapp: {
+                today: { title: 'WhatsApp Business Cloud Dashboard', sent: '460,000', delivered: '457,400', read: '412,000', rescued: '9,800', latency: '40 ms', sub: 'Single Product: WhatsApp API', pieTotal: '460K', rcs: { val: '0', pct: 0 }, sms: { val: '0', pct: 0 }, wa: { val: '460,000', pct: 100 }, obd: { val: '0', pct: 0 } },
+                yesterday: { title: 'WhatsApp Business Cloud Dashboard', sent: '410,000', delivered: '407,500', read: '365,000', rescued: '8,400', latency: '42 ms', sub: 'Single Product: WhatsApp API', pieTotal: '410K', rcs: { val: '0', pct: 0 }, sms: { val: '0', pct: 0 }, wa: { val: '410,000', pct: 100 }, obd: { val: '0', pct: 0 } },
+                '7days': { title: 'WhatsApp Business Cloud Dashboard', sent: '2,950,000', delivered: '2,932,000', read: '2,620,000', rescued: '58,000', latency: '39 ms', sub: 'Single Product: WhatsApp API', pieTotal: '2.95M', rcs: { val: '0', pct: 0 }, sms: { val: '0', pct: 0 }, wa: { val: '2,950,000', pct: 100 }, obd: { val: '0', pct: 0 } },
+                '30days': { title: 'WhatsApp Business Cloud Dashboard', sent: '12,100,000', delivered: '12,020,000', read: '10,750,000', rescued: '235,000', latency: '38 ms', sub: 'Single Product: WhatsApp API', pieTotal: '12.1M', rcs: { val: '0', pct: 0 }, sms: { val: '0', pct: 0 }, wa: { val: '12,100,000', pct: 100 }, obd: { val: '0', pct: 0 } },
+                month: { title: 'WhatsApp Business Cloud Dashboard', sent: '8,600,000', delivered: '8,540,000', read: '7,630,000', rescued: '168,000', latency: '41 ms', sub: 'Single Product: WhatsApp API', pieTotal: '8.6M', rcs: { val: '0', pct: 0 }, sms: { val: '0', pct: 0 }, wa: { val: '8,600,000', pct: 100 }, obd: { val: '0', pct: 0 } }
+            },
+            obd: {
+                today: { title: 'OBD Voice & IVR Call Dashboard', sent: '219,810', delivered: '214,805', read: '147,710 (Call Connected)', rescued: '4,090', latency: '55 ms', sub: 'Single Product: Voice OBD', pieTotal: '219K', rcs: { val: '0', pct: 0 }, sms: { val: '0', pct: 0 }, wa: { val: '0', pct: 0 }, obd: { val: '219,810', pct: 100 } },
+                yesterday: { title: 'OBD Voice & IVR Call Dashboard', sent: '190,300', delivered: '185,900', read: '128,400 (Call Connected)', rescued: '3,000', latency: '58 ms', sub: 'Single Product: Voice OBD', pieTotal: '190K', rcs: { val: '0', pct: 0 }, sms: { val: '0', pct: 0 }, wa: { val: '0', pct: 0 }, obd: { val: '190,300', pct: 100 } },
+                '7days': { title: 'OBD Voice & IVR Call Dashboard', sent: '1,110,900', delivered: '1,085,400', read: '748,000 (Call Connected)', rescued: '25,500', latency: '54 ms', sub: 'Single Product: Voice OBD', pieTotal: '1.11M', rcs: { val: '0', pct: 0 }, sms: { val: '0', pct: 0 }, wa: { val: '0', pct: 0 }, obd: { val: '1,110,900', pct: 100 } },
+                '30days': { title: 'OBD Voice & IVR Call Dashboard', sent: '4,800,000', delivered: '4,690,000', read: '3,230,000 (Call Connected)', rescued: '105,000', latency: '52 ms', sub: 'Single Product: Voice OBD', pieTotal: '4.8M', rcs: { val: '0', pct: 0 }, sms: { val: '0', pct: 0 }, wa: { val: '0', pct: 0 }, obd: { val: '4,800,000', pct: 100 } },
+                month: { title: 'OBD Voice & IVR Call Dashboard', sent: '3,300,000', delivered: '3,220,000', read: '3,220,000 (Call Connected)', rescued: '72,000', latency: '56 ms', sub: 'Single Product: Voice OBD', pieTotal: '3.3M', rcs: { val: '0', pct: 0 }, sms: { val: '0', pct: 0 }, wa: { val: '0', pct: 0 }, obd: { val: '3,300,000', pct: 100 } }
+            }
+        };
+
+        function filterDashboardData() {
+            const prod = document.getElementById('productFilterSelect').value || 'all';
+            const range = document.getElementById('dateRangeSelect').value || 'today';
+
+            const data = (dashboardDataset[prod] && dashboardDataset[prod][range]) 
+                ? dashboardDataset[prod][range] 
+                : dashboardDataset.all.today;
+
+            // KPI Cards Update
+            document.getElementById('dashTitleText').innerText = data.title;
+            document.getElementById('statTotalSent').innerText = data.sent;
+            document.getElementById('statDelivered').innerText = data.delivered;
+            document.getElementById('statRead').innerText = data.read;
+            document.getElementById('statRescued').innerText = data.rescued;
+            document.getElementById('statLatency').innerText = data.latency;
+            document.getElementById('statSub1').innerText = data.sub;
+
+            // Update Pie Chart Center & Badges
+            document.getElementById('pieCenterTotal').innerText = data.pieTotal || data.sent;
+            document.getElementById('badgeRCS').innerText = data.rcs.pct + '%';
+            document.getElementById('badgeSMS').innerText = data.sms.pct + '%';
+            document.getElementById('badgeWA').innerText = data.wa.pct + '%';
+            document.getElementById('badgeOBD').innerText = data.obd.pct + '%';
+
+            // Legend values
+            document.getElementById('legendRCSVal').innerText = data.rcs.val;
+            document.getElementById('legendRCSPct').innerText = '(' + data.rcs.pct + '%)';
+
+            document.getElementById('legendSMSVal').innerText = data.sms.val;
+            document.getElementById('legendSMSPct').innerText = '(' + data.sms.pct + '%)';
+
+            document.getElementById('legendWAVal').innerText = data.wa.val;
+            document.getElementById('legendWAPct').innerText = '(' + data.wa.pct + '%)';
+
+            document.getElementById('legendOBDVal').innerText = data.obd.val;
+            document.getElementById('legendOBDPct').innerText = '(' + data.obd.pct + '%)';
+
+            // Delivery Status Card
+            document.getElementById('delivVal').innerText = data.delivered;
+
+            // SVG Pie Chart Stroke Offsets & Arrays calculation
+            const rcsP = data.rcs.pct;
+            const smsP = data.sms.pct;
+            const waP = data.wa.pct;
+            const obdP = data.obd.pct;
+
+            document.getElementById('pieSegmentRCS').setAttribute('stroke-dasharray', `${rcsP} ${100 - rcsP}`);
+            document.getElementById('pieSegmentRCS').setAttribute('stroke-dashoffset', '0');
+
+            document.getElementById('pieSegmentSMS').setAttribute('stroke-dasharray', `${smsP} ${100 - smsP}`);
+            document.getElementById('pieSegmentSMS').setAttribute('stroke-dashoffset', `-${rcsP}`);
+
+            document.getElementById('pieSegmentWA').setAttribute('stroke-dasharray', `${waP} ${100 - waP}`);
+            document.getElementById('pieSegmentWA').setAttribute('stroke-dashoffset', `-${rcsP + smsP}`);
+
+            document.getElementById('pieSegmentOBD').setAttribute('stroke-dasharray', `${obdP} ${100 - obdP}`);
+            document.getElementById('pieSegmentOBD').setAttribute('stroke-dashoffset', `-${rcsP + smsP + waP}`);
+        }
+    </script>
+</body>
+</html>

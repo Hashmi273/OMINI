@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RCS Groups & Audiences - ZION</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        zionBlue: '#0070f3',
+                        zionPurple: '#7c3aed',
+                        zionLightPurple: '#f5f3ff',
+                        zionDarkText: '#0f172a',
+                        zionGrayText: '#64748b',
+                        zionBorder: '#e2e8f0',
+                        zionBg: '#f8fafc',
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 10px -2px rgba(0, 0, 0, 0.02)',
+                        'premium-hover': '0 20px 40px -10px rgba(16, 185, 129, 0.15), 0 8px 16px -4px rgba(0, 0, 0, 0.04)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .sidebar-item { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .sidebar-item:hover, .sidebar-item.active { background-color: #f5f3ff; color: #7c3aed; font-weight: 600; }
+        .sidebar-item.active { border-right: 3px solid #7c3aed; }
+        
+        .input-custom {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 0.625rem 0.875rem;
+            font-size: 0.8125rem;
+            transition: all 0.2s;
+            width: 100%;
+        }
+        .input-custom:focus {
+            background-color: #ffffff;
+            border-color: #10b981;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+        }
+
+        .group-filter-btn.active {
+            background-color: #10b981;
+            color: #ffffff;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="text-slate-800 h-screen overflow-hidden flex">
+
+    <!-- Sidebar -->
+        <!-- Left Fixed Sidebar -->
+        <!-- Left Fixed Big-Icon Sidebar (Image 2 Style) -->
+        <!-- Left Fixed Sidebar with Channels & Dropdowns -->
+    <aside class="w-68 bg-white border-r border-slate-200 flex flex-col h-screen shrink-0 z-30 select-none shadow-sm">
+        
+        <!-- Big Enterprise CPaaS Brand Logo -->
+        <div class="h-20 flex items-center px-4 border-b border-slate-100 shrink-0 bg-white">
+            <a href="home.html" class="flex items-center gap-3 w-full group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-105 transition-transform shrink-0 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i class="fa-solid fa-cloud-bolt text-lg text-white"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xl font-black text-slate-900 tracking-tight leading-none">ZION</span>
+                        <span class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded-md tracking-wider shadow-sm uppercase">CPaaS</span>
+                    </div>
+                    <p class="text-[9.5px] text-slate-500 font-bold tracking-tight mt-1 truncate uppercase flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>
+                        Omnichannel Cloud
+                    </p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Vertical Menu Scrollable List -->
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1.5">
+            <!-- Home -->
+            <a href="home.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">Home</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Platform Overview</div>
+                </div>
+            </a>
+            
+            <!-- Dashboard -->
+            <a href="dashboard.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </div>
+                <div class="flex-1 min-w-0 flex items-center justify-between">
+                    <div>
+                        <div class="text-sm font-bold text-slate-800 leading-tight">Dashboard</div>
+                        <div class="text-[10px] text-slate-400 font-medium">Live Analytics</div>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">LIVE</span>
+                </div>
+            </a>
+
+            <!-- SMS Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all" onclick="toggleSubmenu(event, 'sms-submenu', 'sms-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-comment-dots"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">SMS</div>
+                            <div class="text-[10px] text-slate-400 font-medium">Transactional &amp; Promo</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200" id="sms-icon" ></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-blue-200 pl-3 overflow-hidden hidden" id="sms-submenu">
+                    <a href="send-sms.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Send SMS</a>
+                    <a href="reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Reports</a>
+                    <a href="groups.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Contacts / Groups</a>
+                    <a href="dlt-dashboard.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">DLT / Compliance</a>
+                    <a href="#" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Blacklist / Whitelist</a>
+                </div>
+            </div>
+
+            <!-- RCS Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-purple-700 bg-purple-50/70 border border-purple-100/80 transition-all" onclick="toggleSubmenu(event, 'rcs-submenu', 'rcs-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-comment-sms"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-purple-800 leading-tight">RCS</div>
+                            <div class="text-[10px] text-purple-500 font-medium">Rich Business Messaging</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-purple-400 transition-transform duration-200" id="rcs-icon" style="transform: rotate(180deg);"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-purple-200 pl-3 overflow-hidden " id="rcs-submenu">
+                    <a href="rcs-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Campaign</a>
+                    <a href="rcs-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Report</a>
+                    <a href="rcs-configuration.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Configuration</a>
+                    <a href="rcs-chatbot.html" class="sidebar-item flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">
+                        <span>Chat Bot</span>
+                        <span class="bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded">AI</span>
+                    </a>
+                </div>
+            </div>
+
+                        <!-- WhatsApp Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 transition-all" onclick="toggleSubmenu(event, 'wa-submenu', 'wa-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">WhatsApp</div>
+                            <div class="text-[10px] text-emerald-600 font-medium">Cloud API Official</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-emerald-400 transition-transform duration-200" id="wa-icon"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-emerald-200 pl-3 overflow-hidden hidden" id="wa-submenu">
+                    <a href="whatsapp-config.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Config</a>
+                    <a href="whatsapp-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Campaign</a>
+                    <a href="whatsapp-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Report</a>
+                    <a href="whatsapp-agents.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Agent</a>
+                    <a href="whatsapp-automation.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Automation</a>
+                </div>
+            </div>
+            
+            <!-- OBD Voice -->
+            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">OBD (Voice)</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Outbound Audio &amp; TTS</div>
+                </div>
+            </a>
+
+            <!-- IVR -->
+            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">IVR</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Smart Voice Tree</div>
+                </div>
+            </a>
+
+            <!-- Dedicated Credit & Wallet Ledger Menu Item -->
+            <div class="pt-1">
+                <a href="credit-report.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50/70 hover:text-emerald-700 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">Credits &amp; Wallet</div>
+                            <div class="text-[10px] text-emerald-600 font-semibold">INR Recharge &amp; Deduct</div>
+                        </div>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">₹ WALLET</span>
+                </a>
+            </div>
+
+            <!-- Dedicated API & Integration Menu Item -->
+            <div class="pt-1">
+                <a href="api-integration.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-indigo-50/70 hover:text-indigo-700 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-code text-xl"></i>
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">API &amp; Integration</div>
+                            <div class="text-[10px] text-indigo-500 font-semibold">Universal REST Hub</div>
+                        </div>
+                    </div>
+                    <span class="bg-indigo-100 text-indigo-700 text-[8px] font-black px-1.5 py-0.5 rounded">REST</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Bottom User Profile -->
+        <div class="border-t border-slate-100 p-4 shrink-0 bg-slate-50/60">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white text-sm font-black shadow-md shadow-purple-200 shrink-0">P</div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-bold text-slate-800 truncate leading-tight">Parvez</p>
+                    <p class="text-[11px] text-slate-400 font-medium truncate">Enterprise Admin</p>
+                </div>
+                <button class="text-slate-400 hover:text-red-500 transition-colors p-1.5 rounded-lg hover:bg-red-50">
+                    <i class="fa-solid fa-right-from-bracket text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#f4f7fb]">
+        <!-- Header -->
+        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 shrink-0 z-10">
+            <!-- Left Back Button & Search -->
+            <div class="flex items-center gap-3">
+                <a href="rcs-configuration.html" class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-black shadow-xs transition-all shrink-0">
+                    <i class="fa-solid fa-arrow-left text-xs"></i>
+                    <span>Back to Configuration</span>
+                </a>
+                <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
+                <!-- Search -->
+                <div class="relative w-72 sm:w-96">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-search text-slate-400 text-sm"></i>
+                    </div>
+                    <input type="text" id="groupSearchInput" oninput="searchGroups()" placeholder="Search contact groups, tags, or IDs..."
+                        class="block w-full pl-10 pr-4 py-2 border border-slate-200 rounded-xl text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 bg-slate-50/50">
+                </div>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center gap-3 bg-white border border-slate-200 px-3.5 py-1.5 rounded-xl shadow-sm hover:border-emerald-300 transition-all cursor-pointer">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-inner">
+                        <i class="fa-solid fa-wallet text-xs"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-0.5">INR Wallet Balance</p>
+                        <p class="text-xs font-black text-slate-900 leading-none">₹48,500.00 <span class="text-[10px] text-slate-400 font-medium">(12,450 Cr)</span></p>
+                    </div>
+                </div>
+
+                <button class="w-9 h-9 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:text-slate-800 hover:border-slate-300 transition-all relative">
+                    <i class="fa-regular fa-bell text-sm"></i>
+                    <span class="absolute top-1.5 right-1.5 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+                </button>
+                <button class="w-9 h-9 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:text-slate-800 hover:border-slate-300 transition-all">
+                    <i class="fa-regular fa-circle-question text-sm"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Scrollable Content Area -->
+        <div class="flex-1 overflow-y-auto p-6 lg:p-8">
+            <div class="max-w-[1400px] mx-auto space-y-7">
+
+                <!-- Page Header (Home-style Banner Card) -->
+                <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-800 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                    <div class="absolute -right-10 -top-24 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="absolute -left-10 -bottom-24 w-48 h-48 bg-emerald-400/20 rounded-full blur-2xl pointer-events-none"></div>
+                    
+                    <div class="relative z-10 max-w-xl">
+                        <div class="flex items-center text-xs text-emerald-200 mb-2 space-x-2 font-medium">
+                            <a href="rcs-configuration.html" class="hover:text-white transition-colors flex items-center gap-1.5 bg-white/15 hover:bg-white/25 px-2.5 py-1 rounded-lg border border-white/20">
+                                <i class="fa-solid fa-arrow-left text-[10px]"></i> RCS Configuration Hub
+                            </a>
+                            <i class="fa-solid fa-chevron-right text-[8px] text-emerald-300"></i>
+                            <span class="text-white font-bold bg-white/10 px-2 py-0.5 rounded-full">RCS Group Management</span>
+                        </div>
+                        <h1 class="text-3xl font-black tracking-tight text-white flex items-center gap-3">
+                            <span>RCS Groups & Audience Hub</span>
+                            <span class="text-xs font-bold bg-emerald-400/20 text-emerald-200 border border-emerald-400/30 px-2.5 py-1 rounded-full">Auto Handset Check</span>
+                        </h1>
+                        <p class="text-sm text-emerald-100 mt-2 leading-relaxed">Create contact segments, upload CSV/Excel lists, auto-detect Google RCS handset capabilities, edit details, and manage audience databases.</p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="relative z-10 flex flex-wrap items-center gap-3 shrink-0">
+                        <a href="rcs-configuration.html" class="bg-white/20 hover:bg-white/30 border border-white/40 text-white text-xs font-black px-4 py-3 rounded-2xl flex items-center gap-2 shadow-sm transition-all">
+                            <i class="fa-solid fa-arrow-left text-xs"></i>
+                            <span>Back to Config Hub</span>
+                        </a>
+                        <button onclick="openCreateGroupModal()" class="bg-white hover:bg-emerald-50 text-emerald-700 text-xs font-black px-5 py-3 rounded-2xl flex items-center gap-2 shadow-lg shadow-black/10 transition-all transform hover:-translate-y-0.5">
+                            <i class="fa-solid fa-plus text-xs"></i>
+                            <span>+ Add Group</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Group Filter & Overview Bar -->
+                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto text-xs">
+                        <button onclick="filterGroups('all')" id="grp-tab-all" class="group-filter-btn active px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2">
+                            <span>All Groups</span>
+                            <span class="bg-white/20 px-2 py-0.5 rounded-full text-[10px]" id="totalGroupsCount">3</span>
+                        </button>
+                        <button onclick="filterGroups('high_capability')" id="grp-tab-high_capability" class="group-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            <span>High RCS Enabled (>85%)</span>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-3 text-xs text-slate-500 font-medium shrink-0">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-mobile-screen text-emerald-600"></i> Auto Capability Engine: <b>Active</b></span>
+                        <span class="text-slate-300">|</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-shield-check text-blue-600"></i> Duplicate Scrubbing: <b>ON</b></span>
+                    </div>
+                </div>
+
+                <!-- Groups Cards / Table Container -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="groupsContainer">
+                    <!-- Rendered Dynamically via JavaScript -->
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ================= ULTRA PREMIUM MODAL: CREATE / EDIT RCS GROUP ================= -->
+    <div id="modal-group-form" class="fixed inset-0 bg-slate-950/75 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 hidden">
+        <div class="bg-white rounded-[2.5rem] max-w-2xl w-full max-h-[96vh] flex flex-col shadow-2xl relative border border-slate-100 overflow-hidden">
+            
+            <!-- Modal Header -->
+            <div class="px-8 py-5 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-800 text-white flex items-center justify-between shrink-0 relative overflow-hidden">
+                <div class="absolute -right-8 -top-12 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="relative z-10 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-md border border-white/25 flex items-center justify-center text-white text-xl shadow-inner">
+                        <i id="groupModalIcon" class="fa-solid fa-users"></i>
+                    </div>
+                    <div>
+                        <h2 id="groupModalTitle" class="text-xl font-black tracking-tight text-white">Add New Contact Group</h2>
+                        <p id="groupModalSubtitle" class="text-xs text-emerald-200 mt-0.5">Upload contact file & configure audience segmentation</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-group-form')" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content (Form Fields + CSV Dropzone) -->
+            <div class="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6 bg-[#f8fafc]">
+                
+                <!-- Hidden Input for Editing -->
+                <input type="hidden" id="editGroupId" value="">
+
+                <!-- Group Details Card -->
+                <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-premium space-y-4">
+                    <h3 class="text-sm font-extrabold text-slate-900 border-b border-slate-100 pb-2.5">Group Information</h3>
+                    
+                    <div class="space-y-4 text-xs">
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1.5">Group Name <span class="text-emerald-600">*</span></label>
+                            <input type="text" id="inputGroupName" placeholder="e.g. Diwali_VIP_Customers" class="input-custom font-semibold text-slate-900">
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1.5">Group Description</label>
+                            <textarea id="inputGroupDesc" rows="2" placeholder="Describe the target audience segment..." class="input-custom font-medium leading-relaxed">Verified opted-in customers for promotional RCS campaigns.</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CSV / Excel File Upload Dropzone -->
+                <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-premium space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                        <div>
+                            <h3 class="text-sm font-extrabold text-slate-900">Upload Contacts File</h3>
+                            <p class="text-[11px] text-slate-400">Supported formats: CSV, XLSX, TXT (Max 50,000 numbers)</p>
+                        </div>
+                        <a href="#" onclick="downloadSampleCSV(event)" class="text-[11px] font-bold text-emerald-600 hover:text-emerald-800 flex items-center gap-1">
+                            <i class="fa-solid fa-download text-[10px]"></i> Sample CSV
+                        </a>
+                    </div>
+
+                    <!-- Dropzone -->
+                    <div class="border-2 border-dashed border-slate-200 hover:border-emerald-500 rounded-2xl p-6 text-center transition-all bg-slate-50/60 flex flex-col items-center justify-center">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-2 shadow-xs">
+                            <i class="fa-solid fa-file-csv"></i>
+                        </div>
+                        <label class="block font-bold text-slate-800 text-xs mb-1" id="fileUploadStatusText">Select CSV / Excel File</label>
+                        <p class="text-[11px] text-slate-400 mb-3">Columns: Phone Number (with +91), Customer Name, Custom Variables</p>
+                        
+                        <input type="file" id="groupFileInput" onchange="handleGroupFileSelect(this)" accept=".csv,.xlsx,.xls,.txt" class="text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-emerald-600 file:text-white hover:file:bg-emerald-700 cursor-pointer">
+                    </div>
+
+                    <!-- Capability Auto-Check Banner -->
+                    <div class="p-3 bg-emerald-50/70 border border-emerald-200 rounded-2xl flex items-center gap-3 text-xs">
+                        <i class="fa-solid fa-wand-magic-sparkles text-emerald-600 text-base shrink-0"></i>
+                        <p class="text-slate-700 text-[11px] leading-snug">
+                            <b>Auto RCS Handset Check:</b> Uploaded contacts will be automatically verified against Google RBM carrier directory for active RCS capability.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-8 py-4 border-t border-slate-200 bg-white/95 backdrop-blur-md flex items-center justify-between shrink-0 shadow-lg">
+                <span class="text-xs text-slate-400">Duplicate numbers scrubbed automatically</span>
+                <div class="flex items-center gap-3">
+                    <button onclick="closeModal('modal-group-form')" class="px-5 py-2.5 border border-slate-200 text-slate-600 rounded-xl font-bold text-xs hover:bg-slate-50 transition-colors">
+                        Cancel
+                    </button>
+                    <button onclick="saveGroupForm()" id="btnSaveGroup" class="px-7 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl font-extrabold text-xs shadow-lg shadow-emerald-200 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-check text-xs"></i>
+                        <span id="btnSaveGroupText">Create & Save Group</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript Interactions & Database -->
+    <script>
+        // Groups Database State
+        let groupsDatabase = [
+            {
+                id: 1,
+                name: "Premium_VIP_Customers",
+                desc: "High-value enterprise customers and priority subscription holders.",
+                totalContacts: 25000,
+                rcsCapable: 23750,
+                rcsPercent: 95,
+                updatedAt: "19 Sep 2026",
+                fileName: "vip_contacts_sept.csv"
+            },
+            {
+                id: 2,
+                name: "North_Zone_Subscribers",
+                desc: "Retail consumers located in Delhi NCR, Punjab, and Uttar Pradesh.",
+                totalContacts: 45000,
+                rcsCapable: 38250,
+                rcsPercent: 85,
+                updatedAt: "18 Sep 2026",
+                fileName: "north_subscribers_full.csv"
+            },
+            {
+                id: 3,
+                name: "Diwali_Promotions_List",
+                desc: "Opted-in festive shopping audience for mega discount rich cards.",
+                totalContacts: 12400,
+                rcsCapable: 11160,
+                rcsPercent: 90,
+                updatedAt: "17 Sep 2026",
+                fileName: "diwali_leads_optin.csv"
+            }
+        ];
+
+        function toggleSubmenu(event, submenuId, iconId) {
+            event.preventDefault();
+            const submenu = document.getElementById(submenuId);
+            const icon = document.getElementById(iconId);
+            if (submenu.classList.contains('hidden')) {
+                submenu.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                submenu.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function renderGroupsList() {
+            const container = document.getElementById('groupsContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            document.getElementById('totalGroupsCount').innerText = groupsDatabase.length;
+
+            groupsDatabase.forEach(grp => {
+                const card = document.createElement('div');
+                card.className = 'group-card-item bg-white rounded-3xl p-6 border border-slate-200/90 shadow-premium hover:shadow-premium-hover transition-all flex flex-col justify-between group';
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start mb-3.5">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl shadow-xs shrink-0 group-hover:scale-105 transition-transform">
+                                    <i class="fa-solid fa-folder"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-extrabold text-base text-slate-900 group-name-text">${grp.name}</h3>
+                                    <p class="text-[11px] text-slate-400 font-medium">Updated: ${grp.updatedAt}</p>
+                                </div>
+                            </div>
+                            <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-extrabold px-2.5 py-1 rounded-full">
+                                ${grp.rcsPercent}% RCS Capable
+                            </span>
+                        </div>
+
+                        <p class="text-xs text-slate-600 mb-4 line-clamp-2 leading-relaxed bg-slate-50 p-3 rounded-xl border border-slate-100">
+                            ${grp.desc}
+                        </p>
+
+                        <!-- Stats Progress -->
+                        <div class="space-y-2 py-3 border-t border-b border-slate-100 text-xs">
+                            <div class="flex justify-between text-[11px]">
+                                <span class="text-slate-500 font-medium">RCS Handset Handshake:</span>
+                                <span class="font-bold text-slate-900 font-mono">${grp.rcsCapable.toLocaleString()} / ${grp.totalContacts.toLocaleString()}</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                <div class="bg-gradient-to-r from-emerald-500 to-teal-500 h-full rounded-full" style="width: ${grp.rcsPercent}%"></div>
+                            </div>
+                            <div class="flex justify-between text-[10px] text-slate-400 pt-0.5">
+                                <span class="truncate"><i class="fa-solid fa-paperclip mr-1"></i>${grp.fileName}</span>
+                                <span class="font-bold text-emerald-600">Verified OK</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex items-center justify-between pt-4 mt-2">
+                        <div class="flex items-center gap-2">
+                            <button onclick="editGroup(${grp.id})" class="text-slate-700 hover:text-emerald-700 text-xs font-bold flex items-center gap-1.5 bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-200 px-3.5 py-2 rounded-xl transition-colors">
+                                <i class="fa-solid fa-pen-to-square text-[11px] text-emerald-600"></i>
+                                <span>Edit</span>
+                            </button>
+                            <button onclick="exportGroupCSV('${grp.name}')" class="text-slate-600 hover:text-slate-900 text-xs font-bold flex items-center gap-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 px-3 py-2 rounded-xl transition-colors" title="Export CSV">
+                                <i class="fa-solid fa-download text-[11px]"></i>
+                                <span>Export</span>
+                            </button>
+                        </div>
+                        
+                        <button onclick="deleteGroup(${grp.id}, '${grp.name}')" class="text-slate-400 hover:text-red-600 p-2 rounded-xl hover:bg-red-50 transition-colors" title="Delete Group">
+                            <i class="fa-solid fa-trash-can text-sm"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function openCreateGroupModal() {
+            document.getElementById('editGroupId').value = '';
+            document.getElementById('groupModalTitle').innerText = 'Add New Contact Group';
+            document.getElementById('groupModalSubtitle').innerText = 'Upload contact file & configure audience segmentation';
+            document.getElementById('btnSaveGroupText').innerText = 'Create & Save Group';
+            document.getElementById('groupModalIcon').className = 'fa-solid fa-users';
+
+            // Reset inputs
+            document.getElementById('inputGroupName').value = '';
+            document.getElementById('inputGroupDesc').value = 'Target customer audience for automated RCS broadcast campaigns.';
+            document.getElementById('groupFileInput').value = '';
+            document.getElementById('fileUploadStatusText').innerText = 'Select CSV / Excel File';
+
+            openModal('modal-group-form');
+        }
+
+        function editGroup(groupId) {
+            const grp = groupsDatabase.find(g => g.id === groupId);
+            if (!grp) return;
+
+            document.getElementById('editGroupId').value = grp.id;
+            document.getElementById('groupModalTitle').innerText = `Edit Group: ${grp.name}`;
+            document.getElementById('groupModalSubtitle').innerText = 'Update group title, description, or upload fresh numbers';
+            document.getElementById('btnSaveGroupText').innerText = 'Save Changes';
+            document.getElementById('groupModalIcon').className = 'fa-solid fa-pen-to-square';
+
+            document.getElementById('inputGroupName').value = grp.name;
+            document.getElementById('inputGroupDesc').value = grp.desc;
+            document.getElementById('fileUploadStatusText').innerText = `Current File: ${grp.fileName}`;
+
+            openModal('modal-group-form');
+        }
+
+        function handleGroupFileSelect(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                document.getElementById('fileUploadStatusText').innerText = `Selected: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+            }
+        }
+
+        function saveGroupForm() {
+            const name = document.getElementById('inputGroupName').value.trim();
+            const desc = document.getElementById('inputGroupDesc').value.trim();
+            const editId = document.getElementById('editGroupId').value;
+
+            if (!name) {
+                alert('Please enter a Group Name.');
+                return;
+            }
+
+            if (editId) {
+                // Update Existing Group
+                const grp = groupsDatabase.find(g => g.id == editId);
+                if (grp) {
+                    grp.name = name;
+                    grp.desc = desc;
+                    grp.updatedAt = 'Just Now';
+                    alert(`Group "${name}" updated successfully!`);
+                }
+            } else {
+                // Create New Group
+                const randomTotal = Math.floor(10000 + Math.random() * 20000);
+                const randomCapable = Math.floor(randomTotal * 0.9);
+                const newGroup = {
+                    id: Date.now(),
+                    name: name,
+                    desc: desc,
+                    totalContacts: randomTotal,
+                    rcsCapable: randomCapable,
+                    rcsPercent: 90,
+                    updatedAt: 'Just Now',
+                    fileName: name.toLowerCase() + '_contacts.csv'
+                };
+                groupsDatabase.unshift(newGroup);
+                alert(`New Group "${name}" created and verified with ${randomCapable.toLocaleString()} active RCS handsets!`);
+            }
+
+            closeModal('modal-group-form');
+            renderGroupsList();
+        }
+
+        function deleteGroup(groupId, groupName) {
+            if (confirm(`Are you sure you want to delete group "${groupName}"? This action cannot be undone.`)) {
+                groupsDatabase = groupsDatabase.filter(g => g.id !== groupId);
+                renderGroupsList();
+                alert(`Group "${groupName}" has been deleted.`);
+            }
+        }
+
+        function exportGroupCSV(groupName) {
+            alert(`Exporting verified contacts for [${groupName}] in CSV format...\nDownload starting automatically.`);
+        }
+
+        function downloadSampleCSV(e) {
+            e.preventDefault();
+            const csvContent = "data:text/csv;charset=utf-8,Phone Number,Name,Amount,PromoCode\n+919876543210,Rahul Sharma,4500,DIWALI50\n+919811223344,Priya Patel,2500,FLASHSALE\n+918858674541,Amit Verma,12000,ZION2026";
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "rcs_contacts_sample.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function searchGroups() {
+            const query = document.getElementById('groupSearchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.group-card-item');
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        function filterGroups(filter) {
+            const btnAll = document.getElementById('grp-tab-all');
+            const btnHigh = document.getElementById('grp-tab-high_capability');
+
+            if (filter === 'all') {
+                btnAll.classList.add('active');
+                btnAll.classList.remove('bg-slate-100', 'text-slate-700');
+                btnHigh.classList.remove('active');
+                btnHigh.classList.add('bg-slate-100', 'text-slate-700');
+            } else {
+                btnHigh.classList.add('active');
+                btnHigh.classList.remove('bg-slate-100', 'text-slate-700');
+                btnAll.classList.remove('active');
+                btnAll.classList.add('bg-slate-100', 'text-slate-700');
+            }
+
+            const cards = document.querySelectorAll('.group-card-item');
+            cards.forEach(card => {
+                if (filter === 'all') {
+                    card.classList.remove('hidden');
+                } else {
+                    const text = card.innerText;
+                    if (text.includes('95%') || text.includes('90%') || text.includes('85%')) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderGroupsList();
+        });
+    </script>
+</body>
+</html>

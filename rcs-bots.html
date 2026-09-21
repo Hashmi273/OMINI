@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RCS Bots & Agents - ZION</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        zionBlue: '#0070f3',
+                        zionPurple: '#7c3aed',
+                        zionLightPurple: '#f5f3ff',
+                        zionDarkText: '#0f172a',
+                        zionGrayText: '#64748b',
+                        zionBorder: '#e2e8f0',
+                        zionBg: '#f8fafc',
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 10px -2px rgba(0, 0, 0, 0.02)',
+                        'premium-hover': '0 20px 40px -10px rgba(124, 58, 237, 0.15), 0 8px 16px -4px rgba(0, 0, 0, 0.04)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .sidebar-item { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .sidebar-item:hover, .sidebar-item.active { background-color: #f5f3ff; color: #7c3aed; font-weight: 600; }
+        .sidebar-item.active { border-right: 3px solid #7c3aed; }
+        
+        .input-custom {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 0.625rem 0.875rem;
+            font-size: 0.8125rem;
+            transition: all 0.2s;
+            width: 100%;
+        }
+        .input-custom:focus {
+            background-color: #ffffff;
+            border-color: #7c3aed;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+        }
+
+        .phone-mockup-wrap {
+            filter: drop-shadow(0 25px 35px rgba(15, 23, 42, 0.25));
+        }
+
+        .bot-filter-btn.active {
+            background-color: #7c3aed;
+            color: #ffffff;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="text-slate-800 h-screen overflow-hidden flex">
+
+    <!-- Sidebar -->
+        <!-- Left Fixed Sidebar -->
+        <!-- Left Fixed Big-Icon Sidebar (Image 2 Style) -->
+        <!-- Left Fixed Sidebar with Channels & Dropdowns -->
+    <aside class="w-68 bg-white border-r border-slate-200 flex flex-col h-screen shrink-0 z-30 select-none shadow-sm">
+        
+        <!-- Big Enterprise CPaaS Brand Logo -->
+        <div class="h-20 flex items-center px-4 border-b border-slate-100 shrink-0 bg-white">
+            <a href="home.html" class="flex items-center gap-3 w-full group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-105 transition-transform shrink-0 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i class="fa-solid fa-cloud-bolt text-lg text-white"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-1.5">
+                        <span class="text-xl font-black text-slate-900 tracking-tight leading-none">ZION</span>
+                        <span class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded-md tracking-wider shadow-sm uppercase">CPaaS</span>
+                    </div>
+                    <p class="text-[9.5px] text-slate-500 font-bold tracking-tight mt-1 truncate uppercase flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>
+                        Omnichannel Cloud
+                    </p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Vertical Menu Scrollable List -->
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1.5">
+            <!-- Home -->
+            <a href="home.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">Home</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Platform Overview</div>
+                </div>
+            </a>
+            
+            <!-- Dashboard -->
+            <a href="dashboard.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </div>
+                <div class="flex-1 min-w-0 flex items-center justify-between">
+                    <div>
+                        <div class="text-sm font-bold text-slate-800 leading-tight">Dashboard</div>
+                        <div class="text-[10px] text-slate-400 font-medium">Live Analytics</div>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">LIVE</span>
+                </div>
+            </a>
+
+            <!-- SMS Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all" onclick="toggleSubmenu(event, 'sms-submenu', 'sms-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-comment-dots"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">SMS</div>
+                            <div class="text-[10px] text-slate-400 font-medium">Transactional &amp; Promo</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200" id="sms-icon" ></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-blue-200 pl-3 overflow-hidden hidden" id="sms-submenu">
+                    <a href="send-sms.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Send SMS</a>
+                    <a href="reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Reports</a>
+                    <a href="groups.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Contacts / Groups</a>
+                    <a href="dlt-dashboard.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">DLT / Compliance</a>
+                    <a href="#" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Blacklist / Whitelist</a>
+                </div>
+            </div>
+
+            <!-- RCS Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-purple-700 bg-purple-50/70 border border-purple-100/80 transition-all" onclick="toggleSubmenu(event, 'rcs-submenu', 'rcs-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-comment-sms"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-purple-800 leading-tight">RCS</div>
+                            <div class="text-[10px] text-purple-500 font-medium">Rich Business Messaging</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-purple-400 transition-transform duration-200" id="rcs-icon" style="transform: rotate(180deg);"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-purple-200 pl-3 overflow-hidden " id="rcs-submenu">
+                    <a href="rcs-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Campaign</a>
+                    <a href="rcs-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Report</a>
+                    <a href="rcs-configuration.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Configuration</a>
+                    <a href="rcs-chatbot.html" class="sidebar-item flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">
+                        <span>Chat Bot</span>
+                        <span class="bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded">AI</span>
+                    </a>
+                </div>
+            </div>
+
+                        <!-- WhatsApp Section (With Dropdown) -->
+            <div class="pt-1">
+                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 transition-all" onclick="toggleSubmenu(event, 'wa-submenu', 'wa-icon')">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">WhatsApp</div>
+                            <div class="text-[10px] text-emerald-600 font-medium">Cloud API Official</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-down text-xs text-emerald-400 transition-transform duration-200" id="wa-icon"></i>
+                </a>
+                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-emerald-200 pl-3 overflow-hidden hidden" id="wa-submenu">
+                    <a href="whatsapp-config.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Config</a>
+                    <a href="whatsapp-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Campaign</a>
+                    <a href="whatsapp-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Report</a>
+                    <a href="whatsapp-agents.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Agent</a>
+                    <a href="whatsapp-automation.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Automation</a>
+                </div>
+            </div>
+            
+            <!-- OBD Voice -->
+            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">OBD (Voice)</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Outbound Audio &amp; TTS</div>
+                </div>
+            </a>
+
+            <!-- IVR -->
+            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center text-xl shadow-sm shrink-0">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-bold text-slate-800 leading-tight">IVR</div>
+                    <div class="text-[10px] text-slate-400 font-medium">Smart Voice Tree</div>
+                </div>
+            </a>
+
+            <!-- Dedicated Credit & Wallet Ledger Menu Item -->
+            <div class="pt-1">
+                <a href="credit-report.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50/70 hover:text-emerald-700 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">Credits &amp; Wallet</div>
+                            <div class="text-[10px] text-emerald-600 font-semibold">INR Recharge &amp; Deduct</div>
+                        </div>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">₹ WALLET</span>
+                </a>
+            </div>
+
+            <!-- Dedicated API & Integration Menu Item -->
+            <div class="pt-1">
+                <a href="api-integration.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-indigo-50/70 hover:text-indigo-700 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shadow-sm shrink-0">
+                            <i class="fa-solid fa-code text-xl"></i>
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <div class="text-sm font-bold text-slate-800 leading-tight">API &amp; Integration</div>
+                            <div class="text-[10px] text-indigo-500 font-semibold">Universal REST Hub</div>
+                        </div>
+                    </div>
+                    <span class="bg-indigo-100 text-indigo-700 text-[8px] font-black px-1.5 py-0.5 rounded">REST</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Bottom User Profile -->
+        <div class="border-t border-slate-100 p-4 shrink-0 bg-slate-50/60">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white text-sm font-black shadow-md shadow-purple-200 shrink-0">P</div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-bold text-slate-800 truncate leading-tight">Parvez</p>
+                    <p class="text-[11px] text-slate-400 font-medium truncate">Enterprise Admin</p>
+                </div>
+                <button class="text-slate-400 hover:text-red-500 transition-colors p-1.5 rounded-lg hover:bg-red-50">
+                    <i class="fa-solid fa-right-from-bracket text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#f4f7fb]">
+        <!-- Header -->
+        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 shrink-0 z-10">
+            <!-- Left Back Button & Search -->
+            <div class="flex items-center gap-3">
+                <a href="rcs-configuration.html" class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 text-xs font-black shadow-xs transition-all shrink-0">
+                    <i class="fa-solid fa-arrow-left text-xs"></i>
+                    <span>Back to Configuration</span>
+                </a>
+                <div class="h-6 w-px bg-slate-200 hidden sm:block"></div>
+                <!-- Search -->
+                <div class="relative w-72 sm:w-96">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-search text-slate-400 text-sm"></i>
+                    </div>
+                    <input type="text" id="botSearchInput" oninput="searchBots()" placeholder="Search bots by name, brand, or app ID..."
+                        class="block w-full pl-10 pr-4 py-2 border border-slate-200 rounded-xl text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 bg-slate-50/50">
+                </div>
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center gap-3 bg-white border border-slate-200 px-3.5 py-1.5 rounded-xl shadow-sm hover:border-emerald-300 transition-all cursor-pointer">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-inner">
+                        <i class="fa-solid fa-wallet text-xs"></i>
+                    </div>
+                    <div>
+                        <p class="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-0.5">INR Wallet Balance</p>
+                        <p class="text-xs font-black text-slate-900 leading-none">₹48,500.00 <span class="text-[10px] text-slate-400 font-medium">(12,450 Cr)</span></p>
+                    </div>
+                </div>
+
+                <button class="w-9 h-9 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:text-slate-800 hover:border-slate-300 transition-all relative">
+                    <i class="fa-regular fa-bell text-sm"></i>
+                    <span class="absolute top-1.5 right-1.5 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+                </button>
+                <button class="w-9 h-9 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:text-slate-800 hover:border-slate-300 transition-all">
+                    <i class="fa-regular fa-circle-question text-sm"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Scrollable Content Area -->
+        <div class="flex-1 overflow-y-auto p-6 lg:p-8">
+            <div class="max-w-[1400px] mx-auto space-y-7">
+
+                <!-- Page Header (Home-style Banner Card) -->
+                <div class="bg-gradient-to-r from-purple-700 via-indigo-700 to-purple-900 rounded-3xl p-8 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                    <div class="absolute -right-10 -top-24 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="absolute -left-10 -bottom-24 w-48 h-48 bg-purple-400/20 rounded-full blur-2xl pointer-events-none"></div>
+                    
+                    <div class="relative z-10 max-w-xl">
+                        <div class="flex items-center text-xs text-purple-200 mb-2 space-x-2 font-medium">
+                            <a href="rcs-configuration.html" class="hover:text-white transition-colors flex items-center gap-1.5 bg-white/15 hover:bg-white/25 px-2.5 py-1 rounded-lg border border-white/20">
+                                <i class="fa-solid fa-arrow-left text-[10px]"></i> RCS Configuration Hub
+                            </a>
+                            <i class="fa-solid fa-chevron-right text-[8px] text-purple-300"></i>
+                            <span class="text-white font-bold bg-white/10 px-2 py-0.5 rounded-full">RCS Bot Management</span>
+                        </div>
+                        <h1 class="text-3xl font-black tracking-tight text-white flex items-center gap-3">
+                            <span>RCS Bots & Verified Agents</span>
+                            <span class="text-xs font-bold bg-emerald-400/20 text-emerald-300 border border-emerald-400/30 px-2.5 py-1 rounded-full">Google RBM</span>
+                        </h1>
+                        <p class="text-sm text-purple-100 mt-2 leading-relaxed">Register new verified brand bots, edit endpoints, phone & brand assets, configure webhook callbacks, and track real-time Google approval lifecycles.</p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="relative z-10 flex flex-wrap items-center gap-3 shrink-0">
+                        <a href="rcs-configuration.html" class="bg-white/20 hover:bg-white/30 border border-white/40 text-white text-xs font-black px-4 py-3 rounded-2xl flex items-center gap-2 shadow-sm transition-all">
+                            <i class="fa-solid fa-arrow-left text-xs"></i>
+                            <span>Back to Config Hub</span>
+                        </a>
+                        <button onclick="openRegisterBotModal()" class="bg-white hover:bg-purple-50 text-purple-700 text-xs font-black px-5 py-3 rounded-2xl flex items-center gap-2 shadow-lg shadow-black/10 transition-all transform hover:-translate-y-0.5">
+                            <i class="fa-solid fa-plus text-xs"></i>
+                            <span>+ Register New Bot</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bot Filter & Overview Bar -->
+                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto text-xs">
+                        <button onclick="filterBotCards('all')" id="bot-tab-all" class="bot-filter-btn active px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2">
+                            <span>All Bots</span>
+                            <span class="bg-white/20 px-2 py-0.5 rounded-full text-[10px]">4</span>
+                        </button>
+                        <button onclick="filterBotCards('verified')" id="bot-tab-verified" class="bot-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            <span>Verified / Live</span>
+                            <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full text-[10px]">2</span>
+                        </button>
+                        <button onclick="filterBotCards('under_process')" id="bot-tab-under_process" class="bot-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                            <span>Under Process</span>
+                            <span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full text-[10px]">1</span>
+                        </button>
+                        <button onclick="filterBotCards('rejected')" id="bot-tab-rejected" class="bot-filter-btn bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                            <span>Action Required</span>
+                            <span class="bg-red-100 text-red-800 px-2 py-0.5 rounded-full text-[10px]">1</span>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-3 text-xs text-slate-500 font-medium shrink-0">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-bolt text-purple-600"></i> TPS Limit: <b>500 msg/sec</b></span>
+                        <span class="text-slate-300">|</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-server text-emerald-600"></i> Google Gateway: <b>Online</b></span>
+                    </div>
+                </div>
+
+                <!-- Bot Cards Grid (Home / Dashboard Premium Cards) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="botCardsContainer">
+                    
+                    <!-- Bot 1 (LIVE / VERIFIED) -->
+                    <div class="bot-card-item bot-state-verified bg-white rounded-3xl p-6 border border-slate-200/90 shadow-premium hover:shadow-premium-hover transition-all flex flex-col justify-between group">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="flex items-center gap-3.5">
+                                    <div class="w-13 h-13 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-700 text-white flex items-center justify-center font-black text-xl shadow-md shadow-purple-200 group-hover:scale-105 transition-transform">
+                                        Z
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center gap-2">
+                                            <h3 class="font-extrabold text-base text-slate-900 bot-name-text">Zion_Official_Bot</h3>
+                                            <i class="fa-solid fa-circle-check text-blue-500 text-sm" title="Google Verified Brand"></i>
+                                        </div>
+                                        <p class="text-xs text-slate-400 font-medium">Brand: <span class="text-slate-700 font-bold">ZION Tech Solutions</span></p>
+                                    </div>
+                                </div>
+                                <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-extrabold px-3 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Live & Verified
+                                </span>
+                            </div>
+
+                            <p class="text-xs text-slate-600 mb-4 line-clamp-2 leading-relaxed bg-slate-50 p-3 rounded-xl border border-slate-100">
+                                Official verified channel for ZION automated OTP delivery, transaction receipts, security alerts, and customer helpdesk.
+                            </p>
+
+                            <!-- Endpoints & Meta -->
+                            <div class="space-y-2 py-3 border-t border-b border-slate-100 text-xs">
+                                <div class="flex justify-between items-center text-slate-600">
+                                    <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-globe text-[11px] text-purple-600"></i> Website</span>
+                                    <a href="https://zion.com" target="_blank" class="font-bold text-purple-700 hover:underline">https://zion.com</a>
+                                </div>
+                                <div class="flex justify-between items-center text-slate-600">
+                                    <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-phone text-[11px] text-purple-600"></i> Helpline</span>
+                                    <span class="font-mono font-bold text-slate-800">+91 88586 74541</span>
+                                </div>
+                                <div class="flex justify-between items-center text-slate-600">
+                                    <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-envelope text-[11px] text-purple-600"></i> Email</span>
+                                    <span class="font-mono text-slate-800">support@zion.com</span>
+                                </div>
+                                <div class="flex justify-between items-center text-slate-600">
+                                    <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-palette text-[11px] text-purple-600"></i> Brand Color</span>
+                                    <div class="flex items-center gap-1.5 font-mono text-[11px] font-bold">
+                                        <span class="w-3.5 h-3.5 rounded-full border border-slate-300" style="background-color: #7c3aed;"></span>
+                                        #7c3aed
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-4 mt-2">
+                            <div class="flex items-center gap-2">
+                                <button onclick="testBotPing('Zion_Official_Bot')" class="text-purple-700 hover:text-purple-900 text-xs font-bold flex items-center gap-1.5 bg-purple-50 hover:bg-purple-100 border border-purple-200 px-3.5 py-2 rounded-xl transition-colors">
+                                    <i class="fa-solid fa-satellite-dish text-[11px]"></i>
+                                    <span>Ping Test</span>
+                                </button>
+                                <button onclick="openEditBotModal('zion_official')" class="text-slate-700 hover:text-purple-700 text-xs font-bold flex items-center gap-1.5 bg-slate-50 hover:bg-purple-50 border border-slate-200 hover:border-purple-200 px-3.5 py-2 rounded-xl transition-colors">
+                                    <i class="fa-solid fa-pen-to-square text-[11px] text-purple-600"></i>
+                                    <span>Edit Details</span>
+                                </button>
+                            </div>
+                            <span class="font-mono text-[10px] text-slate-400">TPS Limit: 250/s</span>
+                        </div>
+                    </div>
+
+                    <!-- Bot 2 (LIVE / VERIFIED) -->
+                    <div class="bot-card-item bot-state-verified bg-white rounded-3xl p-6 border border-slate-200/90 shadow-premium hover:shadow-premium-hover transition-all flex flex-col justify-between group">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="flex items-center gap-3.5">
+                                    <div class="w-13 h-13 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-600 text-white flex items-center justify-center font-black text-xl shadow-md shadow-blue-200 group-hover:scale-105 transition-transform">
+                                        Z
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center gap-2">
+                                            <h3 class="font-extrabold text-base text-slate-900 bot-name-text">Zion_Support_Desk</h3>
+                                            <i class="fa-solid fa-circle-check text-blue-500 text-sm" title="Google Verified Brand"></i>
+                                        </div>
+                                        <p class="text-xs text-slate-400 font-medium">Brand: <span class="text-slate-700 font-bold">ZION Customer Care</span></p>
+                                    </div>
+                                </div>
+                                <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-extrabold px-3 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Live & Verified
+                                </span>
+                            </div>
+
+                            <p class="text-xs text-slate-600 mb-4 line-clamp-2 leading-relaxed bg-slate-50 p-3 rounded-xl border border-slate-100">
+                                Dedicated interactive support agent with multi-card carousels, ticket resolution flows, and 24/7 automated agent callbacks.
+                            </p>
+
+                            <!-- Endpoints & Meta -->
+                            <div class="space-y-2 py-3 border-t border-b border-slate-100 text-xs">
+                                <div class="flex justify-between items-center text-slate-600">
+                                    <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-globe text-[11px] text-blue-600"></i> Website</span>
+                                    <a href="https://zion.com/support" target="_blank" class="font-bold text-blue-600 hover:underline">https://zion.com/support</a>
+                                </div>
+                                <div class="flex justify-between items-center text-slate-600">
+                                    <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-phone text-[11px] text-blue-600"></i> Helpline</span>
+                                    <span class="font-mono font-bold text-slate-800">+91 88586 74541</span>
+                                </div>
+                                <div class="flex justify-between items-center text-slate-600">
+                                    <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-envelope text-[11px] text-blue-600"></i> Email</span>
+                                    <span class="font-mono text-slate-800">care@zion.com</span>
+                                </div>
+                                <div class="flex justify-between items-center text-slate-600">
+                                    <span class="text-slate-400 flex items-center gap-1.5"><i class="fa-solid fa-palette text-[11px] text-blue-600"></i> Brand Color</span>
+                                    <div class="flex items-center gap-1.5 font-mono text-[11px] font-bold">
+                                        <span class="w-3.5 h-3.5 rounded-full border border-slate-300" style="background-color: #0284c7;"></span>
+                                        #0284c7
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-4 mt-2">
+                            <div class="flex items-center gap-2">
+                                <button onclick="testBotPing('Zion_Support_Desk')" class="text-blue-700 hover:text-blue-900 text-xs font-bold flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-3.5 py-2 rounded-xl transition-colors">
+                                    <i class="fa-solid fa-satellite-dish text-[11px]"></i>
+                                    <span>Ping Test</span>
+                                </button>
+                                <button onclick="openEditBotModal('zion_support')" class="text-slate-700 hover:text-blue-700 text-xs font-bold flex items-center gap-1.5 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-200 px-3.5 py-2 rounded-xl transition-colors">
+                                    <i class="fa-solid fa-pen-to-square text-[11px] text-blue-600"></i>
+                                    <span>Edit Details</span>
+                                </button>
+                            </div>
+                            <span class="font-mono text-[10px] text-slate-400">TPS Limit: 100/s</span>
+                        </div>
+                    </div>
+
+                    <!-- Bot 3 (UNDER PROCESS) -->
+                    <div class="bot-card-item bot-state-under_process bg-white rounded-3xl p-6 border-2 border-amber-200/80 shadow-premium hover:shadow-premium-hover transition-all flex flex-col justify-between group">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="flex items-center gap-3.5">
+                                    <div class="w-13 h-13 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-black text-xl shadow-md shadow-amber-200 group-hover:scale-105 transition-transform">
+                                        Z
+                                    </div>
+                                    <div>
+                                        <h3 class="font-extrabold text-base text-slate-900 bot-name-text">Zion_Retail_Bot</h3>
+                                        <p class="text-xs text-slate-400 font-medium">Applied on 18 Sep 2026</p>
+                                    </div>
+                                </div>
+                                <span class="bg-amber-50 border border-amber-300 text-amber-800 text-[10px] font-extrabold px-3 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
+                                    <i class="fa-solid fa-clock-rotate-left text-amber-600 animate-spin"></i> Carrier Provisioning
+                                </span>
+                            </div>
+
+                            <!-- Progress Stepper in Card -->
+                            <div class="p-4 bg-amber-50/50 rounded-2xl border border-amber-100 text-xs space-y-2 mb-4">
+                                <div class="flex justify-between text-[11px]">
+                                    <span class="font-bold text-slate-700">Telecom Routing (Jio, Airtel, Vi)</span>
+                                    <span class="text-amber-700 font-extrabold">75% Complete</span>
+                                </div>
+                                <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                                    <div class="bg-gradient-to-r from-amber-400 to-amber-500 h-full rounded-full" style="width: 75%"></div>
+                                </div>
+                                <p class="text-[10px] text-slate-500">Google RBM KYC approved. Awaiting carrier route activation.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-4 mt-2 border-t border-slate-100">
+                            <div class="flex items-center gap-2">
+                                <button onclick="openTrackStatusModal('Zion_Retail_Bot', 'RBM-APP-98214', 'under_process')" class="text-amber-800 hover:text-amber-900 text-xs font-bold flex items-center gap-1.5 bg-amber-100 hover:bg-amber-200 px-3.5 py-2 rounded-xl transition-colors">
+                                    <i class="fa-solid fa-list-check text-[11px]"></i>
+                                    <span>Track Timeline</span>
+                                </button>
+                                <button onclick="openEditBotModal('zion_retail')" class="text-slate-700 hover:text-amber-800 text-xs font-bold flex items-center gap-1.5 bg-slate-50 hover:bg-amber-50 border border-slate-200 px-3.5 py-2 rounded-xl transition-colors">
+                                    <i class="fa-solid fa-pen-to-square text-[11px] text-amber-600"></i>
+                                    <span>Edit Details</span>
+                                </button>
+                            </div>
+                            <span class="font-mono text-[10px] text-slate-400">ID: RBM-APP-98214</span>
+                        </div>
+                    </div>
+
+                    <!-- Bot 4 (REJECTED / FIX REQUIRED) -->
+                    <div class="bot-card-item bot-state-rejected bg-white rounded-3xl p-6 border-2 border-red-200 shadow-premium hover:shadow-premium-hover transition-all flex flex-col justify-between group">
+                        <div>
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="flex items-center gap-3.5">
+                                    <div class="w-13 h-13 rounded-2xl bg-red-600 text-white flex items-center justify-center font-black text-xl shadow-md shadow-red-200 group-hover:scale-105 transition-transform">
+                                        <i class="fa-solid fa-triangle-exclamation"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-extrabold text-base text-slate-900 bot-name-text">Zion_Festive_Offers</h3>
+                                        <p class="text-xs text-slate-400 font-medium">Applied on 17 Sep 2026</p>
+                                    </div>
+                                </div>
+                                <span class="bg-red-50 border border-red-300 text-red-800 text-[10px] font-extrabold px-3 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
+                                    <i class="fa-solid fa-circle-xmark text-red-600"></i> Action Required
+                                </span>
+                            </div>
+
+                            <!-- Rejection Reason Card -->
+                            <div class="p-4 bg-red-50/70 rounded-2xl border border-red-100 text-xs space-y-1 mb-4">
+                                <p class="font-bold text-red-800 text-xs flex items-center gap-1.5">
+                                    <i class="fa-solid fa-circle-info"></i> Reason: GST Legal Entity Mismatch
+                                </p>
+                                <p class="text-[11px] text-slate-600 leading-snug">
+                                    Google RBM rejected this bot because the Brand Name does not match the legal trade name in uploaded GST document.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-4 mt-2 border-t border-slate-100">
+                            <div class="flex items-center gap-2">
+                                <button onclick="openEditBotModal('zion_festive')" class="text-white bg-red-600 hover:bg-red-700 text-xs font-bold flex items-center gap-1.5 px-4 py-2 rounded-xl shadow-xs transition-colors">
+                                    <i class="fa-solid fa-rotate-left text-[10px]"></i>
+                                    <span>Edit & Re-Submit</span>
+                                </button>
+                            </div>
+                            <button onclick="openTrackStatusModal('Zion_Festive_Offers', 'RBM-APP-77123', 'rejected')" class="text-slate-500 hover:text-slate-800 text-xs font-bold underline">
+                                View Rejection Log
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ================= MODAL: LIVE APPLICATION TIMELINE & STATUS TRACKER ================= -->
+    <div id="modal-track-status" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-7 space-y-6 shadow-2xl relative border border-slate-100">
+            <button onclick="closeModal('modal-track-status')" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+
+            <!-- Header -->
+            <div class="flex items-center gap-3.5 border-b border-slate-100 pb-4">
+                <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-timeline"></i>
+                </div>
+                <div>
+                    <h3 id="trackBotName" class="text-base font-extrabold text-slate-900">Zion_Retail_Bot</h3>
+                    <p class="text-xs text-slate-500">Tracking ID: <span id="trackAppId" class="font-mono font-bold text-purple-600">RBM-APP-98214</span></p>
+                </div>
+            </div>
+
+            <!-- Live Stepper Tracker -->
+            <div class="space-y-6 relative pl-8 before:absolute before:left-3 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200">
+                
+                <!-- Step 1: Form Submission -->
+                <div class="relative">
+                    <span class="absolute -left-[31px] top-0 w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] font-bold ring-4 ring-emerald-100">
+                        <i class="fa-solid fa-check"></i>
+                    </span>
+                    <h4 class="font-bold text-slate-900 text-xs">1. Bot Onboarding Application Submitted</h4>
+                    <p class="text-slate-500 text-[11px] mt-0.5">Application & brand profile submitted to Google RBM Console.</p>
+                    <span class="text-[10px] font-mono text-emerald-600 font-semibold">Completed: 18 Sep 2026, 11:30 AM</span>
+                </div>
+
+                <!-- Step 2: KYC & GST Verification -->
+                <div class="relative">
+                    <span class="absolute -left-[31px] top-0 w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] font-bold ring-4 ring-emerald-100">
+                        <i class="fa-solid fa-check"></i>
+                    </span>
+                    <h4 class="font-bold text-slate-900 text-xs">2. Google & Carrier KYC Verification</h4>
+                    <p class="text-slate-500 text-[11px] mt-0.5">GST Certificate, PAN, and Brand Authority verified.</p>
+                    <span class="text-[10px] font-mono text-emerald-600 font-semibold">Completed: 19 Sep 2026, 02:15 PM</span>
+                </div>
+
+                <!-- Step 3: Carrier Testing & Provisioning -->
+                <div class="relative">
+                    <span id="step3Icon" class="absolute -left-[31px] top-0 w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-[10px] font-bold ring-4 ring-amber-100 animate-pulse">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                    </span>
+                    <h4 id="step3Title" class="font-extrabold text-amber-700 text-xs">3. Carrier Testing & Routing (In Progress)</h4>
+                    <p id="step3Desc" class="text-slate-600 text-[11px] mt-0.5">Provisioning sender routing across Jio, Airtel, and Vi telecom networks.</p>
+                    <span id="step3Time" class="text-[10px] font-mono text-amber-600 font-bold">Estimated finish: Today by 11:00 PM</span>
+                </div>
+
+                <!-- Step 4: Google RBM Production Live -->
+                <div class="relative">
+                    <span id="step4Icon" class="absolute -left-[31px] top-0 w-6 h-6 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center text-[10px] font-bold ring-4 ring-white">
+                        4
+                    </span>
+                    <h4 id="step4Title" class="font-bold text-slate-400 text-xs">4. Google RBM Live Deployment</h4>
+                    <p class="text-slate-400 text-[11px] mt-0.5">Verified Agent badge published to Google Messages directory.</p>
+                </div>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+                <span class="text-[11px] text-slate-400">Updates refreshed automatically</span>
+                <button onclick="closeModal('modal-track-status')" class="px-5 py-2 bg-purple-600 text-white rounded-xl font-bold text-xs hover:bg-purple-700">
+                    Done
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ULTRA PREMIUM ONBOARDING / EDIT FORM MODAL ================= -->
+    <div id="modal-register-bot" class="fixed inset-0 bg-slate-950/75 backdrop-blur-md z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 hidden">
+        <div class="bg-white rounded-[2.5rem] max-w-7xl w-full max-h-[96vh] flex flex-col shadow-2xl relative border border-slate-100 overflow-hidden">
+            
+            <!-- Gradient Hero Modal Header (Dashboard/Home Look) -->
+            <div class="px-8 py-5 bg-gradient-to-r from-purple-700 via-indigo-700 to-purple-900 text-white flex items-center justify-between shrink-0 relative overflow-hidden">
+                <div class="absolute -right-8 -top-12 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="relative z-10 flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-md border border-white/25 flex items-center justify-center text-white text-xl shadow-inner">
+                        <i id="modalFormIcon" class="fa-solid fa-robot"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h2 id="modalFormTitle" class="text-xl font-black tracking-tight text-white">Create New ChatBot</h2>
+                            <span class="bg-emerald-400/20 text-emerald-300 border border-emerald-400/30 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                                <i class="fa-solid fa-shield-check"></i> Google RBM
+                            </span>
+                        </div>
+                        <p id="modalFormSubtitle" class="text-xs text-purple-200 mt-0.5">RCS Verified Brand Agent Onboarding & Verification Application</p>
+                    </div>
+                </div>
+                <div class="relative z-10 flex items-center gap-3">
+                    <button onclick="closeModal('modal-register-bot')" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-xmark text-sm"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Content Area -->
+            <div class="flex-1 overflow-y-auto p-6 md:p-8 flex flex-col lg:flex-row gap-8 bg-[#f8fafc]">
+                
+                <!-- LEFT COLUMN: Form Sections with Home/Dashboard Card Styling -->
+                <div class="flex-1 space-y-6">
+                    
+                    <!-- Form Card 1: Brand & Bot Profile -->
+                    <div class="bg-white rounded-3xl p-7 border border-slate-200/80 shadow-premium space-y-5">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-black text-xs">
+                                    1
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-extrabold text-slate-900">Basic Bot Configuration</h3>
+                                    <p class="text-[11px] text-slate-400">Agent identity, brand naming and operational classification</p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full">Required</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <!-- Bot Name -->
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1.5">Bot Name <span class="text-purple-600">*</span></label>
+                                <input type="text" id="inputBotName" value="Zion_Customer_Care" placeholder="Enter Bot Name (e.g. Zion_Care)" maxlength="40" class="input-custom font-medium">
+                            </div>
+
+                            <!-- Bot Type -->
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1.5">Bot Type <span class="text-purple-600">*</span></label>
+                                <select id="inputBotType" class="input-custom font-medium bg-slate-50 cursor-pointer">
+                                    <option value="Domestic" selected>Domestic</option>
+                                    <option value="International">International</option>
+                                </select>
+                            </div>
+
+                            <!-- Brand Name -->
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1.5">Brand Name <span class="text-purple-600">*</span></label>
+                                <input type="text" id="inputBrandName" value="Zion Communication" oninput="updateLivePreview()" placeholder="Enter Brand Name" class="input-custom font-semibold text-slate-900">
+                            </div>
+
+                            <!-- Message Type -->
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1.5">Message Type <span class="text-purple-600">*</span></label>
+                                <select id="inputMessageType" class="input-custom font-medium bg-slate-50 cursor-pointer">
+                                    <option value="Transactional" selected>Transactional / Service</option>
+                                    <option value="Promotional">Promotional / Marketing</option>
+                                    <option value="OTP">OTP / Verification</option>
+                                </select>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="sm:col-span-2">
+                                <label class="block font-bold text-slate-700 mb-1.5">Bot Description <span class="text-purple-600">*</span> (Max 100 chars)</label>
+                                <textarea id="inputDescription" rows="2" oninput="updateLivePreview()" placeholder="Enter short brand description for customer profile..." maxlength="100" class="input-custom font-medium leading-relaxed">Official verified communication channel for instant customer updates and notifications.</textarea>
+                            </div>
+
+                            <!-- Color Code -->
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1.5">Brand Theme Color <span class="text-purple-600">*</span></label>
+                                <div class="flex items-center gap-2">
+                                    <input type="color" id="inputColor" value="#7c3aed" oninput="updateLiveColor(this.value)" class="w-11 h-10 rounded-xl border border-slate-200 cursor-pointer p-0.5 shrink-0">
+                                    <input type="text" id="inputColorHex" value="#7c3aed" oninput="updateLiveColor(this.value)" class="input-custom font-mono text-xs uppercase font-bold">
+                                </div>
+                            </div>
+
+                            <!-- Category -->
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1.5">Brand Category <span class="text-purple-600">*</span></label>
+                                <select id="inputCategory" class="input-custom font-medium bg-slate-50 cursor-pointer">
+                                    <option value="Finance & Banking">Finance & Banking</option>
+                                    <option value="E-Commerce & Retail">E-Commerce & Retail</option>
+                                    <option value="IT & Telecommunications" selected>IT & Telecommunications</option>
+                                    <option value="Healthcare">Healthcare</option>
+                                    <option value="Travel & Hospitality">Travel & Hospitality</option>
+                                    <option value="Logistics & Delivery">Logistics & Delivery</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Card 2: Contact & Endpoints -->
+                    <div class="bg-white rounded-3xl p-7 border border-slate-200/80 shadow-premium space-y-5">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-black text-xs">
+                                    2
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-extrabold text-slate-900">Brand Contact Information & Endpoints</h3>
+                                    <p class="text-[11px] text-slate-400">Public profile details displayed in Google Messages</p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">3 Required</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <!-- Phone Numbers -->
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1.5">Brand Phone Number(s) <span class="text-purple-600">*</span></label>
+                                <input type="text" id="inputPhone" value="+91 88586 74541" oninput="updateLivePreview()" placeholder="Comma separated, max 3 (+91...)" class="input-custom font-mono">
+                            </div>
+
+                            <!-- Email Addresses -->
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1.5">Brand Email Address(es) <span class="text-purple-600">*</span></label>
+                                <input type="text" id="inputEmail" value="support@zion.com" oninput="updateLivePreview()" placeholder="Comma separated, max 3" class="input-custom font-mono">
+                            </div>
+
+                            <!-- Website URLs -->
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1.5">Brand Website URL(s) <span class="text-purple-600">*</span></label>
+                                <input type="url" id="inputWebsite" value="https://zion.com" oninput="updateLivePreview()" placeholder="Comma separated, max 3 (https://...)" class="input-custom font-mono">
+                            </div>
+
+                            <!-- Privacy Policy URL -->
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1.5">Privacy Policy URL <span class="text-purple-600">*</span></label>
+                                <input type="url" id="inputPrivacy" value="https://zion.com/privacy" placeholder="https://..." class="input-custom font-mono">
+                            </div>
+
+                            <!-- Terms of Service URL -->
+                            <div class="sm:col-span-2">
+                                <label class="block font-bold text-slate-700 mb-1.5">Terms of Service URL <span class="text-purple-600">*</span></label>
+                                <input type="url" id="inputTerms" value="https://zion.com/terms" placeholder="https://..." class="input-custom font-mono">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Card 3: Brand Assets Upload -->
+                    <div class="bg-white rounded-3xl p-7 border border-slate-200/80 shadow-premium space-y-5">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-black text-xs">
+                                    3
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-extrabold text-slate-900">Brand Assets & Logos</h3>
+                                    <p class="text-[11px] text-slate-400">Strict Google RBM asset specifications (PNG / JPEG)</p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">Assets</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <!-- Logo Upload -->
+                            <div class="border-2 border-dashed border-slate-200 rounded-2xl p-4 text-center hover:border-purple-400 transition-colors bg-slate-50/50">
+                                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mx-auto mb-2 text-base">
+                                    <i class="fa-solid fa-image"></i>
+                                </div>
+                                <label class="block font-bold text-slate-800 mb-1">Bot Logo (224x224 px) <span class="text-purple-600">*</span></label>
+                                <p class="text-[10px] text-slate-400 mb-2">Square ratio, max 100KB, PNG/JPG</p>
+                                <input type="file" accept="image/*" class="text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 cursor-pointer">
+                            </div>
+
+                            <!-- Banner Upload -->
+                            <div class="border-2 border-dashed border-slate-200 rounded-2xl p-4 text-center hover:border-purple-400 transition-colors bg-slate-50/50">
+                                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto mb-2 text-base">
+                                    <i class="fa-solid fa-panorama"></i>
+                                </div>
+                                <label class="block font-bold text-slate-800 mb-1">Hero Banner (1024x340 px) <span class="text-purple-600">*</span></label>
+                                <p class="text-[10px] text-slate-400 mb-2">3:1 aspect ratio, max 300KB</p>
+                                <input type="file" accept="image/*" class="text-xs text-slate-500 file:mr-2 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Card 4: Technical & Webhooks -->
+                    <div class="bg-white rounded-3xl p-7 border border-slate-200/80 shadow-premium space-y-5">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-xl bg-orange-100 text-orange-700 flex items-center justify-center font-black text-xs">
+                                    4
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-extrabold text-slate-900">Technical Webhook & Delivery Callbacks</h3>
+                                    <p class="text-[11px] text-slate-400">Receives delivery receipts (DLR) and 2-way user interactions</p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-bold text-orange-600 bg-orange-50 px-2.5 py-1 rounded-full">Callbacks</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <!-- Webhook URL -->
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1.5">Webhook Callback URL</label>
+                                <input type="url" id="inputWebhook" value="https://api.zion.com/v1/rcs/inbound" placeholder="https://api.yourdomain.com/rcs/webhook" class="input-custom font-mono">
+                            </div>
+
+                            <!-- Development Platform -->
+                            <div>
+                                <label class="block font-bold text-slate-700 mb-1.5">Development Platform <span class="text-purple-600">*</span></label>
+                                <select id="inputPlatform" class="input-custom font-medium bg-slate-50 cursor-pointer">
+                                    <option value="Google Cloud (GCP)" selected>Google Cloud (GCP)</option>
+                                    <option value="Amazon Web Services (AWS)">Amazon Web Services (AWS)</option>
+                                    <option value="Microsoft Azure">Microsoft Azure</option>
+                                    <option value="Self Hosted / Custom API">Self Hosted / Custom API</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT COLUMN: Interactive Live Google Messages Phone Simulator -->
+                <div class="w-full lg:w-96 shrink-0 flex flex-col items-center">
+                    <div class="sticky top-4 w-full flex flex-col items-center">
+                        
+                        <div class="mb-3 flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                            <p class="text-xs font-black text-slate-700 uppercase tracking-wider">Live Google Messages Preview</p>
+                        </div>
+
+                        <!-- Phone Frame -->
+                        <div class="phone-mockup-wrap w-[320px] bg-slate-900 p-3 rounded-[3rem] shadow-2xl border-4 border-slate-800">
+                            <!-- Inner Screen -->
+                            <div class="bg-white w-full h-[580px] rounded-[2.2rem] overflow-hidden flex flex-col border border-slate-100 relative">
+                                
+                                <!-- Status Bar -->
+                                <div class="h-6 bg-slate-900 text-white flex items-center justify-between px-5 text-[10px] font-semibold">
+                                    <span>10:45</span>
+                                    <div class="flex items-center gap-1.5">
+                                        <i class="fa-solid fa-wifi text-[9px]"></i>
+                                        <i class="fa-solid fa-signal text-[9px]"></i>
+                                        <i class="fa-solid fa-battery-full text-[10px]"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Brand Banner Preview -->
+                                <div class="h-28 bg-gradient-to-r from-purple-700 to-indigo-800 relative flex items-center justify-center overflow-hidden">
+                                    <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:8px_8px]"></div>
+                                    <p class="text-white/40 text-[10px] font-bold uppercase tracking-wider">Hero Banner Preview</p>
+                                    
+                                    <!-- Verified Shield Badge -->
+                                    <div class="absolute top-2 right-2 bg-black/40 backdrop-blur-sm rounded-full p-1 text-white text-[10px]">
+                                        <i class="fa-solid fa-shield-check text-emerald-400"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Brand Profile Bar -->
+                                <div class="p-4 border-b border-slate-100 flex items-start gap-3 bg-slate-50/50">
+                                    <div id="previewLogo" class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-700 text-white flex items-center justify-center font-black text-xl shadow-md -mt-7 ring-4 ring-white shrink-0">
+                                        Z
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <div class="flex items-center gap-1">
+                                            <h4 id="previewBrandName" class="font-extrabold text-slate-900 text-xs truncate">Zion Communication</h4>
+                                            <i class="fa-solid fa-circle-check text-blue-500 text-[11px] shrink-0"></i>
+                                        </div>
+                                        <p id="previewDescription" class="text-[10px] text-slate-500 mt-0.5 line-clamp-2 leading-tight">
+                                            Official verified communication channel for instant customer updates.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Contact Quick Action Buttons -->
+                                <div class="px-4 py-3 bg-white border-b border-slate-100 flex justify-around text-center">
+                                    <div class="flex flex-col items-center">
+                                        <div class="preview-action-icon w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs shadow-sm mb-1" style="background-color: #7c3aed;">
+                                            <i class="fa-solid fa-phone"></i>
+                                        </div>
+                                        <span class="text-[9px] font-bold text-slate-700">Call</span>
+                                    </div>
+                                    <div class="flex flex-col items-center">
+                                        <div class="preview-action-icon w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs shadow-sm mb-1" style="background-color: #7c3aed;">
+                                            <i class="fa-solid fa-envelope"></i>
+                                        </div>
+                                        <span class="text-[9px] font-bold text-slate-700">Email</span>
+                                    </div>
+                                    <div class="flex flex-col items-center">
+                                        <div class="preview-action-icon w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs shadow-sm mb-1" style="background-color: #7c3aed;">
+                                            <i class="fa-solid fa-globe"></i>
+                                        </div>
+                                        <span class="text-[9px] font-bold text-slate-700">Website</span>
+                                    </div>
+                                </div>
+
+                                <!-- Contact Endpoints Details in Card -->
+                                <div class="p-4 space-y-3 flex-1 bg-white text-[11px]">
+                                    <div class="flex items-start gap-2.5 border-b border-slate-50 pb-2.5">
+                                        <i class="fa-solid fa-phone text-slate-400 text-xs mt-0.5"></i>
+                                        <div class="min-w-0">
+                                            <p id="previewPhone" class="font-bold text-slate-900 font-mono text-xs">+91 88586 74541</p>
+                                            <p class="text-[9px] text-slate-400">Support Helpline</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start gap-2.5 border-b border-slate-50 pb-2.5">
+                                        <i class="fa-solid fa-envelope text-slate-400 text-xs mt-0.5"></i>
+                                        <div class="min-w-0">
+                                            <p id="previewEmail" class="font-bold text-slate-900 font-mono text-xs">support@zion.com</p>
+                                            <p class="text-[9px] text-slate-400">Official Helpdesk</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start gap-2.5">
+                                        <i class="fa-solid fa-globe text-slate-400 text-xs mt-0.5"></i>
+                                        <div class="min-w-0">
+                                            <p id="previewWebsite" class="font-bold text-purple-700 font-mono text-xs truncate">https://zion.com</p>
+                                            <p class="text-[9px] text-slate-400">Official Website</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Bottom Message Bar Simulation -->
+                                <div class="p-3 bg-slate-100 border-t border-slate-200/80 flex items-center gap-2">
+                                    <div class="w-full bg-white rounded-full py-1.5 px-3 text-[10px] text-slate-400 border border-slate-200">
+                                        RCS message with Zion...
+                                    </div>
+                                    <div class="w-7 h-7 rounded-full bg-purple-600 text-white flex items-center justify-center text-[10px] shrink-0">
+                                        <i class="fa-solid fa-paper-plane"></i>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Sticky Bottom Navigation Footer (Home Style) -->
+            <div class="px-8 py-4 border-t border-slate-200 bg-white/95 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4 shrink-0 shadow-lg">
+                <div class="flex items-center gap-3">
+                    <span class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black text-xs px-3.5 py-1.5 rounded-xl shadow-xs">
+                        <i class="fa-solid fa-circle-check mr-1"></i> Form Ready (22/22 fields)
+                    </span>
+                    <p class="text-xs text-slate-500 hidden sm:block font-medium">Automatic Google RBM Validation API scrubbing enabled</p>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button onclick="closeModal('modal-register-bot')" class="px-5 py-2.5 border border-slate-200 text-slate-600 rounded-xl font-bold text-xs hover:bg-slate-50 transition-colors">
+                        Cancel
+                    </button>
+                    <button id="btnSubmitForm" onclick="submitBotApplication()" class="px-7 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white rounded-xl font-extrabold text-xs shadow-lg shadow-purple-200 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane text-xs"></i>
+                        <span id="btnSubmitText">Submit for Google Verification</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript Interactions -->
+    <script>
+        // Mock Bot Database for Edit & Form Population
+        const botDatabase = {
+            zion_official: {
+                botName: "Zion_Official_Bot",
+                botType: "Domestic",
+                brandName: "ZION Tech Solutions",
+                messageType: "Transactional",
+                description: "Official verified channel for ZION automated OTP delivery, transaction receipts, and customer helpdesk.",
+                color: "#7c3aed",
+                category: "IT & Telecommunications",
+                phone: "+91 88586 74541",
+                email: "support@zion.com",
+                website: "https://zion.com",
+                privacy: "https://zion.com/privacy",
+                terms: "https://zion.com/terms",
+                webhook: "https://api.zion.com/v1/rcs/inbound",
+                platform: "Google Cloud (GCP)"
+            },
+            zion_support: {
+                botName: "Zion_Support_Desk",
+                botType: "Domestic",
+                brandName: "ZION Customer Care",
+                messageType: "Transactional",
+                description: "Dedicated interactive support agent with multi-card carousels, ticket resolution flows, and 24/7 automated agent callbacks.",
+                color: "#0284c7",
+                category: "IT & Telecommunications",
+                phone: "+91 88586 74541",
+                email: "care@zion.com",
+                website: "https://zion.com/support",
+                privacy: "https://zion.com/privacy",
+                terms: "https://zion.com/terms",
+                webhook: "https://api.zion.com/v1/support/rcs-events",
+                platform: "Amazon Web Services (AWS)"
+            },
+            zion_retail: {
+                botName: "Zion_Retail_Bot",
+                botType: "Domestic",
+                brandName: "Zion Retail & Deals",
+                messageType: "Promotional",
+                description: "Personalized deals, product catalogs, interactive rich cards, and festive discount coupons for verified customers.",
+                color: "#f59e0b",
+                category: "E-Commerce & Retail",
+                phone: "+91 98765 43210",
+                email: "deals@zion.com",
+                website: "https://zion.com/store",
+                privacy: "https://zion.com/privacy",
+                terms: "https://zion.com/terms",
+                webhook: "https://api.zion.com/v1/marketing/rcs",
+                platform: "Google Cloud (GCP)"
+            },
+            zion_festive: {
+                botName: "Zion_Festive_Offers",
+                botType: "Domestic",
+                brandName: "Zion Mega Sales",
+                messageType: "Promotional",
+                description: "Seasonal promotional broadcasts, festive sale carousels, and special voucher alerts.",
+                color: "#ef4444",
+                category: "E-Commerce & Retail",
+                phone: "+91 88586 74541",
+                email: "offers@zion.com",
+                website: "https://zion.com/festive",
+                privacy: "https://zion.com/privacy",
+                terms: "https://zion.com/terms",
+                webhook: "https://api.zion.com/v1/festive/rcs",
+                platform: "Microsoft Azure"
+            }
+        };
+
+        function toggleSubmenu(event, submenuId, iconId) {
+            event.preventDefault();
+            const submenu = document.getElementById(submenuId);
+            const icon = document.getElementById(iconId);
+            if (submenu.classList.contains('hidden')) {
+                submenu.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                submenu.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function openRegisterBotModal() {
+            document.getElementById('modalFormTitle').innerText = 'Create New ChatBot';
+            document.getElementById('modalFormSubtitle').innerText = 'RCS Verified Brand Agent Onboarding & Verification Application';
+            document.getElementById('btnSubmitText').innerText = 'Submit for Google Verification';
+            document.getElementById('modalFormIcon').className = 'fa-solid fa-robot';
+
+            // Reset Fields
+            document.getElementById('inputBotName').value = 'Zion_Customer_Care';
+            document.getElementById('inputBrandName').value = 'Zion Communication';
+            document.getElementById('inputDescription').value = 'Official verified communication channel for instant customer updates and notifications.';
+            document.getElementById('inputPhone').value = '+91 88586 74541';
+            document.getElementById('inputEmail').value = 'support@zion.com';
+            document.getElementById('inputWebsite').value = 'https://zion.com';
+            updateLiveColor('#7c3aed');
+            updateLivePreview();
+
+            openModal('modal-register-bot');
+        }
+
+        function openEditBotModal(botKey) {
+            const botData = botDatabase[botKey];
+            if (!botData) return;
+
+            document.getElementById('modalFormTitle').innerText = `Edit Bot: ${botData.botName}`;
+            document.getElementById('modalFormSubtitle').innerText = 'Update agent identity, brand endpoints, theme colors, and webhook URLs';
+            document.getElementById('btnSubmitText').innerText = 'Save & Update Bot Profile';
+            document.getElementById('modalFormIcon').className = 'fa-solid fa-pen-to-square';
+
+            // Populate form
+            document.getElementById('inputBotName').value = botData.botName;
+            document.getElementById('inputBotType').value = botData.botType;
+            document.getElementById('inputBrandName').value = botData.brandName;
+            document.getElementById('inputMessageType').value = botData.messageType;
+            document.getElementById('inputDescription').value = botData.description;
+            document.getElementById('inputCategory').value = botData.category;
+            document.getElementById('inputPhone').value = botData.phone;
+            document.getElementById('inputEmail').value = botData.email;
+            document.getElementById('inputWebsite').value = botData.website;
+            document.getElementById('inputPrivacy').value = botData.privacy;
+            document.getElementById('inputTerms').value = botData.terms;
+            document.getElementById('inputWebhook').value = botData.webhook;
+            document.getElementById('inputPlatform').value = botData.platform;
+
+            updateLiveColor(botData.color);
+            updateLivePreview();
+
+            openModal('modal-register-bot');
+        }
+
+        function testBotPing(botName) {
+            alert(`Pinging Google RBM Gateway for [${botName}]...\nStatus: 200 OK\nLatency: 24ms\nGoogle Messages Route: Active`);
+        }
+
+        function updateLivePreview() {
+            const brand = document.getElementById('inputBrandName').value || 'Zion Communication';
+            const desc = document.getElementById('inputDescription').value || 'Official verified communication channel.';
+            const phone = document.getElementById('inputPhone').value.split(',')[0] || '+91 88586 74541';
+            const email = document.getElementById('inputEmail').value.split(',')[0] || 'support@zion.com';
+            const website = document.getElementById('inputWebsite').value.split(',')[0] || 'https://zion.com';
+
+            document.getElementById('previewBrandName').innerText = brand;
+            document.getElementById('previewDescription').innerText = desc;
+            document.getElementById('previewPhone').innerText = phone;
+            document.getElementById('previewEmail').innerText = email;
+            document.getElementById('previewWebsite').innerText = website;
+            document.getElementById('previewLogo').innerText = brand.charAt(0).toUpperCase() || 'Z';
+        }
+
+        function updateLiveColor(colorHex) {
+            document.getElementById('inputColor').value = colorHex;
+            document.getElementById('inputColorHex').value = colorHex;
+
+            const actionIcons = document.querySelectorAll('.preview-action-icon');
+            actionIcons.forEach(icon => {
+                icon.style.backgroundColor = colorHex;
+            });
+        }
+
+        function filterBotCards(status) {
+            const tabs = ['all', 'verified', 'under_process', 'rejected'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`bot-tab-${t}`);
+                if (t === status) {
+                    btn.classList.add('active');
+                    btn.classList.remove('bg-slate-100', 'text-slate-700');
+                } else {
+                    btn.classList.remove('active');
+                    btn.classList.add('bg-slate-100', 'text-slate-700');
+                }
+            });
+
+            const cards = document.querySelectorAll('.bot-card-item');
+            cards.forEach(card => {
+                if (status === 'all' || card.classList.contains(`bot-state-${status}`)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        function searchBots() {
+            const query = document.getElementById('botSearchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.bot-card-item');
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        function openTrackStatusModal(botName, appId, state) {
+            document.getElementById('trackBotName').innerText = botName;
+            document.getElementById('trackAppId').innerText = appId;
+
+            const step3Icon = document.getElementById('step3Icon');
+            const step3Title = document.getElementById('step3Title');
+            const step3Desc = document.getElementById('step3Desc');
+            const step3Time = document.getElementById('step3Time');
+
+            if (state === 'rejected') {
+                step3Icon.className = 'absolute -left-[31px] top-0 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center text-[10px] font-bold ring-4 ring-red-100';
+                step3Icon.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+                step3Title.className = 'font-extrabold text-red-700 text-xs';
+                step3Title.innerText = '3. Carrier / Google Verification Rejected';
+                step3Desc.innerText = 'GST Legal Name does not match brand name. Please update KYC documents.';
+                step3Time.className = 'text-[10px] font-mono text-red-600 font-bold';
+                step3Time.innerText = 'Action Required: Re-submit KYC';
+            } else {
+                step3Icon.className = 'absolute -left-[31px] top-0 w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-[10px] font-bold ring-4 ring-amber-100 animate-pulse';
+                step3Icon.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+                step3Title.className = 'font-extrabold text-amber-700 text-xs';
+                step3Title.innerText = '3. Carrier Testing & Routing (In Progress)';
+                step3Desc.innerText = 'Provisioning sender routing across Jio, Airtel, and Vi telecom networks.';
+                step3Time.className = 'text-[10px] font-mono text-amber-600 font-bold';
+                step3Time.innerText = 'Estimated finish: Today by 11:00 PM';
+            }
+
+            openModal('modal-track-status');
+        }
+
+        function submitBotApplication() {
+            const isEditMode = document.getElementById('btnSubmitText').innerText.includes('Save & Update');
+            const botName = document.getElementById('inputBotName').value || 'Zion_Bot';
+            
+            closeModal('modal-register-bot');
+            
+            if (isEditMode) {
+                alert(`Bot Profile "${botName}" has been successfully updated and synced with Google RBM!`);
+            } else {
+                const randomAppId = 'RBM-APP-' + Math.floor(10000 + Math.random() * 90000);
+                openTrackStatusModal(botName, randomAppId, 'under_process');
+            }
+        }
+    </script>
+</body>
+</html>
