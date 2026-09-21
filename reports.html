@@ -114,7 +114,18 @@
       </div>
     </div>
 
-    <div class="pt-3 pb-1 px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Manage</div>
+    <div class="pt-3 pb-1 px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Automation</div>
+<div class="rounded-lg">
+  <button onclick="toggleNav('chatbotNav')" class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-700 hover:bg-slate-50">
+    <span class="flex items-center gap-3"><i class="fa-solid fa-robot w-5 text-center text-cyan-500"></i>Chatbot</span>
+    <i id="chatbotNav-arrow" class="fa-solid fa-chevron-down text-[10px]"></i>
+  </button>
+  <div id="chatbotNav" class="hidden ml-8 pl-3 border-l border-cyan-200 space-y-1">
+    <a href="rcs-bot.html" class="block px-2 py-1.5 rounded text-xs text-slate-500 hover:bg-cyan-50 hover:text-cyan-600">RCS Bot</a>
+    <a href="whatsapp-bot.html" class="block px-2 py-1.5 rounded text-xs text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">WhatsApp Bot</a>
+  </div>
+</div>
+<div class="pt-3 pb-1 px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Manage</div>
     <a href="groups.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-50"><i class="fa-solid fa-users w-5 text-center text-indigo-500"></i><span>Contacts</span></a>
     <a href="credit-report.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-50"><i class="fa-solid fa-wallet w-5 text-center text-emerald-500"></i><span>Wallet</span></a>
     <a href="api-integration.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-50"><i class="fa-solid fa-code w-5 text-center text-indigo-500"></i><span>API & Integration</span></a>
