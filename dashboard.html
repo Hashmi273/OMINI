@@ -13,6 +13,11 @@
 .section{font-size:10px;font-weight:700;letter-spacing:.08em;color:#a0a8b8;text-transform:uppercase;padding:17px 12px 7px}
 .card{background:#fff;border:1px solid var(--b);border-radius:12px}.metric{padding:15px 16px}.label{font-size:11px;color:#8a94a6;font-weight:600}.value{font-size:21px;font-weight:700;line-height:1.2}
 .scroll{height:calc(100vh - 64px);overflow:auto}@media(max-width:900px){.sidebar{width:72px}.brandcopy,.navcopy,.section,.profilecopy{display:none}.nav{justify-content:center}.main{width:calc(100% - 72px)}}
+/* Simple sidebar polish */
+.sidebar nav::-webkit-scrollbar{width:4px}.sidebar nav::-webkit-scrollbar-thumb{background:#e5e7eb;border-radius:99px}
+.menu-toggle{height:38px!important;border:1px solid transparent!important;background:transparent!important}
+.menu-toggle:hover{background:#f8f8fc!important}.menu-toggle.open{background:#f7f5ff!important;color:var(--p)!important}
+.submenu{transition:all .18s ease}.submenu a{height:34px!important}.menu-chevron{transition:transform .18s ease}
 </style>
 </head>
 <body class="h-screen overflow-hidden">
@@ -28,23 +33,23 @@
 <a href="dashboard.html" class="nav active flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-chart-line w-4 text-center"></i><span class="navcopy">Dashboard</span></a>
 
 <div class="section">Messaging</div>
-<button type="button" id="campaignToggle" class="nav w-full flex items-center gap-3 px-3 mb-1 text-left"><i class="fa-solid fa-paper-plane w-4 text-center text-violet-600"></i><span class="navcopy flex-1">Campaigns</span><i id="campaignChevron" class="fa-solid fa-chevron-down text-[10px] navcopy"></i></button>
-<div id="campaignMenu" class="ml-7 mb-2 pl-3 border-l border-slate-200 space-y-1">
+<button type="button" id="campaignToggle" class="nav menu-toggle w-full flex items-center gap-3 px-3 mb-1 text-left"><i class="fa-solid fa-paper-plane w-4 text-center text-violet-600"></i><span class="navcopy flex-1">Campaigns</span><i id="campaignChevron" class="fa-solid fa-chevron-down menu-chevron text-[10px navcopy"></i></button>
+<div id="campaignMenu" class="submenu ml-7 mb-2 pl-3 border-l border-slate-200 space-y-1">
 <a href="send-sms.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-600"><i class="fa-solid fa-comment-sms w-4 text-blue-500"></i><span>SMS Campaign</span></a>
 <a href="rcs-campaign.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-violet-50 hover:text-violet-600"><i class="fa-solid fa-message w-4 text-violet-500"></i><span>RCS Campaign</span></a>
 <a href="whatsapp-campaign.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-emerald-50 hover:text-emerald-600"><i class="fa-brands fa-whatsapp w-4 text-emerald-500"></i><span>WhatsApp Campaign</span></a>
 </div>
 
-<button type="button" id="reportToggle" class="nav w-full flex items-center gap-3 px-3 mb-1 text-left"><i class="fa-solid fa-chart-column w-4 text-center text-blue-600"></i><span class="navcopy flex-1">Reports</span><i id="reportChevron" class="fa-solid fa-chevron-down text-[10px] navcopy"></i></button>
-<div id="reportMenu" class="ml-7 mb-2 pl-3 border-l border-slate-200 space-y-1">
+<button type="button" id="reportToggle" class="nav menu-toggle w-full flex items-center gap-3 px-3 mb-1 text-left"><i class="fa-solid fa-chart-column w-4 text-center text-blue-600"></i><span class="navcopy flex-1">Reports</span><i id="reportChevron" class="fa-solid fa-chevron-down menu-chevron text-[10px navcopy"></i></button>
+<div id="reportMenu" class="submenu hidden ml-7 mb-2 pl-3 border-l border-slate-200 space-y-1">
 <a href="reports.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-600"><i class="fa-solid fa-chart-column w-4 text-blue-500"></i><span>Overview Report</span></a>
 <a href="campaign-report.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-violet-50 hover:text-violet-600"><i class="fa-solid fa-bullhorn w-4 text-violet-500"></i><span>Campaign Report</span></a>
 <a href="summary-report.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-emerald-50 hover:text-emerald-600"><i class="fa-solid fa-list-check w-4 text-emerald-500"></i><span>Summary Report</span></a>
 <a href="details-report.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100"><i class="fa-solid fa-table w-4"></i><span>Details Report</span></a>
 </div>
 
-<button type="button" id="templateToggle" class="nav w-full flex items-center gap-3 px-3 mb-1 text-left"><i class="fa-solid fa-file-lines w-4 text-center text-orange-500"></i><span class="navcopy flex-1">Templates</span><i id="templateChevron" class="fa-solid fa-chevron-down text-[10px] navcopy"></i></button>
-<div id="templateMenu" class="ml-7 mb-2 pl-3 border-l border-slate-200 space-y-1">
+<button type="button" id="templateToggle" class="nav menu-toggle w-full flex items-center gap-3 px-3 mb-1 text-left"><i class="fa-solid fa-file-lines w-4 text-center text-orange-500"></i><span class="navcopy flex-1">Templates</span><i id="templateChevron" class="fa-solid fa-chevron-down menu-chevron text-[10px navcopy"></i></button>
+<div id="templateMenu" class="submenu hidden ml-7 mb-2 pl-3 border-l border-slate-200 space-y-1">
 <a href="dlt-template.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-600"><i class="fa-solid fa-comment-sms w-4 text-blue-500"></i><span>SMS Templates</span></a>
 <a href="rcs-templates.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-violet-50 hover:text-violet-600"><i class="fa-solid fa-message w-4 text-violet-500"></i><span>RCS Templates</span></a>
 <a href="whatsapp-templates.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-emerald-50 hover:text-emerald-600"><i class="fa-brands fa-whatsapp w-4 text-emerald-500"></i><span>WhatsApp Templates</span></a>
@@ -82,10 +87,15 @@
 </main></div>
 <script>const campaignToggle=document.getElementById("campaignToggle"),campaignMenu=document.getElementById("campaignMenu"),campaignChevron=document.getElementById("campaignChevron");campaignToggle?.addEventListener("click",()=>{const open=!campaignMenu.classList.contains("hidden");campaignMenu.classList.toggle("hidden",open);if(campaignChevron)campaignChevron.style.transform=open?"rotate(-90deg)":"rotate(0deg)";});</script><script>
 function bindMenu(toggleId,menuId,chevronId){
- const t=document.getElementById(toggleId),m=document.getElementById(menuId),c=document.getElementById(chevronId);
- t?.addEventListener('click',()=>{const isOpen=!m.classList.contains('hidden');m.classList.toggle('hidden',isOpen);if(c)c.style.transform=isOpen?'rotate(-90deg)':'rotate(0deg)';});
+ const t=document.getElementById(toggleId),m=document.getElementById(menuId),ch=document.getElementById(chevronId);
+ t?.addEventListener('click',()=>{
+  const open=!m.classList.contains('hidden');
+  ['campaignMenu','reportMenu','templateMenu'].forEach(id=>{if(id!==menuId)document.getElementById(id)?.classList.add('hidden')});
+  ['campaignToggle','reportToggle','templateToggle'].forEach(id=>{if(id!==toggleId)document.getElementById(id)?.classList.remove('open')});
+  ['campaignChevron','reportChevron','templateChevron'].forEach(id=>{if(id!==chevronId&&document.getElementById(id))document.getElementById(id).style.transform='rotate(-90deg)'});
+  m.classList.toggle('hidden',open);t.classList.toggle('open',!open);if(ch)ch.style.transform=open?'rotate(-90deg)':'rotate(0deg)';
+ });
 }
 bindMenu('campaignToggle','campaignMenu','campaignChevron');
 bindMenu('reportToggle','reportMenu','reportChevron');
-bindMenu('templateToggle','templateMenu','templateChevron');
-</script></body></html>
+bindMenu('templateToggle','templateMenu','templateChevron');</script></body></html>
