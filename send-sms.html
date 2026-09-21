@@ -53,6 +53,43 @@
             position: absolute; top: 0; left: 30%;
         }
     </style>
+<style id="omini-redesign">:root{
+  --ui-primary:#2563eb;--ui-primary-dark:#1d4ed8;--ui-bg:#f6f8fc;--ui-card:#fff;
+  --ui-text:#0f172a;--ui-muted:#64748b;--ui-border:#e2e8f0;--ui-radius:14px;
+}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;background:var(--ui-bg)!important;color:var(--ui-text)!important}
+body>aside, aside.w-68{width:252px!important;box-shadow:none!important;background:#fff!important;border-right:1px solid var(--ui-border)!important}
+aside .h-20{height:68px!important;padding:0 14px!important}
+aside .w-11.h-11{width:40px!important;height:40px!important;border-radius:12px!important;box-shadow:none!important}
+aside .text-xl.font-black{font-size:17px!important}
+aside .flex-1.overflow-y-auto{padding:12px 10px!important}
+aside .sidebar-item{border-radius:10px!important}
+aside .sidebar-item>div:first-child{width:34px!important;height:34px!important;border-radius:10px!important;font-size:16px!important;box-shadow:none!important}
+aside .sidebar-item .text-sm{font-size:13px!important}
+aside .sidebar-item .text-\[10px\]{font-size:9px!important}
+aside .pt-1{padding-top:2px!important}
+aside .ml-9{margin-left:10px!important}
+aside .border-l-2{border-left-width:1px!important}
+main{background:var(--ui-bg)!important}
+main>header{height:68px!important;padding:0 22px!important;border-bottom:1px solid var(--ui-border)!important}
+main>header input{background:#f8fafc!important;border-radius:10px!important}
+main>header .rounded-xl{border-radius:10px!important}
+main .overflow-y-auto.p-6,main .overflow-y-auto.p-8{padding:24px!important}
+main .rounded-2xl,main .rounded-3xl{border-radius:14px!important}
+main .shadow-xl,main .shadow-lg,main .shadow-md{box-shadow:0 8px 24px rgba(15,23,42,.06)!important}
+main .border-slate-200,main .border-gray-200{border-color:var(--ui-border)!important}
+main h1{letter-spacing:-.02em}
+main h2{letter-spacing:-.015em}
+@media(max-width:1024px){
+  aside.w-68,body>aside{width:220px!important}
+  main .overflow-y-auto.p-6,main .overflow-y-auto.p-8{padding:18px!important}
+}
+@media(max-width:768px){
+  body{display:block!important;overflow:auto!important}
+  aside.w-68,body>aside{position:fixed!important;left:-260px!important;top:0!important;z-index:60!important;transition:left .2s ease!important}
+  main{min-height:100vh!important}
+  main>header{padding:0 14px!important}
+}</style>
 </head>
 <body class="text-gray-800 h-screen overflow-hidden flex">
 
