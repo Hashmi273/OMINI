@@ -53,7 +53,10 @@
             position: absolute; top: 0; left: 30%;
         }
     </style>
-</head>
+<style id="report-filter-ui">
+.report-toolbar{box-shadow:0 1px 2px rgba(15,23,42,.03)}
+@media(max-width:640px){.report-toolbar{align-items:stretch}.report-toolbar select{width:100%}.report-toolbar label{margin-top:4px}}
+</style></head>
 <body class="text-gray-800 h-screen overflow-hidden flex">
 
     <!-- Sidebar -->
@@ -301,6 +304,23 @@
                     </div>
                 </div>
 
+                    <div class="report-toolbar bg-white border border-slate-200 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2">
+                        <label class="text-xs font-semibold text-slate-500">Channel</label>
+                        <select id="channelFilter" onchange="applyReportFilters()" class="h-9 min-w-[150px] px-3 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-blue-100">
+                            <option value="all">All Reports</option>
+                            <option value="sms">SMS Report</option>
+                            <option value="rcs">RCS Report</option>
+                            <option value="wa">WhatsApp Report</option>
+                        </select>
+                        <label class="text-xs font-semibold text-slate-500 ml-0 sm:ml-2">Status</label>
+                        <select id="statusFilter" onchange="applyReportFilters()" class="h-9 min-w-[140px] px-3 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-700 outline-none focus:ring-2 focus:ring-blue-100">
+                            <option value="all">All Status</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="failed">Failed</option>
+                            <option value="pending">Pending</option>
+                        </select>
+                    </div>
+
                                 <!-- Fallback Product Summary -->
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mt-4">
                     <!-- SMS Card -->
@@ -440,7 +460,41 @@
             </div>
         </div>
     </main>
-<script>function filterTable(){let val=document.getElementById("searchInput").value.trim().toUpperCase();let rows=document.getElementById("detailsTable").getElementsByTagName("tr");let cards=["sms","rcs","wa","failed","pending"].map(id=>document.getElementById("card-"+id));cards.forEach(c=>{if(c){c.classList.remove("ring-4","ring-blue-300","ring-purple-300","ring-green-300","ring-red-300","scale-105","opacity-40");c.style.transition="all 0.3s ease";}});let visibleChannels=new Set();let hasFilter=val.length>0;for(let i=1;i<rows.length;i++){let td=rows[i].getElementsByTagName("td")[2];if(td){if((td.textContent||td.innerText).toUpperCase().indexOf(val)>-1){rows[i].style.display="";let ch=rows[i].getAttribute("data-channel");if(ch)visibleChannels.add(ch);}else{rows[i].style.display="none";}}}if(hasFilter && visibleChannels.size>0){cards.forEach(c=>{if(!c)return;let cardId=c.id.replace("card-","");if(visibleChannels.has(cardId)){c.classList.add("scale-105","ring-4");if(cardId==="rcs")c.classList.add("ring-purple-300");else if(cardId==="sms")c.classList.add("ring-blue-300");else if(cardId==="wa")c.classList.add("ring-green-300");else if(cardId==="failed")c.classList.add("ring-red-300");c.classList.remove("opacity-40");}else{c.classList.add("opacity-40");}});}}</script>
+<script>
+function applyReportFilters(){
+    const channel=(document.getElementById('channelFilter')?.value||'all').toLowerCase();
+    const status=(document.getElementById('statusFilter')?.value||'all').toLowerCase();
+    const search=(document.getElementById('searchInput')?.value||'').trim().toLowerCase();
+    const rows=document.querySelectorAll('#detailsTable tbody tr');
+    rows.forEach(row=>{
+        const rowChannel=(row.dataset.channel||'').toLowerCase();
+        const response=(row.cells[5]?.textContent||'').trim().toLowerCase();
+        const mobile=(row.cells[2]?.textContent||'').trim().toLowerCase();
+        const channelOk=channel==='all'||rowChannel===channel;
+        const statusOk=status==='all'||response===status.toUpperCase().toLowerCase();
+        const searchOk=!search||mobile.includes(search);
+        row.style.display=(channelOk&&statusOk&&searchOk)?'':'none';
+    });
+    updateReportSummary(channel,status);
+}
+function filterTable(){applyReportFilters();}
+function updateReportSummary(channel,status){
+    const labels={
+      sms:'SMS Delivered',rcs:'RCS Delivered',wa:'WhatsApp Delivered',failed:'Failed',pending:'Pending'
+    };
+    const ids=['card-sms','card-rcs','card-wa','card-failed','card-pending'];
+    ids.forEach(id=>document.getElementById(id)?.classList.remove('ring-2','ring-blue-300','ring-purple-300','ring-emerald-300','ring-red-300','ring-amber-300'));
+    if(channel!=='all'){
+      const card=document.getElementById('card-'+channel);
+      if(card){
+        card.classList.add('ring-2',channel==='sms'?'ring-blue-300':channel==='rcs'?'ring-purple-300':'ring-emerald-300');
+      }
+    } else if(status!=='all'){
+      const card=document.getElementById('card-'+status);
+      if(card) card.classList.add('ring-2',status==='failed'?'ring-red-300':'ring-amber-300');
+    }
+}
+</script>
 <script>
     function toggleSubmenu(event, submenuId, iconId) {
         event.preventDefault();
