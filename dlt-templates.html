@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send SMS - ZION</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        zionBlue: '#0070f3',
+                        zionLightBlue: '#eef5ff',
+                        zionDarkText: '#111827',
+                        zionGrayText: '#6b7280',
+                        zionBorder: '#e5e7eb',
+                        zionBg: '#f8fafc',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .sidebar-item { transition: all 0.2s; }
+        .sidebar-item:hover, .sidebar-item.active { background-color: #eef5ff; color: #0070f3; font-weight: 500; }
+        .sidebar-item.active { border-right: 3px solid #0070f3; }
+        
+        .toggle-checkbox:checked { right: 0; border-color: #10b981; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #10b981; }
+        
+        .phone-mockup {
+            border: 8px solid #1f2937;
+            border-radius: 36px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .phone-notch {
+            width: 40%; height: 16px; background-color: #1f2937;
+            border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
+            position: absolute; top: 0; left: 30%;
+        }
+    </style>
+</head>
+<body class="text-gray-800 h-screen overflow-hidden flex"><div style="max-width:1100px;margin:0 auto;padding:32px;font-family:Inter,Arial,sans-serif"><div style="font-size:12px;color:#64748b;margin-bottom:8px">DLT / Compliance</div><h1 style="font-size:30px;margin:0 0 8px">DLT Templates</h1><p style="color:#64748b;margin-bottom:24px">Create, manage and monitor approved DLT message templates.</p><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px"><div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:20px"><div style="font-size:11px;color:#94a3b8;font-weight:800">TOTAL TEMPLATES</div><div style="font-size:26px;font-weight:800;margin-top:8px">84</div></div><div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:20px"><div style="font-size:11px;color:#94a3b8;font-weight:800">APPROVED</div><div style="font-size:26px;font-weight:800;margin-top:8px">76</div></div><div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:20px"><div style="font-size:11px;color:#94a3b8;font-weight:800">PENDING</div><div style="font-size:26px;font-weight:800;margin-top:8px">8</div></div></div><div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden"><div style="padding:18px;border-bottom:1px solid #e2e8f0;font-weight:800">DLT Templates Management</div><div style="padding:18px;color:#64748b">Use this module to create, manage and monitor dlt templates records. Existing DLT workflow and navigation remain unchanged.</div></div></div></body>
+</html>
