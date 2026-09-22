@@ -301,11 +301,11 @@ main select,main input[type=date],main input[type=text]{min-height:38px!importan
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-100">
-                                    <tr data-channel="sms" class="hover:bg-slate-50"><td class="px-4 py-3 text-xs text-slate-500">21 Sep 2026</td><td class="px-4 py-3"><span class="channel-badge sms">SMS</span></td><td class="px-4 py-3 text-xs font-semibold">Diwali Promo</td><td class="px-4 py-3 text-xs">5,000</td><td class="px-4 py-3 text-xs text-emerald-600 font-semibold">4,850</td><td class="px-4 py-3 text-xs">—</td><td class="px-4 py-3 text-xs text-red-500">90</td><td class="px-4 py-3 text-xs text-amber-500">60</td><td class="px-4 py-3"><a href="details-report.html" class="text-xs font-bold text-blue-600">View</a></td></tr>
-                                    <tr data-channel="rcs" class="hover:bg-slate-50"><td class="px-4 py-3 text-xs text-slate-500">21 Sep 2026</td><td class="px-4 py-3"><span class="channel-badge rcs">RCS</span></td><td class="px-4 py-3 text-xs font-semibold">Festive Rich Card</td><td class="px-4 py-3 text-xs">4,200</td><td class="px-4 py-3 text-xs text-emerald-600 font-semibold">4,050</td><td class="px-4 py-3 text-xs text-violet-600">2,840</td><td class="px-4 py-3 text-xs text-red-500">80</td><td class="px-4 py-3 text-xs text-amber-500">70</td><td class="px-4 py-3"><a href="details-report.html" class="text-xs font-bold text-blue-600">View</a></td></tr>
-                                    <tr data-channel="whatsapp" class="hover:bg-slate-50"><td class="px-4 py-3 text-xs text-slate-500">21 Sep 2026</td><td class="px-4 py-3"><span class="channel-badge whatsapp">WhatsApp</span></td><td class="px-4 py-3 text-xs font-semibold">Offer Broadcast</td><td class="px-4 py-3 text-xs">3,600</td><td class="px-4 py-3 text-xs text-emerald-600 font-semibold">3,420</td><td class="px-4 py-3 text-xs text-violet-600">2,110</td><td class="px-4 py-3 text-xs text-red-500">120</td><td class="px-4 py-3 text-xs text-amber-500">60</td><td class="px-4 py-3"><a href="details-report.html" class="text-xs font-bold text-blue-600">View</a></td></tr>
-                                    <tr data-channel="obd" class="hover:bg-slate-50"><td class="px-4 py-3 text-xs text-slate-500">21 Sep 2026</td><td class="px-4 py-3"><span class="channel-badge obd">OBD</span></td><td class="px-4 py-3 text-xs font-semibold">Payment Reminder</td><td class="px-4 py-3 text-xs">3,200</td><td class="px-4 py-3 text-xs text-emerald-600 font-semibold">3,050</td><td class="px-4 py-3 text-xs text-violet-600">—</td><td class="px-4 py-3 text-xs text-red-500">90</td><td class="px-4 py-3 text-xs text-amber-500">60</td><td class="px-4 py-3"><a href="details-report.html" class="text-xs font-bold text-blue-600">View</a></td></tr>
-                                    <tr data-channel="ivr" class="hover:bg-slate-50"><td class="px-4 py-3 text-xs text-slate-500">21 Sep 2026</td><td class="px-4 py-3"><span class="channel-badge ivr">IVR</span></td><td class="px-4 py-3 text-xs font-semibold">Lead Follow-up</td><td class="px-4 py-3 text-xs">2,450</td><td class="px-4 py-3 text-xs text-emerald-600 font-semibold">2,450</td><td class="px-4 py-3 text-xs text-violet-600">1,580</td><td class="px-4 py-3 text-xs text-red-500">30</td><td class="px-4 py-3 text-xs text-amber-500">—</td><td class="px-4 py-3"><a href="details-report.html" class="text-xs font-bold text-blue-600">View</a></td></tr>
+                                    <tr data-channel="sms" data-campaign="Diwali Promo" data-flow="single" data-products="sms" data-total="5,000" class="hover:bg-slate-50"><td class="px-4 py-3 text-xs text-slate-500">21 Sep 2026</td><td class="px-4 py-3"><span class="channel-badge sms">SMS</span></td><td class="px-4 py-3 text-xs font-semibold">Diwali Promo</td><td class="px-4 py-3 text-xs">5,000</td><td class="px-4 py-3 text-xs text-emerald-600 font-semibold">4,850</td><td class="px-4 py-3 text-xs">—</td><td class="px-4 py-3 text-xs text-red-500">90</td><td class="px-4 py-3 text-xs text-amber-500">60</td><td class="px-4 py-3"><button type="button" class="report-view-btn text-xs font-bold text-blue-600 hover:text-blue-800">View</button></td></tr>
+                                    <tr data-channel="rcs" data-campaign="Festive Rich Card" data-flow="fallback" data-products="rcs,sms,whatsapp" data-total="100,000" class="hover:bg-slate-50"><td class="px-4 py-3 text-xs text-slate-500">21 Sep 2026</td><td class="px-4 py-3"><span class="channel-badge rcs">RCS</span></td><td class="px-4 py-3 text-xs font-semibold">Festive Rich Card</td><td class="px-4 py-3 text-xs">4,200</td><td class="px-4 py-3 text-xs text-emerald-600 font-semibold">4,050</td><td class="px-4 py-3 text-xs text-violet-600">2,840</td><td class="px-4 py-3 text-xs text-red-500">80</td><td class="px-4 py-3 text-xs text-amber-500">70</td><td class="px-4 py-3"><button type="button" class="report-view-btn text-xs font-bold text-blue-600 hover:text-blue-800">View</button></td></tr>
+                                    <tr data-channel="whatsapp" data-campaign="Offer Broadcast" data-flow="single" data-products="whatsapp" data-total="3,600" class="hover:bg-slate-50"><td class="px-4 py-3 text-xs text-slate-500">21 Sep 2026</td><td class="px-4 py-3"><span class="channel-badge whatsapp">WhatsApp</span></td><td class="px-4 py-3 text-xs font-semibold">Offer Broadcast</td><td class="px-4 py-3 text-xs">3,600</td><td class="px-4 py-3 text-xs text-emerald-600 font-semibold">3,420</td><td class="px-4 py-3 text-xs text-violet-600">2,110</td><td class="px-4 py-3 text-xs text-red-500">120</td><td class="px-4 py-3 text-xs text-amber-500">60</td><td class="px-4 py-3"><button type="button" class="report-view-btn text-xs font-bold text-blue-600 hover:text-blue-800">View</button></td></tr>
+                                    <tr data-channel="obd" data-campaign="Payment Reminder" data-flow="single" data-products="obd" data-total="3,200" class="hover:bg-slate-50"><td class="px-4 py-3 text-xs text-slate-500">21 Sep 2026</td><td class="px-4 py-3"><span class="channel-badge obd">OBD</span></td><td class="px-4 py-3 text-xs font-semibold">Payment Reminder</td><td class="px-4 py-3 text-xs">3,200</td><td class="px-4 py-3 text-xs text-emerald-600 font-semibold">3,050</td><td class="px-4 py-3 text-xs text-violet-600">—</td><td class="px-4 py-3 text-xs text-red-500">90</td><td class="px-4 py-3 text-xs text-amber-500">60</td><td class="px-4 py-3"><button type="button" class="report-view-btn text-xs font-bold text-blue-600 hover:text-blue-800">View</button></td></tr>
+                                    <tr data-channel="ivr" data-campaign="Lead Follow-up" data-flow="single" data-products="ivr" data-total="2,450" class="hover:bg-slate-50"><td class="px-4 py-3 text-xs text-slate-500">21 Sep 2026</td><td class="px-4 py-3"><span class="channel-badge ivr">IVR</span></td><td class="px-4 py-3 text-xs font-semibold">Lead Follow-up</td><td class="px-4 py-3 text-xs">2,450</td><td class="px-4 py-3 text-xs text-emerald-600 font-semibold">2,450</td><td class="px-4 py-3 text-xs text-violet-600">1,580</td><td class="px-4 py-3 text-xs text-red-500">30</td><td class="px-4 py-3 text-xs text-amber-500">—</td><td class="px-4 py-3"><button type="button" class="report-view-btn text-xs font-bold text-blue-600 hover:text-blue-800">View</button></td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -323,6 +323,52 @@ main select,main input[type=date],main input[type=text]{min-height:38px!importan
         </div>
     </main>
 
+<!-- Campaign Details Modal -->
+<div id="campaignDetailsModal" class="hidden fixed inset-0 z-[9990] bg-slate-950/55 backdrop-blur-[2px] items-center justify-center p-4">
+  <div class="relative bg-white w-full max-w-4xl max-h-[92vh] rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col">
+    <div class="flex items-center justify-between px-5 py-4 border-b border-slate-100 shrink-0">
+      <div class="flex items-center gap-3">
+        <div id="modalChannelIcon" class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center"><i class="fa-solid fa-chart-pie"></i></div>
+        <div>
+          <h3 id="modalCampaignTitle" class="text-lg font-bold text-slate-900">Campaign Details</h3>
+          <p id="modalCampaignMeta" class="text-[11px] text-slate-400 mt-0.5">Campaign report</p>
+        </div>
+      </div>
+      <button type="button" id="closeCampaignModal" class="w-9 h-9 rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-5 space-y-5">
+      <div class="border border-blue-100 bg-blue-50/40 rounded-2xl p-4">
+        <div class="flex items-center justify-between mb-3">
+          <h4 class="text-sm font-bold text-blue-900"><i class="fa-solid fa-chart-pie mr-2"></i>DELIVERY BREAKDOWN <span id="modalTotal"></span></h4>
+          <span id="modalFlowBadge" class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-blue-100 text-blue-700">Campaign</span>
+        </div>
+        <div id="modalProducts" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 bg-slate-50 border border-slate-200 rounded-2xl p-4">
+        <div><p class="text-[10px] font-bold text-slate-400 uppercase">Sender ID / Bot Name</p><p id="modalSender" class="mt-1 text-sm font-bold text-violet-600">Zion_Official_Bot</p></div>
+        <div><p class="text-[10px] font-bold text-slate-400 uppercase">Template ID</p><p id="modalTemplate" class="mt-1 text-sm font-bold text-slate-700">1203163234567890</p></div>
+        <div><p class="text-[10px] font-bold text-slate-400 uppercase">PE ID / Bot Agent</p><p id="modalPe" class="mt-1 text-sm font-bold text-slate-700">1001543210987654</p></div>
+        <div><p class="text-[10px] font-bold text-slate-400 uppercase">Campaign Flow</p><p id="modalFlow" class="mt-1 inline-block px-2.5 py-1 rounded-md bg-white border border-slate-200 text-xs font-bold text-slate-700">Direct</p></div>
+        <div><p class="text-[10px] font-bold text-slate-400 uppercase">Journey Campaign</p><p id="modalJourney" class="mt-1 inline-block px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-700">No</p></div>
+        <div><p class="text-[10px] font-bold text-slate-400 uppercase">Total Spent (₹)</p><p id="modalSpent" class="mt-1 text-sm font-bold text-slate-800">₹ 23,800.00</p></div>
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between mb-2"><h4 class="text-sm font-bold text-slate-700">Message Content &amp; Rich Card</h4><span id="modalTemplateType" class="text-xs font-semibold text-violet-600">Template</span></div>
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600 leading-6">
+          <p id="modalMessage">✨ Grand campaign message is live. Dear Valued Customer, this campaign is being delivered through the selected communication channel.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="shrink-0 border-t border-slate-100 px-5 py-4 flex items-center justify-between gap-3 bg-white">
+      <a id="modalDetailsBtn" href="details-report.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm"><i class="fa-solid fa-chart-pie"></i> Details Report</a>
+      <button type="button" id="modalCloseBottom" class="px-5 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold">Close</button>
+    </div>
+  </div>
+</div>
 <script>
 function setReportChannel(channel){
  document.querySelectorAll('.report-tab').forEach(b=>b.classList.toggle('active',b.dataset.reportTab===channel));
@@ -342,5 +388,42 @@ function toggleNav(id){
  el.classList.toggle('hidden');
  if(arrow) arrow.classList.toggle('rotate-180');
 }
-</script><script src="global-nav.js"></script><script id="report-filter-v2">document.addEventListener('DOMContentLoaded',()=>{const main=document.querySelector('main');if(!main)return;const selects=[...main.querySelectorAll('select')];const channel=selects.find(s=>/channel/i.test(s.parentElement?.textContent||''))||selects[0];const table=main.querySelector('table');if(!channel||!table)return;const apply=()=>{const wanted=(channel.value||'all').toLowerCase();[...table.querySelectorAll('tbody tr')].forEach(row=>{const text=row.textContent.toLowerCase();row.style.display=(wanted.includes('all')||wanted==='all channels'||text.includes(wanted))?'':'none'})};channel.addEventListener('change',apply);const btn=[...main.querySelectorAll('button')].find(b=>b.textContent.trim().toLowerCase()==='filter');if(btn)btn.addEventListener('click',apply)});</script></body>
+</script><script src="global-nav.js"></script><script id="report-filter-v2">document.addEventListener('DOMContentLoaded',()=>{const main=document.querySelector('main');if(!main)return;const selects=[...main.querySelectorAll('select')];const channel=selects.find(s=>/channel/i.test(s.parentElement?.textContent||''))||selects[0];const table=main.querySelector('table');if(!channel||!table)return;const apply=()=>{const wanted=(channel.value||'all').toLowerCase();[...table.querySelectorAll('tbody tr')].forEach(row=>{const text=row.textContent.toLowerCase();row.style.display=(wanted.includes('all')||wanted==='all channels'||text.includes(wanted))?'':'none'})};channel.addEventListener('change',apply);const btn=[...main.querySelectorAll('button')].find(b=>b.textContent.trim().toLowerCase()==='filter');if(btn)btn.addEventListener('click',apply)});</script><script id="campaign-details-modal-js">
+(function(){
+ const modal=document.getElementById('campaignDetailsModal'); if(!modal)return;
+ const productConfig={
+  rcs:{label:'RCS',icon:'fa-brands fa-google',cls:'violet',value:'95,200'},
+  sms:{label:'SMS',icon:'fa-solid fa-comment-sms',cls:'blue',value:'3,000'},
+  whatsapp:{label:'WHATSAPP',icon:'fa-brands fa-whatsapp',cls:'emerald',value:'1,000'},
+  obd:{label:'OBD',icon:'fa-solid fa-phone',cls:'orange',value:'0'},
+  ivr:{label:'IVR',icon:'fa-solid fa-phone-volume',cls:'indigo',value:'0'},
+  failed:{label:'FAILED',icon:'fa-solid fa-xmark',cls:'red',value:'800'},
+  pending:{label:'PENDING',icon:'fa-solid fa-arrow-rotate-left',cls:'amber',value:'0'}
+ };
+ const colors={violet:['bg-violet-50','text-violet-600','border-violet-200'],blue:['bg-blue-50','text-blue-600','border-blue-200'],emerald:['bg-emerald-50','text-emerald-600','border-emerald-200'],orange:['bg-orange-50','text-orange-600','border-orange-200'],indigo:['bg-indigo-50','text-indigo-600','border-indigo-200'],red:['bg-red-50','text-red-600','border-red-200'],amber:['bg-amber-50','text-amber-600','border-amber-200']};
+ function card(p){
+  const x=productConfig[p]||productConfig.sms, cc=colors[x.cls]||colors.blue;
+  return '<div class="bg-white rounded-xl border border-slate-100 p-3 text-center shadow-sm"><div class="w-8 h-8 mx-auto rounded-full '+cc[0]+' '+cc[1]+' flex items-center justify-center"><i class="'+x.icon+'"></i></div><div class="mt-2 text-[9px] font-bold text-slate-500">'+x.label+'</div><div class="mt-1 text-lg font-black text-slate-800">'+x.value+'</div></div>';
+ }
+ function open(row){
+  const flow=row.dataset.flow||'single', products=(row.dataset.products||row.dataset.channel||'sms').split(',');
+  document.getElementById('modalCampaignTitle').textContent='Campaign Details - '+(row.dataset.campaign||'Campaign');
+  document.getElementById('modalCampaignMeta').textContent='Campaign execution report';
+  document.getElementById('modalTotal').textContent='(TOTAL: '+(row.dataset.total||'0')+')';
+  document.getElementById('modalFlowBadge').textContent=flow==='fallback'?'Fallback Cascade':'Direct Campaign';
+  document.getElementById('modalFlow').textContent=flow==='fallback'?'RCS → SMS → WA':(products[0]||'Direct').toUpperCase();
+  document.getElementById('modalJourney').textContent=flow==='fallback'?'Yes (RCS → SMS → WA)':'No';
+  document.getElementById('modalProducts').innerHTML=products.map(p=>card(p)).join('')+card('failed')+card('pending');
+  document.getElementById('modalMessage').textContent=(row.dataset.campaign||'Campaign')+' message is live and being processed through the selected communication flow.';
+  document.getElementById('modalDetailsBtn').href='details-report.html?campaign='+encodeURIComponent(row.dataset.campaign||'');
+  modal.classList.remove('hidden');modal.classList.add('flex');document.body.classList.add('overflow-hidden');
+ }
+ function close(){modal.classList.add('hidden');modal.classList.remove('flex');document.body.classList.remove('overflow-hidden')}
+ document.querySelectorAll('.report-view-btn').forEach(btn=>btn.addEventListener('click',()=>open(btn.closest('tr'))));
+ document.getElementById('closeCampaignModal')?.addEventListener('click',close);
+ document.getElementById('modalCloseBottom')?.addEventListener('click',close);
+ modal.addEventListener('click',e=>{if(e.target===modal)close()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+})();
+</script></body>
 </html>
