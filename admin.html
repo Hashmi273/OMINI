@@ -16,6 +16,8 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
 @media(max-width:760px){.sidebar{transform:translateX(-100%);transition:.2s;width:280px}.sidebar.open{transform:none}.main{margin-left:0;width:100%}.mobile-menu{display:block;border:0;background:#fff;font-size:20px}.topbar{padding:0 15px}.topbar .search{display:none}.content{padding:20px 15px}.kpis{grid-template-columns:1fr 1fr}.page-head{gap:15px}.checks,.form-grid{grid-template-columns:1fr 1fr}.overlay{display:none}.overlay.show{display:block;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:15}}
 
 .stats-eye{position:absolute;right:16px;top:16px;width:38px;height:38px;border:0;border-radius:10px;background:#eef4ff;color:#2563eb;font-size:18px;cursor:pointer;display:grid;place-items:center}.kpi{position:relative}.stats-eye:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,99,235,.15)}
+
+.user-eye{width:32px;height:32px;border:1px solid #dbe3f0;border-radius:8px;background:#eef4ff;color:#2563eb;cursor:pointer;font-size:15px;vertical-align:middle}.user-eye:hover{box-shadow:0 3px 10px rgba(37,99,235,.15);transform:translateY(-1px)}
 </style>
 </head>
 <body>
@@ -172,7 +174,7 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
       '<button class="btn primary" onclick="go(\'create-user\')">＋ Create User</button>');
     html+='<div class="card panel"><div class="toolbar"><input id="userSearch" class="input" placeholder="Search users..."><select class="select"><option>All Status</option><option>Active</option><option>Suspended</option></select><button class="btn">Export</button></div>';
     html+='<div class="table-wrap"><table class="table"><thead><tr><th>Account</th><th>Contact</th><th>Role</th><th>Products</th><th>Credit</th><th>Status</th><th>Action</th></tr></thead><tbody id="userTable">';
-    users.forEach(function(u){html+='<tr><td><strong>'+esc(u.company)+'</strong><div class="mini">'+esc(u.id)+'</div></td><td>'+esc(u.name)+'<div class="mini">'+esc(u.email)+'</div></td><td>'+esc(u.role)+'</td><td>'+esc(u.products)+'</td><td>'+esc(u.credit)+'</td><td>'+badge(u.status)+'</td><td><button class="btn" onclick="viewUser(\''+u.id+'\')">View</button></td></tr>';});
+    users.forEach(function(u){html+='<tr><td><strong>'+esc(u.company)+'</strong><div class="mini">'+esc(u.id)+'</div></td><td>'+esc(u.name)+'<div class="mini">'+esc(u.email)+'</div></td><td>'+esc(u.role)+'</td><td>'+esc(u.products)+'</td><td>'+esc(u.credit)+'</td><td>'+badge(u.status)+'</td><td style="white-space:nowrap"><button class="stats-eye user-eye" onclick="showUserStats(\''+u.id+'\')" title="View account statistics">◉</button> <button class="btn" onclick="viewUser(\''+u.id+'\')">View</button></td></tr>';});
     html+='</tbody></table></div></div>';
     content.innerHTML=html;
     var search=document.getElementById('userSearch');
@@ -181,6 +183,34 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
       document.querySelectorAll('#userTable tr').forEach(function(tr){tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none';});
     });
   }
+  window.showUserStats=function(id){
+    var u=users.find(function(x){return x.id===id;});
+    if(!u)return;
+    var stats={
+      sms:[['Submitted','125,430'],['Delivered','122,850'],['Failed','1,420'],['Pending','1,160'],['DLR Awaited','0']],
+      rcs:[['Submitted','86,720'],['Delivered','84,910'],['Read','62,340'],['Clicked','18,450'],['Failed','920'],['Pending','2,440']],
+      whatsapp:[['Submitted','54,280'],['Delivered','52,940'],['Read','41,230'],['Clicked','12,680'],['Failed','510'],['Pending','830']],
+      obd:[['Submitted','12,450'],['Connected','11,920'],['Failed','310'],['Pending','120'],['No Answer','100']],
+      ivr:[['Submitted','8,640'],['Completed','7,980'],['Failed','280'],['Pending','190'],['Busy / No Answer','190']]
+    };
+    var products=[
+      ['SMS','#2563eb',stats.sms],
+      ['RCS','#7c3aed',stats.rcs],
+      ['WhatsApp','#059669',stats.whatsapp],
+      ['OBD','#f4511e',stats.obd],
+      ['IVR','#f59e0b',stats.ivr]
+    ];
+    var body='<div style="margin-bottom:16px"><strong>'+esc(u.company)+'</strong><div class="mini">'+esc(u.name)+' · '+esc(u.role)+' · '+esc(u.status)+'</div></div>';
+    body+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">';
+    products.forEach(function(p){
+      body+='<div style="border:1px solid #e5e9f0;border-radius:12px;padding:12px;background:#fff"><div style="font-weight:800;color:'+p[1]+';margin-bottom:9px">'+p[0]+' Statistics</div>';
+      p[2].forEach(function(item,i){body+='<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:'+(i===p[2].length-1?'0':'1px solid #edf0f4')+';font-size:12px"><span>'+item[0]+'</span><strong>'+item[1]+'</strong></div>';});
+      body+='</div>';
+    });
+    body+='</div><div style="display:flex;justify-content:flex-end;margin-top:16px"><button class="btn" onclick="closeModal()">Close</button></div>';
+    openModal('Account Statistics — '+u.company,body);
+  };
+
   window.viewUser=function(id){
     var u=users.find(function(x){return x.id===id;});
     if(u)openModal('User Details','<div class="form-grid"><div><b>Company</b><p>'+esc(u.company)+'</p></div><div><b>Name</b><p>'+esc(u.name)+'</p></div><div><b>Role</b><p>'+esc(u.role)+'</p></div><div><b>Products</b><p>'+esc(u.products)+'</p></div><div><b>Credit</b><p>'+esc(u.credit)+'</p></div><div><b>Status</b><p>'+esc(u.status)+'</p></div></div><div style="text-align:right;margin-top:16px"><button class="btn" onclick="closeModal()">Close</button></div>');
