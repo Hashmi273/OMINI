@@ -24,6 +24,8 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
 .live-traffic-panel{margin-top:16px}.live-pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;color:#059669;background:#ecfdf5;border:1px solid #bbf7d0;padding:6px 9px;border-radius:999px}.live-pill span{width:7px;height:7px;border-radius:50%;background:#10b981;box-shadow:0 0 0 3px #d1fae5}.product-tag{display:inline-flex;padding:5px 9px;border-radius:7px;font-size:11px;font-weight:800}.product-tag.sms{color:#2563eb;background:#eff6ff}.product-tag.rcs{color:#7c3aed;background:#f5f3ff}.product-tag.whatsapp{color:#059669;background:#ecfdf5}.live-delivered{color:#059669;font-weight:700}.live-failed{color:#ef4444;font-weight:700}.live-time{font-size:11px;color:#059669;font-weight:700;white-space:nowrap}@media(max-width:700px){.live-traffic-table{min-width:760px}}
 
 .user-management-dashboard{margin-top:16px}.dashboard-user-list{display:flex;flex-direction:column}.dashboard-user-row{display:grid;grid-template-columns:2fr 1.5fr 1fr 30px;align-items:center;gap:16px;padding:13px 6px;border-top:1px solid #edf0f4;cursor:pointer;transition:.15s}.dashboard-user-row:hover{background:#f8faff}.dashboard-user-main{display:flex;align-items:center;gap:10px}.user-avatar,.profile-avatar{display:grid;place-items:center;border-radius:10px;background:#eef2ff;color:#4f46e5;font-weight:800}.user-avatar{width:34px;height:34px;font-size:13px}.dashboard-user-name{border:0;background:none;padding:0;font:inherit;font-weight:800;color:#172033;cursor:pointer}.dashboard-user-name:hover{color:#2563eb}.dashboard-user-products{display:flex;gap:5px;flex-wrap:wrap}.user-product-chip{font-size:10px;font-weight:800;padding:4px 7px;border-radius:6px;background:#f3f4f6;color:#475569}.dashboard-user-arrow{color:#2563eb;font-size:18px;font-weight:800}.profile-hero{display:flex;align-items:center;gap:12px;padding:14px;background:#f8fafc;border:1px solid #e5e9f0;border-radius:12px}.profile-avatar{width:46px;height:46px;font-size:17px}.profile-name{font-size:16px;font-weight:800}.profile-status{margin-left:auto}.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#e5e9f0;border:1px solid #e5e9f0;border-radius:12px;overflow:hidden;margin-top:14px}.profile-grid>div{background:#fff;padding:12px}.profile-grid span{display:block;font-size:10px;text-transform:uppercase;color:#8792a6;font-weight:800;margin-bottom:5px}.profile-grid strong{font-size:13px;word-break:break-word}.profile-section-title{font-weight:800;margin:16px 0 9px}.profile-actions{display:flex;gap:8px;flex-wrap:wrap}@media(max-width:760px){.dashboard-user-row{grid-template-columns:1fr auto}.dashboard-user-products,.dashboard-user-status{grid-column:1}.dashboard-user-arrow{grid-column:2;grid-row:1}.profile-grid{grid-template-columns:1fr}}
+
+.edit-user-form{max-height:68vh;overflow:auto;padding-right:3px}.edit-section{border:1px solid #e5e9f0;border-radius:12px;padding:14px;margin-bottom:12px;background:#fbfcfe}.edit-section-title{font-weight:800;font-size:13px;margin-bottom:10px}.edit-check-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.check-card{display:flex;align-items:center;gap:8px;border:1px solid #e5e9f0;border-radius:9px;padding:10px;background:#fff;font-size:12px;font-weight:700;cursor:pointer}.check-card:has(input:checked){border-color:#2563eb;background:#eff6ff}.check-card input{accent-color:#2563eb}@media(max-width:700px){.edit-check-grid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -75,9 +77,9 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
     whitelabel:'Reseller White Label',audit:'Audit Logs',settings:'System Settings'
   };
   var users=[
-    {id:'USR-1001',company:'ABC Pvt Ltd',name:'Aakash Verma',email:'aakash@abc.com',role:'User',products:'SMS, RCS',credit:'₹2,48,500',status:'Active'},
-    {id:'USR-1002',company:'XYZ Communications',name:'Rahul Shah',email:'rahul@xyz.com',role:'Reseller User',products:'SMS, WhatsApp',credit:'₹1,82,000',status:'Active'},
-    {id:'USR-1003',company:'Metro Digital',name:'Sana Khan',email:'sana@metro.com',role:'User',products:'RCS',credit:'₹64,500',status:'Suspended'}
+    {id:'USR-1001',company:'ABC Pvt Ltd',name:'Aakash Verma',email:'aakash@abc.com',role:'User',products:'SMS, RCS',credit:'₹2,48,500',status:'Active',gateways:['Airtel','Jio'],billingMode:'Prepaid',creditDeduction:true,rechargeAccess:true,reportSync:true},
+    {id:'USR-1002',company:'XYZ Communications',name:'Rahul Shah',email:'rahul@xyz.com',role:'Reseller',products:'SMS, WhatsApp',credit:'₹1,82,000',status:'Active',gateways:['Smartping','WhatsApp Provider'],billingMode:'Prepaid',creditDeduction:true,rechargeAccess:true,reportSync:true},
+    {id:'USR-1003',company:'Metro Digital',name:'Sana Khan',email:'sana@metro.com',role:'User',products:'RCS',credit:'₹64,500',status:'Suspended',gateways:['RCS Provider'],billingMode:'Prepaid',creditDeduction:true,rechargeAccess:false,reportSync:true}
   ];
   var gateways=[
     ['Airtel','SMS','CONNECTED','500 TPS'],['Jio','SMS','CONNECTED','450 TPS'],
@@ -240,7 +242,7 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
       '<button class="btn primary" onclick="go(\'create-user\')">＋ Create User</button>');
     html+='<div class="card panel"><div class="toolbar"><input id="userSearch" class="input" placeholder="Search users..."><select class="select"><option>All Status</option><option>Active</option><option>Suspended</option></select><button class="btn">Export</button></div>';
     html+='<div class="table-wrap"><table class="table"><thead><tr><th>Account</th><th>Contact</th><th>Role</th><th>Products</th><th>Credit</th><th>Status</th><th>Action</th></tr></thead><tbody id="userTable">';
-    users.forEach(function(u){html+='<tr><td><strong>'+esc(u.company)+'</strong><div class="mini">'+esc(u.id)+'</div></td><td>'+esc(u.name)+'<div class="mini">'+esc(u.email)+'</div></td><td>'+esc(u.role)+'</td><td>'+esc(u.products)+'</td><td>'+esc(u.credit)+'</td><td>'+badge(u.status)+'</td><td style="white-space:nowrap"><button class="stats-eye user-eye" onclick="showUserStats(\''+u.id+'\')" title="View account statistics">◉</button> <button class="btn" onclick="viewUser(\''+u.id+'\')">View</button></td></tr>';});
+    users.forEach(function(u){html+='<tr><td><strong>'+esc(u.company)+'</strong><div class="mini">'+esc(u.id)+'</div></td><td>'+esc(u.name)+'<div class="mini">'+esc(u.email)+'</div></td><td>'+esc(u.role)+'</td><td>'+esc(u.products)+'</td><td>'+esc(u.credit)+'</td><td>'+badge(u.status)+'</td><td style="white-space:nowrap"><button class="stats-eye user-eye" onclick="showUserStats(\''+u.id+'\')" title="View account statistics">◉</button> <button class="btn" onclick="viewUser(\''+u.id+'\')">View</button> <button class="btn" onclick="editUser(\''+u.id+'\')">Edit</button></td></tr>';});
     html+='</tbody></table></div></div>';
     content.innerHTML=html;
     var search=document.getElementById('userSearch');
@@ -279,8 +281,73 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
 
   window.viewUser=function(id){
     var u=users.find(function(x){return x.id===id;});
-    if(u)openModal('User Details','<div class="form-grid"><div><b>Company</b><p>'+esc(u.company)+'</p></div><div><b>Name</b><p>'+esc(u.name)+'</p></div><div><b>Role</b><p>'+esc(u.role)+'</p></div><div><b>Products</b><p>'+esc(u.products)+'</p></div><div><b>Credit</b><p>'+esc(u.credit)+'</p></div><div><b>Status</b><p>'+esc(u.status)+'</p></div></div><div style="text-align:right;margin-top:16px"><button class="btn" onclick="closeModal()">Close</button></div>');
+    if(!u)return;
+    var body='<div class="form-grid"><div><b>Company</b><p>'+esc(u.company)+'</p></div><div><b>Name</b><p>'+esc(u.name)+'</p></div><div><b>Role</b><p>'+esc(u.role)+'</p></div><div><b>Products</b><p>'+esc(u.products)+'</p></div><div><b>Credit</b><p>'+esc(u.credit)+'</p></div><div><b>Status</b><p>'+esc(u.status)+'</p></div></div>';
+    body+='<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:18px"><button class="btn" onclick="closeModal()">Close</button><button class="btn primary" onclick="editUser(\''+u.id+'\')">✎ Edit Account</button></div>';
+    openModal('User Details — '+u.company,body);
   };
+
+  window.editUser=function(id){
+    var u=users.find(function(x){return x.id===id;});
+    if(!u)return;
+    var productOptions=['SMS','RCS','WhatsApp','OBD','IVR'];
+    var gatewayOptions=gateways.map(function(g){return g[0];});
+    var body='<div class="edit-user-form">';
+    body+='<div class="edit-section"><div class="edit-section-title">Account & Role</div><div class="form-grid">';
+    body+='<label>Role<select id="editRole" class="select"><option '+(u.role==='User'?'selected':'')+'>User</option><option '+(u.role==='Reseller'?'selected':'')+'>Reseller</option></select></label>';
+    body+='<label>Status<select id="editStatus" class="select"><option '+(u.status==='Active'?'selected':'')+'>Active</option><option '+(u.status==='Suspended'?'selected':'')+'>Suspended</option></select></label>';
+    body+='</div></div>';
+    body+='<div class="edit-section"><div class="edit-section-title">Product Access</div><div class="edit-check-grid">';
+    productOptions.forEach(function(p){var on=u.products.split(',').map(function(x){return x.trim();}).indexOf(p)>=0; body+='<label class="check-card"><input type="checkbox" class="editProduct" value="'+p+'" '+(on?'checked':'')+'><span>'+p+'</span></label>';});
+    body+='</div></div>';
+    body+='<div class="edit-section"><div class="edit-section-title">Gateway Assignment</div><div class="edit-check-grid">';
+    gatewayOptions.forEach(function(g){var on=(u.gateways||[]).indexOf(g)>=0; body+='<label class="check-card"><input type="checkbox" class="editGateway" value="'+esc(g)+'" '+(on?'checked':'')+'><span>'+esc(g)+'</span></label>';});
+    body+='</div></div>';
+    body+='<div class="edit-section"><div class="edit-section-title">Recharge & Credit Deduction</div><div class="form-grid">';
+    body+='<label>Billing Mode<select id="editBillingMode" class="select"><option '+(u.billingMode==='Prepaid'?'selected':'')+'>Prepaid</option><option '+(u.billingMode==='Postpaid'?'selected':'')+'>Postpaid</option></select></label>';
+    body+='<label>Current Credit<input id="editCredit" class="input" value="'+esc(u.credit)+'" placeholder="₹0"></label>';
+    body+='</div><div class="edit-check-grid" style="margin-top:10px">';
+    body+='<label class="check-card"><input type="checkbox" id="editRecharge" '+(u.rechargeAccess?'checked':'')+'><span>Allow Recharge</span></label>';
+    body+='<label class="check-card"><input type="checkbox" id="editDeduction" '+(u.creditDeduction?'checked':'')+'><span>Auto Credit Deduction</span></label>';
+    body+='</div></div>';
+    body+='<div class="edit-section"><div class="edit-section-title">Report Update & Sync</div><div class="edit-check-grid">';
+    body+='<label class="check-card"><input type="checkbox" id="editReportSync" '+(u.reportSync?'checked':'')+'><span>Sync Admin Delivery / Failed Updates to User Report</span></label>';
+    body+='</div><div class="mini" style="margin-top:8px">When enabled, admin-side delivery/failed status changes are reflected in this user\'s report view.</div></div>';
+    body+='<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:18px"><button class="btn" onclick="viewUser(\''+u.id+'\')">Cancel</button><button class="btn primary" onclick="saveUserSettings(\''+u.id+'\')">Save Changes</button></div>';
+    body+='</div>';
+    openModal('Edit User — '+u.company,body);
+  };
+
+  window.saveUserSettings=function(id){
+    var u=users.find(function(x){return x.id===id;});
+    if(!u)return;
+    u.role=document.getElementById('editRole').value;
+    u.status=document.getElementById('editStatus').value;
+    u.products=Array.from(document.querySelectorAll('.editProduct:checked')).map(function(x){return x.value;}).join(', ')||'No Product';
+    u.gateways=Array.from(document.querySelectorAll('.editGateway:checked')).map(function(x){return x.value;});
+    u.billingMode=document.getElementById('editBillingMode').value;
+    u.credit=document.getElementById('editCredit').value;
+    u.rechargeAccess=document.getElementById('editRecharge').checked;
+    u.creditDeduction=document.getElementById('editDeduction').checked;
+    u.reportSync=document.getElementById('editReportSync').checked;
+    try{localStorage.setItem('omini_admin_users',JSON.stringify(users));}catch(e){}
+    closeModal();
+    renderUsers();
+    if(typeof renderDashboardUsers==='function')renderDashboardUsers();
+    if(window.toast)toast('User account settings updated successfully');
+  };
+
+  try{
+    var savedUsers=localStorage.getItem('omini_admin_users');
+    if(savedUsers){
+      var parsedUsers=JSON.parse(savedUsers);
+      parsedUsers.forEach(function(saved){
+        var target=users.find(function(x){return x.id===saved.id;});
+        if(target)Object.assign(target,saved);
+      });
+    }
+  }catch(e){}
+
 
   function renderForm(type){
     var isReseller=type==='create-reseller';
