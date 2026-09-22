@@ -92,7 +92,18 @@
   }
 
   function installFinalSidebar(){
-    const aside=document.querySelector('aside');
+    let aside=document.querySelector('aside');
+    const path=location.pathname.toLowerCase();
+    const sidebarPages=['rcs-bot.html','whatsapp-bot.html','live-inbox.html','whatsapp-agents.html'];
+    if(!aside && sidebarPages.some(n=>path.endsWith(n))){
+      aside=document.createElement('aside');
+      aside.setAttribute('aria-label','ZION navigation');
+      document.body.insertBefore(aside, document.body.firstElementChild);
+      document.body.style.display='flex';
+      document.body.style.minHeight='100vh';
+      const main=document.querySelector('main');
+      if(main){main.style.flex='1';main.style.minWidth='0';}
+    }
     if(!aside || aside.dataset.zionFinalSidebar==='1') return;
     aside.dataset.zionFinalSidebar='1';
     aside.className='zion-final-sidebar';
