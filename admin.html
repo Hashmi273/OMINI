@@ -34,7 +34,7 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
   <div class="section">OVERVIEW</div><div class="nav"><button data-page="dashboard" class="active"><span class="ico">⌂</span>Dashboard</button></div>
   <div class="section admin-section">ADMIN</div><div class="nav">
     <button data-page="admin-users"><span class="ico">◉</span>Manage Users</button>
-    <button data-page="system-tariff"><span class="ico">▤</span>System Tariff</button>
+    <button data-page="system-tariff"><span class="ico">▤</span>System Traffic</button>
     <button data-page="configuration"><span class="ico">⚙</span>Configuration</button>
     <button data-page="admin-settings"><span class="ico">◐</span>Settings</button>
     <button data-page="development"><span class="ico">&lt;/&gt;</span>Development</button>
@@ -517,37 +517,119 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
 
   function renderSystemTariff(){
     var traffic=[
-      {id:'USR-1001',sms:248500,rcs:126000,whatsapp:84200},
-      {id:'USR-1002',sms:182400,rcs:98400,whatsapp:156300},
-      {id:'USR-1003',sms:12400,rcs:156800,whatsapp:0}
+      {id:'USR-1001',client:'bluemdtx',type:'Client',submitted:11100,delivered:10371,failed:586,pending:143,xDropped:0},
+      {id:'USR-1002',client:'Suyash',type:'Client',submitted:574,delivered:506,failed:67,pending:1,xDropped:0},
+      {id:'USR-1003',client:'tiger1',type:'Client',submitted:98,delivered:96,failed:2,pending:0,xDropped:0},
+      {id:'USR-1004',client:'digisms',type:'Client',submitted:2,delivered:2,failed:0,pending:0,xDropped:0}
     ];
+
+    // Add managed users that do not yet have traffic rows.
     users.forEach(function(u){
-      if(!traffic.some(function(x){return x.id===u.id;}))traffic.push({id:u.id,sms:0,rcs:0,whatsapp:0});
+      if(!traffic.some(function(x){return x.id===u.id;})){
+        traffic.push({
+          id:u.id,
+          client:u.name || u.company || u.id,
+          type:u.role==='Reseller'?'Reseller':'Client',
+          submitted:0,delivered:0,failed:0,pending:0,xDropped:0
+        });
+      }
     });
+
     function n(v){return Number(v||0).toLocaleString('en-IN');}
-    function total(x){return x.sms+x.rcs+x.whatsapp;}
-    var html=head('System Tariff','See how many SMS, RCS and WhatsApp messages each managed user is sending.');
-    html+='<div class="card panel"><div class="toolbar"><input id="tariffSearch" class="input" placeholder="Search user or company..." style="min-width:280px"><select id="tariffProduct" class="select"><option value="">All Products</option><option>SMS</option><option>RCS</option><option>WhatsApp</option></select><button class="btn" onclick="toast(\'Tariff report exported\')">Export</button></div>';
-    html+='<div class="table-wrap"><table class="table"><thead><tr><th>User / Company</th><th>SMS Sent</th><th>RCS Sent</th><th>WhatsApp Sent</th><th>Total Messages</th><th>Current Tariff</th></tr></thead><tbody id="tariffTable">';
-    traffic.sort(function(a,b){return total(b)-total(a);}).forEach(function(t){
-      var u=users.find(function(x){return x.id===t.id;})||{name:t.id,company:'Unknown',pricing:{sms:'0',rcs:'0',whatsapp:'0'}};
-      var rate=u.pricing||{};
-      html+='<tr data-tariff="'+esc(t.id)+'"><td><strong>'+esc(u.name)+'</strong><div class="mini">'+esc(u.company)+' · '+esc(t.id)+'</div></td><td><strong style="color:#2563eb">'+n(t.sms)+'</strong></td><td><strong style="color:#7c3aed">'+n(t.rcs)+'</strong></td><td><strong style="color:#059669">'+n(t.whatsapp)+'</strong></td><td><strong>'+n(total(t))+'</strong></td><td><span class="mini">SMS ₹'+esc(rate.sms||'0')+' · RCS ₹'+esc(rate.rcs||'0')+' · WA ₹'+esc(rate.whatsapp||'0')+'</span></td></tr>';
+    function success(row){
+      return row.submitted ? ((row.delivered/row.submitted)*100).toFixed(1) : '0.0';
+    }
+
+    var html=head('System Traffic','Monitor message traffic for every managed client in a simple account-wise delivery table.',
+      '<button class="btn" onclick="toast(\\'Traffic report exported\\')">Export</button>');
+
+    html+='<div class="card panel">';
+    html+='<div class="toolbar" style="justify-content:space-between">';
+    html+='<div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap"><input id="trafficSearch" class="input" placeholder="Search client..." style="min-width:260px"><select id="trafficType" class="select"><option value="">All Types</option><option value="Client">Client</option><option value="Reseller">Reseller</option></select></div>';
+    html+='<div class="mini" id="trafficCount"></div>';
+    html+='</div>';
+    html+='<div class="table-wrap"><table class="table" style="min-width:1180px"><thead><tr><th>Client</th><th>Type</th><th>Submitted</th><th>Delivered</th><th>Failed</th><th>Pending</th><th>X-Dropped</th><th>Success %</th><th>Action</th></tr></thead><tbody id="trafficTable">';
+
+    traffic.forEach(function(t){
+      html+='<tr data-traffic-id="'+esc(t.id)+'">';
+      html+='<td><strong>'+esc(t.client)+'</strong><div class="mini">'+esc(t.id)+'</div></td>';
+      html+='<td><span class="badge gray">'+esc(t.type)+'</span></td>';
+      html+='<td>'+n(t.submitted)+'</td>';
+      html+='<td>'+n(t.delivered)+'</td>';
+      html+='<td>'+n(t.failed)+'</td>';
+      html+='<td>'+n(t.pending)+'</td>';
+      html+='<td>'+n(t.xDropped)+'</td>';
+      html+='<td><strong>'+success(t)+'%</strong></td>';
+      html+='<td><button class="btn" onclick="showTrafficClient(\\''+esc(t.id)+'\\')">Open</button></td>';
+      html+='</tr>';
     });
-    html+='</tbody></table></div><div class="mini" style="margin-top:12px">Usage is shown as the admin-side system traffic view. Product tariffs are taken from each user account configuration.</div></div>';
+
+    html+='</tbody></table></div>';
+    html+='<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap"><div class="mini" id="trafficShowing"></div><div style="display:flex;align-items:center;gap:8px"><select class="select" id="trafficPageSize" style="min-width:118px;padding:7px 10px"><option value="50">50 / page</option><option value="25">25 / page</option><option value="100">100 / page</option></select><button class="btn" id="trafficPrev" disabled>Previous</button><span class="mini" id="trafficPageLabel">Page 1 of 1</span><button class="btn" id="trafficNext" disabled>Next</button></div></div>';
+    html+='<div class="mini" style="margin-top:10px">Traffic columns follow the account-level delivery view: Submitted, Delivered, Failed, Pending, X-Dropped and Success %.</div>';
+    html+='</div>';
+
     content.innerHTML=html;
-    var search=document.getElementById('tariffSearch'), filter=document.getElementById('tariffProduct');
-    function apply(){
-      var q=(search.value||'').toLowerCase(), p=filter.value;
-      document.querySelectorAll('#tariffTable tr').forEach(function(tr){
-        var text=tr.textContent.toLowerCase();
-        var ok=!q||text.includes(q);
-        var productOk=!p||((p==='SMS'&&tr.cells[1].textContent.trim()!=='0')||(p==='RCS'&&tr.cells[2].textContent.trim()!=='0')||(p==='WhatsApp'&&tr.cells[3].textContent.trim()!=='0'));
-        tr.style.display=ok&&productOk?'':'none';
+
+    var search=document.getElementById('trafficSearch');
+    var type=document.getElementById('trafficType');
+    var pageSize=document.getElementById('trafficPageSize');
+    var page=1;
+
+    function filtered(){
+      var q=(search.value||'').toLowerCase();
+      var t=type.value;
+      return traffic.filter(function(row){
+        return (!q||(row.client+' '+row.id).toLowerCase().includes(q)) && (!t||row.type===t);
       });
     }
-    search.addEventListener('input',apply);filter.addEventListener('change',apply);
+
+    function renderRows(){
+      var rows=filtered();
+      var size=Number(pageSize.value||50);
+      var pages=Math.max(1,Math.ceil(rows.length/size));
+      if(page>pages)page=pages;
+      var start=(page-1)*size;
+      var visible=rows.slice(start,start+size);
+      var body=document.getElementById('trafficTable');
+      body.innerHTML=visible.map(function(t){
+        return '<tr><td><strong>'+esc(t.client)+'</strong><div class="mini">'+esc(t.id)+'</div></td><td><span class="badge gray">'+esc(t.type)+'</span></td><td>'+n(t.submitted)+'</td><td>'+n(t.delivered)+'</td><td>'+n(t.failed)+'</td><td>'+n(t.pending)+'</td><td>'+n(t.xDropped)+'</td><td><strong>'+success(t)+'%</strong></td><td><button class="btn" onclick="showTrafficClient(\\''+esc(t.id)+'\\')">Open</button></td></tr>';
+      }).join('') || '<tr><td colspan="9" class="empty">No traffic found.</td></tr>';
+      document.getElementById('trafficCount').textContent=rows.length+' client'+(rows.length===1?'':'s');
+      document.getElementById('trafficShowing').textContent=rows.length ? 'Showing '+(start+1)+'–'+Math.min(start+visible.length,rows.length)+' of '+rows.length+' clients' : 'Showing 0 clients';
+      document.getElementById('trafficPageLabel').textContent='Page '+page+' of '+pages;
+      document.getElementById('trafficPrev').disabled=page<=1;
+      document.getElementById('trafficNext').disabled=page>=pages;
+    }
+
+    search.addEventListener('input',function(){page=1;renderRows();});
+    type.addEventListener('change',function(){page=1;renderRows();});
+    pageSize.addEventListener('change',function(){page=1;renderRows();});
+    document.getElementById('trafficPrev').addEventListener('click',function(){if(page>1){page--;renderRows();}});
+    document.getElementById('trafficNext').addEventListener('click',function(){page++;renderRows();});
+    renderRows();
   }
+
+  window.showTrafficClient=function(id){
+    var row=null;
+    var sample=[
+      {id:'USR-1001',client:'bluemdtx',type:'Client',submitted:11100,delivered:10371,failed:586,pending:143,xDropped:0},
+      {id:'USR-1002',client:'Suyash',type:'Client',submitted:574,delivered:506,failed:67,pending:1,xDropped:0},
+      {id:'USR-1003',client:'tiger1',type:'Client',submitted:98,delivered:96,failed:2,pending:0,xDropped:0},
+      {id:'USR-1004',client:'digisms',type:'Client',submitted:2,delivered:2,failed:0,pending:0,xDropped:0}
+    ];
+    row=sample.find(function(x){return x.id===id;});
+    if(!row){
+      var u=users.find(function(x){return x.id===id;});
+      if(u)row={id:u.id,client:u.name||u.company,type:u.role==='Reseller'?'Reseller':'Client',submitted:0,delivered:0,failed:0,pending:0,xDropped:0};
+    }
+    if(!row)return;
+    var rate=row.submitted?((row.delivered/row.submitted)*100).toFixed(1):'0.0';
+    var body='<div class="profile-hero"><div class="profile-avatar">'+esc((row.client||'C').charAt(0))+'</div><div><div class="profile-name">'+esc(row.client)+'</div><div class="mini">'+esc(row.id)+' · '+esc(row.type)+'</div></div></div>';
+    body+='<div class="profile-grid"><div><span>Submitted</span><strong>'+row.submitted.toLocaleString('en-IN')+'</strong></div><div><span>Delivered</span><strong>'+row.delivered.toLocaleString('en-IN')+'</strong></div><div><span>Failed</span><strong>'+row.failed.toLocaleString('en-IN')+'</strong></div><div><span>Pending</span><strong>'+row.pending.toLocaleString('en-IN')+'</strong></div><div><span>X-Dropped</span><strong>'+row.xDropped.toLocaleString('en-IN')+'</strong></div><div><span>Success %</span><strong>'+rate+'%</strong></div></div>';
+    body+='<div style="text-align:right;margin-top:16px"><button class="btn" onclick="closeModal()">Close</button></div>';
+    openModal('Traffic — '+row.client,body);
+  };
 
   function renderConfiguration(){
     var configs=[
