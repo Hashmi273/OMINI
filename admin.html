@@ -20,6 +20,8 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
 .user-eye{width:32px;height:32px;border:1px solid #dbe3f0;border-radius:8px;background:#eef4ff;color:#2563eb;cursor:pointer;font-size:15px;vertical-align:middle}.user-eye:hover{box-shadow:0 3px 10px rgba(37,99,235,.15);transform:translateY(-1px)}
 
 .usage-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:16px}.usage-pie-card{min-height:285px}.usage-pie-row{display:flex;align-items:center;gap:22px;margin-top:20px}.usage-pie{width:142px;height:142px;border-radius:50%;display:grid;place-items:center;flex:0 0 142px}.usage-pie-hole{width:76px;height:76px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(15,23,42,.08)}.usage-pie-hole strong{font-size:15px;color:#172033}.usage-pie-hole span{font-size:10px;color:#748096;margin-top:2px}.usage-legend{flex:1;min-width:0}.usage-legend-row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #edf0f4;font-size:12px}.usage-legend-row:last-child{border-bottom:0}.usage-legend-row span{display:flex;align-items:center;gap:7px;color:#475569}.usage-legend-row i{width:9px;height:9px;border-radius:50%;display:inline-block}.usage-legend-row strong{color:#172033;white-space:nowrap}.usage-legend-row small{font-weight:500;color:#94a3b8}@media(max-width:1000px){.usage-grid{grid-template-columns:1fr}.usage-pie-card{min-height:auto}}@media(max-width:600px){.usage-pie-row{align-items:flex-start}.usage-pie{width:120px;height:120px;flex-basis:120px}.usage-pie-hole{width:66px;height:66px}.usage-pie-hole strong{font-size:12px}.usage-legend-row{font-size:11px}}
+
+.live-traffic-panel{margin-top:16px}.live-pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;color:#059669;background:#ecfdf5;border:1px solid #bbf7d0;padding:6px 9px;border-radius:999px}.live-pill span{width:7px;height:7px;border-radius:50%;background:#10b981;box-shadow:0 0 0 3px #d1fae5}.product-tag{display:inline-flex;padding:5px 9px;border-radius:7px;font-size:11px;font-weight:800}.product-tag.sms{color:#2563eb;background:#eff6ff}.product-tag.rcs{color:#7c3aed;background:#f5f3ff}.product-tag.whatsapp{color:#059669;background:#ecfdf5}.live-delivered{color:#059669;font-weight:700}.live-failed{color:#ef4444;font-weight:700}.live-time{font-size:11px;color:#059669;font-weight:700;white-space:nowrap}@media(max-width:700px){.live-traffic-table{min-width:760px}}
 </style>
 </head>
 <body>
@@ -176,7 +178,34 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
     html+=pieCard('WhatsApp Message Status','WhatsApp message delivery status','468,720',whatsappStatus,['#2563eb','#059669','#ef4444']);
     html+='</div>';
 
+    html+='<div class="card panel live-traffic-panel"><div class="panel-head"><div><div class="panel-title">Live Top 5 User Traffic</div><div class="mini">Users generating the highest message activity right now</div></div><span class="live-pill"><span></span> LIVE</span></div>';
+    html+='<div class="table-wrap"><table class="table live-traffic-table"><thead><tr><th>User / Company</th><th>Product</th><th>Submitted</th><th>Delivered</th><th>Failed</th><th>Last Update</th></tr></thead><tbody id="liveTrafficBody"></tbody></table></div></div>';
+
     content.innerHTML=html;
+    renderLiveTraffic();
+    if(window.liveTrafficTimer)clearInterval(window.liveTrafficTimer);
+    window.liveTrafficTimer=setInterval(renderLiveTraffic,5000);
+  }
+
+  function renderLiveTraffic(){
+    var rows=[
+      {user:'Aakash Verma',company:'ABC Pvt Ltd',product:'SMS',submitted:248500,delivered:246920,failed:820},
+      {user:'Rahul Shah',company:'XYZ Communications',product:'WhatsApp',submitted:182400,delivered:179860,failed:1420},
+      {user:'Sana Khan',company:'Metro Digital',product:'RCS',submitted:156800,delivered:151940,failed:980},
+      {user:'Neha Mehta',company:'Prime Connect',product:'SMS',submitted:139200,delivered:137640,failed:710},
+      {user:'Arjun Patel',company:'Digital Orbit',product:'RCS',submitted:118600,delivered:114820,failed:760}
+    ];
+    rows.sort(function(a,b){return b.submitted-a.submitted;});
+    var now=new Date();
+    var time=now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    var body=document.getElementById('liveTrafficBody');
+    if(!body)return;
+    body.innerHTML=rows.map(function(r){
+      var submitted=r.submitted+Math.floor(Math.random()*41);
+      var delivered=r.delivered+Math.floor(Math.random()*31);
+      var failed=r.failed+Math.floor(Math.random()*8);
+      return '<tr><td><strong>'+esc(r.user)+'</strong><div class="mini">'+esc(r.company)+'</div></td><td><span class="product-tag '+r.product.toLowerCase()+'">'+r.product+'</span></td><td>'+submitted.toLocaleString('en-IN')+'</td><td class="live-delivered">'+delivered.toLocaleString('en-IN')+'</td><td class="live-failed">'+failed.toLocaleString('en-IN')+'</td><td><span class="live-time">● '+time+'</span></td></tr>';
+    }).join('');
   }
 
   window.showProductStats=function(type){
