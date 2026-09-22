@@ -16,9 +16,21 @@
         .omini-mobile-back{display:flex!important;align-items:center;justify-content:center;width:38px;height:38px;min-width:38px;border:1px solid #e2e8f0;border-radius:10px;background:#fff;color:#334155;cursor:pointer}
         .omini-mobile-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.38);z-index:9998;backdrop-filter:blur(1px)}
         .omini-mobile-overlay.show{display:block}
-        body.omini-has-sidebar aside{position:fixed!important;left:-280px!important;top:0!important;bottom:0!important;width:260px!important;height:100dvh!important;max-width:86vw!important;z-index:9999!important;transition:left .22s ease!important;box-shadow:12px 0 32px rgba(15,23,42,.16)!important;overflow:hidden!important}
-        body.omini-has-sidebar aside.omini-mobile-open{left:0!important}
-        body.omini-has-sidebar aside nav{overflow-y:auto!important;-webkit-overflow-scrolling:touch!important}
+        body.omini-has-sidebar aside,
+        body.omini-has-sidebar aside.sidebar{position:fixed!important;left:-290px!important;top:0!important;bottom:0!important;width:280px!important;max-width:88vw!important;height:100dvh!important;z-index:9999!important;transition:left .22s ease!important;box-shadow:12px 0 32px rgba(15,23,42,.16)!important;overflow:hidden!important;background:#fff!important}
+        body.omini-has-sidebar aside.omini-mobile-open,
+        body.omini-has-sidebar aside.sidebar.omini-mobile-open{left:0!important}
+        body.omini-has-sidebar aside nav,
+        body.omini-has-sidebar aside.sidebar nav{overflow-y:auto!important;-webkit-overflow-scrolling:touch!important}
+        body.omini-has-sidebar aside.sidebar .brandcopy,
+        body.omini-has-sidebar aside.sidebar .navcopy,
+        body.omini-has-sidebar aside.sidebar .section,
+        body.omini-has-sidebar aside.sidebar .profilecopy{display:block!important}
+        body.omini-has-sidebar aside.sidebar .nav{justify-content:flex-start!important}
+        body.omini-has-sidebar aside.sidebar .mobile-menu-btn{display:none!important}
+        body.omini-has-sidebar aside.sidebar .w-10,
+        body.omini-has-sidebar aside.sidebar .w-9{flex-shrink:0!important}
+        body.omini-has-sidebar aside.sidebar .profilecopy{display:block!important}
         body.omini-has-sidebar main,body.omini-has-sidebar .main,body.omini-has-sidebar .flex-1.min-w-0{width:100%!important;min-width:0!important;max-width:100%!important}
         body.omini-has-sidebar main>header,body.omini-has-sidebar header{min-height:60px!important;height:60px!important;padding-left:10px!important;padding-right:10px!important;position:sticky!important;top:0!important;z-index:50!important;display:flex!important;align-items:center!important}
         body.omini-has-sidebar main .overflow-y-auto,body.omini-has-sidebar .scroll{height:auto!important;min-height:calc(100dvh - 60px)!important;overflow:visible!important;-webkit-overflow-scrolling:touch!important}
