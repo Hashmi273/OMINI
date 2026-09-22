@@ -126,7 +126,7 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
     var html=
       '<div class="page-head">'+
         '<div><div class="page-title">Dashboard</div><div class="desc">Simple overview of your SMS, RCS, WhatsApp, OBD and IVR activity.</div></div>'+
-        '<div class="action-row"><select class="select" style="min-width:126px"><option>Today</option><option>Yesterday</option><option>This Month</option></select><button class="btn primary" onclick="go(\\'reports\\')">▥ Reports</button></div>'+
+        '<div class="action-row"><select class="select" style="min-width:126px"><option>Today</option><option>Yesterday</option><option>This Month</option></select><button class="btn primary" onclick="go(\'reports\')">▥ Reports</button></div>'+
       '</div>';
 
     html+='<div class="grid kpis">';
@@ -153,7 +153,7 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
     html+='</div></div></div></div>';
 
     html+='<div class="grid dashboard-grid" style="margin-top:16px">';
-    html+='<div class="card panel"><div class="panel-head"><div><div class="panel-title">Recent Campaigns</div><div class="mini">Latest activity</div></div><button class="btn" onclick="go(\\'reports\\')">View reports</button></div>';
+    html+='<div class="card panel"><div class="panel-head"><div><div class="panel-title">Recent Campaigns</div><div class="mini">Latest activity</div></div><button class="btn" onclick="go(\'reports\')">View reports</button></div>';
     html+='<div class="table-wrap"><table class="table" style="min-width:620px"><thead><tr><th>Campaign</th><th>Channel</th><th>Submitted</th><th>Status</th></tr></thead><tbody>';
     [['Festive Offer','RCS','245,000','Delivered'],['OTP Campaign','SMS','180,400','Running'],['Customer Update','WhatsApp','82,600','Completed']].forEach(function(row){
       html+='<tr><td><strong>'+row[0]+'</strong></td><td>'+row[1]+'</td><td>'+row[2]+'</td><td>'+badge(row[3])+'</td></tr>';
