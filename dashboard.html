@@ -13,7 +13,7 @@
 .section{font-size:10px;font-weight:700;letter-spacing:.08em;color:#a0a8b8;text-transform:uppercase;padding:17px 12px 7px}
 .card{background:#fff;border:1px solid var(--b);border-radius:12px}.metric{padding:15px 16px}.label{font-size:11px;color:#8a94a6;font-weight:600}.value{font-size:21px;font-weight:700;line-height:1.2}
 .metric-eye-card{display:flex;align-items:center;justify-content:space-between;gap:12px}.metric-eye-card{position:relative}.metric-eye{position:relative;z-index:5;pointer-events:auto!important}.metric-eye{width:38px;height:38px;min-width:38px;border:0;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s ease,background .15s ease;font-size:14px}.metric-eye:hover{transform:scale(1.05)}.metric-eye:focus-visible{outline:2px solid #5b35d5;outline-offset:2px}
-.stats-modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(15,23,42,.42);backdrop-filter:blur(3px)}.stats-modal.show{display:flex}.stats-dialog{width:min(520px,100%);background:#fff;border:1px solid #e7eaf0;border-radius:16px;box-shadow:0 24px 70px rgba(15,23,42,.2);overflow:hidden}.stats-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #eef0f4}.stats-title{font-size:15px;font-weight:700;color:#172033}.stats-sub{font-size:11px;color:#8a94a6;margin-top:3px}.stats-close{width:34px;height:34px;border:0;border-radius:9px;background:#f7f8fc;color:#667085;cursor:pointer}.stats-body{padding:14px 20px 20px}.stats-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid #f0f2f5;font-size:12px}.stats-row:last-child{border-bottom:0}.stats-left{display:flex;align-items:center;gap:9px;color:#4b5565}.stats-dot{width:9px;height:9px;border-radius:50%;display:inline-block}.stats-num{font-weight:700;color:#172033}.stats-footer{padding:0 20px 20px}.stats-report-link{height:40px;border-radius:10px;background:#f3efff;color:#5b35d5;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:12px;font-weight:700}
+.stats-native-dialog{width:min(520px,calc(100vw - 24px));max-width:520px;padding:0;border:0;border-radius:16px;background:transparent;overflow:visible;z-index:10000}.stats-native-dialog::backdrop{background:rgba(15,23,42,.48);backdrop-filter:blur(3px)}.stats-native-dialog .stats-dialog{width:100%;max-height:85vh;overflow:auto}.stats-native-dialog[open]{margin:auto}@media(max-width:768px){.stats-native-dialog{width:calc(100vw - 24px);max-width:none}.stats-native-dialog .stats-dialog{max-height:90vh}}.stats-modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(15,23,42,.42);backdrop-filter:blur(3px)}.stats-modal.show{display:flex}.stats-dialog{width:min(520px,100%);background:#fff;border:1px solid #e7eaf0;border-radius:16px;box-shadow:0 24px 70px rgba(15,23,42,.2);overflow:hidden}.stats-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #eef0f4}.stats-title{font-size:15px;font-weight:700;color:#172033}.stats-sub{font-size:11px;color:#8a94a6;margin-top:3px}.stats-close{width:34px;height:34px;border:0;border-radius:9px;background:#f7f8fc;color:#667085;cursor:pointer}.stats-body{padding:14px 20px 20px}.stats-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid #f0f2f5;font-size:12px}.stats-row:last-child{border-bottom:0}.stats-left{display:flex;align-items:center;gap:9px;color:#4b5565}.stats-dot{width:9px;height:9px;border-radius:50%;display:inline-block}.stats-num{font-weight:700;color:#172033}.stats-footer{padding:0 20px 20px}.stats-report-link{height:40px;border-radius:10px;background:#f3efff;color:#5b35d5;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:12px;font-weight:700}
 @media(max-width:768px){.metric-eye-card{padding:13px}.metric-eye{width:36px;height:36px;min-width:36px}.stats-modal{padding:12px}.stats-dialog{border-radius:14px}.stats-head{padding:16px}.stats-body{padding:10px 16px 16px}.stats-footer{padding:0 16px 16px}}
 .scroll{height:calc(100vh - 64px);overflow:auto}@media(max-width:900px){.sidebar{width:72px}.brandcopy,.navcopy,.section,.profilecopy{display:none}.nav{justify-content:center}.main{width:calc(100% - 72px)}}
 /* Simple sidebar polish */
@@ -106,23 +106,23 @@
 <div class="grid grid-cols-2 xl:grid-cols-5 gap-3 mb-5">
   <div class="card metric metric-eye-card hover:border-blue-200" data-channel="SMS" data-period="Today">
     <div><div class="label">SMS Delivered</div><div class="value mt-1 text-blue-600">918,500</div><div class="text-[10px] text-slate-400 mt-1">Today</div></div>
-    <button type="button" class="metric-eye text-blue-600 bg-blue-50 hover:bg-blue-100" data-stats="SMS" onclick="window.openChannelStats('SMS'); return false;" aria-label="View SMS statistics"><i class="fa-regular fa-eye"></i></button>
+    <button type="button" class="metric-eye text-blue-600 bg-blue-50 hover:bg-blue-100" data-stats="SMS" aria-label="View SMS statistics"><i class="fa-regular fa-eye"></i></button>
   </div>
   <div class="card metric metric-eye-card hover:border-violet-200" data-channel="RCS" data-period="Today">
     <div><div class="label">RCS Delivered</div><div class="value mt-1 text-violet-600">1,230,450</div><div class="text-[10px] text-slate-400 mt-1">Today</div></div>
-    <button type="button" class="metric-eye text-violet-600 bg-violet-50 hover:bg-violet-100" data-stats="RCS" onclick="window.openChannelStats('RCS'); return false;" aria-label="View RCS statistics"><i class="fa-regular fa-eye"></i></button>
+    <button type="button" class="metric-eye text-violet-600 bg-violet-50 hover:bg-violet-100" data-stats="RCS" aria-label="View RCS statistics"><i class="fa-regular fa-eye"></i></button>
   </div>
   <div class="card metric metric-eye-card hover:border-emerald-200" data-channel="WhatsApp" data-period="Today">
     <div><div class="label">WhatsApp Delivered</div><div class="value mt-1 text-emerald-600">457,420</div><div class="text-[10px] text-slate-400 mt-1">Today</div></div>
-    <button type="button" class="metric-eye text-emerald-600 bg-emerald-50 hover:bg-emerald-100" data-stats="WhatsApp" onclick="window.openChannelStats('WhatsApp'); return false;" aria-label="View WhatsApp statistics"><i class="fa-regular fa-eye"></i></button>
+    <button type="button" class="metric-eye text-emerald-600 bg-emerald-50 hover:bg-emerald-100" data-stats="WhatsApp" aria-label="View WhatsApp statistics"><i class="fa-regular fa-eye"></i></button>
   </div>
   <div class="card metric metric-eye-card hover:border-orange-200" data-channel="OBD" data-period="Today">
     <div><div class="label">OBD Today</div><div class="value mt-1 text-orange-600">18,230</div><div class="text-[10px] text-slate-400 mt-1">Calls delivered</div></div>
-    <button type="button" class="metric-eye text-orange-600 bg-orange-50 hover:bg-orange-100" data-stats="OBD-Today" onclick="window.openChannelStats('OBD-Today'); return false;" aria-label="View OBD today statistics"><i class="fa-regular fa-eye"></i></button>
+    <button type="button" class="metric-eye text-orange-600 bg-orange-50 hover:bg-orange-100" data-stats="OBD-Today" aria-label="View OBD today statistics"><i class="fa-regular fa-eye"></i></button>
   </div>
   <div class="card metric metric-eye-card hover:border-amber-200" data-channel="OBD" data-period="Yesterday">
     <div><div class="label">OBD Yesterday</div><div class="value mt-1 text-orange-600">21,630</div><div class="text-[10px] text-slate-400 mt-1">Calls delivered</div></div>
-    <button type="button" class="metric-eye text-amber-600 bg-amber-50 hover:bg-amber-100" data-stats="OBD-Yesterday" onclick="window.openChannelStats('OBD-Yesterday'); return false;" aria-label="View OBD yesterday statistics"><i class="fa-regular fa-eye"></i></button>
+    <button type="button" class="metric-eye text-amber-600 bg-amber-50 hover:bg-amber-100" data-stats="OBD-Yesterday" aria-label="View OBD yesterday statistics"><i class="fa-regular fa-eye"></i></button>
   </div>
 </div>
 
@@ -206,28 +206,41 @@ bindMenu('templateToggle','templateMenu','templateChevron');</script><script id=
     'OBD-Today':{title:'OBD Statistics',sub:'Today',report:'reports.html',rows:[['Submitted','19,450','#2563eb'],['Connected','18,230','#10b981'],['Failed','820','#ef4444'],['Pending','400','#f59e0b'],['No Answer','1,870','#475569']]},
     'OBD-Yesterday':{title:'OBD Statistics',sub:'Yesterday',report:'reports.html',rows:[['Submitted','23,180','#2563eb'],['Connected','21,630','#10b981'],['Failed','1,240','#ef4444'],['Pending','780','#f59e0b'],['Busy / No Answer','2,990','#475569']]}
   };
-  window.openChannelStats=function(key){
+
+  function showStats(key){
     const d=DATA[key]; if(!d) return;
-    const old=document.getElementById('channelStatsModal'); if(old) old.remove();
-    const modal=document.createElement('div');
-    modal.id='channelStatsModal';
-    modal.className='stats-modal show';
-    modal.setAttribute('aria-hidden','false');
-    modal.innerHTML='<div class="stats-dialog" role="dialog" aria-modal="true" aria-labelledby="channelStatsTitle">'+
-      '<div class="stats-head"><div><div id="channelStatsTitle" class="stats-title">'+d.title+'</div><div class="stats-sub">'+d.sub+'</div></div>'+
-      '<button type="button" class="stats-close" aria-label="Close statistics" onclick="window.closeChannelStats()"><i class="fa-solid fa-xmark"></i></button></div>'+
+    let dialog=document.getElementById('channelStatsDialog');
+    if(!dialog){
+      dialog=document.createElement('dialog');
+      dialog.id='channelStatsDialog';
+      dialog.className='stats-native-dialog';
+      document.body.appendChild(dialog);
+    }
+    dialog.innerHTML='<div class="stats-dialog" role="document">'+
+      '<div class="stats-head"><div><div class="stats-title">'+d.title+'</div><div class="stats-sub">'+d.sub+'</div></div>'+
+      '<button type="button" class="stats-close" data-close-stats aria-label="Close statistics"><i class="fa-solid fa-xmark"></i></button></div>'+
       '<div class="stats-body">'+d.rows.map(function(r){return '<div class="stats-row"><span class="stats-left"><span class="stats-dot" style="background:'+r[2]+'"></span>'+r[0]+'</span><strong class="stats-num">'+r[1]+'</strong></div>';}).join('')+
       '</div><div class="stats-footer"><a href="'+d.report+'" class="stats-report-link">View Detailed Report <i class="fa-solid fa-arrow-right ml-2"></i></a></div></div>';
-    document.body.appendChild(modal);
-    modal.addEventListener('click',function(e){if(e.target===modal)window.closeChannelStats();});
-    document.body.classList.add('overflow-hidden');
-  };
-  window.closeChannelStats=function(){
-    const modal=document.getElementById('channelStatsModal');
-    if(modal) modal.remove();
-    document.body.classList.remove('overflow-hidden');
-  };
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')window.closeChannelStats();});
+    dialog.querySelector('[data-close-stats]').addEventListener('click',function(){dialog.close();});
+    dialog.addEventListener('click',function(ev){if(ev.target===dialog)dialog.close();},{once:true});
+    if(typeof dialog.showModal==='function') dialog.showModal();
+    else { dialog.setAttribute('open',''); }
+  }
+
+  function initEyeButtons(){
+    document.querySelectorAll('.metric-eye').forEach(function(btn){
+      if(btn.dataset.eyeBound==='1') return;
+      btn.dataset.eyeBound='1';
+      btn.addEventListener('click',function(ev){
+        ev.preventDefault();
+        ev.stopImmediatePropagation();
+        showStats(btn.getAttribute('data-stats'));
+      });
+    });
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initEyeButtons);
+  else initEyeButtons();
 })();
 </script><script src="global-nav.js"></script><script>
 const channelData={SMS:[920400,918500,1100,820],RCS:[1240000,1230000,4900,2100],WhatsApp:[460000,457400,1400,1200],OBD:[19000,18200,500,300],IVR:[12500,12000,300,200]};
