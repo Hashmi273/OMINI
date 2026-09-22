@@ -90,16 +90,61 @@
 <div class="relative max-w-md w-full hidden md:block"><i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i><input class="w-full h-9 pl-9 pr-3 rounded-lg border border-slate-200 bg-slate-50 text-xs outline-none" placeholder="Search campaigns, reports, users..."></div>
 <div class="ml-auto flex items-center gap-2"><div class="hidden sm:flex items-center gap-2 h-9 px-3 rounded-lg border border-slate-200 bg-white"><i class="fa-solid fa-wallet text-emerald-500 text-xs"></i><span class="text-[10px] text-slate-400">Balance</span><b class="text-xs">₹48,500</b></div><button class="w-9 h-9 rounded-lg border border-slate-200 text-slate-500"><i class="fa-regular fa-bell text-sm"></i></button><a href="send-sms.html" class="h-9 px-3.5 rounded-lg bg-[#5b35d5] text-white text-xs font-semibold flex items-center gap-2"><i class="fa-solid fa-plus text-[10px]"></i> New Campaign</a></div>
 </header>
-<div class="scroll p-5 lg:p-6"><div class="max-w-[1400px] mx-auto">
-<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-5"><div><h1 class="text-xl font-bold tracking-tight">Dashboard</h1><p class="text-xs text-slate-500 mt-1">Today’s messaging performance across all channels.</p></div><div class="flex gap-2"><select class="h-9 px-3 rounded-lg border border-slate-200 bg-white text-xs"><option>All Products</option><option>SMS</option><option>RCS</option><option>WhatsApp</option></select><select class="h-9 px-3 rounded-lg border border-slate-200 bg-white text-xs"><option>Today</option><option>Yesterday</option><option>Last 7 days</option><option>Last 30 days</option></select></div></div>
-<div class="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-5">
-<section class="card overflow-hidden"><div class="px-4 py-3 border-b border-slate-100 flex justify-between items-center"><div class="flex items-center gap-2"><span class="w-7 h-7 rounded-md bg-blue-50 text-blue-600 flex items-center justify-center"><i class="fa-solid fa-comment-sms text-xs"></i></span><b class="text-sm">SMS</b></div><a href="reports.html" class="text-[11px] text-blue-600 font-semibold">Report</a></div><div class="grid grid-cols-2 sm:grid-cols-4"><div class="metric"><div class="label">Submit</div><div class="value mt-1">920.4K</div></div><div class="metric"><div class="label">Delivered</div><div class="value mt-1 text-emerald-600">918.5K</div></div><div class="metric"><div class="label">Pending</div><div class="value mt-1 text-amber-600">820</div></div><div class="metric"><div class="label">Failed</div><div class="value mt-1 text-rose-600">1.1K</div></div></div></section>
-<section class="card overflow-hidden"><div class="px-4 py-3 border-b border-slate-100 flex justify-between items-center"><div class="flex items-center gap-2"><span class="w-7 h-7 rounded-md bg-violet-50 text-violet-600 flex items-center justify-center"><i class="fa-solid fa-message text-xs"></i></span><b class="text-sm">RCS</b></div><a href="rcs-reports.html" class="text-[11px] text-violet-600 font-semibold">Report</a></div><div class="grid grid-cols-2 sm:grid-cols-3"><div class="metric"><div class="label">Submit</div><div class="value mt-1">1.24M</div></div><div class="metric"><div class="label">Delivered</div><div class="value mt-1 text-emerald-600">1.23M</div></div><div class="metric"><div class="label">Read</div><div class="value mt-1">980.4K</div></div><div class="metric"><div class="label">Click</div><div class="value mt-1">128.2K</div></div><div class="metric"><div class="label">Pending</div><div class="value mt-1 text-amber-600">2.1K</div></div><div class="metric"><div class="label">Failed</div><div class="value mt-1 text-rose-600">4.9K</div></div></div></section>
-<section class="card overflow-hidden"><div class="px-4 py-3 border-b border-slate-100 flex justify-between items-center"><div class="flex items-center gap-2"><span class="w-7 h-7 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center"><i class="fa-brands fa-whatsapp text-xs"></i></span><b class="text-sm">WhatsApp</b></div><a href="whatsapp-reports.html" class="text-[11px] text-emerald-600 font-semibold">Report</a></div><div class="grid grid-cols-2 sm:grid-cols-3"><div class="metric"><div class="label">Submit</div><div class="value mt-1">460K</div></div><div class="metric"><div class="label">Delivered</div><div class="value mt-1 text-emerald-600">457.4K</div></div><div class="metric"><div class="label">Read</div><div class="value mt-1">412K</div></div><div class="metric"><div class="label">Click</div><div class="value mt-1">62.8K</div></div><div class="metric"><div class="label">Pending</div><div class="value mt-1 text-amber-600">1.2K</div></div><div class="metric"><div class="label">Failed</div><div class="value mt-1 text-rose-600">1.4K</div></div></div></section>
+<div class="scroll p-5 lg:p-6">
+<div class="max-w-[1400px] mx-auto">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-5">
+  <div><h1 class="text-xl font-bold tracking-tight">Dashboard</h1><p class="text-xs text-slate-500 mt-1">Simple overview of your SMS, RCS, WhatsApp, OBD and IVR activity.</p></div>
+  <div class="flex gap-2">
+    <select id="dashRange" class="h-9 px-3 rounded-lg border border-slate-200 bg-white text-xs"><option>Today</option><option>Yesterday</option><option>Last 7 days</option><option>Last 30 days</option></select>
+    <a href="reports.html" class="h-9 px-3 rounded-lg bg-[#5b35d5] text-white text-xs font-semibold flex items-center gap-2"><i class="fa-solid fa-chart-column"></i> Reports</a>
+  </div>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-<section class="card lg:col-span-2 p-5"><div class="flex justify-between items-center mb-4"><div><h2 class="font-semibold text-sm">Recent Campaigns</h2><p class="text-[11px] text-slate-400 mt-1">Latest campaign activity</p></div><a href="reports.html" class="text-[11px] text-violet-600 font-semibold">View all</a></div><div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="text-[10px] uppercase tracking-wide text-slate-400 border-b border-slate-100"><th class="pb-3">Campaign</th><th class="pb-3">Channel</th><th class="pb-3">Submitted</th><th class="pb-3">Status</th></tr></thead><tbody class="text-xs"><tr class="border-b border-slate-50"><td class="py-3 font-semibold">Festive Offer</td><td>RCS</td><td>245,000</td><td><span class="px-2 py-1 rounded-md bg-emerald-50 text-emerald-600 font-semibold">Delivered</span></td></tr><tr class="border-b border-slate-50"><td class="py-3 font-semibold">OTP Campaign</td><td>SMS</td><td>180,400</td><td><span class="px-2 py-1 rounded-md bg-blue-50 text-blue-600 font-semibold">Running</span></td></tr><tr><td class="py-3 font-semibold">Customer Update</td><td>WhatsApp</td><td>82,600</td><td><span class="px-2 py-1 rounded-md bg-slate-100 text-slate-600 font-semibold">Completed</span></td></tr></tbody></table></div></section>
-<section class="card p-5"><div class="mb-4"><h2 class="font-semibold text-sm">Gateway Status</h2><p class="text-[11px] text-slate-400 mt-1">Connection health</p></div><div class="space-y-3"><div class="flex justify-between py-2"><div><b class="text-xs">SMS Gateway</b><div class="text-[10px] text-slate-400">Primary Route</div></div><span class="text-[10px] text-emerald-600 font-semibold">Online</span></div><div class="flex justify-between py-2 border-t border-slate-50"><div><b class="text-xs">RCS Gateway</b><div class="text-[10px] text-slate-400">Business Messaging</div></div><span class="text-[10px] text-emerald-600 font-semibold">Online</span></div><div class="flex justify-between py-2 border-t border-slate-50"><div><b class="text-xs">WhatsApp</b><div class="text-[10px] text-slate-400">Cloud API</div></div><span class="text-[10px] text-emerald-600 font-semibold">Online</span></div></div></section>
+
+<div class="grid grid-cols-2 xl:grid-cols-5 gap-3 mb-5">
+  <a href="reports.html" class="card metric hover:border-blue-200"><div class="label">SMS Delivered</div><div class="value mt-1 text-blue-600">918.5K</div><div class="text-[10px] text-slate-400 mt-1">Today</div></a>
+  <a href="rcs-reports.html" class="card metric hover:border-violet-200"><div class="label">RCS Delivered</div><div class="value mt-1 text-violet-600">1.23M</div><div class="text-[10px] text-slate-400 mt-1">Today</div></a>
+  <a href="whatsapp-reports.html" class="card metric hover:border-emerald-200"><div class="label">WhatsApp Delivered</div><div class="value mt-1 text-emerald-600">457.4K</div><div class="text-[10px] text-slate-400 mt-1">Today</div></a>
+  <div class="card metric"><div class="label">OBD Today</div><div class="value mt-1 text-orange-600">18.2K</div><div class="text-[10px] text-slate-400 mt-1">Calls delivered</div></div>
+  <div class="card metric"><div class="label">OBD Yesterday</div><div class="value mt-1 text-orange-600">21.6K</div><div class="text-[10px] text-slate-400 mt-1">Calls delivered</div></div>
+</div>
+
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-5">
+<section class="card p-5">
+  <div class="flex items-center justify-between mb-4"><div><h2 class="font-semibold text-sm">Overall Delivery Mix</h2><p class="text-[11px] text-slate-400 mt-1">Delivered volume across all channels</p></div><span class="text-[10px] px-2 py-1 rounded bg-emerald-50 text-emerald-600 font-semibold">Live</span></div>
+  <div class="flex flex-col sm:flex-row items-center gap-6">
+    <div class="w-44 h-44 rounded-full" style="background:conic-gradient(#2563eb 0 43%,#7c3aed 43% 72%,#10b981 72% 94%,#f97316 94% 98%,#6366f1 98% 100%)"></div>
+    <div class="flex-1 w-full space-y-2 text-xs">
+      <div class="flex justify-between"><span><i class="fa-solid fa-circle text-blue-600 mr-2"></i>SMS</span><b>43%</b></div>
+      <div class="flex justify-between"><span><i class="fa-solid fa-circle text-violet-600 mr-2"></i>RCS</span><b>29%</b></div>
+      <div class="flex justify-between"><span><i class="fa-solid fa-circle text-emerald-500 mr-2"></i>WhatsApp</span><b>22%</b></div>
+      <div class="flex justify-between"><span><i class="fa-solid fa-circle text-orange-500 mr-2"></i>OBD</span><b>4%</b></div>
+      <div class="flex justify-between"><span><i class="fa-solid fa-circle text-indigo-500 mr-2"></i>IVR</span><b>2%</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="card p-5">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+    <div><h2 class="font-semibold text-sm">Channel Delivery Status</h2><p class="text-[11px] text-slate-400 mt-1">Filter one channel to see submit, delivered and failed</p></div>
+    <select id="channelFilter" class="h-9 px-3 rounded-lg border border-slate-200 bg-white text-xs">
+      <option value="SMS">SMS</option><option value="RCS">RCS</option><option value="WhatsApp">WhatsApp</option><option value="OBD">OBD</option><option value="IVR">IVR</option>
+    </select>
+  </div>
+  <div class="flex items-center gap-6">
+    <div id="statusPie" class="w-44 h-44 rounded-full" style="background:conic-gradient(#10b981 0 82%,#ef4444 82% 96%,#f59e0b 96% 100%)"></div>
+    <div class="flex-1 space-y-3 text-xs">
+      <div class="flex justify-between"><span><i class="fa-solid fa-circle text-blue-600 mr-2"></i>Submit</span><b id="filterSubmit">920,400</b></div>
+      <div class="flex justify-between"><span><i class="fa-solid fa-circle text-emerald-500 mr-2"></i>Delivered</span><b id="filterDelivered">918,500</b></div>
+      <div class="flex justify-between"><span><i class="fa-solid fa-circle text-red-500 mr-2"></i>Failed</span><b id="filterFailed">1,100</b></div>
+      <div class="flex justify-between"><span><i class="fa-solid fa-circle text-amber-500 mr-2"></i>Pending</span><b id="filterPending">820</b></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+<section class="card p-5"><div class="flex justify-between items-center mb-4"><div><h2 class="font-semibold text-sm">Recent Campaigns</h2><p class="text-[11px] text-slate-400 mt-1">Latest activity</p></div><a href="reports.html" class="text-[11px] text-blue-600 font-semibold">View reports</a></div><div class="overflow-x-auto"><table class="w-full text-left"><thead><tr class="text-[10px] uppercase text-slate-400 border-b border-slate-100"><th class="pb-3">Campaign</th><th class="pb-3">Channel</th><th class="pb-3">Submitted</th><th class="pb-3">Status</th></tr></thead><tbody class="text-xs"><tr class="border-b border-slate-50"><td class="py-3 font-semibold">Festive Offer</td><td>RCS</td><td>245,000</td><td class="text-emerald-600 font-semibold">Delivered</td></tr><tr class="border-b border-slate-50"><td class="py-3 font-semibold">OTP Campaign</td><td>SMS</td><td>180,400</td><td class="text-blue-600 font-semibold">Running</td></tr><tr><td class="py-3 font-semibold">Customer Update</td><td>WhatsApp</td><td>82,600</td><td class="text-slate-600 font-semibold">Completed</td></tr></tbody></table></div></section>
+<section class="card p-5"><h2 class="font-semibold text-sm mb-4">Channel Status</h2><div class="grid grid-cols-2 gap-3 text-xs"><div class="p-3 rounded-lg bg-blue-50"><b>SMS</b><span class="block text-emerald-600 mt-1">● Online</span></div><div class="p-3 rounded-lg bg-violet-50"><b>RCS</b><span class="block text-emerald-600 mt-1">● Online</span></div><div class="p-3 rounded-lg bg-emerald-50"><b>WhatsApp</b><span class="block text-emerald-600 mt-1">● Online</span></div><div class="p-3 rounded-lg bg-orange-50"><b>OBD / IVR</b><span class="block text-emerald-600 mt-1">● Online</span></div></div></section>
 </div></div></div>
 </main></div>
 <script>const campaignToggle=document.getElementById("campaignToggle"),campaignMenu=document.getElementById("campaignMenu"),campaignChevron=document.getElementById("campaignChevron");campaignToggle?.addEventListener("click",()=>{const open=!campaignMenu.classList.contains("hidden");campaignMenu.classList.toggle("hidden",open);if(campaignChevron)campaignChevron.style.transform=open?"rotate(-90deg)":"rotate(0deg)";});</script><script>
@@ -124,4 +169,15 @@ bindMenu('templateToggle','templateMenu','templateChevron');</script><script id=
  side?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{if(window.innerWidth<=768)close()}));
  window.addEventListener('resize',()=>{if(window.innerWidth>768)close()});
 })();
-</script><script src="global-nav.js"></script></body></html>
+</script><script src="global-nav.js"></script><script>
+const channelData={SMS:[920400,918500,1100,820],RCS:[1240000,1230000,4900,2100],WhatsApp:[460000,457400,1400,1200],OBD:[19000,18200,500,300],IVR:[12500,12000,300,200]};
+const channelColors={SMS:['#10b981','#ef4444','#f59e0b'],RCS:['#10b981','#ef4444','#f59e0b'],WhatsApp:['#10b981','#ef4444','#f59e0b'],OBD:['#10b981','#ef4444','#f59e0b'],IVR:['#10b981','#ef4444','#f59e0b']};
+document.getElementById('channelFilter')?.addEventListener('change',function(){
+ const d=channelData[this.value],sum=d.reduce((a,b)=>a+b,0),del=d[1]/sum*100,fail=d[2]/sum*100,pend=d[3]/sum*100;
+ document.getElementById('statusPie').style.background='conic-gradient(#10b981 0 '+del+'%,#ef4444 '+del+'% '+(del+fail)+'%,#f59e0b '+(del+fail)+'% 100%)';
+ document.getElementById('filterSubmit').textContent=d[0].toLocaleString();
+ document.getElementById('filterDelivered').textContent=d[1].toLocaleString();
+ document.getElementById('filterFailed').textContent=d[2].toLocaleString();
+ document.getElementById('filterPending').textContent=d[3].toLocaleString();
+});
+</script></body></html>
