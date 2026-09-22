@@ -121,35 +121,18 @@ main select,main input[type=date],main input[type=text]{min-height:38px!importan
     <!-- Main Content -->
     <main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#f4f7fb]">
         <!-- Header -->
-        <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0 z-10">
-            <!-- Search -->
-            <div class="relative w-96">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <i class="fa-solid fa-search text-gray-400 text-sm"></i>
-                </div>
-                <input type="text" placeholder="Search campaigns, contacts, reports..."
-                    class="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-gray-50">
-            </div>
-            <!-- Right Actions -->
-            <div class="flex items-center space-x-5">
-                <div class="flex items-center gap-3 bg-white border border-slate-200 px-3.5 py-1.5 rounded-xl shadow-sm hover:border-emerald-300 transition-all cursor-pointer">
-                    <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-inner">
-                        <i class="fa-solid fa-wallet text-xs"></i>
-                    </div>
-                    <div>
-                        <p class="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-0.5">INR Wallet Balance</p>
-                        <p class="text-xs font-black text-slate-900 leading-none">₹48,500.00 <span class="text-[10px] text-slate-400 font-medium">(12,450 Cr)</span></p>
-                    </div>
-                </div>
-                <button class="text-gray-400 hover:text-gray-600 relative">
-                    <i class="fa-regular fa-bell text-lg"></i>
-                    <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
-                </button>
-                <button class="text-gray-400 hover:text-gray-600">
-                    <i class="fa-regular fa-circle-question text-lg"></i>
-                </button>
-            </div>
-        </header>
+        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-end px-6">
+  <div class="relative">
+    <button type="button" class="flex items-center gap-3 px-2 py-1.5 rounded-xl hover:bg-slate-50 transition-colors">
+      <div class="w-9 h-9 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 text-white flex items-center justify-center text-sm font-bold">P</div>
+      <div class="text-left hidden sm:block">
+        <div class="text-xs font-bold text-slate-800">Parvez</div>
+        <div class="text-[10px] text-slate-400">Enterprise Admin</div>
+      </div>
+      <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 hidden sm:block"></i>
+    </button>
+  </div>
+</header>
 
         <!-- Scrollable Content Area -->
         <div class="flex-1 overflow-y-auto p-6 lg:p-8">
