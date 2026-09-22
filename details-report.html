@@ -88,6 +88,13 @@ main select,main input[type=date],main input[type=text]{min-height:38px!importan
   body.omini-modern-portal main>.flex-1.overflow-y-auto{padding:14px!important}
   body.omini-modern-portal main>.flex-1.overflow-y-auto>div.w-full{width:100%!important;max-width:none!important}
 }
+</style><style id="details-search-highlight">
+#detailsTable tbody tr{transition:background .18s,box-shadow .18s,opacity .18s}
+#detailsTable tbody tr.search-match{background:#eff6ff!important;box-shadow:inset 4px 0 0 #2563eb,0 0 0 2px #bfdbfe!important;position:relative;z-index:1}
+#detailsTable tbody tr.search-match td:nth-child(3){background:#dbeafe!important;color:#0f172a!important;font-size:12px!important}
+.search-selected{box-shadow:0 0 0 3px rgba(37,99,235,.22)!important;transform:translateY(-1px)}
+#searchResultInfo{font-size:11px;color:#2563eb;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:7px 10px;white-space:nowrap}
+@media(max-width:768px){#searchResultInfo{white-space:normal}}
 </style></head>
 <a class="report-home" href="home.html" title="Home"><i class="fa-solid fa-house"></i></a><body class="text-gray-800 h-screen overflow-hidden flex">
 
@@ -294,7 +301,7 @@ main select,main input[type=date],main input[type=text]{min-height:38px!importan
                             <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search mobile number..." 
                                 class="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-white shadow-sm transition-shadow hover:shadow">
                         </div>
-                        <button class="bg-white hover:bg-gray-50 border border-gray-200 text-gray-700 px-3 py-2 rounded-lg text-sm font-medium shadow-sm flex items-center transition-colors whitespace-nowrap" title="Download All Data">
+                        <div id="searchResultInfo" class="hidden"></div><button class="bg-white hover:bg-gray-50 border border-gray-200 text-gray-700 px-3 py-2 rounded-lg text-sm font-medium shadow-sm flex items-center transition-colors whitespace-nowrap" title="Download All Data">
                             <i class="fa-solid fa-download mr-1.5 text-blue-600"></i> Download All
                         </button>
                     </div>
@@ -317,11 +324,11 @@ main select,main input[type=date],main input[type=text]{min-height:38px!importan
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-100">
-                                <tr class="hover:bg-gray-50" data-channel="sms"><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">19/09/2026 11:40:27 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:02 AM</td><td class="px-4 py-3 text-[11px] text-gray-800 font-bold whitespace-nowrap bg-blue-50">7863737262</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">IMMENSE</td><td class="px-4 py-3 text-[11px] font-bold text-blue-600 whitespace-nowrap">SMS</td><td class="px-4 py-3 text-[11px] text-green-600 font-bold whitespace-nowrap">DELIVERED</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">000</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:05 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap uppercase">SUCCESS</td></tr>
-                                <tr class="hover:bg-gray-50" data-channel="wa"><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">19/09/2026 11:40:27 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:02 AM</td><td class="px-4 py-3 text-[11px] text-gray-800 font-bold whitespace-nowrap bg-green-50">6353873532</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">ZION</td><td class="px-4 py-3 text-[11px] font-bold text-green-600 whitespace-nowrap">WhatsApp</td><td class="px-4 py-3 text-[11px] text-green-600 font-bold whitespace-nowrap">DELIVERED</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">000</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:05 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap uppercase">SUCCESS</td></tr>
-                                <tr class="hover:bg-gray-50" data-channel="pending"><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">19/09/2026 11:40:27 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:02 AM</td><td class="px-4 py-3 text-[11px] text-gray-800 font-bold whitespace-nowrap bg-yellow-50">6372527252</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">PREGIZ</td><td class="px-4 py-3 text-[11px] font-bold text-yellow-600 whitespace-nowrap">Pending</td><td class="px-4 py-3 text-[11px] text-yellow-600 font-bold whitespace-nowrap">PENDING</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">---</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">---</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap uppercase">WAITING</td></tr>
-                                <tr class="hover:bg-gray-50" data-channel="failed"><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">19/09/2026 11:40:27 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:02 AM</td><td class="px-4 py-3 text-[11px] text-gray-800 font-bold whitespace-nowrap bg-red-50">2725282727</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">PREGIZ</td><td class="px-4 py-3 text-[11px] font-bold text-red-600 whitespace-nowrap">Failed</td><td class="px-4 py-3 text-[11px] text-red-600 font-bold whitespace-nowrap">FAILED</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9999</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:02 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap uppercase">NETWORK ERROR</td></tr>
-                                <tr class="hover:bg-gray-50" data-channel="rcs"><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">19/09/2026 11:40:27 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:02 AM</td><td class="px-4 py-3 text-[11px] text-gray-800 font-bold whitespace-nowrap bg-purple-50">8858674641</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">IMMENSE smart soloution</td><td class="px-4 py-3 text-[11px] font-bold text-purple-600 whitespace-nowrap">RCS</td><td class="px-4 py-3 text-[11px] text-green-600 font-bold whitespace-nowrap">DELIVERED</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">000</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:05 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap uppercase">SUCCESS</td></tr>
+                                <tr class="hover:bg-gray-50" data-channel="sms" data-status="delivered"><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">19/09/2026 11:40:27 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:02 AM</td><td class="px-4 py-3 text-[11px] text-gray-800 font-bold whitespace-nowrap bg-blue-50">7863737262</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">IMMENSE</td><td class="px-4 py-3 text-[11px] font-bold text-blue-600 whitespace-nowrap">SMS</td><td class="px-4 py-3 text-[11px] text-green-600 font-bold whitespace-nowrap">DELIVERED</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">000</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:05 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap uppercase">SUCCESS</td></tr>
+                                <tr class="hover:bg-gray-50" data-channel="whatsapp" data-status="delivered"><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">19/09/2026 11:40:27 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:02 AM</td><td class="px-4 py-3 text-[11px] text-gray-800 font-bold whitespace-nowrap bg-green-50">6353873532</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">ZION</td><td class="px-4 py-3 text-[11px] font-bold text-green-600 whitespace-nowrap">WhatsApp</td><td class="px-4 py-3 text-[11px] text-green-600 font-bold whitespace-nowrap">DELIVERED</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">000</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:05 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap uppercase">SUCCESS</td></tr>
+                                <tr class="hover:bg-gray-50" data-channel="sms" data-status="pending"><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">19/09/2026 11:40:27 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:02 AM</td><td class="px-4 py-3 text-[11px] text-gray-800 font-bold whitespace-nowrap bg-yellow-50">6372527252</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">PREGIZ</td><td class="px-4 py-3 text-[11px] font-bold text-yellow-600 whitespace-nowrap">Pending</td><td class="px-4 py-3 text-[11px] text-yellow-600 font-bold whitespace-nowrap">PENDING</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">---</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">---</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap uppercase">WAITING</td></tr>
+                                <tr class="hover:bg-gray-50" data-channel="sms" data-status="failed"><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">19/09/2026 11:40:27 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:02 AM</td><td class="px-4 py-3 text-[11px] text-gray-800 font-bold whitespace-nowrap bg-red-50">2725282727</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">PREGIZ</td><td class="px-4 py-3 text-[11px] font-bold text-red-600 whitespace-nowrap">Failed</td><td class="px-4 py-3 text-[11px] text-red-600 font-bold whitespace-nowrap">FAILED</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9999</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:02 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap uppercase">NETWORK ERROR</td></tr>
+                                <tr class="hover:bg-gray-50" data-channel="rcs" data-status="delivered"><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">19/09/2026 11:40:27 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:02 AM</td><td class="px-4 py-3 text-[11px] text-gray-800 font-bold whitespace-nowrap bg-purple-50">8858674641</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">IMMENSE smart soloution</td><td class="px-4 py-3 text-[11px] font-bold text-purple-600 whitespace-nowrap">RCS</td><td class="px-4 py-3 text-[11px] text-green-600 font-bold whitespace-nowrap">DELIVERED</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">000</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap">9/19/2026 11:40:05 AM</td><td class="px-4 py-3 text-[11px] text-gray-700 whitespace-nowrap uppercase">SUCCESS</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -334,36 +341,59 @@ function applyReportFilters(){
     const channel=(document.getElementById('channelFilter')?.value||'all').toLowerCase();
     const status=(document.getElementById('statusFilter')?.value||'all').toLowerCase();
     const search=(document.getElementById('searchInput')?.value||'').trim().toLowerCase();
-    const rows=document.querySelectorAll('#detailsTable tbody tr');
+    const rows=[...document.querySelectorAll('#detailsTable tbody tr')];
+
     rows.forEach(row=>{
+        row.classList.remove('search-match','search-dim');
         const rowChannel=(row.dataset.channel||'').toLowerCase();
         const response=(row.cells[5]?.textContent||'').trim().toLowerCase();
+        const rowStatus=(row.dataset.status||response).toLowerCase();
         const mobile=(row.cells[2]?.textContent||'').trim().toLowerCase();
         const channelOk=channel==='all'||rowChannel===channel;
-        const statusOk=status==='all'||response===status.toUpperCase().toLowerCase();
+        const statusOk=status==='all'||rowStatus===status;
         const searchOk=!search||mobile.includes(search);
-        row.style.display=(channelOk&&statusOk&&searchOk)?'':'none';
+        const visible=channelOk&&statusOk&&searchOk;
+        row.style.display=visible?'':'none';
+
+        if(search && mobile.includes(search) && channelOk && statusOk){
+            row.classList.add('search-match');
+        }
     });
+
+    const match=rows.find(r=>r.classList.contains('search-match'));
+    const result=document.getElementById('searchResultInfo');
+    const cards=['card-sms','card-rcs','card-wa','card-failed','card-pending'];
+    cards.forEach(id=>document.getElementById(id)?.classList.remove('search-selected'));
+    
+    if(match){
+        const foundChannel=(match.dataset.channel||'').toLowerCase();
+        const foundStatus=(match.dataset.status||'').toUpperCase();
+        const label=foundChannel==='whatsapp'?'WhatsApp':foundChannel==='rcs'?'RCS':foundChannel==='sms'?'SMS':foundChannel.toUpperCase();
+        const card=document.getElementById('card-'+(foundChannel==='whatsapp'?'wa':foundChannel));
+        if(card) card.classList.add('search-selected');
+        if(result){
+            result.innerHTML='<i class="fa-solid fa-circle-check mr-1"></i><b>'+label+'</b> &nbsp;•&nbsp; <b>'+foundStatus+'</b> &nbsp;•&nbsp; '+(match.cells[2]?.textContent.trim()||'');
+            result.classList.remove('hidden');
+        }
+        setTimeout(()=>match.scrollIntoView({behavior:'smooth',block:'center'}),50);
+    }else if(result){
+        result.textContent=search?'No matching mobile number found.':'';
+        result.classList.toggle('hidden',!search);
+    }
     updateReportSummary(channel,status);
 }
 function filterTable(){applyReportFilters();}
 function updateReportSummary(channel,status){
-    const labels={
-      sms:'SMS Delivered',rcs:'RCS Delivered',wa:'WhatsApp Delivered',failed:'Failed',pending:'Pending'
-    };
     const ids=['card-sms','card-rcs','card-wa','card-failed','card-pending'];
     ids.forEach(id=>document.getElementById(id)?.classList.remove('ring-2','ring-blue-300','ring-purple-300','ring-emerald-300','ring-red-300','ring-amber-300'));
     if(channel!=='all'){
-      const card=document.getElementById('card-'+channel);
-      if(card){
-        card.classList.add('ring-2',channel==='sms'?'ring-blue-300':channel==='rcs'?'ring-purple-300':'ring-emerald-300');
-      }
+      const card=document.getElementById('card-'+(channel==='whatsapp'?'wa':channel));
+      if(card) card.classList.add('ring-2',channel==='sms'?'ring-blue-300':channel==='rcs'?'ring-purple-300':'ring-emerald-300');
     } else if(status!=='all'){
       const card=document.getElementById('card-'+status);
       if(card) card.classList.add('ring-2',status==='failed'?'ring-red-300':'ring-amber-300');
     }
-}
-</script>
+}</script>
 <script>
     function toggleSubmenu(event, submenuId, iconId) {
         event.preventDefault();
