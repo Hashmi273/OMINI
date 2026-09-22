@@ -541,7 +541,7 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
       var rows=filtered(),size=Number(pageSize.value||50),pages=Math.max(1,Math.ceil(rows.length/size));
       if(page>pages)page=pages;
       var startRow=(page-1)*size,visible=rows.slice(startRow,startRow+size),body=document.getElementById('trafficTable');
-      body.innerHTML=visible.map(function(t){return '<tr><td><strong>'+esc(t.client)+'</strong><div class="mini">'+esc(t.id)+'</div></td><td><span class="badge gray">'+esc(t.type)+'</span></td><td>'+n(t.submitted)+'</td><td>'+n(t.delivered)+'</td><td>'+n(t.failed)+'</td><td>'+n(t.pending)+'</td><td><strong>'+success(t)+'%</strong></td><td><button class="btn" onclick="showTrafficClient(\\''+esc(t.id)+'\\')">Open</button></td></tr>';}).join('')||'<tr><td colspan="8" class="empty">No traffic found.</td></tr>';
+      body.innerHTML=visible.map(function(t){return '<tr><td><strong>'+esc(t.client)+'</strong><div class="mini">'+esc(t.id)+'</div></td><td><span class="badge gray">'+esc(t.type)+'</span></td><td>'+n(t.submitted)+'</td><td>'+n(t.delivered)+'</td><td>'+n(t.failed)+'</td><td>'+n(t.pending)+'</td><td><strong>'+success(t)+'%</strong></td><td><button class="btn" onclick="showTrafficClient(\''+esc(t.id)+'\')">Open</button></td></tr>';}).join('')||'<tr><td colspan="8" class="empty">No traffic found.</td></tr>';
       document.getElementById('trafficCount').textContent=rows.length+' client'+(rows.length===1?'':'s');
       document.getElementById('trafficShowing').textContent=rows.length?'Showing '+(startRow+1)+'–'+Math.min(startRow+visible.length,rows.length)+' of '+rows.length+' clients':'Showing 0 clients';
       document.getElementById('trafficPageLabel').textContent='Page '+page+' of '+pages;
@@ -603,7 +603,7 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
   };
 
   function downloadCsv(rows,fileName){
-    var csv=rows.map(function(row){return row.map(function(value){var s=String(value==null?'':value).replace(/"/g,'""');return '"'+s+'"';}).join(',');}).join('\\n');
+    var csv=rows.map(function(row){return row.map(function(value){var s=String(value==null?'':value).replace(/"/g,'""');return '"'+s+'"';}).join(',');}).join('\n');
     var blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
     a.href=url;a.download=fileName;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1000);toast('Report downloaded');
   }
@@ -619,7 +619,7 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
     if(!row){var u=users.find(function(x){return x.id===id;});if(u)row={id:u.id,client:u.name||u.company,type:u.role==='Reseller'?'Reseller':'Client',submitted:0,delivered:0,failed:0,pending:0};}
     if(!row)return;
     var meta=trafficClientMeta(row),details=trafficDetailRows(row,meta),rate=row.submitted?((row.delivered/row.submitted)*100).toFixed(1):'0.0';
-    var body='<div class="profile-hero"><div class="profile-avatar">'+esc((row.client||'C').charAt(0))+'</div><div><div class="profile-name">'+esc(row.client)+'</div><div class="mini">'+esc(row.id)+' · '+esc(row.type)+'</div></div><div style="margin-left:auto"><button class="btn" onclick="exportTrafficClient(\\''+esc(row.id)+'\\')">Export</button></div></div>';
+    var body='<div class="profile-hero"><div class="profile-avatar">'+esc((row.client||'C').charAt(0))+'</div><div><div class="profile-name">'+esc(row.client)+'</div><div class="mini">'+esc(row.id)+' · '+esc(row.type)+'</div></div><div style="margin-left:auto"><button class="btn" onclick="exportTrafficClient(\''+esc(row.id)+'\')">Export</button></div></div>';
     body+='<div class="profile-grid"><div><span>Submitted</span><strong>'+n(row.submitted)+'</strong></div><div><span>Delivered</span><strong>'+n(row.delivered)+'</strong></div><div><span>Failed</span><strong>'+n(row.failed)+'</strong></div><div><span>Pending</span><strong>'+n(row.pending)+'</strong></div><div><span>Success %</span><strong>'+rate+'%</strong></div><div><span>Gateway</span><strong>'+esc(meta.gateway)+'</strong></div></div>';
     body+='<div class="profile-section-title">Client Configuration</div><div class="profile-grid"><div><span>SMS Number</span><strong>98XXXX1001</strong></div><div><span>Sender ID</span><strong>'+esc(meta.sender)+'</strong></div><div><span>TM ID</span><strong>'+esc(meta.tmid)+'</strong></div><div><span>PE ID</span><strong>'+esc(meta.peid)+'</strong></div><div><span>Gateway Name</span><strong>'+esc(meta.gateway)+'</strong></div><div><span>Report Scope</span><strong>Time + State wise</strong></div></div>';
     body+='<div class="profile-section-title">Error Code Dashboard</div><div class="grid" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">';
@@ -643,7 +643,7 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
     body+='<div class="profile-section-title">State-wise Report</div><div class="table-wrap"><table class="table" style="min-width:620px"><thead><tr><th>State</th><th>Submitted</th><th>Delivered</th><th>Failed</th></tr></thead><tbody>';
     stateCounts.forEach(function(b){body+='<tr><td><strong>'+esc(b[0])+'</strong></td><td>'+n(b[1])+'</td><td>'+n(b[2])+'</td><td>'+n(b[3])+'</td></tr>';});
     body+='</tbody></table></div>';
-    body+='<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:18px"><button class="btn" onclick="exportTrafficClient(\\''+esc(row.id)+'\\')">Export CSV</button><button class="btn" onclick="closeModal()">Close</button></div>';
+    body+='<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:18px"><button class="btn" onclick="exportTrafficClient(\''+esc(row.id)+'\')">Export CSV</button><button class="btn" onclick="closeModal()">Close</button></div>';
     openModal('Traffic Details — '+row.client,body);
   };
 
