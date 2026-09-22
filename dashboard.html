@@ -12,7 +12,7 @@
 .sidebar{width:224px;background:#fff;border-right:1px solid var(--b)}.nav{height:40px;border-radius:9px;color:#667085;font-size:13px;font-weight:600}.nav:hover{background:#f7f7fb;color:#343b4d}.nav.active{background:var(--ps);color:var(--p)}
 .section{font-size:10px;font-weight:700;letter-spacing:.08em;color:#a0a8b8;text-transform:uppercase;padding:17px 12px 7px}
 .card{background:#fff;border:1px solid var(--b);border-radius:12px}.metric{padding:15px 16px}.label{font-size:11px;color:#8a94a6;font-weight:600}.value{font-size:21px;font-weight:700;line-height:1.2}
-.metric-eye-card{display:flex;align-items:center;justify-content:space-between;gap:12px}.metric-eye{width:38px;height:38px;min-width:38px;border:0;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s ease,background .15s ease;font-size:14px}.metric-eye:hover{transform:scale(1.05)}.metric-eye:focus-visible{outline:2px solid #5b35d5;outline-offset:2px}
+.metric-eye-card{display:flex;align-items:center;justify-content:space-between;gap:12px}.metric-eye-card{position:relative}.metric-eye{position:relative;z-index:5;pointer-events:auto!important}.metric-eye{width:38px;height:38px;min-width:38px;border:0;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s ease,background .15s ease;font-size:14px}.metric-eye:hover{transform:scale(1.05)}.metric-eye:focus-visible{outline:2px solid #5b35d5;outline-offset:2px}
 .stats-modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(15,23,42,.42);backdrop-filter:blur(3px)}.stats-modal.show{display:flex}.stats-dialog{width:min(520px,100%);background:#fff;border:1px solid #e7eaf0;border-radius:16px;box-shadow:0 24px 70px rgba(15,23,42,.2);overflow:hidden}.stats-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #eef0f4}.stats-title{font-size:15px;font-weight:700;color:#172033}.stats-sub{font-size:11px;color:#8a94a6;margin-top:3px}.stats-close{width:34px;height:34px;border:0;border-radius:9px;background:#f7f8fc;color:#667085;cursor:pointer}.stats-body{padding:14px 20px 20px}.stats-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid #f0f2f5;font-size:12px}.stats-row:last-child{border-bottom:0}.stats-left{display:flex;align-items:center;gap:9px;color:#4b5565}.stats-dot{width:9px;height:9px;border-radius:50%;display:inline-block}.stats-num{font-weight:700;color:#172033}.stats-footer{padding:0 20px 20px}.stats-report-link{height:40px;border-radius:10px;background:#f3efff;color:#5b35d5;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:12px;font-weight:700}
 @media(max-width:768px){.metric-eye-card{padding:13px}.metric-eye{width:36px;height:36px;min-width:36px}.stats-modal{padding:12px}.stats-dialog{border-radius:14px}.stats-head{padding:16px}.stats-body{padding:10px 16px 16px}.stats-footer{padding:0 16px 16px}}
 .scroll{height:calc(100vh - 64px);overflow:auto}@media(max-width:900px){.sidebar{width:72px}.brandcopy,.navcopy,.section,.profilecopy{display:none}.nav{justify-content:center}.main{width:calc(100% - 72px)}}
@@ -199,41 +199,63 @@ bindMenu('templateToggle','templateMenu','templateChevron');</script><script id=
 })();
 <script id="channel-eye-stats">
 (function(){
- const data={
-  SMS:{title:'SMS Statistics',sub:'Today',report:'reports.html',rows:[['Submitted','925,430','#2563eb'],['Delivered','918,520','#10b981'],['Failed','4,120','#ef4444'],['Pending','2,790','#f59e0b'],['DLR Awaited','0','#475569']]},
-  RCS:{title:'RCS Statistics',sub:'Today',report:'rcs-reports.html',rows:[['Submitted','1,245,680','#2563eb'],['Delivered','1,230,450','#10b981'],['Read','892,340','#7c3aed'],['Clicked','214,520','#ec4899'],['Failed','9,120','#ef4444'],['Pending','5,590','#f59e0b']]},
-  WhatsApp:{title:'WhatsApp Statistics',sub:'Today',report:'whatsapp-reports.html',rows:[['Submitted','468,720','#2563eb'],['Delivered','457,420','#10b981'],['Read','398,120','#7c3aed'],['Clicked','86,450','#ec4899'],['Failed','4,120','#ef4444'],['Pending','7,230','#f59e0b']]},
-  'OBD-Today':{title:'OBD Statistics',sub:'Today',report:'reports.html',rows:[['Submitted','19,450','#2563eb'],['Connected','18,230','#10b981'],['Failed','820','#ef4444'],['Pending','400','#f59e0b'],['No Answer','1,870','#475569']]},
-  'OBD-Yesterday':{title:'OBD Statistics',sub:'Yesterday',report:'reports.html',rows:[['Submitted','23,180','#2563eb'],['Connected','21,630','#10b981'],['Failed','1,240','#ef4444'],['Pending','780','#f59e0b'],['Busy / No Answer','2,990','#475569']]}
- };
- function init(){
-   const modal=document.getElementById('channelStatsModal');
-   const body=document.getElementById('statsModalBody');
-   const title=document.getElementById('statsModalTitle');
-   const sub=document.getElementById('statsModalSub');
-   const close=document.getElementById('statsModalClose');
-   const report=document.getElementById('statsModalReport');
-   if(!modal||!body||!title||!sub||!close) return;
-   function closeStats(){modal.classList.remove('show');modal.setAttribute('aria-hidden','true');document.body.classList.remove('overflow-hidden');}
-   function openStats(key){
-     const d=data[key]; if(!d) return;
-     title.textContent=d.title;
-     sub.textContent=d.sub;
-     body.innerHTML=d.rows.map(r=>'<div class="stats-row"><span class="stats-left"><span class="stats-dot" style="background:'+r[2]+'"></span>'+r[0]+'</span><strong class="stats-num">'+r[1]+'</strong></div>').join('');
-     if(report) report.href=d.report;
-     modal.classList.add('show');
-     modal.setAttribute('aria-hidden','false');
-     document.body.classList.add('overflow-hidden');
-   }
-   document.querySelectorAll('.metric-eye').forEach(btn=>{
-     btn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();openStats(this.getAttribute('data-stats'));});
-   });
-   close.addEventListener('click',closeStats);
-   modal.addEventListener('click',function(e){if(e.target===modal)closeStats();});
-   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('show'))closeStats();});
- }
- if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
- else init();
+  const DATA={
+    SMS:{title:'SMS Statistics',sub:'Today',report:'reports.html',rows:[['Submitted','925,430','#2563eb'],['Delivered','918,520','#10b981'],['Failed','4,120','#ef4444'],['Pending','2,790','#f59e0b'],['DLR Awaited','0','#475569']]},
+    RCS:{title:'RCS Statistics',sub:'Today',report:'rcs-reports.html',rows:[['Submitted','1,245,680','#2563eb'],['Delivered','1,230,450','#10b981'],['Read','892,340','#7c3aed'],['Clicked','214,520','#ec4899'],['Failed','9,120','#ef4444'],['Pending','5,590','#f59e0b']]},
+    WhatsApp:{title:'WhatsApp Statistics',sub:'Today',report:'whatsapp-reports.html',rows:[['Submitted','468,720','#2563eb'],['Delivered','457,420','#10b981'],['Read','398,120','#7c3aed'],['Clicked','86,450','#ec4899'],['Failed','4,120','#ef4444'],['Pending','7,230','#f59e0b']]},
+    'OBD-Today':{title:'OBD Statistics',sub:'Today',report:'reports.html',rows:[['Submitted','19,450','#2563eb'],['Connected','18,230','#10b981'],['Failed','820','#ef4444'],['Pending','400','#f59e0b'],['No Answer','1,870','#475569']]},
+    'OBD-Yesterday':{title:'OBD Statistics',sub:'Yesterday',report:'reports.html',rows:[['Submitted','23,180','#2563eb'],['Connected','21,630','#10b981'],['Failed','1,240','#ef4444'],['Pending','780','#f59e0b'],['Busy / No Answer','2,990','#475569']]}
+  };
+
+  function closeStats(){
+    const el=document.getElementById('channelStatsModal');
+    if(el){el.remove();}
+    document.body.classList.remove('overflow-hidden');
+  }
+
+  function openStats(key){
+    const d=DATA[key];
+    if(!d) return;
+
+    closeStats();
+
+    const modal=document.createElement('div');
+    modal.id='channelStatsModal';
+    modal.className='stats-modal show';
+    modal.setAttribute('aria-hidden','false');
+    modal.innerHTML=
+      '<div class="stats-dialog" role="dialog" aria-modal="true">'+
+        '<div class="stats-head">'+
+          '<div><div class="stats-title">'+d.title+'</div><div class="stats-sub">'+d.sub+'</div></div>'+
+          '<button type="button" class="stats-close" aria-label="Close statistics"><i class="fa-solid fa-xmark"></i></button>'+
+        '</div>'+
+        '<div class="stats-body">'+
+          d.rows.map(function(r){return '<div class="stats-row"><span class="stats-left"><span class="stats-dot" style="background:'+r[2]+'"></span>'+r[0]+'</span><strong class="stats-num">'+r[1]+'</strong></div>';}).join('')+
+        '</div>'+
+        '<div class="stats-footer"><a href="'+d.report+'" class="stats-report-link">View Detailed Report <i class="fa-solid fa-arrow-right ml-2"></i></a></div>'+
+      '</div>';
+
+    document.body.appendChild(modal);
+    document.body.classList.add('overflow-hidden');
+
+    modal.querySelector('.stats-close').addEventListener('click',closeStats);
+    modal.addEventListener('click',function(ev){if(ev.target===modal)closeStats();});
+  }
+
+  // Event delegation: works even if another script changes/rebuilds the dashboard cards.
+  document.addEventListener('click',function(ev){
+    const btn=ev.target.closest && ev.target.closest('.metric-eye');
+    if(btn){
+      ev.preventDefault();
+      ev.stopPropagation();
+      openStats(btn.getAttribute('data-stats'));
+    }
+    if(ev.target.closest && ev.target.closest('#channelStatsModal .stats-close')) closeStats();
+  },true);
+
+  document.addEventListener('keydown',function(ev){
+    if(ev.key==='Escape' && document.getElementById('channelStatsModal')) closeStats();
+  });
 })();
 </script><script src="global-nav.js"></script><script>
 const channelData={SMS:[920400,918500,1100,820],RCS:[1240000,1230000,4900,2100],WhatsApp:[460000,457400,1400,1200],OBD:[19000,18200,500,300],IVR:[12500,12000,300,200]};
