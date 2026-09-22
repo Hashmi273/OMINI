@@ -12,6 +12,9 @@
 .sidebar{width:224px;background:#fff;border-right:1px solid var(--b)}.nav{height:40px;border-radius:9px;color:#667085;font-size:13px;font-weight:600}.nav:hover{background:#f7f7fb;color:#343b4d}.nav.active{background:var(--ps);color:var(--p)}
 .section{font-size:10px;font-weight:700;letter-spacing:.08em;color:#a0a8b8;text-transform:uppercase;padding:17px 12px 7px}
 .card{background:#fff;border:1px solid var(--b);border-radius:12px}.metric{padding:15px 16px}.label{font-size:11px;color:#8a94a6;font-weight:600}.value{font-size:21px;font-weight:700;line-height:1.2}
+.metric-eye-card{display:flex;align-items:center;justify-content:space-between;gap:12px}.metric-eye{width:38px;height:38px;min-width:38px;border:0;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s ease,background .15s ease;font-size:14px}.metric-eye:hover{transform:scale(1.05)}.metric-eye:focus-visible{outline:2px solid #5b35d5;outline-offset:2px}
+.stats-modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(15,23,42,.42);backdrop-filter:blur(3px)}.stats-modal.show{display:flex}.stats-dialog{width:min(520px,100%);background:#fff;border:1px solid #e7eaf0;border-radius:16px;box-shadow:0 24px 70px rgba(15,23,42,.2);overflow:hidden}.stats-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #eef0f4}.stats-title{font-size:15px;font-weight:700;color:#172033}.stats-sub{font-size:11px;color:#8a94a6;margin-top:3px}.stats-close{width:34px;height:34px;border:0;border-radius:9px;background:#f7f8fc;color:#667085;cursor:pointer}.stats-body{padding:14px 20px 20px}.stats-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid #f0f2f5;font-size:12px}.stats-row:last-child{border-bottom:0}.stats-left{display:flex;align-items:center;gap:9px;color:#4b5565}.stats-dot{width:9px;height:9px;border-radius:50%;display:inline-block}.stats-num{font-weight:700;color:#172033}.stats-footer{padding:0 20px 20px}.stats-report-link{height:40px;border-radius:10px;background:#f3efff;color:#5b35d5;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:12px;font-weight:700}
+@media(max-width:768px){.metric-eye-card{padding:13px}.metric-eye{width:36px;height:36px;min-width:36px}.stats-modal{padding:12px}.stats-dialog{border-radius:14px}.stats-head{padding:16px}.stats-body{padding:10px 16px 16px}.stats-footer{padding:0 16px 16px}}
 .scroll{height:calc(100vh - 64px);overflow:auto}@media(max-width:900px){.sidebar{width:72px}.brandcopy,.navcopy,.section,.profilecopy{display:none}.nav{justify-content:center}.main{width:calc(100% - 72px)}}
 /* Simple sidebar polish */
 .sidebar nav::-webkit-scrollbar{width:4px}.sidebar nav::-webkit-scrollbar-thumb{background:#e5e7eb;border-radius:99px}
@@ -101,11 +104,26 @@
 </div>
 
 <div class="grid grid-cols-2 xl:grid-cols-5 gap-3 mb-5">
-  <a href="reports.html" class="card metric hover:border-blue-200"><div class="label">SMS Delivered</div><div class="value mt-1 text-blue-600">918.5K</div><div class="text-[10px] text-slate-400 mt-1">Today</div></a>
-  <a href="rcs-reports.html" class="card metric hover:border-violet-200"><div class="label">RCS Delivered</div><div class="value mt-1 text-violet-600">1.23M</div><div class="text-[10px] text-slate-400 mt-1">Today</div></a>
-  <a href="whatsapp-reports.html" class="card metric hover:border-emerald-200"><div class="label">WhatsApp Delivered</div><div class="value mt-1 text-emerald-600">457.4K</div><div class="text-[10px] text-slate-400 mt-1">Today</div></a>
-  <div class="card metric"><div class="label">OBD Today</div><div class="value mt-1 text-orange-600">18.2K</div><div class="text-[10px] text-slate-400 mt-1">Calls delivered</div></div>
-  <div class="card metric"><div class="label">OBD Yesterday</div><div class="value mt-1 text-orange-600">21.6K</div><div class="text-[10px] text-slate-400 mt-1">Calls delivered</div></div>
+  <div class="card metric metric-eye-card hover:border-blue-200" data-channel="SMS" data-period="Today">
+    <div><div class="label">SMS Delivered</div><div class="value mt-1 text-blue-600">918.5K</div><div class="text-[10px] text-slate-400 mt-1">Today</div></div>
+    <button type="button" class="metric-eye text-blue-600 bg-blue-50 hover:bg-blue-100" data-stats="SMS" aria-label="View SMS statistics"><i class="fa-regular fa-eye"></i></button>
+  </div>
+  <div class="card metric metric-eye-card hover:border-violet-200" data-channel="RCS" data-period="Today">
+    <div><div class="label">RCS Delivered</div><div class="value mt-1 text-violet-600">1.23M</div><div class="text-[10px] text-slate-400 mt-1">Today</div></div>
+    <button type="button" class="metric-eye text-violet-600 bg-violet-50 hover:bg-violet-100" data-stats="RCS" aria-label="View RCS statistics"><i class="fa-regular fa-eye"></i></button>
+  </div>
+  <div class="card metric metric-eye-card hover:border-emerald-200" data-channel="WhatsApp" data-period="Today">
+    <div><div class="label">WhatsApp Delivered</div><div class="value mt-1 text-emerald-600">457.4K</div><div class="text-[10px] text-slate-400 mt-1">Today</div></div>
+    <button type="button" class="metric-eye text-emerald-600 bg-emerald-50 hover:bg-emerald-100" data-stats="WhatsApp" aria-label="View WhatsApp statistics"><i class="fa-regular fa-eye"></i></button>
+  </div>
+  <div class="card metric metric-eye-card hover:border-orange-200" data-channel="OBD" data-period="Today">
+    <div><div class="label">OBD Today</div><div class="value mt-1 text-orange-600">18.2K</div><div class="text-[10px] text-slate-400 mt-1">Calls delivered</div></div>
+    <button type="button" class="metric-eye text-orange-600 bg-orange-50 hover:bg-orange-100" data-stats="OBD-Today" aria-label="View OBD today statistics"><i class="fa-regular fa-eye"></i></button>
+  </div>
+  <div class="card metric metric-eye-card hover:border-amber-200" data-channel="OBD" data-period="Yesterday">
+    <div><div class="label">OBD Yesterday</div><div class="value mt-1 text-orange-600">21.6K</div><div class="text-[10px] text-slate-400 mt-1">Calls delivered</div></div>
+    <button type="button" class="metric-eye text-amber-600 bg-amber-50 hover:bg-amber-100" data-stats="OBD-Yesterday" aria-label="View OBD yesterday statistics"><i class="fa-regular fa-eye"></i></button>
+  </div>
 </div>
 
 <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-5">
@@ -147,6 +165,16 @@
 <section class="card p-5"><h2 class="font-semibold text-sm mb-4">Channel Status</h2><div class="grid grid-cols-2 gap-3 text-xs"><div class="p-3 rounded-lg bg-blue-50"><b>SMS</b><span class="block text-emerald-600 mt-1">● Online</span></div><div class="p-3 rounded-lg bg-violet-50"><b>RCS</b><span class="block text-emerald-600 mt-1">● Online</span></div><div class="p-3 rounded-lg bg-emerald-50"><b>WhatsApp</b><span class="block text-emerald-600 mt-1">● Online</span></div><div class="p-3 rounded-lg bg-orange-50"><b>OBD / IVR</b><span class="block text-emerald-600 mt-1">● Online</span></div></div></section>
 </div></div></div>
 </main></div>
+<div id="channelStatsModal" class="stats-modal" aria-hidden="true">
+  <div class="stats-dialog" role="dialog" aria-modal="true" aria-labelledby="statsModalTitle">
+    <div class="stats-head">
+      <div><div id="statsModalTitle" class="stats-title">Channel Statistics</div><div id="statsModalSub" class="stats-sub">Today</div></div>
+      <button type="button" id="statsModalClose" class="stats-close" aria-label="Close statistics"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="statsModalBody" class="stats-body"></div>
+    <div class="stats-footer"><a id="statsModalReport" href="reports.html" class="stats-report-link">View Detailed Report <i class="fa-solid fa-arrow-right ml-2"></i></a></div>
+  </div>
+</div>
 <script>const campaignToggle=document.getElementById("campaignToggle"),campaignMenu=document.getElementById("campaignMenu"),campaignChevron=document.getElementById("campaignChevron");campaignToggle?.addEventListener("click",()=>{const open=!campaignMenu.classList.contains("hidden");campaignMenu.classList.toggle("hidden",open);if(campaignChevron)campaignChevron.style.transform=open?"rotate(-90deg)":"rotate(0deg)";});</script><script>
 function bindMenu(toggleId,menuId,chevronId){
  const t=document.getElementById(toggleId),m=document.getElementById(menuId),ch=document.getElementById(chevronId);
@@ -168,6 +196,28 @@ bindMenu('templateToggle','templateMenu','templateChevron');</script><script id=
  overlay?.addEventListener('click',close);
  side?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{if(window.innerWidth<=768)close()}));
  window.addEventListener('resize',()=>{if(window.innerWidth>768)close()});
+})();
+<script id="channel-eye-stats">
+(function(){
+ const modal=document.getElementById('channelStatsModal'), body=document.getElementById('statsModalBody'), title=document.getElementById('statsModalTitle'), sub=document.getElementById('statsModalSub'), close=document.getElementById('statsModalClose'), report=document.getElementById('statsModalReport');
+ const data={
+  SMS:{title:'SMS Statistics',sub:'Today',report:'reports.html',rows:[['Submitted','925,430','#2563eb'],['Delivered','918,520','#10b981'],['Failed','4,120','#ef4444'],['Pending','2,790','#f59e0b'],['DLR Awaited','0','#475569']]},
+  RCS:{title:'RCS Statistics',sub:'Today',report:'rcs-reports.html',rows:[['Submitted','1,245,680','#2563eb'],['Delivered','1,230,450','#10b981'],['Read','892,340','#7c3aed'],['Clicked','214,520','#ec4899'],['Failed','9,120','#ef4444'],['Pending','5,590','#f59e0b']]},
+  WhatsApp:{title:'WhatsApp Statistics',sub:'Today',report:'whatsapp-reports.html',rows:[['Submitted','468,720','#2563eb'],['Delivered','457,420','#10b981'],['Read','398,120','#7c3aed'],['Clicked','86,450','#ec4899'],['Failed','4,120','#ef4444'],['Pending','7,230','#f59e0b']]},
+  'OBD-Today':{title:'OBD Statistics',sub:'Today',report:'reports.html',rows:[['Submitted','19,450','#2563eb'],['Connected','18,230','#10b981'],['Failed','820','#ef4444'],['Pending','400','#f59e0b'],['No Answer','1,870','#475569']]},
+  'OBD-Yesterday':{title:'OBD Statistics',sub:'Yesterday',report:'reports.html',rows:[['Submitted','23,180','#2563eb'],['Connected','21,630','#10b981'],['Failed','1,240','#ef4444'],['Pending','780','#f59e0b'],['Busy / No Answer','2,990','#475569']]}
+ };
+ function openStats(key){
+  const d=data[key]; if(!d) return;
+  title.textContent=d.title; sub.textContent=d.sub;
+  body.innerHTML=d.rows.map(r=>'<div class="stats-row"><span class="stats-left"><span class="stats-dot" style="background:'+r[2]+'"></span>'+r[0]+'</span><strong class="stats-num">'+r[1]+'</strong></div>').join('');
+  report.href=d.report; modal.classList.add('show'); modal.setAttribute('aria-hidden','false'); document.body.classList.add('overflow-hidden'); close.focus();
+ }
+ function closeStats(){modal.classList.remove('show');modal.setAttribute('aria-hidden','true');document.body.classList.remove('overflow-hidden')}
+ document.querySelectorAll('.metric-eye').forEach(btn=>btn.addEventListener('click',()=>openStats(btn.dataset.stats)));
+ close?.addEventListener('click',closeStats);
+ modal?.addEventListener('click',e=>{if(e.target===modal)closeStats()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal?.classList.contains('show'))closeStats()});
 })();
 </script><script src="global-nav.js"></script><script>
 const channelData={SMS:[920400,918500,1100,820],RCS:[1240000,1230000,4900,2100],WhatsApp:[460000,457400,1400,1200],OBD:[19000,18200,500,300],IVR:[12500,12000,300,200]};
