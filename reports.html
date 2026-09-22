@@ -99,6 +99,18 @@ main td,main th{padding:11px 12px!important}
  main .grid{grid-template-columns:1fr!important}
  .overflow-x-auto{overflow-x:auto!important}
 }
+</style><style id="omini-report-system-v2">
+:root{--rb:#f5f7fb;--rp:#fff;--re:#e5e9f0;--rt:#172033;--rm:#718096;--ra:#2563eb}
+html,body{font-family:Inter,system-ui,sans-serif!important}body{background:var(--rb)!important;color:var(--rt)!important}
+aside{width:224px!important;box-shadow:none!important;border-right:1px solid var(--re)!important}aside>div:first-child{height:64px!important;padding:0 14px!important}
+aside nav{padding:10px!important}aside nav>a,aside nav>button{border-radius:9px!important;padding:8px 10px!important;min-height:36px}aside nav a,aside nav button{font-size:12px!important}aside nav i{font-size:13px!important}aside nav .text-\[10px\]{font-size:9px!important}aside .border-l{border-left-width:1px!important}
+.flex-1.min-w-0{background:var(--rb)!important}header{height:64px!important;border-bottom:1px solid var(--re)!important;padding:0 22px!important;background:#fff!important}header input{height:38px!important;border-radius:9px!important;background:#fafbfc!important}
+main{max-width:none!important;margin:0!important;padding:24px!important}main>div{max-width:1450px!important;margin-left:auto!important;margin-right:auto!important}main h1{font-size:24px!important;line-height:1.15!important;letter-spacing:-.025em!important}
+main .bg-white{background:var(--rp)!important}main .rounded-xl,main .rounded-2xl{border-radius:12px!important}main .border,main .border-slate-200{border-color:var(--re)!important}main .shadow-sm,main .shadow-md,main .shadow-lg{box-shadow:0 4px 18px rgba(15,23,42,.045)!important}
+main table{width:100%!important;border-collapse:separate!important;border-spacing:0!important}main th{font-size:10px!important;text-transform:uppercase;letter-spacing:.035em;color:#7b8798!important;background:#f8fafc!important}main td,main th{padding:11px 12px!important}
+main select,main input[type=date],main input[type=text]{min-height:38px!important;border:1px solid var(--re)!important;border-radius:9px!important;background:#fff!important;outline:none}main button{border-radius:9px!important}
+.report-home{position:fixed;right:18px;bottom:18px;width:42px;height:42px;border-radius:11px;background:#172033;color:#fff!important;display:flex;align-items:center;justify-content:center;z-index:999;box-shadow:0 8px 20px rgba(15,23,42,.14);text-decoration:none!important}
+@media(max-width:800px){body{display:block!important;overflow:auto!important}aside{position:fixed!important;left:-230px!important;top:0!important;height:100vh!important;z-index:1000!important}.flex-1.min-w-0{width:100%!important}header{padding:0 12px!important}header .relative.w-96{width:55%!important}main{padding:14px!important}main .grid{grid-template-columns:1fr!important}.overflow-x-auto{overflow-x:auto!important}table{min-width:760px}}
 </style></head>
 <a class="report-home" href="home.html" title="Home"><i class="fa-solid fa-house"></i></a>\n<body class="text-gray-800 h-screen overflow-hidden flex">
 
@@ -310,5 +322,5 @@ function toggleNav(id){
  el.classList.toggle('hidden');
  if(arrow) arrow.classList.toggle('rotate-180');
 }
-</script><script src="global-nav.js"></script></body>
+</script><script src="global-nav.js"></script><script id="report-filter-v2">document.addEventListener('DOMContentLoaded',()=>{const main=document.querySelector('main');if(!main)return;const selects=[...main.querySelectorAll('select')];const channel=selects.find(s=>/channel/i.test(s.parentElement?.textContent||''))||selects[0];const table=main.querySelector('table');if(!channel||!table)return;const apply=()=>{const wanted=(channel.value||'all').toLowerCase();[...table.querySelectorAll('tbody tr')].forEach(row=>{const text=row.textContent.toLowerCase();row.style.display=(wanted.includes('all')||wanted==='all channels'||text.includes(wanted))?'':'none'})};channel.addEventListener('change',apply);const btn=[...main.querySelectorAll('button')].find(b=>b.textContent.trim().toLowerCase()==='filter');if(btn)btn.addEventListener('click',apply)});</script></body>
 </html>
