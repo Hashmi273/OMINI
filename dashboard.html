@@ -199,7 +199,6 @@ bindMenu('templateToggle','templateMenu','templateChevron');</script><script id=
 })();
 <script id="channel-eye-stats">
 (function(){
- const modal=document.getElementById('channelStatsModal'), body=document.getElementById('statsModalBody'), title=document.getElementById('statsModalTitle'), sub=document.getElementById('statsModalSub'), close=document.getElementById('statsModalClose'), report=document.getElementById('statsModalReport');
  const data={
   SMS:{title:'SMS Statistics',sub:'Today',report:'reports.html',rows:[['Submitted','925,430','#2563eb'],['Delivered','918,520','#10b981'],['Failed','4,120','#ef4444'],['Pending','2,790','#f59e0b'],['DLR Awaited','0','#475569']]},
   RCS:{title:'RCS Statistics',sub:'Today',report:'rcs-reports.html',rows:[['Submitted','1,245,680','#2563eb'],['Delivered','1,230,450','#10b981'],['Read','892,340','#7c3aed'],['Clicked','214,520','#ec4899'],['Failed','9,120','#ef4444'],['Pending','5,590','#f59e0b']]},
@@ -207,17 +206,34 @@ bindMenu('templateToggle','templateMenu','templateChevron');</script><script id=
   'OBD-Today':{title:'OBD Statistics',sub:'Today',report:'reports.html',rows:[['Submitted','19,450','#2563eb'],['Connected','18,230','#10b981'],['Failed','820','#ef4444'],['Pending','400','#f59e0b'],['No Answer','1,870','#475569']]},
   'OBD-Yesterday':{title:'OBD Statistics',sub:'Yesterday',report:'reports.html',rows:[['Submitted','23,180','#2563eb'],['Connected','21,630','#10b981'],['Failed','1,240','#ef4444'],['Pending','780','#f59e0b'],['Busy / No Answer','2,990','#475569']]}
  };
- function openStats(key){
-  const d=data[key]; if(!d) return;
-  title.textContent=d.title; sub.textContent=d.sub;
-  body.innerHTML=d.rows.map(r=>'<div class="stats-row"><span class="stats-left"><span class="stats-dot" style="background:'+r[2]+'"></span>'+r[0]+'</span><strong class="stats-num">'+r[1]+'</strong></div>').join('');
-  report.href=d.report; modal.classList.add('show'); modal.setAttribute('aria-hidden','false'); document.body.classList.add('overflow-hidden'); close.focus();
+ function init(){
+   const modal=document.getElementById('channelStatsModal');
+   const body=document.getElementById('statsModalBody');
+   const title=document.getElementById('statsModalTitle');
+   const sub=document.getElementById('statsModalSub');
+   const close=document.getElementById('statsModalClose');
+   const report=document.getElementById('statsModalReport');
+   if(!modal||!body||!title||!sub||!close) return;
+   function closeStats(){modal.classList.remove('show');modal.setAttribute('aria-hidden','true');document.body.classList.remove('overflow-hidden');}
+   function openStats(key){
+     const d=data[key]; if(!d) return;
+     title.textContent=d.title;
+     sub.textContent=d.sub;
+     body.innerHTML=d.rows.map(r=>'<div class="stats-row"><span class="stats-left"><span class="stats-dot" style="background:'+r[2]+'"></span>'+r[0]+'</span><strong class="stats-num">'+r[1]+'</strong></div>').join('');
+     if(report) report.href=d.report;
+     modal.classList.add('show');
+     modal.setAttribute('aria-hidden','false');
+     document.body.classList.add('overflow-hidden');
+   }
+   document.querySelectorAll('.metric-eye').forEach(btn=>{
+     btn.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();openStats(this.getAttribute('data-stats'));});
+   });
+   close.addEventListener('click',closeStats);
+   modal.addEventListener('click',function(e){if(e.target===modal)closeStats();});
+   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('show'))closeStats();});
  }
- function closeStats(){modal.classList.remove('show');modal.setAttribute('aria-hidden','true');document.body.classList.remove('overflow-hidden')}
- document.querySelectorAll('.metric-eye').forEach(btn=>btn.addEventListener('click',()=>openStats(btn.dataset.stats)));
- close?.addEventListener('click',closeStats);
- modal?.addEventListener('click',e=>{if(e.target===modal)closeStats()});
- document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal?.classList.contains('show'))closeStats()});
+ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
+ else init();
 })();
 </script><script src="global-nav.js"></script><script>
 const channelData={SMS:[920400,918500,1100,820],RCS:[1240000,1230000,4900,2100],WhatsApp:[460000,457400,1400,1200],OBD:[19000,18200,500,300],IVR:[12500,12000,300,200]};
