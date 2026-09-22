@@ -788,6 +788,23 @@
                     </div>
                 </div>
 
+                <!-- Agent identity, role, status and access -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Mobile Number</label><input id="agentMobileInput" type="tel" placeholder="+91 XXXXX XXXXX" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-semibold"></div>
+                    <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Employee ID</label><input id="agentEmployeeIdInput" placeholder="EMP-001" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-semibold"></div>
+                    <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Designation</label><input id="agentDesignationInput" placeholder="Sales Executive" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-semibold"></div>
+                    <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Role</label><select id="agentRoleSelect" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-semibold"><option>WhatsApp Agent</option><option>Manager / Team Leader</option><option>Admin</option></select></div>
+                    <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Assigned Team</label><select id="agentTeamSelect" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-semibold"><option>Mumbai Sales Team</option><option>Support</option><option>Marketing</option><option>Management</option></select></div>
+                    <div><label class="block text-xs font-bold text-slate-700 uppercase mb-1">Account Status</label><select id="agentStatusSelect" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-semibold"><option>Active</option><option>Inactive</option><option>Suspended</option></select></div>
+                </div>
+
+                <div class="p-4 bg-white border border-slate-200 rounded-2xl">
+                    <div class="flex items-center justify-between mb-3"><div><b class="text-xs">Granular Permissions</b><p class="text-[10px] text-slate-400">Only enabled permissions should be available to this agent.</p></div><button type="button" onclick="waSelectAllPermissions()" class="text-[10px] font-bold text-blue-600">Select All</button></div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-2 text-[10px]" id="waPermissionsGrid">
+                        <label class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg"><input class="wa-perm" type="checkbox" value="whatsapp.view" checked>whatsapp.view</label><label class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg"><input class="wa-perm" type="checkbox" value="whatsapp.send" checked>whatsapp.send</label><label class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg"><input class="wa-perm" type="checkbox" value="whatsapp.media" checked>whatsapp.media</label><label class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg"><input class="wa-perm" type="checkbox" value="whatsapp.template" checked>whatsapp.template</label><label class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg"><input class="wa-perm" type="checkbox" value="whatsapp.assign" >whatsapp.assign</label><label class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg"><input class="wa-perm" type="checkbox" value="whatsapp.transfer" >whatsapp.transfer</label><label class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg"><input class="wa-perm" type="checkbox" value="whatsapp.close" checked>whatsapp.close</label><label class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg"><input class="wa-perm" type="checkbox" value="whatsapp.export" >whatsapp.export</label><label class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg"><input class="wa-perm" type="checkbox" value="whatsapp.contacts" >whatsapp.contacts</label><label class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg"><input class="wa-perm" type="checkbox" value="whatsapp.notes" checked>whatsapp.notes</label><label class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg"><input class="wa-perm" type="checkbox" value="whatsapp.manage_agents" >whatsapp.manage_agents</label><label class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg"><input class="wa-perm" type="checkbox" value="whatsapp.manage_numbers" >whatsapp.manage_numbers</label><label class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg"><input class="wa-perm" type="checkbox" value="whatsapp.manage_templates" >whatsapp.manage_templates</label><label class="flex items-center gap-2 p-2 bg-slate-50 rounded-lg"><input class="wa-perm" type="checkbox" value="whatsapp.view_reports" >whatsapp.view_reports</label>
+                    </div>
+                </div>
+
                 <!-- Lead Auto-Routing Option -->
                 <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl space-y-2">
                     <label class="block text-[11px] font-black uppercase text-slate-600">Campaign Lead Assignment Mode</label>
@@ -883,9 +900,18 @@
             const name = document.getElementById('agentNameInput').value || 'New Agent';
             const email = document.getElementById('agentEmailInput').value || 'agent@zioncpaas.corp';
             const pass = document.getElementById('agentPassInput').value;
+            const mobile = document.getElementById('agentMobileInput')?.value || '';
+            const employeeId = document.getElementById('agentEmployeeIdInput')?.value || '';
+            const role = document.getElementById('agentRoleSelect')?.value || 'WhatsApp Agent';
+            const team = document.getElementById('agentTeamSelect')?.value || 'Mumbai Sales Team';
+            const status = document.getElementById('agentStatusSelect')?.value || 'Active';
+            const permissions = [...document.querySelectorAll('.wa-perm:checked')].map(x=>x.value);
+            const saved = JSON.parse(localStorage.getItem('zionWaAgents') || '[]');
+            saved.push({id:Date.now(),name,email,mobile,employeeId,role,team,status,permissions,numbers:'+91 9000000001',active:0,resolved:0,last:'Just now'});
+            localStorage.setItem('zionWaAgents',JSON.stringify(saved));
 
             document.getElementById('credEmailText').innerText = email;
-            document.getElementById('credPassText').innerText = pass;
+            document.getElementById('credPassText').innerText = 'Invitation link generated — password is set by the agent';
 
             // Add to dropdown list
             const select = document.getElementById('assignedAgentSelect');
@@ -919,6 +945,9 @@
             alert(`Lead assigned to ${agentName}. Customer chat session is now routed to their portal.`);
         }
 
+        function waSelectAllPermissions(){document.querySelectorAll('.wa-perm').forEach(x=>x.checked=true)}
+        function waLoadSavedAgents(){try{const saved=JSON.parse(localStorage.getItem('zionWaAgents')||'[]');saved.forEach(a=>{if(!WA_AGENT_DATA.some(x=>x.email===a.email))WA_AGENT_DATA.push(a)});renderWaAgents()}catch(e){}}
+        document.addEventListener('DOMContentLoaded',()=>{setTimeout(waLoadSavedAgents,100)});
         function toggleSubmenu(event, submenuId, iconId) {
             event.preventDefault();
             const allSubmenus = document.querySelectorAll('div[id$="-submenu"]');
