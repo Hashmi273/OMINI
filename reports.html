@@ -53,8 +53,54 @@
             position: absolute; top: 0; left: 30%;
         }
     </style>
-</head>
-<body class="text-gray-800 h-screen overflow-hidden flex">
+<style id="omini-reports-modern">
+:root{--rbg:#f6f8fc;--rpanel:#fff;--rborder:#e6eaf0;--rtext:#182235;--rmuted:#718096;--rblue:#2563eb}
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,sans-serif!important;background:var(--rbg)!important;color:var(--rtext)!important}
+aside.w-60,aside.w-\[240px\]{width:224px!important;box-shadow:none!important;border-right:1px solid var(--rborder)!important}
+aside>div:first-child{height:64px!important;padding:0 14px!important}
+aside .w-10.h-10{width:36px!important;height:36px!important;border-radius:10px!important}
+aside nav{padding:10px!important}
+aside nav>a,aside nav>div>button{border-radius:8px!important;padding:8px 10px!important}
+aside nav a{transition:.15s ease}
+aside nav a i{font-size:14px!important}
+aside nav .text-xs{font-size:11px!important}
+aside nav .text-\[10px\]{font-size:9px!important}
+aside .ml-8{margin-left:8px!important}
+aside .border-l{border-left-width:1px!important}
+aside .pt-3{padding-top:8px!important}
+aside .pb-1{padding-bottom:4px!important}
+aside .p-3{padding:10px!important}
+aside nav button{min-height:36px!important}
+main,.flex-1.min-w-0{background:var(--rbg)!important}
+header{height:64px!important;border-bottom:1px solid var(--rborder)!important;padding-left:22px!important;padding-right:22px!important}
+header input{height:38px!important;border-radius:9px!important;background:#fafbfc!important}
+main{max-width:none!important}
+main.p-6,.flex-1.min-w-0>main{padding:24px!important}
+main h1{font-size:24px!important;letter-spacing:-.03em!important}
+main p{color:var(--rmuted)}
+main .bg-white{background:var(--rpanel)!important}
+main .rounded-xl,main .rounded-2xl{border-radius:12px!important}
+main .border,main .border-slate-200{border-color:var(--rborder)!important}
+main .shadow-sm,main .shadow-md,main .shadow-lg{box-shadow:0 4px 18px rgba(15,23,42,.045)!important}
+main table{font-size:12px!important}
+main th{font-size:10px!important;text-transform:uppercase;letter-spacing:.04em;color:#7b8798!important;background:#f8fafc!important}
+main td,main th{padding:11px 12px!important}
+.report-modern-filter{display:flex;flex-wrap:wrap;gap:10px!important;align-items:end}
+.report-modern-filter select,.report-modern-filter input{min-height:38px;border-radius:9px!important;border:1px solid var(--rborder)!important;background:#fff!important}
+.report-home{position:fixed;right:18px;bottom:18px;width:40px;height:40px;border-radius:11px;background:#182235;color:#fff;display:flex;align-items:center;justify-content:center;z-index:90;box-shadow:0 8px 20px rgba(15,23,42,.14)}
+@media(max-width:768px){
+ body{display:block!important;overflow:auto!important}
+ aside{position:fixed!important;left:-230px;top:0;height:100vh!important;z-index:100}
+ .flex-1.min-w-0{width:100%!important}
+ header{padding:0 12px!important}
+ header .relative.w-96{width:52%!important}
+ main.p-6,.flex-1.min-w-0>main{padding:14px!important}
+ main .grid{grid-template-columns:1fr!important}
+ .overflow-x-auto{overflow-x:auto!important}
+}
+</style></head>
+<a class="report-home" href="home.html" title="Home"><i class="fa-solid fa-house"></i></a>\n<body class="text-gray-800 h-screen overflow-hidden flex">
 
     <!-- Sidebar -->
         <!-- Left Fixed Sidebar -->
