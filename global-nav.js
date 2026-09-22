@@ -107,7 +107,6 @@
     if(!aside || aside.dataset.zionFinalSidebar==='1') return;
     aside.dataset.zionFinalSidebar='1';
     aside.className='zion-final-sidebar';
-    const path=location.pathname.toLowerCase();
     const is=n=>path.endsWith(n);
     const active=names=>names.some(n=>is(n));
     const item=(href,icon,label,sub,on)=>'<a href="'+href+'" class="zion-nav-item '+(on?'is-active':'')+'"><span class="zion-nav-icon"><i class="'+icon+'"></i></span><span class="zion-nav-copy"><b>'+label+'</b>'+(sub?'<small>'+sub+'</small>':'')+'</span></a>';
