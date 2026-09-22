@@ -27,6 +27,13 @@
         }
     </script>
     <style>
+        .wa-tab{padding:.5rem .8rem;border-radius:.65rem;font-size:11px;font-weight:800;color:#64748b;white-space:nowrap}
+        .wa-tab.active{background:#0f172a;color:#fff}.wa-primary{background:#059669;color:#fff;border:0;border-radius:.75rem;padding:.55rem .85rem;font-size:11px;font-weight:800}
+        .wa-stat{background:#fff;border:1px solid #e2e8f0;border-radius:1rem;padding:1rem}.wa-stat span{display:block;font-size:10px;text-transform:uppercase;color:#94a3b8;font-weight:800}.wa-stat b{display:block;font-size:20px;margin-top:5px}
+        .wa-check{display:flex;gap:.7rem;padding:.75rem;border:1px solid #e2e8f0;border-radius:.8rem;cursor:pointer}.wa-check input{margin-top:3px}.wa-check b{display:block;font-size:12px}.wa-check small{display:block;color:#94a3b8;margin-top:2px;font-size:10px}
+        @media(max-width:900px){#waManagement{padding:12px}.wa-tab{font-size:10px}}
+    </style>
+    <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
         ::-webkit-scrollbar { width: 5px; height: 5px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -168,6 +175,83 @@
                 </a>
             </div>
         </header>
+
+        <!-- WhatsApp Agent Management -->
+        <div id="waAgentManagementTabs" class="px-5 py-2 bg-white border-b border-slate-200 flex items-center gap-2 overflow-x-auto shrink-0">
+            <button data-wa-tab="inbox" onclick="waTab('inbox')" class="wa-tab active">Inbox</button>
+            <button data-wa-tab="agents" onclick="waTab('agents')" class="wa-tab">Agents</button>
+            <button data-wa-tab="teams" onclick="waTab('teams')" class="wa-tab">Teams</button>
+            <button data-wa-tab="numbers" onclick="waTab('numbers')" class="wa-tab">WhatsApp Numbers</button>
+            <button data-wa-tab="rules" onclick="waTab('rules')" class="wa-tab">Assignment Rules</button>
+            <button data-wa-tab="hours" onclick="waTab('hours')" class="wa-tab">Business Hours</button>
+            <button data-wa-tab="reports" onclick="waTab('reports')" class="wa-tab">Reports</button>
+            <button data-wa-tab="settings" onclick="waTab('settings')" class="wa-tab">Settings</button>
+        </div>
+
+        <section id="waManagement" class="hidden flex-1 overflow-y-auto bg-[#f8fafc] p-5">
+            <div id="waPanelAgents" class="wa-panel">
+                <div class="flex items-center justify-between mb-4">
+                    <div><h2 class="text-lg font-black text-slate-900">WhatsApp Agents</h2><p class="text-xs text-slate-500">Create agents, assign teams/numbers and control granular permissions.</p></div>
+                    <button onclick="openCreateAgentModal()" class="px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-black"><i class="fa-solid fa-user-plus mr-1"></i> Create Agent</button>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                    <div class="wa-stat"><span>Total Agents</span><b id="waStatAgents">4</b></div>
+                    <div class="wa-stat"><span>Online</span><b class="text-emerald-600">2</b></div>
+                    <div class="wa-stat"><span>Active Chats</span><b>18</b></div>
+                    <div class="wa-stat"><span>Unassigned</span><b class="text-amber-600">3</b></div>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+                    <div class="p-4 border-b flex items-center justify-between"><b>Team Members</b><input id="waAgentSearch" oninput="filterWaAgents()" class="border rounded-lg px-3 py-2 text-xs w-56" placeholder="Search agent..."></div>
+                    <div class="overflow-x-auto"><table class="w-full text-xs" id="waAgentTable"><thead class="bg-slate-50 text-slate-500"><tr><th class="text-left p-3">Agent</th><th class="text-left p-3">Role</th><th class="text-left p-3">Team</th><th class="text-left p-3">WhatsApp Numbers</th><th class="text-left p-3">Status</th><th class="text-left p-3">Active Chats</th><th class="text-left p-3">Resolved</th><th class="text-left p-3">Last Active</th><th class="text-right p-3">Actions</th></tr></thead>
+                    <tbody id="waAgentRows"></tbody></table></div>
+                </div>
+            </div>
+
+            <div id="waPanelTeams" class="wa-panel hidden">
+                <div class="flex items-center justify-between mb-4"><div><h2 class="text-lg font-black">Teams</h2><p class="text-xs text-slate-500">Organize agents and control team queues.</p></div><button onclick="waAddTeam()" class="wa-primary">+ Add Team</button></div>
+                <div id="waTeamsGrid" class="grid md:grid-cols-3 gap-4"></div>
+            </div>
+
+            <div id="waPanelNumbers" class="wa-panel hidden">
+                <div class="flex items-center justify-between mb-4"><div><h2 class="text-lg font-black">WhatsApp Numbers</h2><p class="text-xs text-slate-500">Map WABA phone numbers to teams and agents.</p></div><button onclick="waAssignNumber()" class="wa-primary">Assign Number</button></div>
+                <div id="waNumbersGrid" class="grid md:grid-cols-2 gap-4"></div>
+            </div>
+
+            <div id="waPanelRules" class="wa-panel hidden">
+                <div class="mb-4"><h2 class="text-lg font-black">Assignment Rules</h2><p class="text-xs text-slate-500">Choose how new conversations are routed.</p></div>
+                <div class="bg-white border rounded-2xl p-5 max-w-3xl space-y-3">
+                    <label class="wa-check"><input id="ruleRoundRobin" type="checkbox" checked> <span><b>Round Robin</b><small>Distribute new conversations equally.</small></span></label>
+                    <label class="wa-check"><input id="ruleLeast" type="checkbox" checked> <span><b>Least Active Chats</b><small>Send the next chat to the available agent with the lowest active load.</small></span></label>
+                    <label class="wa-check"><input id="ruleTeam" type="checkbox" checked> <span><b>Team Based</b><small>Route by WhatsApp number/team.</small></span></label>
+                    <label class="wa-check"><input id="ruleHours" type="checkbox"> <span><b>Business Hours Based</b><small>Use queue or auto-reply outside working hours.</small></span></label>
+                    <label class="wa-check"><input id="ruleAvailability" type="checkbox" checked> <span><b>Agent Availability</b><small>Only assign to Online/available agents.</small></span></label>
+                    <div class="pt-3 border-t flex justify-end"><button onclick="waSaveRules()" class="wa-primary">Save Assignment Rules</button></div>
+                </div>
+            </div>
+
+            <div id="waPanelHours" class="wa-panel hidden">
+                <div class="mb-4"><h2 class="text-lg font-black">Business Hours</h2><p class="text-xs text-slate-500">Configure operating hours and after-hours handling.</p></div>
+                <div class="bg-white border rounded-2xl p-5 max-w-3xl space-y-2" id="waHoursForm"></div>
+            </div>
+
+            <div id="waPanelReports" class="wa-panel hidden">
+                <div class="mb-4"><h2 class="text-lg font-black">Agent Performance Report</h2><p class="text-xs text-slate-500">Assigned, answered, resolved and response-time metrics.</p></div>
+                <div class="grid md:grid-cols-4 gap-3 mb-4"><div class="wa-stat"><span>Assigned</span><b>284</b></div><div class="wa-stat"><span>Answered</span><b>271</b></div><div class="wa-stat"><span>Resolved</span><b>248</b></div><div class="wa-stat"><span>Avg First Response</span><b>2m 14s</b></div></div>
+                <div class="bg-white border rounded-2xl overflow-hidden"><table class="w-full text-xs"><thead class="bg-slate-50"><tr><th class="p-3 text-left">Agent</th><th class="p-3">Assigned</th><th class="p-3">Open</th><th class="p-3">Pending</th><th class="p-3">Resolved</th><th class="p-3">Avg Response</th><th class="p-3">Avg Resolution</th></tr></thead><tbody id="waReportRows"></tbody></table></div>
+            </div>
+
+            <div id="waPanelSettings" class="wa-panel hidden">
+                <div class="mb-4"><h2 class="text-lg font-black">WhatsApp Agent Settings</h2><p class="text-xs text-slate-500">Security, offline handover and notification preferences.</p></div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white border rounded-2xl p-5 space-y-3">
+                        <label class="wa-check"><input id="settingOffline" type="checkbox" checked> <span><b>Reassign offline agent conversations</b><small>Move active conversations to the team queue when an agent goes offline.</small></span></label>
+                        <label class="wa-check"><input type="checkbox" checked> <span><b>Browser notifications</b><small>Notify agents about new assignments and transfers.</small></span></label>
+                        <label class="wa-check"><input type="checkbox" checked> <span><b>Audit sensitive actions</b><small>Log assignment, transfer, permission and account changes.</small></span></label>
+                    </div>
+                    <div class="bg-white border rounded-2xl p-5"><b>Security</b><ul class="mt-3 text-xs text-slate-500 space-y-2"><li>✓ Role-based authorization</li><li>✓ Server-side permission checks required</li><li>✓ Organization isolation / RLS required</li><li>✓ API credentials stay on backend</li><li>✓ Webhook signature verification</li></ul></div>
+                </div>
+            </div>
+        </section>
 
         <!-- 3-Column Split -->
         <div class="flex-1 flex overflow-hidden">
@@ -511,6 +595,40 @@
 
         </div>
     </main>
+
+    <script>
+        const WA_AGENT_DATA = [
+          {id:1,name:'Rahul Sharma',email:'rahul@company.com',role:'WhatsApp Agent',team:'Mumbai Sales Team',numbers:'+91 9000000001',status:'Online',active:12,resolved:120,last:'Now'},
+          {id:2,name:'Amit Kumar',email:'amit@company.com',role:'WhatsApp Agent',team:'Mumbai Sales Team',numbers:'+91 9000000001',status:'Online',active:6,resolved:96,last:'Now'},
+          {id:3,name:'Priya Shah',email:'priya@company.com',role:'Manager / Team Leader',team:'Support',numbers:'+91 9000000002',status:'Away',active:3,resolved:88,last:'8 min ago'},
+          {id:4,name:'Neha Verma',email:'neha@company.com',role:'WhatsApp Agent',team:'Support',numbers:'+91 9000000002',status:'Offline',active:0,resolved:72,last:'Yesterday'}
+        ];
+        function waTab(tab){
+          document.querySelectorAll('.wa-tab').forEach(b=>b.classList.toggle('active',b.dataset.waTab===tab));
+          const mg=document.getElementById('waManagement');
+          const inbox=document.querySelector('#waManagement').nextElementSibling;
+          if(tab==='inbox'){mg.classList.add('hidden');inbox.classList.remove('hidden');return}
+          inbox.classList.add('hidden');mg.classList.remove('hidden');
+          document.querySelectorAll('.wa-panel').forEach(p=>p.classList.add('hidden'));
+          const p=document.getElementById('waPanel'+tab.charAt(0).toUpperCase()+tab.slice(1)); if(p)p.classList.remove('hidden');
+          if(tab==='agents') renderWaAgents(); if(tab==='teams')renderWaTeams(); if(tab==='numbers')renderWaNumbers(); if(tab==='hours')renderWaHours(); if(tab==='reports')renderWaReports();
+        }
+        function renderWaAgents(){
+          const rows=document.getElementById('waAgentRows'); if(!rows)return;
+          rows.innerHTML=WA_AGENT_DATA.map(a=>'<tr class="border-t border-slate-100 hover:bg-slate-50"><td class="p-3"><b>'+a.name+'</b><small class="block text-slate-400">'+a.email+'</small></td><td class="p-3">'+a.role+'</td><td class="p-3">'+a.team+'</td><td class="p-3">'+a.numbers+'</td><td class="p-3"><span class="px-2 py-1 rounded-full text-[10px] font-bold '+(a.status==='Online'?'bg-emerald-50 text-emerald-700':a.status==='Away'?'bg-amber-50 text-amber-700':'bg-slate-100 text-slate-500')+'">'+a.status+'</span></td><td class="p-3">'+a.active+'</td><td class="p-3">'+a.resolved+'</td><td class="p-3">'+a.last+'</td><td class="p-3 text-right"><button onclick="waViewAgent('+a.id+')" class="text-blue-600 font-bold mr-2">View</button><button onclick="waEditAgent('+a.id+')" class="text-slate-600 font-bold">Edit</button></td></tr>').join('');
+          document.getElementById('waStatAgents').textContent=WA_AGENT_DATA.length;
+        }
+        function filterWaAgents(){const q=(document.getElementById('waAgentSearch').value||'').toLowerCase();document.querySelectorAll('#waAgentRows tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q)?'':'none')}
+        function waViewAgent(id){const a=WA_AGENT_DATA.find(x=>x.id===id);if(a)alert(a.name+'\nRole: '+a.role+'\nTeam: '+a.team+'\nNumbers: '+a.numbers+'\nStatus: '+a.status+'\nActive chats: '+a.active+'\nResolved: '+a.resolved)}
+        function waEditAgent(id){const a=WA_AGENT_DATA.find(x=>x.id===id);if(!a)return;document.getElementById('agentNameInput').value=a.name;document.getElementById('agentEmailInput').value=a.email;openCreateAgentModal()}
+        function renderWaTeams(){document.getElementById('waTeamsGrid').innerHTML=[['Mumbai Sales Team','Rahul, Amit, Priya','12 active'],['Support','Neha, Priya','5 active'],['Management','Raj','0 active']].map(x=>'<div class="bg-white border rounded-2xl p-5"><b>'+x[0]+'</b><p class="text-xs text-slate-400 mt-1">'+x[1]+'</p><div class="mt-4 text-xs font-bold text-emerald-600">'+x[2]+'</div><button onclick="waAddTeam()" class="mt-4 text-xs font-bold text-blue-600">Manage Team</button></div>').join('')}
+        function waAddTeam(){const n=prompt('Team name:');if(n)alert('Team '+n+' created. Add members from Agents.')}
+        function renderWaNumbers(){document.getElementById('waNumbersGrid').innerHTML=[['+91 9000000001','Sales Number','Mumbai Sales Team','Rahul, Amit'],['+91 9000000002','Support Number','Support','Neha, Priya'],['+91 9000000003','Marketing Number','Marketing','Unassigned']].map(x=>'<div class="bg-white border rounded-2xl p-5"><div class="flex justify-between"><b>'+x[0]+'</b><span class="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-1 rounded-full">Connected</span></div><p class="text-xs text-slate-400 mt-1">'+x[1]+'</p><div class="mt-3 text-xs"><b>Team:</b> '+x[2]+'</div><div class="text-xs mt-1"><b>Agents:</b> '+x[3]+'</div><button onclick="waAssignNumber()" class="mt-4 text-xs font-bold text-blue-600">Assign Agents</button></div>').join('')}
+        function waAssignNumber(){const a=prompt('Assign number to agent/team (example: Rahul Sharma / Sales Team):');if(a)alert('Assignment saved for '+a)}
+        function renderWaHours(){const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];document.getElementById('waHoursForm').innerHTML=days.map(d=>'<div class="grid grid-cols-[120px_1fr_auto_1fr] gap-2 items-center"><b class="text-xs">'+d+'</b><input type="time" value="'+(d==='Sunday'?'10:00':'09:00')+'" class="border rounded-lg p-2 text-xs"><span class="text-xs text-slate-400">to</span><input type="time" value="'+(d==='Sunday'?'16:00':'18:00')+'" class="border rounded-lg p-2 text-xs"></div>').join('')+'<div class="border-t mt-4 pt-4"><label class="text-xs font-bold">After-hours message</label><textarea class="w-full border rounded-xl p-3 text-xs mt-2">Thank you for contacting us. Our team is currently unavailable. We will respond during business hours.</textarea><button onclick="alert(\'Business hours saved.\')" class="wa-primary mt-3">Save Business Hours</button></div>'}
+        function renderWaReports(){document.getElementById('waReportRows').innerHTML=WA_AGENT_DATA.map(a=>'<tr class="border-t"><td class="p-3 text-left font-bold">'+a.name+'</td><td class="p-3 text-center">'+(a.active+10)+'</td><td class="p-3 text-center">'+a.active+'</td><td class="p-3 text-center">2</td><td class="p-3 text-center">'+a.resolved+'</td><td class="p-3 text-center">2m 14s</td><td class="p-3 text-center">18m</td></tr>').join('')}
+        function waSaveRules(){localStorage.setItem('zionWaAssignmentRules',JSON.stringify({roundRobin:ruleRoundRobin.checked,least:ruleLeast.checked,team:ruleTeam.checked,hours:ruleHours.checked,availability:ruleAvailability.checked}));alert('Assignment rules saved.')}
+    </script>
 
     <script>
         function selectChat(id) {
