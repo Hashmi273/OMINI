@@ -34,7 +34,7 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
   <div class="brand"><img src="assets/immense-smart-solutions-logo.webp" alt="Immense Smart Solutions"><div><strong>IMMENSE</strong><small>SMART SOLUTIONS · ADMIN</small></div></div>
   <div class="section">OVERVIEW</div><div class="nav"><button data-page="dashboard" class="active"><span class="ico">⌂</span>Dashboard</button></div>
   <div class="section">USER MANAGEMENT</div><div class="nav">
-    <button data-page="users"><span class="ico">♙</span>Users</button><button data-page="resellers"><span class="ico">▣</span>Resellers</button><button data-page="create-user"><span class="ico">＋</span>Create User</button><button data-page="create-reseller"><span class="ico">＋</span>Create Reseller</button><button data-page="roles"><span class="ico">⚿</span>Roles & Permissions</button>
+    <button data-page="users"><span class="ico">♙</span>Users</button><button data-page="account-managers"><span class="ico">♙</span>Account Managers</button><button data-page="resellers"><span class="ico">▣</span>Resellers</button><button data-page="create-user"><span class="ico">＋</span>Create User</button><button data-page="create-reseller"><span class="ico">＋</span>Create Reseller</button><button data-page="roles"><span class="ico">⚿</span>Roles & Permissions</button>
   </div>
   <div class="section">PRODUCT MANAGEMENT</div><div class="nav">
     <button data-page="products"><span class="ico">◈</span>Product Access</button>
@@ -68,7 +68,7 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
   var content=document.getElementById('content');
   var topTitle=document.getElementById('topTitle');
   var titles={
-    dashboard:'Admin Dashboard',users:'User Management',resellers:'Reseller Management',
+    dashboard:'Admin Dashboard',users:'User Management','account-managers':'Account Managers',resellers:'Reseller Management',
     'create-user':'Create User','create-reseller':'Create Reseller',roles:'Roles & Permissions',
     products:'Product Access',billing:'Credit & Billing','billing-audit':'Billing Audit',
     transactions:'Transactions',smpp:'SMPP Accounts','smpp-gateways':'SMPP Gateways',
@@ -81,6 +81,16 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
     {id:'USR-1002',company:'XYZ Communications',name:'Rahul Shah',email:'rahul@xyz.com',role:'Reseller',products:'SMS, WhatsApp',credit:'₹1,82,000',status:'Active',gateways:['Smartping','WhatsApp Provider'],billingMode:'Prepaid',creditDeduction:true,rechargeAccess:true,reportSync:true,accountManager:'Neha',phone:'+91 98765 43211',password:'••••••••',pricing:{sms:'0.17',rcs:'0.42',whatsapp:'0.78',obd:'0.58',ivr:'0.72'},autoRefund:{sms:true,rcs:true,trigger:'Failed / Undelivered'}},
     {id:'USR-1003',company:'Metro Digital',name:'Sana Khan',email:'sana@metro.com',role:'User',products:'RCS',credit:'₹64,500',status:'Suspended',gateways:['RCS Provider'],billingMode:'Prepaid',creditDeduction:true,rechargeAccess:false,reportSync:true,accountManager:'Parvez',phone:'+91 98765 43212',password:'••••••••',pricing:{sms:'0.20',rcs:'0.48',whatsapp:'0.85',obd:'0.62',ivr:'0.80'},autoRefund:{sms:false,rcs:true,trigger:'Failed / Undelivered'}}
   ];
+  var accountManagers=[
+    {id:'AM-001',name:'Parvez',email:'parvez@immensesmartsolutions.com',status:'Active'},
+    {id:'AM-002',name:'Neha',email:'neha@immensesmartsolutions.com',status:'Active'},
+    {id:'AM-003',name:'Rahul',email:'rahul@immensesmartsolutions.com',status:'Active'}
+  ];
+  try{
+    var savedManagers=localStorage.getItem('omini_account_managers');
+    if(savedManagers)accountManagers=JSON.parse(savedManagers);
+  }catch(e){}
+
   var gateways=[
     ['Airtel','SMS','CONNECTED','500 TPS'],['Jio','SMS','CONNECTED','450 TPS'],
     ['Vi','SMS','WARNING','300 TPS'],['Smartping','SMS','CONNECTED','700 TPS'],
@@ -251,6 +261,70 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
       document.querySelectorAll('#userTable tr').forEach(function(tr){tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none';});
     });
   }
+  function renderAccountManagers(){
+    var html=head('Account Managers','Manage the people responsible for user and reseller accounts.',
+      '<button class="btn primary" onclick="openAddAccountManager()">＋ Add Account Manager</button>');
+    html+='<div class="card panel"><div class="toolbar"><input id="managerSearch" class="input" placeholder="Search account managers..."><select id="managerStatus" class="select"><option>All Status</option><option>Active</option><option>Inactive</option></select></div>';
+    html+='<div class="table-wrap"><table class="table"><thead><tr><th>Manager</th><th>Email</th><th>Manager ID</th><th>Assigned Accounts</th><th>Status</th><th>Action</th></tr></thead><tbody id="managerTable">';
+    accountManagers.forEach(function(m){
+      var assigned=users.filter(function(u){return u.accountManager===m.name;}).length;
+      html+='<tr><td><strong>'+esc(m.name)+'</strong></td><td>'+esc(m.email)+'</td><td>'+esc(m.id)+'</td><td>'+assigned+'</td><td>'+badge(m.status)+'</td><td><button class="btn" onclick="editAccountManager(\''+m.id+'\')">Edit</button></td></tr>';
+    });
+    html+='</tbody></table></div></div>';
+    content.innerHTML=html;
+    var search=document.getElementById('managerSearch');
+    if(search)search.addEventListener('input',function(){
+      var q=this.value.toLowerCase();
+      document.querySelectorAll('#managerTable tr').forEach(function(tr){tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none';});
+    });
+  }
+
+  window.openAddAccountManager=function(){
+    var body='<div class="form-grid">';
+    body+='<label>Account Manager Name<input id="amName" class="input" placeholder="Full name"></label>';
+    body+='<label>Email Address<input id="amEmail" class="input" type="email" placeholder="manager@company.com"></label>';
+    body+='<label>Status<select id="amStatus" class="select"><option>Active</option><option>Inactive</option></select></label>';
+    body+='</div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:18px"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="saveAccountManager()">Save Account Manager</button></div>';
+    openModal('Add New Account Manager',body);
+  };
+
+  window.saveAccountManager=function(){
+    var name=(document.getElementById('amName').value||'').trim();
+    var email=(document.getElementById('amEmail').value||'').trim();
+    var status=document.getElementById('amStatus').value;
+    if(!name||!email){toast('Name and email are required');return;}
+    if(accountManagers.some(function(m){return m.email.toLowerCase()===email.toLowerCase();})){toast('This email is already registered');return;}
+    var next=accountManagers.length+1;
+    accountManagers.push({id:'AM-'+String(next).padStart(3,'0'),name:name,email:email,status:status});
+    try{localStorage.setItem('omini_account_managers',JSON.stringify(accountManagers));}catch(e){}
+    closeModal(); toast('Account Manager added successfully'); renderAccountManagers();
+  };
+
+  window.editAccountManager=function(id){
+    var m=accountManagers.find(function(x){return x.id===id;});
+    if(!m)return;
+    var body='<div class="form-grid">';
+    body+='<label>Account Manager Name<input id="amEditName" class="input" value="'+esc(m.name)+'"></label>';
+    body+='<label>Email Address<input id="amEditEmail" class="input" type="email" value="'+esc(m.email)+'"></label>';
+    body+='<label>Status<select id="amEditStatus" class="select"><option '+(m.status==='Active'?'selected':'')+'>Active</option><option '+(m.status==='Inactive'?'selected':'')+'>Inactive</option></select></label>';
+    body+='</div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:18px"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="updateAccountManager(\''+m.id+'\')">Save Changes</button></div>';
+    openModal('Edit Account Manager',body);
+  };
+
+  window.updateAccountManager=function(id){
+    var m=accountManagers.find(function(x){return x.id===id;});
+    if(!m)return;
+    var oldName=m.name;
+    var newName=(document.getElementById('amEditName').value||'').trim();
+    var email=(document.getElementById('amEditEmail').value||'').trim();
+    if(!newName||!email){toast('Name and email are required');return;}
+    if(accountManagers.some(function(x){return x.id!==id&&x.email.toLowerCase()===email.toLowerCase();})){toast('This email is already registered');return;}
+    m.name=newName;m.email=email;m.status=document.getElementById('amEditStatus').value;
+    users.forEach(function(u){if(u.accountManager===oldName)u.accountManager=newName;});
+    try{localStorage.setItem('omini_account_managers',JSON.stringify(accountManagers));localStorage.setItem('omini_admin_users',JSON.stringify(users));}catch(e){}
+    closeModal();toast('Account Manager updated');renderAccountManagers();
+  };
+
   window.showUserStats=function(id){
     var u=users.find(function(x){return x.id===id;});
     if(!u)return;
@@ -382,7 +456,7 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
       '<div class="field"><label>Password</label><input id="fPassword" class="input" type="password" placeholder="Set login password"></div>'+
       '<div class="field"><label>Account Role</label><select id="fRole" class="select"><option>'+(isReseller?'Reseller':'User')+'</option><option>Manager</option><option>Support</option></select></div>'+
       '<div class="field"><label>Status</label><select id="fStatus" class="select"><option>Active</option><option>Pending</option></select></div>'+
-      '<div class="field"><label>Account Manager</label><select id="fManager" class="select"><option>Parvez</option><option>Neha</option><option>Rahul</option><option>Support Team</option></select></div>'+
+      '<div class="field"><label>Account Manager</label><select id="fManager" class="select">'+accountManagers.map(function(m){return '<option>'+esc(m.name)+'</option>';}).join('')+'</select></div>'+
       '<div class="field full"><label>Product Access</label><div class="check"><label><input class="createProduct" type="checkbox" value="SMS" checked> SMS</label> <label><input class="createProduct" type="checkbox" value="RCS" checked> RCS</label> <label><input class="createProduct" type="checkbox" value="WhatsApp"> WhatsApp</label> <label><input class="createProduct" type="checkbox" value="OBD"> OBD</label> <label><input class="createProduct" type="checkbox" value="IVR"> IVR</label></div></div>'+
       '<div class="field full"><label>Product Pricing / Unit</label><div class="pricing-grid"><label>SMS / message<input id="fPriceSms" class="input" value="0.18"></label><label>RCS / message<input id="fPriceRcs" class="input" value="0.45"></label><label>WhatsApp / message<input id="fPriceWa" class="input" value="0.80"></label><label>OBD / call<input id="fPriceObd" class="input" value="0.60"></label><label>IVR / call<input id="fPriceIvr" class="input" value="0.75"></label></div></div>'+
       '<div class="field full"><label>Gateway Assignment</label><div class="check"><label><input class="createGateway" type="checkbox" value="Airtel"> Airtel</label> <label><input class="createGateway" type="checkbox" value="Jio"> Jio</label> <label><input class="createGateway" type="checkbox" value="Vi"> Vi</label> <label><input class="createGateway" type="checkbox" value="Smartping"> Smartping</label> <label><input class="createGateway" type="checkbox" value="RCS Provider"> RCS Provider</label> <label><input class="createGateway" type="checkbox" value="WhatsApp Provider"> WhatsApp Provider</label></div></div>'+
@@ -429,6 +503,7 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
     try{
       if(page==='dashboard')renderDashboard();
       else if(page==='users')renderUsers();
+      else if(page==='account-managers')renderAccountManagers();
       else if(page==='create-user'||page==='create-reseller')renderForm(page);
       else renderGeneric(page);
       history.replaceState({},'', 'admin.html?view='+encodeURIComponent(page));
