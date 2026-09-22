@@ -60,6 +60,37 @@
     `;
     document.head.appendChild(style);
   }
+  function modernizePortal(){
+    document.body.classList.add('omini-modern-portal');
+    if(!document.getElementById('omini-modern-portal-theme')){
+      const style=document.createElement('style'); style.id='omini-modern-portal-theme';
+      style.textContent='
+        :root{--omini-bg:#f6f8fc;--omini-card:#fff;--omini-border:#e5e9f0;--omini-text:#172033;--omini-muted:#748096;--omini-primary:#5b35d5}
+        body.omini-modern-portal{background:var(--omini-bg)!important;color:var(--omini-text)!important}
+        body.omini-modern-portal aside{background:#fff!important;border-right:1px solid var(--omini-border)!important;box-shadow:none!important}
+        body.omini-modern-portal main,body.omini-modern-portal .main{background:var(--omini-bg)!important}
+        body.omini-modern-portal main>header,body.omini-modern-portal .main>header{background:#fff!important;border-bottom:1px solid var(--omini-border)!important;box-shadow:none!important}
+        body.omini-modern-portal main .bg-white.rounded-xl,body.omini-modern-portal main .bg-white.rounded-2xl,body.omini-modern-portal main .bg-white.rounded-3xl,body.omini-modern-portal main .card{border:1px solid var(--omini-border)!important;box-shadow:0 4px 16px rgba(15,23,42,.045)!important}
+        body.omini-modern-portal main input,body.omini-modern-portal main select,body.omini-modern-portal main textarea{border-color:var(--omini-border)!important;border-radius:9px!important;background:#fff}
+        body.omini-modern-portal main thead{background:#f8fafc!important}
+        body.omini-modern-portal main button{border-radius:9px}
+        body.omini-modern-portal .omini-profile-chip{display:flex;align-items:center;gap:9px;margin-left:12px;padding:4px 7px 4px 5px;border:1px solid var(--omini-border);border-radius:10px;background:#fff;cursor:pointer}
+        body.omini-modern-portal .omini-profile-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#5b35d5,#2563eb);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800}
+        body.omini-modern-portal .omini-profile-copy{line-height:1.15;text-align:left}
+        body.omini-modern-portal .omini-profile-name{font-size:11px;font-weight:700;color:#172033}
+        body.omini-modern-portal .omini-profile-role{font-size:9px;color:#8a94a6;margin-top:2px}
+        @media(max-width:768px){body.omini-modern-portal .omini-profile-chip{margin-left:6px;padding:3px}body.omini-modern-portal .omini-profile-copy{display:none}body.omini-modern-portal main>header,body.omini-modern-portal header{min-height:60px!important;height:60px!important}}
+      ';
+      document.head.appendChild(style);
+    }
+    document.querySelectorAll('main>header,.main>header').forEach(header=>{
+      if(header.querySelector('.omini-profile-chip')) return;
+      const profile=document.createElement('button'); profile.type='button'; profile.className='omini-profile-chip'; profile.setAttribute('aria-label','User profile');
+      profile.innerHTML='<span class="omini-profile-avatar">P</span><span class="omini-profile-copy"><span class="omini-profile-name">Parvez</span><span class="omini-profile-role">Enterprise Admin</span></span><i class="fa-solid fa-chevron-down text-[9px] text-slate-400 hidden sm:block"></i>';
+      header.appendChild(profile);
+    });
+  }
+
   function makeMobileNavigation(){
     const aside=document.querySelector('aside');
     if(!aside) return false;
@@ -88,6 +119,7 @@
   }
   function init(){
     injectStyles();
+    modernizePortal();
     if(location.pathname.endsWith('index.html')||location.pathname.endsWith('/'))document.body.classList.add('omini-login');
     makeMobileNavigation();fixNavigation();
     if('scrollRestoration' in history)history.scrollRestoration='auto';
