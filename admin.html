@@ -74,7 +74,7 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
   var content=document.getElementById('content');
   var topTitle=document.getElementById('topTitle');
   var titles={
-    dashboard:'Admin Dashboard','admin-users':'Manage Users','system-tariff':'System Tariff',configuration:'Configuration','admin-settings':'Settings',development:'Development',users:'User Management','account-managers':'Account Managers',resellers:'Reseller Management',
+    dashboard:'Admin Dashboard','admin-users':'Manage Users','system-tariff':'System Traffic',configuration:'Configuration','admin-settings':'Settings',development:'Development',users:'User Management','account-managers':'Account Managers',resellers:'Reseller Management',
     'create-user':'Create User','create-reseller':'Create Reseller',roles:'Roles & Permissions',
     products:'Product Access',billing:'Credit & Billing','billing-audit':'Billing Audit',
     transactions:'Transactions',smpp:'SMPP Accounts','smpp-gateways':'SMPP Gateways',
@@ -515,120 +515,136 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
     ['adminUserSearch','adminUserProduct','adminUserRole'].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('input',apply);if(e)e.addEventListener('change',apply);});
   }
 
-  function renderSystemTariff(){
+    function renderSystemTariff(){
     var traffic=[
-      {id:'USR-1001',client:'bluemdtx',type:'Client',submitted:11100,delivered:10371,failed:586,pending:143,xDropped:0},
-      {id:'USR-1002',client:'Suyash',type:'Client',submitted:574,delivered:506,failed:67,pending:1,xDropped:0},
-      {id:'USR-1003',client:'tiger1',type:'Client',submitted:98,delivered:96,failed:2,pending:0,xDropped:0},
-      {id:'USR-1004',client:'digisms',type:'Client',submitted:2,delivered:2,failed:0,pending:0,xDropped:0}
+      {id:'USR-1001',client:'bluemdtx',type:'Client',submitted:11100,delivered:10371,failed:586,pending:143},
+      {id:'USR-1002',client:'Suyash',type:'Client',submitted:574,delivered:506,failed:67,pending:1},
+      {id:'USR-1003',client:'tiger1',type:'Client',submitted:98,delivered:96,failed:2,pending:0},
+      {id:'USR-1004',client:'digisms',type:'Client',submitted:2,delivered:2,failed:0,pending:0}
     ];
-
-    // Add managed users that do not yet have traffic rows.
     users.forEach(function(u){
       if(!traffic.some(function(x){return x.id===u.id;})){
-        traffic.push({
-          id:u.id,
-          client:u.name || u.company || u.id,
-          type:u.role==='Reseller'?'Reseller':'Client',
-          submitted:0,delivered:0,failed:0,pending:0,xDropped:0
-        });
+        traffic.push({id:u.id,client:u.name||u.company||u.id,type:u.role==='Reseller'?'Reseller':'Client',submitted:0,delivered:0,failed:0,pending:0});
       }
     });
-
     function n(v){return Number(v||0).toLocaleString('en-IN');}
-    function success(row){
-      return row.submitted ? ((row.delivered/row.submitted)*100).toFixed(1) : '0.0';
-    }
-
-    var html=head('System Traffic','Monitor message traffic for every managed client in a simple account-wise delivery table.',
-      '<button class="btn" onclick="toast(\'Traffic report exported\')">Export</button>');
-
-    html+='<div class="card panel">';
-    html+='<div class="toolbar" style="justify-content:space-between">';
-    html+='<div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap"><input id="trafficSearch" class="input" placeholder="Search client..." style="min-width:260px"><select id="trafficType" class="select"><option value="">All Types</option><option value="Client">Client</option><option value="Reseller">Reseller</option></select></div>';
-    html+='<div class="mini" id="trafficCount"></div>';
-    html+='</div>';
-    html+='<div class="table-wrap"><table class="table" style="min-width:1180px"><thead><tr><th>Client</th><th>Type</th><th>Submitted</th><th>Delivered</th><th>Failed</th><th>Pending</th><th>X-Dropped</th><th>Success %</th><th>Action</th></tr></thead><tbody id="trafficTable">';
-
-    traffic.forEach(function(t){
-      html+='<tr data-traffic-id="'+esc(t.id)+'">';
-      html+='<td><strong>'+esc(t.client)+'</strong><div class="mini">'+esc(t.id)+'</div></td>';
-      html+='<td><span class="badge gray">'+esc(t.type)+'</span></td>';
-      html+='<td>'+n(t.submitted)+'</td>';
-      html+='<td>'+n(t.delivered)+'</td>';
-      html+='<td>'+n(t.failed)+'</td>';
-      html+='<td>'+n(t.pending)+'</td>';
-      html+='<td>'+n(t.xDropped)+'</td>';
-      html+='<td><strong>'+success(t)+'%</strong></td>';
-      html+='<td><button class="btn" onclick="showTrafficClient(\''+esc(t.id)+'\')">Open</button></td>';
-      html+='</tr>';
-    });
-
-    html+='</tbody></table></div>';
+    function success(row){return row.submitted?((row.delivered/row.submitted)*100).toFixed(1):'0.0';}
+    var html=head('System Traffic','Monitor message traffic for every managed client in an account-wise delivery view.','<button class="btn" onclick="exportSystemTraffic()">Export</button>');
+    html+='<div class="card panel"><div class="toolbar" style="justify-content:space-between"><div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap"><input id="trafficSearch" class="input" placeholder="Search client..." style="min-width:260px"><select id="trafficType" class="select"><option value="">All Types</option><option value="Client">Client</option><option value="Reseller">Reseller</option></select></div><div class="mini" id="trafficCount"></div></div>';
+    html+='<div class="table-wrap"><table class="table" style="min-width:1080px"><thead><tr><th>Client</th><th>Type</th><th>Submitted</th><th>Delivered</th><th>Failed</th><th>Pending</th><th>Success %</th><th>Action</th></tr></thead><tbody id="trafficTable"></tbody></table></div>';
     html+='<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap"><div class="mini" id="trafficShowing"></div><div style="display:flex;align-items:center;gap:8px"><select class="select" id="trafficPageSize" style="min-width:118px;padding:7px 10px"><option value="50">50 / page</option><option value="25">25 / page</option><option value="100">100 / page</option></select><button class="btn" id="trafficPrev" disabled>Previous</button><span class="mini" id="trafficPageLabel">Page 1 of 1</span><button class="btn" id="trafficNext" disabled>Next</button></div></div>';
-    html+='<div class="mini" style="margin-top:10px">Traffic columns follow the account-level delivery view: Submitted, Delivered, Failed, Pending, X-Dropped and Success %.</div>';
-    html+='</div>';
-
+    html+='<div class="mini" style="margin-top:10px">Open any client to view SMS numbers, Sender ID, TM ID, PE ID, gateway, time/state reports and error-code counts.</div></div>';
     content.innerHTML=html;
-
-    var search=document.getElementById('trafficSearch');
-    var type=document.getElementById('trafficType');
-    var pageSize=document.getElementById('trafficPageSize');
-    var page=1;
-
-    function filtered(){
-      var q=(search.value||'').toLowerCase();
-      var t=type.value;
-      return traffic.filter(function(row){
-        return (!q||(row.client+' '+row.id).toLowerCase().includes(q)) && (!t||row.type===t);
-      });
-    }
-
+    var search=document.getElementById('trafficSearch'),type=document.getElementById('trafficType'),pageSize=document.getElementById('trafficPageSize'),page=1;
+    function filtered(){var q=(search.value||'').toLowerCase(),t=type.value;return traffic.filter(function(row){return (!q||(row.client+' '+row.id).toLowerCase().includes(q))&&(!t||row.type===t);});}
     function renderRows(){
-      var rows=filtered();
-      var size=Number(pageSize.value||50);
-      var pages=Math.max(1,Math.ceil(rows.length/size));
+      var rows=filtered(),size=Number(pageSize.value||50),pages=Math.max(1,Math.ceil(rows.length/size));
       if(page>pages)page=pages;
-      var start=(page-1)*size;
-      var visible=rows.slice(start,start+size);
-      var body=document.getElementById('trafficTable');
-      body.innerHTML=visible.map(function(t){
-        return '<tr><td><strong>'+esc(t.client)+'</strong><div class="mini">'+esc(t.id)+'</div></td><td><span class="badge gray">'+esc(t.type)+'</span></td><td>'+n(t.submitted)+'</td><td>'+n(t.delivered)+'</td><td>'+n(t.failed)+'</td><td>'+n(t.pending)+'</td><td>'+n(t.xDropped)+'</td><td><strong>'+success(t)+'%</strong></td><td><button class="btn" onclick="showTrafficClient(\''+esc(t.id)+'\')">Open</button></td></tr>';
-      }).join('') || '<tr><td colspan="9" class="empty">No traffic found.</td></tr>';
+      var startRow=(page-1)*size,visible=rows.slice(startRow,startRow+size),body=document.getElementById('trafficTable');
+      body.innerHTML=visible.map(function(t){return '<tr><td><strong>'+esc(t.client)+'</strong><div class="mini">'+esc(t.id)+'</div></td><td><span class="badge gray">'+esc(t.type)+'</span></td><td>'+n(t.submitted)+'</td><td>'+n(t.delivered)+'</td><td>'+n(t.failed)+'</td><td>'+n(t.pending)+'</td><td><strong>'+success(t)+'%</strong></td><td><button class="btn" onclick="showTrafficClient(\\''+esc(t.id)+'\\')">Open</button></td></tr>';}).join('')||'<tr><td colspan="8" class="empty">No traffic found.</td></tr>';
       document.getElementById('trafficCount').textContent=rows.length+' client'+(rows.length===1?'':'s');
-      document.getElementById('trafficShowing').textContent=rows.length ? 'Showing '+(start+1)+'–'+Math.min(start+visible.length,rows.length)+' of '+rows.length+' clients' : 'Showing 0 clients';
+      document.getElementById('trafficShowing').textContent=rows.length?'Showing '+(startRow+1)+'–'+Math.min(startRow+visible.length,rows.length)+' of '+rows.length+' clients':'Showing 0 clients';
       document.getElementById('trafficPageLabel').textContent='Page '+page+' of '+pages;
-      document.getElementById('trafficPrev').disabled=page<=1;
-      document.getElementById('trafficNext').disabled=page>=pages;
+      document.getElementById('trafficPrev').disabled=page<=1;document.getElementById('trafficNext').disabled=page>=pages;
     }
-
-    search.addEventListener('input',function(){page=1;renderRows();});
-    type.addEventListener('change',function(){page=1;renderRows();});
-    pageSize.addEventListener('change',function(){page=1;renderRows();});
+    search.addEventListener('input',function(){page=1;renderRows();});type.addEventListener('change',function(){page=1;renderRows();});pageSize.addEventListener('change',function(){page=1;renderRows();});
     document.getElementById('trafficPrev').addEventListener('click',function(){if(page>1){page--;renderRows();}});
-    document.getElementById('trafficNext').addEventListener('click',function(){page++;renderRows();});
-    renderRows();
+    document.getElementById('trafficNext').addEventListener('click',function(){page++;renderRows();});renderRows();
+  }
+
+  function trafficClientMeta(row){
+    var meta={
+      'USR-1001':{sender:'BLUEMD',peid:'1203456789012345678',tmid:'1002345678901234567',gateway:'Airtel',states:['Maharashtra','Gujarat','Karnataka'],errorCodes:[['5101',320],['5002',180],['3004',86]]},
+      'USR-1002':{sender:'SUYASH',peid:'1203456789012345679',tmid:'1002345678901234568',gateway:'Smartping',states:['Maharashtra','Delhi','Karnataka'],errorCodes:[['5101',41],['5002',19],['3004',7]]},
+      'USR-1003':{sender:'TIGER1',peid:'1203456789012345680',tmid:'1002345678901234569',gateway:'Jio',states:['Maharashtra','Gujarat'],errorCodes:[['5101',2]]},
+      'USR-1004':{sender:'DIGISM',peid:'1203456789012345681',tmid:'1002345678901234570',gateway:'Vi',states:['Maharashtra'],errorCodes:[]}
+    };
+    if(meta[row.id])return meta[row.id];
+    var u=users.find(function(x){return x.id===row.id;});
+    return {sender:(u&&u.name?u.name:'CLIENT').replace(/[^A-Za-z0-9]/g,'').slice(0,6).toUpperCase(),peid:'Not configured',tmid:'Not configured',gateway:(u&&u.gateways&&u.gateways[0])||'Gateway',states:['Maharashtra'],errorCodes:[]};
+  }
+
+  function trafficDetailRows(row,meta){
+    var statuses=['Delivered','Delivered','Delivered','Failed','Pending','Delivered','Failed','Delivered','Delivered','Failed'];
+    var times=['09:05:12','09:18:43','10:02:17','10:24:51','11:08:29','11:42:05','12:16:38','13:04:21','14:27:46','15:11:09'];
+    var states=meta.states||['Maharashtra'],out=[];
+    for(var i=0;i<10;i++){
+      var status=statuses[i],code=status==='Failed'?((meta.errorCodes[i%Math.max(meta.errorCodes.length,1)]||['5101',0])[0]):(status==='Pending'?'PENDING':'0000');
+      out.push({sms:'SMS-'+row.id.replace('USR-','')+'-'+String(1001+i),number:'98XXXX'+String(1001+i),sender:meta.sender,tmid:meta.tmid,peid:meta.peid,gateway:meta.gateway,time:times[i],state:states[i%states.length],status:status,error:code});
+    }
+    return out;
+  }
+
+  window.exportSystemTraffic=function(){
+    var sample=[
+      {id:'USR-1001',client:'bluemdtx',type:'Client',submitted:11100,delivered:10371,failed:586,pending:143},
+      {id:'USR-1002',client:'Suyash',type:'Client',submitted:574,delivered:506,failed:67,pending:1},
+      {id:'USR-1003',client:'tiger1',type:'Client',submitted:98,delivered:96,failed:2,pending:0},
+      {id:'USR-1004',client:'digisms',type:'Client',submitted:2,delivered:2,failed:0,pending:0}
+    ];
+    var rows=[['Client','Type','Submitted','Delivered','Failed','Pending','Success %']];
+    sample.forEach(function(t){rows.push([t.client,t.type,t.submitted,t.delivered,t.failed,t.pending,success(t)+'%']);});
+    downloadCsv(rows,'system-traffic-report.csv');
+  };
+
+  window.exportTrafficClient=function(id){
+    var sample=[
+      {id:'USR-1001',client:'bluemdtx',type:'Client',submitted:11100,delivered:10371,failed:586,pending:143},
+      {id:'USR-1002',client:'Suyash',type:'Client',submitted:574,delivered:506,failed:67,pending:1},
+      {id:'USR-1003',client:'tiger1',type:'Client',submitted:98,delivered:96,failed:2,pending:0},
+      {id:'USR-1004',client:'digisms',type:'Client',submitted:2,delivered:2,failed:0,pending:0}
+    ];
+    var row=sample.find(function(x){return x.id===id;});
+    if(!row){var u=users.find(function(x){return x.id===id;});if(u)row={id:u.id,client:u.name||u.company,type:u.role==='Reseller'?'Reseller':'Client',submitted:0,delivered:0,failed:0,pending:0};}
+    if(!row)return;
+    var meta=trafficClientMeta(row),details=trafficDetailRows(row,meta),rows=[['SMS Number','Sender ID','TM ID','PE ID','Gateway Name','Time','State','Status','Error Code']];
+    details.forEach(function(d){rows.push([d.number,d.sender,d.tmid,d.peid,d.gateway,d.time,d.state,d.status,d.error]);});
+    downloadCsv(rows,'traffic-'+row.id.toLowerCase()+'.csv');
+  };
+
+  function downloadCsv(rows,fileName){
+    var csv=rows.map(function(row){return row.map(function(value){var s=String(value==null?'':value).replace(/"/g,'""');return '"'+s+'"';}).join(',');}).join('\\n');
+    var blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+    a.href=url;a.download=fileName;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1000);toast('Report downloaded');
   }
 
   window.showTrafficClient=function(id){
-    var row=null;
     var sample=[
-      {id:'USR-1001',client:'bluemdtx',type:'Client',submitted:11100,delivered:10371,failed:586,pending:143,xDropped:0},
-      {id:'USR-1002',client:'Suyash',type:'Client',submitted:574,delivered:506,failed:67,pending:1,xDropped:0},
-      {id:'USR-1003',client:'tiger1',type:'Client',submitted:98,delivered:96,failed:2,pending:0,xDropped:0},
-      {id:'USR-1004',client:'digisms',type:'Client',submitted:2,delivered:2,failed:0,pending:0,xDropped:0}
+      {id:'USR-1001',client:'bluemdtx',type:'Client',submitted:11100,delivered:10371,failed:586,pending:143},
+      {id:'USR-1002',client:'Suyash',type:'Client',submitted:574,delivered:506,failed:67,pending:1},
+      {id:'USR-1003',client:'tiger1',type:'Client',submitted:98,delivered:96,failed:2,pending:0},
+      {id:'USR-1004',client:'digisms',type:'Client',submitted:2,delivered:2,failed:0,pending:0}
     ];
-    row=sample.find(function(x){return x.id===id;});
-    if(!row){
-      var u=users.find(function(x){return x.id===id;});
-      if(u)row={id:u.id,client:u.name||u.company,type:u.role==='Reseller'?'Reseller':'Client',submitted:0,delivered:0,failed:0,pending:0,xDropped:0};
-    }
+    var row=sample.find(function(x){return x.id===id;});
+    if(!row){var u=users.find(function(x){return x.id===id;});if(u)row={id:u.id,client:u.name||u.company,type:u.role==='Reseller'?'Reseller':'Client',submitted:0,delivered:0,failed:0,pending:0};}
     if(!row)return;
-    var rate=row.submitted?((row.delivered/row.submitted)*100).toFixed(1):'0.0';
-    var body='<div class="profile-hero"><div class="profile-avatar">'+esc((row.client||'C').charAt(0))+'</div><div><div class="profile-name">'+esc(row.client)+'</div><div class="mini">'+esc(row.id)+' · '+esc(row.type)+'</div></div></div>';
-    body+='<div class="profile-grid"><div><span>Submitted</span><strong>'+row.submitted.toLocaleString('en-IN')+'</strong></div><div><span>Delivered</span><strong>'+row.delivered.toLocaleString('en-IN')+'</strong></div><div><span>Failed</span><strong>'+row.failed.toLocaleString('en-IN')+'</strong></div><div><span>Pending</span><strong>'+row.pending.toLocaleString('en-IN')+'</strong></div><div><span>X-Dropped</span><strong>'+row.xDropped.toLocaleString('en-IN')+'</strong></div><div><span>Success %</span><strong>'+rate+'%</strong></div></div>';
-    body+='<div style="text-align:right;margin-top:16px"><button class="btn" onclick="closeModal()">Close</button></div>';
-    openModal('Traffic — '+row.client,body);
+    var meta=trafficClientMeta(row),details=trafficDetailRows(row,meta),rate=row.submitted?((row.delivered/row.submitted)*100).toFixed(1):'0.0';
+    var body='<div class="profile-hero"><div class="profile-avatar">'+esc((row.client||'C').charAt(0))+'</div><div><div class="profile-name">'+esc(row.client)+'</div><div class="mini">'+esc(row.id)+' · '+esc(row.type)+'</div></div><div style="margin-left:auto"><button class="btn" onclick="exportTrafficClient(\\''+esc(row.id)+'\\')">Export</button></div></div>';
+    body+='<div class="profile-grid"><div><span>Submitted</span><strong>'+n(row.submitted)+'</strong></div><div><span>Delivered</span><strong>'+n(row.delivered)+'</strong></div><div><span>Failed</span><strong>'+n(row.failed)+'</strong></div><div><span>Pending</span><strong>'+n(row.pending)+'</strong></div><div><span>Success %</span><strong>'+rate+'%</strong></div><div><span>Gateway</span><strong>'+esc(meta.gateway)+'</strong></div></div>';
+    body+='<div class="profile-section-title">Client Configuration</div><div class="profile-grid"><div><span>SMS Number</span><strong>98XXXX1001</strong></div><div><span>Sender ID</span><strong>'+esc(meta.sender)+'</strong></div><div><span>TM ID</span><strong>'+esc(meta.tmid)+'</strong></div><div><span>PE ID</span><strong>'+esc(meta.peid)+'</strong></div><div><span>Gateway Name</span><strong>'+esc(meta.gateway)+'</strong></div><div><span>Report Scope</span><strong>Time + State wise</strong></div></div>';
+    body+='<div class="profile-section-title">Error Code Dashboard</div><div class="grid" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">';
+    var errorCodes=meta.errorCodes||[];
+    if(errorCodes.length){errorCodes.forEach(function(e){body+='<div class="card" style="padding:12px"><div class="mini">Error Code</div><div style="font-size:18px;font-weight:800;margin-top:3px">'+esc(e[0])+'</div><div class="mini" style="margin-top:2px">'+n(e[1])+' errors</div></div>';});}
+    else body+='<div class="card" style="padding:12px"><div class="mini">Error Code</div><div style="font-size:18px;font-weight:800;margin-top:3px">No errors</div><div class="mini">0 errors</div></div>';
+    body+='</div><div class="mini" style="margin-top:8px">Total failed messages: <strong>'+n(row.failed)+'</strong>. Error-code cards show the configured demo breakdown for this client.</div>';
+    body+='<div class="profile-section-title">SMS Detail Report</div><div class="table-wrap"><table class="table" style="min-width:980px"><thead><tr><th>SMS Number</th><th>Sender ID</th><th>TM ID</th><th>PE ID</th><th>Gateway</th><th>Time</th><th>State</th><th>Status</th><th>Error Code</th></tr></thead><tbody>';
+    details.forEach(function(d){body+='<tr><td><strong>'+esc(d.number)+'</strong><div class="mini">'+esc(d.sms)+'</div></td><td>'+esc(d.sender)+'</td><td>'+esc(d.tmid)+'</td><td>'+esc(d.peid)+'</td><td>'+esc(d.gateway)+'</td><td>'+esc(d.time)+'</td><td>'+esc(d.state)+'</td><td>'+badge(d.status)+'</td><td>'+esc(d.error)+'</td></tr>';});
+    body+='</tbody></table></div>';
+    var timeBuckets=[
+      ['09:00–11:00',Math.round(row.submitted*.20),Math.round(row.delivered*.19),Math.round(row.failed*.20),Math.round(row.pending*.20)],
+      ['11:00–13:00',Math.round(row.submitted*.28),Math.round(row.delivered*.28),Math.round(row.failed*.28),Math.round(row.pending*.28)],
+      ['13:00–15:00',Math.round(row.submitted*.27),Math.round(row.delivered*.27),Math.round(row.failed*.27),Math.round(row.pending*.27)],
+      ['15:00–17:00',row.submitted-Math.round(row.submitted*.75),row.delivered-Math.round(row.delivered*.74),row.failed-Math.round(row.failed*.75),row.pending-Math.round(row.pending*.75)]
+    ];
+    body+='<div class="profile-section-title">Time-wise Report</div><div class="table-wrap"><table class="table" style="min-width:680px"><thead><tr><th>Time</th><th>Submitted</th><th>Delivered</th><th>Failed</th><th>Pending</th></tr></thead><tbody>';
+    timeBuckets.forEach(function(b){body+='<tr><td><strong>'+b[0]+'</strong></td><td>'+n(b[1])+'</td><td>'+n(b[2])+'</td><td>'+n(b[3])+'</td><td>'+n(b[4])+'</td></tr>';});
+    body+='</tbody></table></div>';
+    var stateCounts=(meta.states||['Maharashtra']).map(function(state,idx){var share=[.55,.27,.18][idx]||.10;return [state,Math.round(row.submitted*share),Math.round(row.delivered*share),Math.round(row.failed*share)];});
+    body+='<div class="profile-section-title">State-wise Report</div><div class="table-wrap"><table class="table" style="min-width:620px"><thead><tr><th>State</th><th>Submitted</th><th>Delivered</th><th>Failed</th></tr></thead><tbody>';
+    stateCounts.forEach(function(b){body+='<tr><td><strong>'+esc(b[0])+'</strong></td><td>'+n(b[1])+'</td><td>'+n(b[2])+'</td><td>'+n(b[3])+'</td></tr>';});
+    body+='</tbody></table></div>';
+    body+='<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:18px"><button class="btn" onclick="exportTrafficClient(\\''+esc(row.id)+'\\')">Export CSV</button><button class="btn" onclick="closeModal()">Close</button></div>';
+    openModal('Traffic Details — '+row.client,body);
   };
 
   function renderConfiguration(){
