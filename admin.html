@@ -154,30 +154,6 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
     html+='<div class="card kpi"><div class="kpi-label">OBD Yesterday</div><div class="kpi-value" style="color:#f4511e">21,630</div><div class="kpi-note">Calls delivered</div><button class="stats-eye" onclick="showProductStats(\'ivr\')" title="View IVR statistics">◉</button></div>';
     html+='</div>';
 
-    function pieCard(title,subtitle,total,items,colors){
-      var sum=items.reduce(function(a,b){return a+b.value;},0), angle=0, stops=[];
-      items.forEach(function(item,i){
-        var next=angle+(item.value/sum)*360;
-        stops.push(colors[i]+' '+angle+'deg '+next+'deg');
-        angle=next;
-      });
-      var body='<div class="card panel usage-pie-card"><div class="panel-title">'+title+'</div><div class="mini">'+subtitle+'</div>';
-      body+='<div class="usage-pie-row"><div class="usage-pie" style="background:conic-gradient('+stops.join(',')+')"><div class="usage-pie-hole"><strong>'+total+'</strong><span>Total</span></div></div>';
-      body+='<div class="usage-legend">';
-      items.forEach(function(item,i){
-        var pct=((item.value/sum)*100).toFixed(1);
-        body+='<div class="usage-legend-row"><span><i style="background:'+colors[i]+'"></i>'+item.name+'</span><strong>'+item.value.toLocaleString('en-IN')+' <small>('+pct+'%)</small></strong></div>';
-      });
-      body+='</div></div></div>';
-      return body;
-    }
-
-    html+='<div class="grid usage-grid">';
-    html+=pieCard('SMS Gateway Usage','Messages sent through each SMS gateway','918,500',smsGateways,['#2563eb','#7c3aed','#f59e0b','#059669']);
-    html+=pieCard('RCS Operator Usage','RCS messages sent through each operator','1,230,450',rcsOperators,['#7c3aed','#2563eb','#059669','#f59e0b']);
-    html+=pieCard('WhatsApp Message Status','WhatsApp message delivery status','468,720',whatsappStatus,['#2563eb','#059669','#ef4444']);
-    html+='</div>';
-
     html+='<div class="card panel live-traffic-panel"><div class="panel-head"><div><div class="panel-title">Live Top 5 User Traffic</div><div class="mini">Users generating the highest message activity right now</div></div><span class="live-pill"><span></span> LIVE</span></div>';
     html+='<div class="table-wrap"><table class="table live-traffic-table"><thead><tr><th>User / Company</th><th>Product</th><th>Submitted</th><th>Delivered</th><th>Failed</th><th>Last Update</th></tr></thead><tbody id="liveTrafficBody"></tbody></table></div></div>';
 
