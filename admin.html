@@ -541,7 +541,7 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
       var rows=filtered(),size=Number(pageSize.value||50),pages=Math.max(1,Math.ceil(rows.length/size));
       if(page>pages)page=pages;
       var startRow=(page-1)*size,visible=rows.slice(startRow,startRow+size),body=document.getElementById('trafficTable');
-      body.innerHTML=visible.map(function(t){return '<tr><td><strong>'+esc(t.client)+'</strong><div class="mini">'+esc(t.id)+'</div></td><td><span class="badge gray">'+esc(t.type)+'</span></td><td>'+n(t.submitted)+'</td><td>'+n(t.delivered)+'</td><td>'+n(t.failed)+'</td><td>'+n(t.pending)+'</td><td><strong>'+success(t)+'%</strong></td><td><button class="btn" onclick="showTrafficClient(\''+esc(t.id)+'\')">Open</button></td></tr>';}).join('')||'<tr><td colspan="8" class="empty">No traffic found.</td></tr>';
+      body.innerHTML=visible.map(function(t){return '<tr><td><strong>'+esc(t.client)+'</strong><div class="mini">'+esc(t.id)+'</div></td><td><span class="badge gray">'+esc(t.type)+'</span></td><td>'+n(t.submitted)+'</td><td>'+n(t.delivered)+'</td><td>'+n(t.failed)+'</td><td>'+n(t.pending)+'</td><td><strong>'+success(t)+'%</strong></td><td><button type="button" class="btn traffic-open-btn" data-traffic-open="'+esc(t.id)+'">Open</button></td></tr>';}).join('')||'<tr><td colspan="8" class="empty">No traffic found.</td></tr>';
       document.getElementById('trafficCount').textContent=rows.length+' client'+(rows.length===1?'':'s');
       document.getElementById('trafficShowing').textContent=rows.length?'Showing '+(startRow+1)+'–'+Math.min(startRow+visible.length,rows.length)+' of '+rows.length+' clients':'Showing 0 clients';
       document.getElementById('trafficPageLabel').textContent='Page '+page+' of '+pages;
@@ -549,7 +549,15 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
     }
     search.addEventListener('input',function(){page=1;renderRows();});type.addEventListener('change',function(){page=1;renderRows();});pageSize.addEventListener('change',function(){page=1;renderRows();});
     document.getElementById('trafficPrev').addEventListener('click',function(){if(page>1){page--;renderRows();}});
-    document.getElementById('trafficNext').addEventListener('click',function(){page++;renderRows();});renderRows();
+    document.getElementById('trafficNext').addEventListener('click',function(){page++;renderRows();});
+    document.getElementById('trafficTable').addEventListener('click',function(e){
+      var btn=e.target.closest('.traffic-open-btn');
+      if(btn && btn.getAttribute('data-traffic-open')){
+        e.preventDefault();
+        window.showTrafficClient(btn.getAttribute('data-traffic-open'));
+      }
+    });
+    renderRows();
   }
 
   function trafficClientMeta(row){
