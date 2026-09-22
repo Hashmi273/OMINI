@@ -184,7 +184,20 @@ body{background:linear-gradient(135deg,#f4f7fc 0%,#f8faff 52%,#f3f5ff 100%)}
 }
 <style>
 .create-user-card{padding:0!important;overflow:hidden}.create-form-shell{padding:24px}.create-section{border:1px solid #e3e8f3;border-radius:16px;padding:18px;margin-bottom:16px;background:linear-gradient(180deg,#fff,#fbfcff)}.create-section-head{display:flex;align-items:center;gap:11px;margin-bottom:15px}.create-section-icon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,#e8efff,#f0e9ff);color:#4f46e5;font-weight:900}.create-section-title{font-size:14px;font-weight:800;color:#202b43}.create-section-sub{font-size:10px;color:#8a97ab;margin-top:2px}.create-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}.create-field{min-width:0}.create-field label{display:block;font-size:10px;text-transform:uppercase;color:#71809a;font-weight:800;letter-spacing:.35px;margin-bottom:7px}.create-form-grid .input,.create-form-grid .select{width:100%;min-width:0;height:42px}.create-access-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.create-access-item{border:1px solid #e2e7f1;border-radius:12px;padding:12px;background:#fff;transition:.18s}.create-access-item label{display:flex!important;align-items:center;gap:8px;text-transform:none!important;font-size:12px!important;letter-spacing:0!important;color:#334155!important;margin:0!important;cursor:pointer}.create-access-item small{display:block;color:#94a3b8;font-size:9px;margin:5px 0 0 22px}.create-pricing-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.create-price{padding:12px;border:1px solid #e3e8f1;border-radius:12px;background:#fafbff}.create-price label{font-size:10px;color:#64748b;font-weight:800;text-transform:uppercase}.create-price .input{margin-top:7px}.create-gateway-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.create-gateway{border:1px solid #e2e7f1;border-radius:12px;padding:11px 12px;background:#fff}.create-gateway label{display:flex!important;align-items:center;gap:8px;text-transform:none!important;font-size:11px!important;color:#334155!important;margin:0!important;cursor:pointer}.create-actions{display:flex;justify-content:flex-end;gap:9px;padding-top:4px}.create-primary{min-width:130px}@media(max-width:1000px){.create-access-grid,.create-pricing-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.create-gateway-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:650px){.create-form-grid,.create-access-grid,.create-pricing-grid,.create-gateway-grid{grid-template-columns:1fr}.create-form-shell{padding:15px}.create-section{padding:14px}}
-</style></style></style>
+<style>
+/* Existing Create User markup: improve sizing and hierarchy */
+.create-user-card .form-grid{grid-template-columns:1fr 1fr;gap:20px 34px}
+.create-user-card .field .input,.create-user-card .field .select{width:100%;min-width:0;height:42px}
+.create-user-card .field.full{margin-top:2px}
+.create-user-card .check{background:linear-gradient(135deg,#fafbff,#fff);border-color:#e0e6f1;padding:14px;display:flex;gap:10px;flex-wrap:wrap}
+.create-user-card .check label{border:1px solid #e1e6ef;border-radius:10px;padding:9px 12px;background:#fff;color:#334155;transition:.15s}
+.create-user-card .check label:hover{border-color:#a5b4fc;background:#f5f7ff}
+.create-user-card .pricing-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.create-user-card .pricing-grid label{display:block;padding:12px;border:1px solid #e2e7f1;border-radius:12px;background:#fafbff}
+.create-user-card .pricing-grid .input{width:100%;height:40px}
+@media(max-width:900px){.create-user-card .pricing-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.create-user-card .form-grid,.create-user-card .pricing-grid{grid-template-columns:1fr}}
+</style></style></style></style>
 </head>
 <body>
 <div class="app">
@@ -710,10 +723,12 @@ body{background:linear-gradient(135deg,#f4f7fc 0%,#f8faff 52%,#f3f5ff 100%)}
     document.getElementById('trafficPrev').addEventListener('click',function(){if(page>1){page--;renderRows();}});
     document.getElementById('trafficNext').addEventListener('click',function(){page++;renderRows();});
     document.getElementById('trafficTable').addEventListener('click',function(e){
-      var btn=e.target.closest('.traffic-open-btn');
-      if(btn && btn.getAttribute('data-traffic-open')){
+      var btn=e.target.closest ? e.target.closest('.traffic-open-btn') : null;
+      if(btn){
         e.preventDefault();
-        window.showTrafficClient(btn.getAttribute('data-traffic-open'));
+        e.stopPropagation();
+        var id=btn.getAttribute('data-traffic-open');
+        if(id && typeof window.showTrafficClient==='function') window.showTrafficClient(id);
       }
     });
     renderRows();
@@ -774,6 +789,8 @@ body{background:linear-gradient(135deg,#f4f7fc 0%,#f8faff 52%,#f3f5ff 100%)}
     var blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),a=document.createElement('a');
     a.href=url;a.download=fileName;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1000);toast('Report downloaded');
   }
+
+  window.openTrafficDetails=function(id){if(typeof window.showTrafficClient==='function'){window.showTrafficClient(id);}return false;};
 
   window.showTrafficClient=function(id){
     var sample=[
