@@ -26,7 +26,7 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
 .user-management-dashboard{margin-top:16px}.dashboard-user-list{display:flex;flex-direction:column}.dashboard-user-row{display:grid;grid-template-columns:2fr 1.5fr 1fr 30px;align-items:center;gap:16px;padding:13px 6px;border-top:1px solid #edf0f4;cursor:pointer;transition:.15s}.dashboard-user-row:hover{background:#f8faff}.dashboard-user-main{display:flex;align-items:center;gap:10px}.user-avatar,.profile-avatar{display:grid;place-items:center;border-radius:10px;background:#eef2ff;color:#4f46e5;font-weight:800}.user-avatar{width:34px;height:34px;font-size:13px}.dashboard-user-name{border:0;background:none;padding:0;font:inherit;font-weight:800;color:#172033;cursor:pointer}.dashboard-user-name:hover{color:#2563eb}.dashboard-user-products{display:flex;gap:5px;flex-wrap:wrap}.user-product-chip{font-size:10px;font-weight:800;padding:4px 7px;border-radius:6px;background:#f3f4f6;color:#475569}.dashboard-user-arrow{color:#2563eb;font-size:18px;font-weight:800}.profile-hero{display:flex;align-items:center;gap:12px;padding:14px;background:#f8fafc;border:1px solid #e5e9f0;border-radius:12px}.profile-avatar{width:46px;height:46px;font-size:17px}.profile-name{font-size:16px;font-weight:800}.profile-status{margin-left:auto}.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#e5e9f0;border:1px solid #e5e9f0;border-radius:12px;overflow:hidden;margin-top:14px}.profile-grid>div{background:#fff;padding:12px}.profile-grid span{display:block;font-size:10px;text-transform:uppercase;color:#8792a6;font-weight:800;margin-bottom:5px}.profile-grid strong{font-size:13px;word-break:break-word}.profile-section-title{font-weight:800;margin:16px 0 9px}.profile-actions{display:flex;gap:8px;flex-wrap:wrap}@media(max-width:760px){.dashboard-user-row{grid-template-columns:1fr auto}.dashboard-user-products,.dashboard-user-status{grid-column:1}.dashboard-user-arrow{grid-column:2;grid-row:1}.profile-grid{grid-template-columns:1fr}}
 
 .edit-user-form{max-height:68vh;overflow:auto;padding-right:3px}.edit-section{border:1px solid #e5e9f0;border-radius:12px;padding:14px;margin-bottom:12px;background:#fbfcfe}.edit-section-title{font-weight:800;font-size:13px;margin-bottom:10px}.edit-check-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.check-card{display:flex;align-items:center;gap:8px;border:1px solid #e5e9f0;border-radius:9px;padding:10px;background:#fff;font-size:12px;font-weight:700;cursor:pointer}.check-card:has(input:checked){border-color:#2563eb;background:#eff6ff}.check-card input{accent-color:#2563eb}@media(max-width:700px){.edit-check-grid{grid-template-columns:1fr 1fr}}
-</style>
+.pricing-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.pricing-grid label{font-size:11px;font-weight:700;color:#4b5563}.pricing-grid .input{margin-top:5px}@media(max-width:900px){.pricing-grid{grid-template-columns:repeat(2,1fr)}}</style>
 </head>
 <body>
 <div class="app">
@@ -77,9 +77,9 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
     whitelabel:'Reseller White Label',audit:'Audit Logs',settings:'System Settings'
   };
   var users=[
-    {id:'USR-1001',company:'ABC Pvt Ltd',name:'Aakash Verma',email:'aakash@abc.com',role:'User',products:'SMS, RCS',credit:'₹2,48,500',status:'Active',gateways:['Airtel','Jio'],billingMode:'Prepaid',creditDeduction:true,rechargeAccess:true,reportSync:true},
-    {id:'USR-1002',company:'XYZ Communications',name:'Rahul Shah',email:'rahul@xyz.com',role:'Reseller',products:'SMS, WhatsApp',credit:'₹1,82,000',status:'Active',gateways:['Smartping','WhatsApp Provider'],billingMode:'Prepaid',creditDeduction:true,rechargeAccess:true,reportSync:true},
-    {id:'USR-1003',company:'Metro Digital',name:'Sana Khan',email:'sana@metro.com',role:'User',products:'RCS',credit:'₹64,500',status:'Suspended',gateways:['RCS Provider'],billingMode:'Prepaid',creditDeduction:true,rechargeAccess:false,reportSync:true}
+    {id:'USR-1001',company:'ABC Pvt Ltd',name:'Aakash Verma',email:'aakash@abc.com',role:'User',products:'SMS, RCS',credit:'₹2,48,500',status:'Active',gateways:['Airtel','Jio'],billingMode:'Prepaid',creditDeduction:true,rechargeAccess:true,reportSync:true,accountManager:'Parvez',phone:'+91 98765 43210',password:'••••••••',pricing:{sms:'0.18',rcs:'0.45',whatsapp:'0.80',obd:'0.60',ivr:'0.75'},autoRefund:{sms:true,rcs:true,trigger:'Failed / Undelivered'}},
+    {id:'USR-1002',company:'XYZ Communications',name:'Rahul Shah',email:'rahul@xyz.com',role:'Reseller',products:'SMS, WhatsApp',credit:'₹1,82,000',status:'Active',gateways:['Smartping','WhatsApp Provider'],billingMode:'Prepaid',creditDeduction:true,rechargeAccess:true,reportSync:true,accountManager:'Neha',phone:'+91 98765 43211',password:'••••••••',pricing:{sms:'0.17',rcs:'0.42',whatsapp:'0.78',obd:'0.58',ivr:'0.72'},autoRefund:{sms:true,rcs:true,trigger:'Failed / Undelivered'}},
+    {id:'USR-1003',company:'Metro Digital',name:'Sana Khan',email:'sana@metro.com',role:'User',products:'RCS',credit:'₹64,500',status:'Suspended',gateways:['RCS Provider'],billingMode:'Prepaid',creditDeduction:true,rechargeAccess:false,reportSync:true,accountManager:'Parvez',phone:'+91 98765 43212',password:'••••••••',pricing:{sms:'0.20',rcs:'0.48',whatsapp:'0.85',obd:'0.62',ivr:'0.80'},autoRefund:{sms:false,rcs:true,trigger:'Failed / Undelivered'}}
   ];
   var gateways=[
     ['Airtel','SMS','CONNECTED','500 TPS'],['Jio','SMS','CONNECTED','450 TPS'],
@@ -290,6 +290,8 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
   window.editUser=function(id){
     var u=users.find(function(x){return x.id===id;});
     if(!u)return;
+    u.pricing=u.pricing||{sms:'0.18',rcs:'0.45',whatsapp:'0.80',obd:'0.60',ivr:'0.75'};
+    u.autoRefund=u.autoRefund||{sms:false,rcs:false,trigger:'Failed / Undelivered'};
     var productOptions=['SMS','RCS','WhatsApp','OBD','IVR'];
     var gatewayOptions=gateways.map(function(g){return g[0];});
     var body='<div class="edit-user-form">';
@@ -297,26 +299,39 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
     body+='<label>Role<select id="editRole" class="select"><option '+(u.role==='User'?'selected':'')+'>User</option><option '+(u.role==='Reseller'?'selected':'')+'>Reseller</option></select></label>';
     body+='<label>Status<select id="editStatus" class="select"><option '+(u.status==='Active'?'selected':'')+'>Active</option><option '+(u.status==='Suspended'?'selected':'')+'>Suspended</option></select></label>';
     body+='</div></div>';
+    body+='<div class="edit-section"><div class="edit-section-title">Contact & Login Access</div><div class="form-grid">';
+    body+='<label>Email<input id="editEmail" class="input" type="email" value="'+esc(u.email||'')+'"></label>';
+    body+='<label>Phone Number<input id="editPhone" class="input" value="'+esc(u.phone||'')+'" placeholder="+91"></label>';
+    body+='<label>Password<div style="display:flex;gap:6px"><input id="editPassword" class="input" type="password" value="'+esc(u.password||'')+'"><button type="button" class="btn" onclick="toggleAdminPassword()">◉</button></div><div class="mini">Admin can view/update this demo credential. In production, store passwords as hashes.</div></label>';
+    body+='<label>New Password<input id="editNewPassword" class="input" type="password" placeholder="Leave blank to keep current"></label>';
+    body+='</div></div>';
+    body+='<div class="edit-section"><div class="edit-section-title">Account Manager</div><div class="form-grid"><label>Assigned Manager<select id="editManager" class="select"><option '+(u.accountManager==='Parvez'?'selected':'')+'>Parvez</option><option '+(u.accountManager==='Neha'?'selected':'')+'>Neha</option><option '+(u.accountManager==='Rahul'?'selected':'')+'>Rahul</option><option '+(u.accountManager==='Support Team'?'selected':'')+'>Support Team</option></select></label></div></div>';
     body+='<div class="edit-section"><div class="edit-section-title">Product Access</div><div class="edit-check-grid">';
     productOptions.forEach(function(p){var on=u.products.split(',').map(function(x){return x.trim();}).indexOf(p)>=0; body+='<label class="check-card"><input type="checkbox" class="editProduct" value="'+p+'" '+(on?'checked':'')+'><span>'+p+'</span></label>';});
     body+='</div></div>';
     body+='<div class="edit-section"><div class="edit-section-title">Gateway Assignment</div><div class="edit-check-grid">';
     gatewayOptions.forEach(function(g){var on=(u.gateways||[]).indexOf(g)>=0; body+='<label class="check-card"><input type="checkbox" class="editGateway" value="'+esc(g)+'" '+(on?'checked':'')+'><span>'+esc(g)+'</span></label>';});
     body+='</div></div>';
+    body+='<div class="edit-section"><div class="edit-section-title">Pricing / Tariff per Unit</div><div class="pricing-grid">';
+    [['sms','SMS / message'],['rcs','RCS / message'],['whatsapp','WhatsApp / message'],['obd','OBD / call'],['ivr','IVR / call']].forEach(function(x){body+='<label>'+x[1]+'<input id="price_'+x[0]+'" class="input" value="'+esc(u.pricing[x[0]]||'0')+'" placeholder="0.00"></label>';});
+    body+='</div><div class="mini" style="margin-top:8px">Use the account-specific selling rate. Your internal gateway cost remains separate.</div></div>';
     body+='<div class="edit-section"><div class="edit-section-title">Recharge & Credit Deduction</div><div class="form-grid">';
     body+='<label>Billing Mode<select id="editBillingMode" class="select"><option '+(u.billingMode==='Prepaid'?'selected':'')+'>Prepaid</option><option '+(u.billingMode==='Postpaid'?'selected':'')+'>Postpaid</option></select></label>';
     body+='<label>Current Credit<input id="editCredit" class="input" value="'+esc(u.credit)+'" placeholder="₹0"></label>';
-    body+='</div><div class="edit-check-grid" style="margin-top:10px">';
-    body+='<label class="check-card"><input type="checkbox" id="editRecharge" '+(u.rechargeAccess?'checked':'')+'><span>Allow Recharge</span></label>';
-    body+='<label class="check-card"><input type="checkbox" id="editDeduction" '+(u.creditDeduction?'checked':'')+'><span>Auto Credit Deduction</span></label>';
-    body+='</div></div>';
-    body+='<div class="edit-section"><div class="edit-section-title">Report Update & Sync</div><div class="edit-check-grid">';
-    body+='<label class="check-card"><input type="checkbox" id="editReportSync" '+(u.reportSync?'checked':'')+'><span>Sync Admin Delivery / Failed Updates to User Report</span></label>';
-    body+='</div><div class="mini" style="margin-top:8px">When enabled, admin-side delivery/failed status changes are reflected in this user\'s report view.</div></div>';
-    body+='<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:18px"><button class="btn" onclick="viewUser(\''+u.id+'\')">Cancel</button><button class="btn primary" onclick="saveUserSettings(\''+u.id+'\')">Save Changes</button></div>';
-    body+='</div>';
+    body+='</div><div class="edit-check-grid" style="margin-top:10px"><label class="check-card"><input type="checkbox" id="editRecharge" '+(u.rechargeAccess?'checked':'')+'><span>Allow Recharge</span></label><label class="check-card"><input type="checkbox" id="editDeduction" '+(u.creditDeduction?'checked':'')+'><span>Auto Credit Deduction</span></label></div></div>';
+    body+='<div class="edit-section"><div class="edit-section-title">Auto Refund</div><div class="edit-check-grid">';
+    body+='<label class="check-card"><input type="checkbox" id="refundSMS" '+(u.autoRefund.sms?'checked':'')+'><span>Auto Refund SMS</span></label>';
+    body+='<label class="check-card"><input type="checkbox" id="refundRCS" '+(u.autoRefund.rcs?'checked':'')+'><span>Auto Refund RCS</span></label>';
+    body+='</div><div class="form-grid" style="margin-top:10px"><label>Refund Trigger<select id="refundTrigger" class="select"><option '+(u.autoRefund.trigger==='Failed / Undelivered'?'selected':'')+'>Failed / Undelivered</option><option '+(u.autoRefund.trigger==='Failed Only'?'selected':'')+'>Failed Only</option><option '+(u.autoRefund.trigger==='DLR Not Received'?'selected':'')+'>DLR Not Received</option></select></label></div><div class="mini" style="margin-top:8px">When enabled, the configured product charge is automatically credited back when the selected refund condition is met.</div></div>';
+    body+='<div class="edit-section"><div class="edit-section-title">Report Update & Sync</div><div class="edit-check-grid"><label class="check-card"><input type="checkbox" id="editReportSync" '+(u.reportSync?'checked':'')+'><span>Sync Admin Delivery / Failed Updates to User Report</span></label></div><div class="mini" style="margin-top:8px">Admin delivery/failed changes can be reflected in this user\'s report view.</div></div>';
+    body+='<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:18px"><button class="btn" onclick="viewUser(\''+u.id+'\')">Cancel</button><button class="btn primary" onclick="saveUserSettings(\''+u.id+'\')">Save Changes</button></div></div>';
     openModal('Edit User — '+u.company,body);
   };
+
+  window.toggleAdminPassword=function(){
+    var el=document.getElementById('editPassword'); if(el)el.type=el.type==='password'?'text':'password';
+  };
+
 
   window.saveUserSettings=function(id){
     var u=users.find(function(x){return x.id===id;});
@@ -330,6 +345,12 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
     u.rechargeAccess=document.getElementById('editRecharge').checked;
     u.creditDeduction=document.getElementById('editDeduction').checked;
     u.reportSync=document.getElementById('editReportSync').checked;
+    u.email=document.getElementById('editEmail').value.trim();
+    u.phone=document.getElementById('editPhone').value.trim();
+    var newPwd=document.getElementById('editNewPassword').value.trim(); if(newPwd)u.password=newPwd;
+    u.accountManager=document.getElementById('editManager').value;
+    u.pricing={sms:document.getElementById('price_sms').value,rcs:document.getElementById('price_rcs').value,whatsapp:document.getElementById('price_whatsapp').value,obd:document.getElementById('price_obd').value,ivr:document.getElementById('price_ivr').value};
+    u.autoRefund={sms:document.getElementById('refundSMS').checked,rcs:document.getElementById('refundRCS').checked,trigger:document.getElementById('refundTrigger').value};
     try{localStorage.setItem('omini_admin_users',JSON.stringify(users));}catch(e){}
     closeModal();
     renderUsers();
@@ -352,19 +373,34 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
   function renderForm(type){
     var isReseller=type==='create-reseller';
     var title=isReseller?'Create Reseller':'Create User';
-    content.innerHTML=head(title,isReseller?'Create a reseller account and configure its access.':'Create a user account and configure products and credit.');
+    content.innerHTML=head(title,isReseller?'Create a reseller account and configure its access.':'Create a user account and configure products, pricing, credit and login access.');
     content.innerHTML+='<div class="card panel"><div class="form-grid">'+
       '<div class="field"><label>Company Name</label><input id="fCompany" class="input" placeholder="Company name"></div>'+
       '<div class="field"><label>Contact Name</label><input id="fName" class="input" placeholder="Full name"></div>'+
-      '<div class="field"><label>Email</label><input class="input" placeholder="email@example.com"></div>'+
-      '<div class="field"><label>Mobile</label><input class="input" placeholder="+91"></div>'+
-      '<div class="field"><label>Account Role</label><select class="select"><option>'+(isReseller?'Reseller':'User')+'</option><option>Manager</option><option>Support</option></select></div>'+
-      '<div class="field"><label>Status</label><select class="select"><option>Active</option><option>Pending</option></select></div>'+
-      '<div class="field full"><label>Product Access</label><div class="check"><label><input type="checkbox" checked> SMS</label> <label><input type="checkbox" checked> RCS</label> <label><input type="checkbox"> WhatsApp</label> <label><input type="checkbox"> OBD</label> <label><input type="checkbox"> IVR</label></div></div>'+
-      '<div class="field"><label>Opening Credit</label><input class="input" placeholder="₹0"></div>'+
-      '<div class="field"><label>Account Manager</label><select class="select"><option>Parvez</option><option>Neha</option></select></div>'+
-      '</div><div style="text-align:right;margin-top:18px"><button class="btn" onclick="go(\'dashboard\')">Cancel</button> <button class="btn primary" onclick="toast(\''+title+' created — demo\')">Create</button></div></div>';
+      '<div class="field"><label>Email</label><input id="fEmail" class="input" type="email" placeholder="email@example.com"></div>'+
+      '<div class="field"><label>Phone Number</label><input id="fPhone" class="input" placeholder="+91"></div>'+
+      '<div class="field"><label>Password</label><input id="fPassword" class="input" type="password" placeholder="Set login password"></div>'+
+      '<div class="field"><label>Account Role</label><select id="fRole" class="select"><option>'+(isReseller?'Reseller':'User')+'</option><option>Manager</option><option>Support</option></select></div>'+
+      '<div class="field"><label>Status</label><select id="fStatus" class="select"><option>Active</option><option>Pending</option></select></div>'+
+      '<div class="field"><label>Account Manager</label><select id="fManager" class="select"><option>Parvez</option><option>Neha</option><option>Rahul</option><option>Support Team</option></select></div>'+
+      '<div class="field full"><label>Product Access</label><div class="check"><label><input class="createProduct" type="checkbox" value="SMS" checked> SMS</label> <label><input class="createProduct" type="checkbox" value="RCS" checked> RCS</label> <label><input class="createProduct" type="checkbox" value="WhatsApp"> WhatsApp</label> <label><input class="createProduct" type="checkbox" value="OBD"> OBD</label> <label><input class="createProduct" type="checkbox" value="IVR"> IVR</label></div></div>'+
+      '<div class="field full"><label>Product Pricing / Unit</label><div class="pricing-grid"><label>SMS / message<input id="fPriceSms" class="input" value="0.18"></label><label>RCS / message<input id="fPriceRcs" class="input" value="0.45"></label><label>WhatsApp / message<input id="fPriceWa" class="input" value="0.80"></label><label>OBD / call<input id="fPriceObd" class="input" value="0.60"></label><label>IVR / call<input id="fPriceIvr" class="input" value="0.75"></label></div></div>'+
+      '<div class="field full"><label>Gateway Assignment</label><div class="check"><label><input class="createGateway" type="checkbox" value="Airtel"> Airtel</label> <label><input class="createGateway" type="checkbox" value="Jio"> Jio</label> <label><input class="createGateway" type="checkbox" value="Vi"> Vi</label> <label><input class="createGateway" type="checkbox" value="Smartping"> Smartping</label> <label><input class="createGateway" type="checkbox" value="RCS Provider"> RCS Provider</label> <label><input class="createGateway" type="checkbox" value="WhatsApp Provider"> WhatsApp Provider</label></div></div>'+
+      '<div class="field"><label>Billing Mode</label><select id="fBilling" class="select"><option>Prepaid</option><option>Postpaid</option></select></div>'+
+      '<div class="field"><label>Opening Credit</label><input id="fCredit" class="input" placeholder="₹0"></div>'+
+      '<div class="field full"><label>Auto Refund</label><div class="check"><label><input id="fRefundSms" type="checkbox"> SMS Auto Refund</label> <label><input id="fRefundRcs" type="checkbox"> RCS Auto Refund</label><select id="fRefundTrigger" class="select" style="margin-left:10px"><option>Failed / Undelivered</option><option>Failed Only</option><option>DLR Not Received</option></select></div></div>'+
+      '</div><div style="text-align:right;margin-top:18px"><button class="btn" onclick="go(\'dashboard\')">Cancel</button> <button class="btn primary" onclick="createAccount(\''+type+'\')">Create</button></div></div>';
   }
+
+  window.createAccount=function(type){
+    var isReseller=type==='create-reseller';
+    var id='USR-'+(1004+users.length);
+    var selectedProducts=Array.from(document.querySelectorAll('.createProduct:checked')).map(function(x){return x.value;});
+    var selectedGateways=Array.from(document.querySelectorAll('.createGateway:checked')).map(function(x){return x.value;});
+    var u={id:id,company:document.getElementById('fCompany').value.trim()||'New Account',name:document.getElementById('fName').value.trim()||'New Contact',email:document.getElementById('fEmail').value.trim(),phone:document.getElementById('fPhone').value.trim(),password:document.getElementById('fPassword').value,role:document.getElementById('fRole').value,status:document.getElementById('fStatus').value,products:selectedProducts.join(', ')||'No Product',credit:document.getElementById('fCredit').value||'₹0',gateways:selectedGateways,billingMode:document.getElementById('fBilling').value,creditDeduction:true,rechargeAccess:true,reportSync:true,accountManager:document.getElementById('fManager').value,pricing:{sms:document.getElementById('fPriceSms').value,rcs:document.getElementById('fPriceRcs').value,whatsapp:document.getElementById('fPriceWa').value,obd:document.getElementById('fPriceObd').value,ivr:document.getElementById('fPriceIvr').value},autoRefund:{sms:document.getElementById('fRefundSms').checked,rcs:document.getElementById('fRefundRcs').checked,trigger:document.getElementById('fRefundTrigger').value}};
+    users.push(u); try{localStorage.setItem('omini_admin_users',JSON.stringify(users));}catch(e){}
+    toast((isReseller?'Reseller':'User')+' created successfully'); setTimeout(function(){go('users');},350);
+  };
 
   function renderGeneric(page){
     var title=titles[page]||'Admin';
