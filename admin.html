@@ -11,7 +11,7 @@
 <style>
 :root{--bg:#f6f8fc;--card:#fff;--line:#e6eaf1;--text:#182235;--muted:#71809a;--primary:#2563eb;--dark:#111827;--green:#059669;--red:#dc2626;--amber:#d97706}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;font-size:13px}
-button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{width:258px;background:#fff;border-right:1px solid var(--line);position:fixed;inset:0 auto 0 0;overflow:auto;z-index:20}.brand{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 20px;gap:11px}.brand img{width:42px;height:42px;object-fit:contain}.brand strong{display:block;font-size:15px;letter-spacing:-.3px}.brand small{display:block;color:#8a96aa;font-size:8px;font-weight:700;letter-spacing:.8px;margin-top:3px}.section{padding:18px 14px 4px;color:#9aa5b7;font-size:9px;font-weight:800;letter-spacing:1px}.nav{padding:4px 10px 10px}.nav button{width:100%;border:0;background:transparent;display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:9px;color:#52627b;font-weight:600;text-align:left;cursor:pointer;margin:2px 0}.nav button:hover{background:#f4f7fb;color:#1d4ed8}.nav button.active{background:#eef4ff;color:#1d4ed8}.nav .ico{width:18px;text-align:center;color:#71809a}.nav button.active .ico{color:#2563eb}.sub{display:none;padding:2px 0 6px 40px}.sub.open{display:block}.sub button{font-size:12px;padding:8px 10px}.main{margin-left:258px;width:calc(100% - 258px);min-width:0}.topbar{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:10}.crumb-title{font-size:15px;font-weight:700}.search{width:360px;border:1px solid var(--line);border-radius:10px;background:#fafbfd;padding:10px 13px;outline:0}.profile{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:7px 10px;background:#fff}.avatar{width:32px;height:32px;border-radius:50%;background:#eef2ff;color:#4338ca;display:grid;place-items:center;font-weight:800}.content{padding:26px 30px 40px;max-width:1600px;margin:auto}.page-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}.eyebrow{color:#8b98ad;font-size:11px;font-weight:600}.page-title{font-size:26px;font-weight:800;letter-spacing:-.7px;margin:4px 0}.desc{color:var(--muted)}.btn{border:1px solid var(--line);background:#fff;color:#334155;border-radius:9px;padding:9px 13px;font-weight:700;cursor:pointer}.btn:hover{background:#f8fafc}.btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}.btn.danger{color:#b91c1c}.btn.success{background:#059669;border-color:#059669;color:#fff}.grid{display:grid;gap:14px}.kpis{grid-template-columns:repeat(5,minmax(0,1fr))}.card{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 2px 8px rgba(15,23,42,.035)}.kpi{padding:17px}.kpi-label{font-size:10px;color:#8a97ab;font-weight:800;text-transform:uppercase}.kpi-value{font-size:23px;font-weight:800;margin-top:6px}.kpi-note{font-size:10px;color:#7a879a;margin-top:5px}.dashboard-grid{grid-template-columns:1.35fr 1fr}.panel{padding:18px}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.panel-title{font-size:14px;font-weight:800}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:760px}.table th{background:#f8fafc;color:#7b889d;text-transform:uppercase;font-size:9px;letter-spacing:.5px;text-align:left;padding:11px 12px;border-bottom:1px solid var(--line)}.table td{padding:12px;border-bottom:1px solid #eef1f5;white-space:nowrap}.table tr:last-child td{border-bottom:0}.badge{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:10px;font-weight:800}.green{background:#e9f9f2;color:#047857}.red{background:#fef0f0;color:#b91c1c}.amber{background:#fff7e6;color:#b45309}.blue{background:#edf4ff;color:#1d4ed8}.gray{background:#f1f5f9;color:#64748b}.toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.input,.select{border:1px solid var(--line);border-radius:9px;padding:9px 11px;background:#fff;outline:0;min-width:160px}.switch{width:42px;height:23px;border-radius:20px;background:#cbd5e1;padding:3px;cursor:pointer;display:inline-flex;justify-content:flex-start}.switch.on{background:#2563eb;justify-content:flex-end}.switch span{width:17px;height:17px;border-radius:50%;background:#fff;display:block}.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}.online{background:#10b981}.warn{background:#f59e0b}.off{background:#94a3b8}.action-row{display:flex;gap:7px;flex-wrap:wrap}.empty{padding:45px;text-align:center;color:#8793a7}.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,.48);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}.modal-bg.show{display:flex}.modal{background:#fff;width:min(860px,96vw);max-height:92vh;overflow:hidden;border-radius:20px;border:1px solid #dfe5ee;box-shadow:0 30px 90px rgba(15,23,42,.24)}.modal-head{min-height:64px;padding:17px 22px;border-bottom:1px solid #e8edf3;display:flex;align-items:center;justify-content:space-between;background:#fff}.modal-head h3{font-size:16px}.modal-body{padding:18px 20px;max-height:calc(92vh - 65px);overflow:auto}.modal-body::-webkit-scrollbar{width:7px}.modal-body::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:10px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field label{display:block;font-size:10px;text-transform:uppercase;color:#71809a;font-weight:800;margin-bottom:6px}.field.full{grid-column:1/-1}.checks{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.check{border:1px solid var(--line);border-radius:9px;padding:10px;background:#fff}.check label{display:flex;align-items:center;gap:7px;font-weight:700}.toast{position:fixed;right:24px;bottom:24px;background:#111827;color:#fff;padding:12px 16px;border-radius:10px;display:none;z-index:200;box-shadow:0 12px 35px rgba(15,23,42,.25)}.toast.show{display:block}.mini{font-size:11px;color:#8a97ab}.progress{height:7px;background:#eef2f7;border-radius:20px;overflow:hidden}.progress i{display:block;height:100%;background:#2563eb;border-radius:20px}.mobile-menu{display:none}
+button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{width:258px;background:#fff;border-right:1px solid var(--line);position:fixed;inset:0 auto 0 0;overflow:auto;z-index:20}.brand{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 20px;gap:11px}.brand img{width:42px;height:42px;object-fit:contain}.brand strong{display:block;font-size:15px;letter-spacing:-.3px}.brand small{display:block;color:#8a96aa;font-size:8px;font-weight:700;letter-spacing:.8px;margin-top:3px}.section{padding:18px 14px 4px;color:#9aa5b7;font-size:9px;font-weight:800;letter-spacing:1px}.section.admin-section{color:#2563eb;padding-top:14px}.section.admin-section + .nav{background:#f8faff;margin:0 8px 6px;padding:5px;border:1px solid #e7eefb;border-radius:12px}.section.admin-section + .nav button{padding:9px 10px}.nav{padding:4px 10px 10px}.nav button{width:100%;border:0;background:transparent;display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:9px;color:#52627b;font-weight:600;text-align:left;cursor:pointer;margin:2px 0}.nav button:hover{background:#f4f7fb;color:#1d4ed8}.nav button.active{background:#eef4ff;color:#1d4ed8}.nav .ico{width:18px;text-align:center;color:#71809a}.nav button.active .ico{color:#2563eb}.sub{display:none;padding:2px 0 6px 40px}.sub.open{display:block}.sub button{font-size:12px;padding:8px 10px}.main{margin-left:258px;width:calc(100% - 258px);min-width:0}.topbar{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:10}.crumb-title{font-size:15px;font-weight:700}.search{width:360px;border:1px solid var(--line);border-radius:10px;background:#fafbfd;padding:10px 13px;outline:0}.profile{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:7px 10px;background:#fff}.avatar{width:32px;height:32px;border-radius:50%;background:#eef2ff;color:#4338ca;display:grid;place-items:center;font-weight:800}.content{padding:26px 30px 40px;max-width:1600px;margin:auto}.page-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}.eyebrow{color:#8b98ad;font-size:11px;font-weight:600}.page-title{font-size:26px;font-weight:800;letter-spacing:-.7px;margin:4px 0}.desc{color:var(--muted)}.btn{border:1px solid var(--line);background:#fff;color:#334155;border-radius:9px;padding:9px 13px;font-weight:700;cursor:pointer}.btn:hover{background:#f8fafc}.btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}.btn.danger{color:#b91c1c}.btn.success{background:#059669;border-color:#059669;color:#fff}.grid{display:grid;gap:14px}.kpis{grid-template-columns:repeat(5,minmax(0,1fr))}.card{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 2px 8px rgba(15,23,42,.035)}.kpi{padding:17px}.kpi-label{font-size:10px;color:#8a97ab;font-weight:800;text-transform:uppercase}.kpi-value{font-size:23px;font-weight:800;margin-top:6px}.kpi-note{font-size:10px;color:#7a879a;margin-top:5px}.dashboard-grid{grid-template-columns:1.35fr 1fr}.panel{padding:18px}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.panel-title{font-size:14px;font-weight:800}.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse;min-width:760px}.table th{background:#f8fafc;color:#7b889d;text-transform:uppercase;font-size:9px;letter-spacing:.5px;text-align:left;padding:11px 12px;border-bottom:1px solid var(--line)}.table td{padding:12px;border-bottom:1px solid #eef1f5;white-space:nowrap}.table tr:last-child td{border-bottom:0}.badge{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:10px;font-weight:800}.green{background:#e9f9f2;color:#047857}.red{background:#fef0f0;color:#b91c1c}.amber{background:#fff7e6;color:#b45309}.blue{background:#edf4ff;color:#1d4ed8}.gray{background:#f1f5f9;color:#64748b}.toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.input,.select{border:1px solid var(--line);border-radius:9px;padding:9px 11px;background:#fff;outline:0;min-width:160px}.switch{width:42px;height:23px;border-radius:20px;background:#cbd5e1;padding:3px;cursor:pointer;display:inline-flex;justify-content:flex-start}.switch.on{background:#2563eb;justify-content:flex-end}.switch span{width:17px;height:17px;border-radius:50%;background:#fff;display:block}.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}.online{background:#10b981}.warn{background:#f59e0b}.off{background:#94a3b8}.action-row{display:flex;gap:7px;flex-wrap:wrap}.empty{padding:45px;text-align:center;color:#8793a7}.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,.48);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}.modal-bg.show{display:flex}.modal{background:#fff;width:min(860px,96vw);max-height:92vh;overflow:hidden;border-radius:20px;border:1px solid #dfe5ee;box-shadow:0 30px 90px rgba(15,23,42,.24)}.modal-head{min-height:64px;padding:17px 22px;border-bottom:1px solid #e8edf3;display:flex;align-items:center;justify-content:space-between;background:#fff}.modal-head h3{font-size:16px}.modal-body{padding:18px 20px;max-height:calc(92vh - 65px);overflow:auto}.modal-body::-webkit-scrollbar{width:7px}.modal-body::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:10px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field label{display:block;font-size:10px;text-transform:uppercase;color:#71809a;font-weight:800;margin-bottom:6px}.field.full{grid-column:1/-1}.checks{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.check{border:1px solid var(--line);border-radius:9px;padding:10px;background:#fff}.check label{display:flex;align-items:center;gap:7px;font-weight:700}.toast{position:fixed;right:24px;bottom:24px;background:#111827;color:#fff;padding:12px 16px;border-radius:10px;display:none;z-index:200;box-shadow:0 12px 35px rgba(15,23,42,.25)}.toast.show{display:block}.mini{font-size:11px;color:#8a97ab}.progress{height:7px;background:#eef2f7;border-radius:20px;overflow:hidden}.progress i{display:block;height:100%;background:#2563eb;border-radius:20px}.mobile-menu{display:none}
 @media(max-width:1000px){.sidebar{width:228px}.main{margin-left:228px;width:calc(100% - 228px)}.kpis{grid-template-columns:repeat(3,1fr)}.dashboard-grid{grid-template-columns:1fr}.search{width:240px}}
 @media(max-width:760px){.sidebar{transform:translateX(-100%);transition:.2s;width:280px}.sidebar.open{transform:none}.main{margin-left:0;width:100%}.mobile-menu{display:block;border:0;background:#fff;font-size:20px}.topbar{padding:0 15px}.topbar .search{display:none}.content{padding:20px 15px}.kpis{grid-template-columns:1fr 1fr}.page-head{gap:15px}.checks,.form-grid{grid-template-columns:1fr 1fr}.overlay{display:none}.overlay.show{display:block;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:15}}
 
@@ -32,6 +32,13 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
 <aside class="sidebar" id="sidebar">
   <div class="brand"><img src="assets/immense-smart-solutions-logo.webp" alt="Immense Smart Solutions"><div><strong>IMMENSE</strong><small>SMART SOLUTIONS · ADMIN</small></div></div>
   <div class="section">OVERVIEW</div><div class="nav"><button data-page="dashboard" class="active"><span class="ico">⌂</span>Dashboard</button></div>
+  <div class="section admin-section">ADMIN</div><div class="nav">
+    <button data-page="admin-users"><span class="ico">◉</span>Manage Users</button>
+    <button data-page="system-tariff"><span class="ico">▤</span>System Tariff</button>
+    <button data-page="configuration"><span class="ico">⚙</span>Configuration</button>
+    <button data-page="admin-settings"><span class="ico">◐</span>Settings</button>
+    <button data-page="development"><span class="ico">&lt;/&gt;</span>Development</button>
+  </div>
   <div class="section">USER MANAGEMENT</div><div class="nav">
     <button data-page="users"><span class="ico">♙</span>Users</button><button data-page="account-managers"><span class="ico">♙</span>Account Managers</button><button data-page="resellers"><span class="ico">▣</span>Resellers</button><button data-page="create-user"><span class="ico">＋</span>Create User</button><button data-page="create-reseller"><span class="ico">＋</span>Create Reseller</button><button data-page="roles"><span class="ico">⚿</span>Roles & Permissions</button>
   </div>
@@ -67,7 +74,7 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
   var content=document.getElementById('content');
   var topTitle=document.getElementById('topTitle');
   var titles={
-    dashboard:'Admin Dashboard',users:'User Management','account-managers':'Account Managers',resellers:'Reseller Management',
+    dashboard:'Admin Dashboard','admin-users':'Manage Users','system-tariff':'System Tariff',configuration:'Configuration','admin-settings':'Settings',development:'Development',users:'User Management','account-managers':'Account Managers',resellers:'Reseller Management',
     'create-user':'Create User','create-reseller':'Create Reseller',roles:'Roles & Permissions',
     products:'Product Access',billing:'Credit & Billing','billing-audit':'Billing Audit',
     transactions:'Transactions',smpp:'SMPP Accounts','smpp-gateways':'SMPP Gateways',
@@ -475,6 +482,161 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
     toast((isReseller?'Reseller':'User')+' created successfully'); setTimeout(function(){go('users');},350);
   };
 
+
+  function renderAdminUsers(){
+    var html=head('Manage Users','Central user management for all customer and reseller accounts.',
+      '<button class="btn primary" onclick="go(\'create-user\')">＋ Create User</button>');
+    html+='<div class="grid kpis">';
+    html+=k('Total Users',users.length.toLocaleString('en-IN'),'Managed accounts');
+    html+=k('Active Users',users.filter(function(u){return u.status==='Active';}).length,'Currently active');
+    html+=k('Resellers',users.filter(function(u){return u.role==='Reseller';}).length,'Reseller accounts');
+    html+=k('Suspended',users.filter(function(u){return u.status==='Suspended';}).length,'Requires attention');
+    html+='</div>';
+    html+='<div class="card panel" style="margin-top:16px"><div class="toolbar"><input id="adminUserSearch" class="input" placeholder="Search name, company, email or user ID..." style="min-width:280px"><select id="adminUserProduct" class="select"><option value="">All Products</option><option>SMS</option><option>RCS</option><option>WhatsApp</option><option>OBD</option><option>IVR</option></select><select id="adminUserRole" class="select"><option value="">All Roles</option><option>User</option><option>Reseller</option></select><button class="btn" onclick="toast(\'User list exported\')">Export</button></div>';
+    html+='<div class="table-wrap"><table class="table"><thead><tr><th>User / Company</th><th>Contact</th><th>Role</th><th>Products</th><th>Gateway</th><th>Credit</th><th>Status</th><th>Action</th></tr></thead><tbody id="adminUserTable">';
+    users.forEach(function(u){
+      html+='<tr data-user-row="'+esc(u.id)+'"><td><strong>'+esc(u.name)+'</strong><div class="mini">'+esc(u.company)+' · '+esc(u.id)+'</div></td><td>'+esc(u.email)+'<div class="mini">'+esc(u.phone||'—')+'</div></td><td>'+esc(u.role)+'</td><td>'+esc(u.products)+'</td><td>'+esc((u.gateways||[]).join(', ')||'—')+'</td><td>'+esc(u.credit)+'</td><td>'+badge(u.status)+'</td><td style="white-space:nowrap"><button class="btn" onclick="showUserProfile(\''+u.id+'\')">View</button> <button class="btn" onclick="editUser(\''+u.id+'\')">Edit</button></td></tr>';
+    });
+    html+='</tbody></table></div></div>';
+    content.innerHTML=html;
+    function apply(){
+      var q=(document.getElementById('adminUserSearch').value||'').toLowerCase();
+      var p=document.getElementById('adminUserProduct').value;
+      var role=document.getElementById('adminUserRole').value;
+      document.querySelectorAll('#adminUserTable tr').forEach(function(tr){
+        var u=users.find(function(x){return x.id===tr.getAttribute('data-user-row');});
+        var text=tr.textContent.toLowerCase();
+        var ok=!q||text.includes(q);
+        var productOk=!p||(u&&u.products.split(',').map(function(x){return x.trim();}).indexOf(p)>=0);
+        var roleOk=!role||(u&&u.role===role);
+        tr.style.display=ok&&productOk&&roleOk?'':'none';
+      });
+    }
+    ['adminUserSearch','adminUserProduct','adminUserRole'].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('input',apply);if(e)e.addEventListener('change',apply);});
+  }
+
+  function renderSystemTariff(){
+    var traffic=[
+      {id:'USR-1001',sms:248500,rcs:126000,whatsapp:84200},
+      {id:'USR-1002',sms:182400,rcs:98400,whatsapp:156300},
+      {id:'USR-1003',sms:12400,rcs:156800,whatsapp:0}
+    ];
+    users.forEach(function(u){
+      if(!traffic.some(function(x){return x.id===u.id;}))traffic.push({id:u.id,sms:0,rcs:0,whatsapp:0});
+    });
+    function n(v){return Number(v||0).toLocaleString('en-IN');}
+    function total(x){return x.sms+x.rcs+x.whatsapp;}
+    var html=head('System Tariff','See how many SMS, RCS and WhatsApp messages each managed user is sending.');
+    html+='<div class="card panel"><div class="toolbar"><input id="tariffSearch" class="input" placeholder="Search user or company..." style="min-width:280px"><select id="tariffProduct" class="select"><option value="">All Products</option><option>SMS</option><option>RCS</option><option>WhatsApp</option></select><button class="btn" onclick="toast(\'Tariff report exported\')">Export</button></div>';
+    html+='<div class="table-wrap"><table class="table"><thead><tr><th>User / Company</th><th>SMS Sent</th><th>RCS Sent</th><th>WhatsApp Sent</th><th>Total Messages</th><th>Current Tariff</th></tr></thead><tbody id="tariffTable">';
+    traffic.sort(function(a,b){return total(b)-total(a);}).forEach(function(t){
+      var u=users.find(function(x){return x.id===t.id;})||{name:t.id,company:'Unknown',pricing:{sms:'0',rcs:'0',whatsapp:'0'}};
+      var rate=u.pricing||{};
+      html+='<tr data-tariff="'+esc(t.id)+'"><td><strong>'+esc(u.name)+'</strong><div class="mini">'+esc(u.company)+' · '+esc(t.id)+'</div></td><td><strong style="color:#2563eb">'+n(t.sms)+'</strong></td><td><strong style="color:#7c3aed">'+n(t.rcs)+'</strong></td><td><strong style="color:#059669">'+n(t.whatsapp)+'</strong></td><td><strong>'+n(total(t))+'</strong></td><td><span class="mini">SMS ₹'+esc(rate.sms||'0')+' · RCS ₹'+esc(rate.rcs||'0')+' · WA ₹'+esc(rate.whatsapp||'0')+'</span></td></tr>';
+    });
+    html+='</tbody></table></div><div class="mini" style="margin-top:12px">Usage is shown as the admin-side system traffic view. Product tariffs are taken from each user account configuration.</div></div>';
+    content.innerHTML=html;
+    var search=document.getElementById('tariffSearch'), filter=document.getElementById('tariffProduct');
+    function apply(){
+      var q=(search.value||'').toLowerCase(), p=filter.value;
+      document.querySelectorAll('#tariffTable tr').forEach(function(tr){
+        var text=tr.textContent.toLowerCase();
+        var ok=!q||text.includes(q);
+        var productOk=!p||((p==='SMS'&&tr.cells[1].textContent.trim()!=='0')||(p==='RCS'&&tr.cells[2].textContent.trim()!=='0')||(p==='WhatsApp'&&tr.cells[3].textContent.trim()!=='0'));
+        tr.style.display=ok&&productOk?'':'none';
+      });
+    }
+    search.addEventListener('input',apply);filter.addEventListener('change',apply);
+  }
+
+  function renderConfiguration(){
+    var configs=[
+      {user:'USR-1001',company:'ABC Pvt Ltd',sender:'ABCPVT',peid:'1203456789012345678',tmid:'1002345678901234567'},
+      {user:'USR-1002',company:'XYZ Communications',sender:'XYZCOM',peid:'1203456789012345679',tmid:'1002345678901234568'},
+      {user:'USR-1003',company:'Metro Digital',sender:'METROD',peid:'1203456789012345680',tmid:'1002345678901234569'}
+    ];
+    var html=head('Configuration','Manage sender identity and DLT identifiers for each customer account.');
+    html+='<div class="card panel"><div class="panel-head"><div><div class="panel-title">Sender & DLT Configuration</div><div class="mini">Sender ID, PE ID and TM ID are maintained per user.</div></div><button class="btn primary" onclick="openSenderConfig()">＋ Add Configuration</button></div>';
+    html+='<div class="table-wrap"><table class="table"><thead><tr><th>User / Company</th><th>Sender ID</th><th>PE ID</th><th>TM ID</th><th>Action</th></tr></thead><tbody>';
+    configs.forEach(function(c){
+      html+='<tr><td><strong>'+esc(c.company)+'</strong><div class="mini">'+esc(c.user)+'</div></td><td><span class="badge blue">'+esc(c.sender)+'</span></td><td>'+esc(c.peid)+'</td><td>'+esc(c.tmid)+'</td><td><button class="btn" onclick="editSenderConfig(\''+c.user+'\')">Edit</button></td></tr>';
+    });
+    html+='</tbody></table></div></div>';
+    content.innerHTML=html;
+  }
+
+  window.openSenderConfig=function(){
+    var body='<div class="form-grid">';
+    body+='<label>User / Account<select id="cfgUser" class="select">'+users.map(function(u){return '<option value="'+u.id+'">'+esc(u.name)+' — '+esc(u.company)+'</option>';}).join('')+'</select></label>';
+    body+='<label>Sender ID<input id="cfgSender" class="input" placeholder="e.g. ABCPVT"></label>';
+    body+='<label>PE ID<input id="cfgPe" class="input" placeholder="PE ID"></label>';
+    body+='<label>TM ID<input id="cfgTm" class="input" placeholder="TM ID"></label>';
+    body+='</div><div class="mini" style="margin-top:10px">These are demo configuration records until connected to your DLT/provider backend.</div><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:18px"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" onclick="toast(\'Configuration saved\');closeModal()">Save Configuration</button></div>';
+    openModal('Add Sender / DLT Configuration',body);
+  };
+  window.editSenderConfig=function(id){
+    openSenderConfig();
+    var u=document.getElementById('cfgUser');if(u)u.value=id;
+  };
+
+  function renderAdminSettings(){
+    var settings=JSON.parse(localStorage.getItem('omini_admin_branding')||'null')||{company:'IMMENSE SMART SOLUTIONS',logo:'assets/immense-smart-solutions-logo.webp',primary:'#2563eb',accent:'#7c3aed',showBrand:true,showPowered:false};
+    var html=head('Settings','Control the branding and appearance shown on the user panel.');
+    html+='<div class="grid" style="grid-template-columns:1.25fr .75fr;gap:16px">';
+    html+='<div class="card panel"><div class="panel-title">User Side Branding</div><div class="mini" style="margin:5px 0 16px">These settings define the visual identity displayed to managed users.</div><div class="form-grid">';
+    html+='<label>Company / Brand Name<input id="brandCompany" class="input" value="'+esc(settings.company)+'"></label>';
+    html+='<label>Logo URL<input id="brandLogo" class="input" value="'+esc(settings.logo)+'"></label>';
+    html+='<label>Primary Color<input id="brandPrimary" class="input" type="color" value="'+esc(settings.primary)+'" style="height:40px;padding:4px"></label>';
+    html+='<label>Accent Color<input id="brandAccent" class="input" type="color" value="'+esc(settings.accent)+'" style="height:40px;padding:4px"></label>';
+    html+='<label class="check-card"><input id="brandShow" type="checkbox" '+(settings.showBrand?'checked':'')+'><span>Show brand name</span></label>';
+    html+='<label class="check-card"><input id="brandPowered" type="checkbox" '+(settings.showPowered?'checked':'')+'><span>Show “Powered by” label</span></label>';
+    html+='</div><div style="display:flex;justify-content:flex-end;margin-top:18px"><button class="btn primary" onclick="saveBranding()">Save Branding</button></div></div>';
+    html+='<div class="card panel"><div class="panel-title">Live Preview</div><div class="mini" style="margin:5px 0 14px">User panel preview</div><div style="border:1px solid #e5e9f0;border-radius:12px;overflow:hidden;background:#f7f9fc"><div style="height:50px;background:#fff;border-bottom:1px solid #e5e9f0;display:flex;align-items:center;gap:8px;padding:0 12px"><img id="brandPreviewLogo" src="'+esc(settings.logo)+'" style="width:28px;height:28px;object-fit:contain"><strong id="brandPreviewName">'+esc(settings.company)+'</strong></div><div style="padding:18px"><div style="height:8px;width:70%;background:#e8edf5;border-radius:8px;margin-bottom:12px"></div><div style="height:70px;background:#fff;border:1px solid #e5e9f0;border-radius:10px"></div></div></div></div>';
+    html+='</div>';
+    content.innerHTML=html;
+  }
+  window.saveBranding=function(){
+    var settings={company:document.getElementById('brandCompany').value.trim(),logo:document.getElementById('brandLogo').value.trim(),primary:document.getElementById('brandPrimary').value,accent:document.getElementById('brandAccent').value,showBrand:document.getElementById('brandShow').checked,showPowered:document.getElementById('brandPowered').checked};
+    localStorage.setItem('omini_admin_branding',JSON.stringify(settings));toast('User-side branding saved');renderAdminSettings();
+  };
+
+  function renderDevelopment(){
+    var html=head('Development','Search a user by name or company and open the API integration details.',
+      '<button class="btn primary" onclick="toast(\'API workspace ready\')">＋ New API Key</button>');
+    html+='<div class="card panel"><div class="toolbar"><input id="devUserSearch" class="input" placeholder="Search user name, company or ID..." style="min-width:320px"><select id="devProduct" class="select"><option value="">All Products</option><option>SMS</option><option>RCS</option><option>WhatsApp</option><option>OBD</option><option>IVR</option></select></div>';
+    html+='<div id="devResults"></div></div>';
+    content.innerHTML=html;
+    function renderResults(){
+      var q=(document.getElementById('devUserSearch').value||'').toLowerCase(), p=document.getElementById('devProduct').value;
+      var found=users.filter(function(u){
+        return (!q||(u.name+' '+u.company+' '+u.id+' '+u.email).toLowerCase().includes(q)) && (!p||u.products.split(',').map(function(x){return x.trim();}).indexOf(p)>=0);
+      });
+      var box=document.getElementById('devResults');
+      if(!found.length){box.innerHTML='<div class="empty">No matching user found.</div>';return;}
+      box.innerHTML='<div style="display:grid;gap:10px">'+found.map(function(u){
+        var key='omni_'+u.id.toLowerCase().replace(/[^a-z0-9]/g,'')+'_demo';
+        var base='/api/v1';
+        return '<div style="border:1px solid #e5e9f0;border-radius:12px;padding:14px;background:#fff"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><div><strong>'+esc(u.name)+'</strong><div class="mini">'+esc(u.company)+' · '+esc(u.email)+'</div></div><button class="btn" onclick="showUserApi(\''+u.id+'\')">View API</button></div><div class="mini" style="margin-top:8px">Products: '+esc(u.products)+' · Endpoint: '+base+'</div></div>';
+      }).join('')+'</div>';
+    }
+    document.getElementById('devUserSearch').addEventListener('input',renderResults);
+    document.getElementById('devProduct').addEventListener('change',renderResults);
+    renderResults();
+  }
+
+  window.showUserApi=function(id){
+    var u=users.find(function(x){return x.id===id;});if(!u)return;
+    var safeId=u.id.toLowerCase().replace(/[^a-z0-9]/g,'');
+    var body='<div class="profile-hero"><div class="profile-avatar">'+esc((u.name||u.company).charAt(0))+'</div><div><div class="profile-name">'+esc(u.name)+'</div><div class="mini">'+esc(u.company)+' · '+esc(u.products)+'</div></div></div>';
+    body+='<div class="profile-grid">';
+    body+='<div><span>API Base URL</span><strong>/api/v1</strong></div><div><span>Account ID</span><strong>'+esc(u.id)+'</strong></div>';
+    body+='<div><span>SMS Endpoint</span><strong>/api/v1/sms/send</strong></div><div><span>RCS Endpoint</span><strong>/api/v1/rcs/send</strong></div>';
+    body+='<div><span>WhatsApp Endpoint</span><strong>/api/v1/whatsapp/send</strong></div><div><span>API Key</span><strong>omni_'+esc(safeId)+'_demo</strong></div>';
+    body+='</div><div class="mini" style="margin-top:12px">Demo integration details. Connect these fields to your real API credential store before production use.</div>';
+    body+='<div style="text-align:right;margin-top:16px"><button class="btn" onclick="closeModal()">Close</button></div>';
+    openModal('API Details — '+u.name,body);
+  };
+
   function renderGeneric(page){
     var title=titles[page]||'Admin';
     var desc='Manage '+title.toLowerCase()+' from the central admin workspace.';
@@ -501,6 +663,11 @@ button,input,select{font:inherit}.app{display:flex;min-height:100vh}.sidebar{wid
     topTitle.textContent=titles[page];
     try{
       if(page==='dashboard')renderDashboard();
+      else if(page==='admin-users')renderAdminUsers();
+      else if(page==='system-tariff')renderSystemTariff();
+      else if(page==='configuration')renderConfiguration();
+      else if(page==='admin-settings')renderAdminSettings();
+      else if(page==='development')renderDevelopment();
       else if(page==='users')renderUsers();
       else if(page==='account-managers')renderAccountManagers();
       else if(page==='create-user'||page==='create-reseller')renderForm(page);
