@@ -133,198 +133,59 @@ body>div.flex>main .border-slate-200,body>div.flex>main .border-slate-200\/80{bo
  body>div.flex>main>header{height:60px!important;min-height:60px!important;padding:0 12px!important}
  body>div.flex>main>div.flex-1.overflow-y-auto{padding:14px!important;overflow:visible!important}
 }
+</style><style id="omini-wa-sidebar-final">
+body>div.flex>aside.sidebar{width:224px!important;min-width:224px!important;background:#fff!important;border-right:1px solid #e5e9f0!important;box-shadow:none!important;display:flex!important}
+body>div.flex>aside.sidebar .section{font-size:9px!important;font-weight:800!important;letter-spacing:.08em!important;text-transform:uppercase!important;color:#9aa4b2!important;padding:10px 12px 5px!important}
+body>div.flex>aside.sidebar .nav{height:38px!important;min-height:38px!important;border-radius:8px!important;color:#5f6b7a!important;font-size:12px!important}
+body>div.flex>aside.sidebar .nav:hover{background:#f8fafc!important}
+body>div.flex>aside.sidebar .nav i{font-size:13px!important}
+body>div.flex>aside.sidebar .submenu a{font-size:11px!important;min-height:34px!important}
+body>div.flex>aside.sidebar .brandcopy{display:block!important}
+body>div.flex>aside.sidebar .profilecopy{display:block!important}
+@media(max-width:768px){
+body>div.flex>aside.sidebar{position:fixed!important;left:-290px!important;top:0!important;width:280px!important;min-width:280px!important;height:100dvh!important;z-index:9999!important;transition:left .22s ease!important}
+body>div.flex>aside.sidebar.omini-mobile-open{left:0!important}
+}
 </style></head>
 <body class="text-gray-800 h-screen overflow-hidden flex bg-[#f8fafc]">
 
     <!-- Sidebar -->
-    <aside class="w-68 bg-white border-r border-slate-200 flex flex-col h-screen shrink-0 z-30 select-none shadow-sm">
-        <!-- Logo -->
-        <div class="h-20 flex items-center px-4 border-b border-slate-100 shrink-0 bg-white">
-            <a href="home.html" class="flex items-center gap-3 w-full group">
-                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-105 transition-transform shrink-0 relative overflow-hidden">
-                    <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <i class="fa-solid fa-cloud-bolt text-lg text-white"></i>
-                </div>
-                <div class="min-w-0 flex-1">
-                    <div class="flex items-center gap-1.5">
-                        <span class="text-xl font-black text-slate-900 tracking-tight leading-none">ZION</span>
-                        <span class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded-md tracking-wider shadow-sm uppercase">CPaaS</span>
-                    </div>
-                    <p class="text-[9.5px] text-slate-500 font-bold tracking-tight mt-1 truncate uppercase flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>
-                        Omnichannel Cloud
-                    </p>
-                </div>
-            </a>
-        </div>
-
-        <!-- Vertical Menu Scrollable List -->
-        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1.5">
-            <!-- Home -->
-            <a href="home.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
-                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0">
-                    <i class="fa-solid fa-house"></i>
-                </div>
-                <div class="flex-1 min-w-0">
-                    <div class="text-sm font-bold text-slate-800 leading-tight">Home</div>
-                    <div class="text-[10px] text-slate-400 font-medium">Platform Overview</div>
-                </div>
-            </a>
-            
-            <!-- Dashboard -->
-            <a href="dashboard.html" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
-                <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0">
-                    <i class="fa-solid fa-chart-pie"></i>
-                </div>
-                <div class="flex-1 min-w-0 flex items-center justify-between">
-                    <div>
-                        <div class="text-sm font-bold text-slate-800 leading-tight">Dashboard</div>
-                        <div class="text-[10px] text-slate-400 font-medium">Live Analytics</div>
-                    </div>
-                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">LIVE</span>
-                </div>
-            </a>
-
-            <!-- SMS Section (With Dropdown) -->
-            <div class="pt-1">
-                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all" onclick="toggleSubmenu(event, 'sms-submenu', 'sms-icon')">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl shadow-sm shrink-0">
-                            <i class="fa-solid fa-comment-dots"></i>
-                        </div>
-                        <div class="text-left">
-                            <div class="text-sm font-bold text-slate-800 leading-tight">SMS</div>
-                            <div class="text-[10px] text-slate-400 font-medium">Transactional &amp; Promo</div>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200" id="sms-icon"></i>
-                </a>
-                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-blue-200 pl-3 overflow-hidden hidden" id="sms-submenu">
-                    <a href="send-sms.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Send SMS</a>
-                    <a href="reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Reports</a>
-                    <a href="groups.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Contacts / Groups</a>
-                    <a href="dlt-dashboard.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">DLT / Compliance</a>
-                    <a href="#" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-slate-50 hover:text-blue-600">Blacklist / Whitelist</a>
-                </div>
-            </div>
-
-            <!-- RCS Section (With Dropdown) -->
-            <div class="pt-1">
-                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-purple-50 hover:text-purple-700 transition-all" onclick="toggleSubmenu(event, 'rcs-submenu', 'rcs-icon')">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl shadow-sm shrink-0">
-                            <i class="fa-solid fa-comment-sms"></i>
-                        </div>
-                        <div class="text-left">
-                            <div class="text-sm font-bold text-purple-800 leading-tight">RCS</div>
-                            <div class="text-[10px] text-purple-500 font-medium">Rich Business Messaging</div>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-down text-xs text-purple-400 transition-transform duration-200" id="rcs-icon"></i>
-                </a>
-                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-purple-200 pl-3 overflow-hidden hidden" id="rcs-submenu">
-                    <a href="rcs-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Campaign</a>
-                    <a href="rcs-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Report</a>
-                    <a href="rcs-configuration.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">Configuration</a>
-                    <a href="rcs-chatbot.html" class="sidebar-item flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-purple-50 hover:text-purple-600">
-                        <span>Chat Bot</span>
-                        <span class="bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded">AI</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- WhatsApp Section (With Dropdown) - ACTIVE -->
-            <div class="pt-1">
-                <a href="#" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-emerald-700 bg-emerald-50/70 border border-emerald-100/80 transition-all" onclick="toggleSubmenu(event, 'wa-submenu', 'wa-icon')">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-xl shadow-sm shrink-0">
-                            <i class="fa-brands fa-whatsapp"></i>
-                        </div>
-                        <div class="text-left">
-                            <div class="text-sm font-bold text-emerald-800 leading-tight">WhatsApp</div>
-                            <div class="text-[10px] text-emerald-600 font-medium">Cloud API Official</div>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-down text-xs text-emerald-600 transition-transform duration-200" id="wa-icon" style="transform: rotate(180deg);"></i>
-                </a>
-                <div class="ml-9 mt-1 space-y-0.5 border-l-2 border-emerald-200 pl-3 overflow-hidden" id="wa-submenu">
-                    <a href="whatsapp-config.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Config</a>
-                    <a href="whatsapp-campaign.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-bold text-emerald-700 bg-emerald-100/80">Campaign</a>
-                    <a href="whatsapp-reports.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Report</a>
-                    <a href="whatsapp-agents.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Agent</a>
-                    <a href="whatsapp-automation.html" class="sidebar-item block px-3 py-2 rounded-lg text-xs font-semibold text-slate-500 hover:bg-emerald-50 hover:text-emerald-600">Automation</a>
-                </div>
-            </div>
-
-            <!-- OBD Voice -->
-            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
-                <div class="w-10 h-10 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center text-xl shadow-sm shrink-0">
-                    <i class="fa-solid fa-phone"></i>
-                </div>
-                <div class="flex-1 min-w-0">
-                    <div class="text-sm font-bold text-slate-800 leading-tight">OBD (Voice)</div>
-                    <div class="text-[10px] text-slate-400 font-medium">Outbound Audio &amp; TTS</div>
-                </div>
-            </a>
-
-            <!-- IVR -->
-            <a href="#" class="sidebar-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
-                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center text-xl shadow-sm shrink-0">
-                    <i class="fa-solid fa-headset"></i>
-                </div>
-                <div class="flex-1 min-w-0">
-                    <div class="text-sm font-bold text-slate-800 leading-tight">IVR</div>
-                    <div class="text-[10px] text-slate-400 font-medium">Smart Voice Tree</div>
-                </div>
-            </a>
-
-            <!-- Dedicated Credit & Wallet Ledger Menu Item -->
-            <div class="pt-1">
-                <a href="credit-report.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-emerald-50/70 hover:text-emerald-700 transition-all">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl shadow-sm shrink-0">
-                            <i class="fa-solid fa-wallet"></i>
-                        </div>
-                        <div class="flex-1 min-w-0 text-left">
-                            <div class="text-sm font-bold text-slate-800 leading-tight">Credits &amp; Wallet</div>
-                            <div class="text-[10px] text-emerald-600 font-semibold">INR Recharge &amp; Deduct</div>
-                        </div>
-                    </div>
-                    <span class="bg-emerald-100 text-emerald-700 text-[8px] font-black px-1.5 py-0.5 rounded">₹ WALLET</span>
-                </a>
-            </div>
-
-            <!-- Dedicated API & Integration Menu Item -->
-            <div class="pt-1">
-                <a href="api-integration.html" class="sidebar-item flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-indigo-50/70 hover:text-indigo-700 transition-all">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl shadow-sm shrink-0">
-                            <i class="fa-solid fa-code text-xl"></i>
-                        </div>
-                        <div class="flex-1 min-w-0 text-left">
-                            <div class="text-sm font-bold text-slate-800 leading-tight">API &amp; Integration</div>
-                            <div class="text-[10px] text-indigo-500 font-semibold">Universal REST Hub</div>
-                        </div>
-                    </div>
-                    <span class="bg-indigo-100 text-indigo-700 text-[8px] font-black px-1.5 py-0.5 rounded">REST</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Bottom User Profile -->
-        <div class="border-t border-slate-100 p-4 shrink-0 bg-slate-50/60">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white text-sm font-black shadow-md shadow-purple-200 shrink-0">P</div>
-                <div class="flex-1 min-w-0">
-                    <p class="text-sm font-bold text-slate-800 truncate leading-tight">Parvez</p>
-                    <p class="text-[11px] text-slate-400 font-medium truncate">Enterprise Admin</p>
-                </div>
-                <button class="text-slate-400 hover:text-red-500 transition-colors p-1.5 rounded-lg hover:bg-red-50">
-                    <i class="fa-solid fa-right-from-bracket text-sm"></i>
-                </button>
-            </div>
-        </div>
-    </aside>
+    <aside class="sidebar h-full shrink-0 flex flex-col">
+<div class="h-16 px-4 flex items-center border-b border-slate-100">
+<a href="home.html" class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-[#5b35d5] text-white flex items-center justify-center"><i class="fa-solid fa-cloud"></i></div>
+<div class="brandcopy"><div class="font-bold text-[15px] leading-none">ZION <span class="text-[9px] bg-[#5b35d5] text-white px-1.5 py-1 rounded">CPaaS</span></div><div class="text-[9px] text-slate-400 mt-1">Omnichannel Cloud</div></div>
+</a>
+</div>
+<nav class="flex-1 overflow-y-auto p-3">
+<div class="section">Overview</div>
+<a href="home.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-house w-4 text-center"></i><span class="navcopy">Home</span></a>
+<a href="dashboard.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-chart-line w-4 text-center"></i><span class="navcopy">Dashboard</span></a>
+<div class="section">Messaging</div>
+<div class="nav flex items-center gap-3 px-3 mb-1 text-slate-700"><i class="fa-solid fa-paper-plane w-4 text-center text-violet-600"></i><span class="navcopy font-semibold">Campaigns</span></div>
+<div class="submenu ml-7 mb-2 pl-3 border-l border-slate-200 space-y-1">
+<a href="send-sms.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-600"><i class="fa-solid fa-comment-sms w-4 text-blue-500"></i><span>SMS Campaign</span></a>
+<a href="rcs-campaign.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-slate-600 hover:bg-violet-50 hover:text-violet-600"><i class="fa-solid fa-message w-4 text-violet-500"></i><span>RCS Campaign</span></a>
+<a href="whatsapp-campaign.html" class="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-emerald-700 bg-emerald-50"><i class="fa-brands fa-whatsapp w-4 text-emerald-500"></i><span>WhatsApp Campaign</span></a>
+</div>
+<div class="section">Reports</div>
+<a href="reports.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-chart-column w-4 text-center text-blue-600"></i><span class="navcopy">Overview Report</span></a>
+<a href="campaign-report.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-bullhorn w-4 text-center text-violet-600"></i><span class="navcopy">Campaign Report</span></a>
+<a href="summary-report.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-list-check w-4 text-center text-emerald-600"></i><span class="navcopy">Summary Report</span></a>
+<a href="details-report.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-table w-4 text-center"></i><span class="navcopy">Details Report</span></a>
+<a href="cta-report.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-arrow-pointer w-4 text-center text-pink-500"></i><span class="navcopy">CTA Report</span></a>
+<div class="section">WhatsApp</div>
+<a href="whatsapp-config.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-sliders w-4 text-center text-emerald-600"></i><span class="navcopy">Configuration</span></a>
+<a href="whatsapp-reports.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-chart-pie w-4 text-center text-emerald-600"></i><span class="navcopy">WhatsApp Report</span></a>
+<a href="whatsapp-agents.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-user-group w-4 text-center text-emerald-600"></i><span class="navcopy">Agents</span></a>
+<a href="whatsapp-automation.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-bolt w-4 text-center text-emerald-600"></i><span class="navcopy">Automation</span></a>
+<div class="section">Manage</div>
+<a href="groups.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-users w-4 text-center"></i><span class="navcopy">Contacts</span></a>
+<a href="credit-report.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-wallet w-4 text-center"></i><span class="navcopy">Wallet</span></a>
+<a href="api-integration.html" class="nav flex items-center gap-3 px-3 mb-1"><i class="fa-solid fa-code w-4 text-center"></i><span class="navcopy">API & Integration</span></a>
+</nav>
+<div class="border-t border-slate-100 p-3"><div class="flex items-center gap-3 px-2 py-2"><div class="w-9 h-9 rounded-lg bg-slate-900 text-white flex items-center justify-center text-sm font-bold">P</div><div class="profilecopy"><div class="text-xs font-semibold">Parvez</div><div class="text-[10px] text-slate-400">Enterprise Admin</div></div></div></div>
+</aside>
 
     <!-- Main Content -->
     <main class="flex-1 flex flex-col h-screen overflow-hidden bg-[#f4f7fb]">
